@@ -163,7 +163,7 @@
             } else {
               // Limpa o formulário e mostra mensagem de sucesso
               $('#registroForm')[0].reset();
-              alert('Cadastro realizado com sucesso!');
+              window.location.href = 'editor.php';
             }
           } else {
             alert(response.message || 'Ocorreu um erro. Tente novamente.');

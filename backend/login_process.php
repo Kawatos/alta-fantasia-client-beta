@@ -2,14 +2,14 @@
 session_start();
 require 'conexao.php';
 header('Content-Type: application/json');
-$data = json_decode(file_get_contents('php://input'), true);
 
+$data = json_decode(file_get_contents('php://input'), true);
 if (!$data) {
     $data = $_POST;
 }
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = $data['username'] ?? '';
+$password = $data['password'] ?? '';
 
 $stmt = $conn->prepare("SELECT id, senha FROM usuarios WHERE username = ?");
 $stmt->bind_param("s", $username);
@@ -21,8 +21,9 @@ if ($stmt->num_rows === 1) {
     $stmt->fetch();
     if (password_verify($password, $senha_hash)) {
         $_SESSION['usuario_id'] = $id;
+        $_SESSION['username'] = $username;
+        session_write_close();
         echo json_encode(['success' => true]);
-        
         exit;
     }
 }

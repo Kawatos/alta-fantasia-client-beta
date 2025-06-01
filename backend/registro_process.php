@@ -30,10 +30,18 @@ $stmt = $conn->prepare("INSERT INTO usuarios (username, senha) VALUES (?, ?)");
 $stmt->bind_param("ss", $username, $senha_hash);
 
 if ($stmt->execute()) {
+    // Pega o ID do usuário recém-cadastrado
+    $novo_id = $stmt->insert_id;
+
+    // Define as variáveis de sessão
+    $_SESSION['usuario_id'] = $novo_id;
+    $_SESSION['username'] = $username;
+    session_write_close();
+
     echo json_encode([
-        'success' => true,
-        'message' => 'Cadastro realizado com sucesso!'
+        'success' => true
     ]);
+    exit;
 } else {
     echo json_encode([
         'success' => false,
