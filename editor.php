@@ -14,9 +14,8 @@ if (!isset($_SESSION['usuario_id'])) {
             <h1 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
-                <button class="btn btn-primary btn-lg" type="button">
-                    <i class="fas fa-plus-circle me-2"></i>Criar Novo Personagem
-                </button>
+                <button id="botaoCriarFicha" class="btn btn-primary">Criar Novo Personagem</button>
+
             </div>
 
             <h2 class="mb-4">Seus Personagens</h2>
@@ -88,120 +87,118 @@ if (!isset($_SESSION['usuario_id'])) {
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".excluir-ficha").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            const id = this.getAttribute("data-id");
-            if (confirm("Tem certeza que deseja excluir esta ficha?")) {
-                fetch("backend/excluir_ficha.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "id=" + encodeURIComponent(id)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.sucesso) {
-                        this.closest(".col").remove();
-                    } else {
-                        alert(data.erro || "Erro ao excluir a ficha.");
-                    }
-                });
-            }
-        });
-    });
-});
-</script>
-
-
-<script>
-    // Abrir modal ao clicar em "Criar Novo Personagem"
-    document.querySelector('.btn-primary').addEventListener('click', () => {
-        new bootstrap.Modal(document.getElementById('modalCriarFicha')).show();
-    });
-
-    // Criar ficha via AJAX
-    document.getElementById('formCriarFicha').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-
-        fetch('backend/criar_ficha.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(resp => resp.json())
-            .then(data => {
-                if (data.status === 'sucesso') {
-                    alert('Ficha criada com sucesso!');
-                    location.reload(); // Atualiza a página para mostrar a nova ficha
-                } else {
-                    alert(data.mensagem || 'Erro desconhecido');
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".excluir-ficha").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                if (confirm("Tem certeza que deseja excluir esta ficha?")) {
+                    fetch("backend/excluir_ficha.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: "id=" + encodeURIComponent(id)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.sucesso) {
+                                this.closest(".col").remove();
+                            } else {
+                                alert(data.erro || "Erro ao excluir a ficha.");
+                            }
+                        });
                 }
             });
+        });
     });
 </script>
 
-<!-- Modal de edição -->
-<div class="modal fade" id="modalEditarFicha" tabindex="-1" aria-hidden="true">
+<!-- Modal Unificado para Criar/Editar -->
+<div class="modal fade" id="modalFicha" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="formEditarFicha">
-                <input type="hidden" name="id">
+            <form id="formFicha">
+                <input type="hidden" name="id" id="ficha-id">
                 <div class="modal-header">
-                    <h5 class="modal-title">Editar Personagem</h5>
+                    <h5 class="modal-title" id="titulo-modal">Criar Novo Personagem</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="nome" class="form-control mb-3" placeholder="Nome do Personagem" required>
-                    <input type="text" name="classe" class="form-control" placeholder="Classe" required>
+                    <input type="text" name="nome" id="ficha-nome" class="form-control mb-3" placeholder="Nome do Personagem" required>
+                    <input type="text" name="classe" id="ficha-classe" class="form-control" placeholder="Classe" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-primary" id="botao-salvar">Criar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+
 <script>
-    // Abrir modal de edição com dados do personagem
-    document.querySelectorAll('.btn-editar').forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = new bootstrap.Modal(document.getElementById('modalEditarFicha'));
-            document.querySelector('#formEditarFicha [name=id]').value = button.dataset.id;
-            document.querySelector('#formEditarFicha [name=nome]').value = button.dataset.nome;
-            document.querySelector('#formEditarFicha [name=classe]').value = button.dataset.classe;
-            modal.show();
+    let modoEdicao = false;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const modalFicha = new bootstrap.Modal(document.getElementById('modalFicha'));
+        const form = document.getElementById('formFicha');
+
+        // Botão para abrir em modo CRIAÇÃO
+        document.querySelector('#botaoCriarFicha').addEventListener('click', function() {
+            modoEdicao = false;
+            document.getElementById('titulo-modal').textContent = 'Criar Novo Personagem';
+            document.getElementById('botao-salvar').textContent = 'Criar';
+            form.reset();
+            document.getElementById('ficha-id').value = ''; // Limpa o campo ID
+            modalFicha.show();
         });
-    });
 
-    // Editar ficha via AJAX
-    document.getElementById('formEditarFicha').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+        // Botões de edição
+        document.querySelectorAll('.btn-editar').forEach(button => {
+            button.addEventListener('click', function() {
+                modoEdicao = true;
+                document.getElementById('titulo-modal').textContent = 'Editar Personagem';
+                document.getElementById('botao-salvar').textContent = 'Salvar';
 
-        fetch('backend/editar_ficha_ajax.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(resp => resp.json())
-            .then(data => {
-                if (data.status === 'sucesso') {
-                    alert('Ficha atualizada!');
-                    location.reload();
-                } else {
-                    alert(data.mensagem || 'Erro ao salvar');
-                }
+                document.getElementById('ficha-id').value = this.dataset.id;
+                document.getElementById('ficha-nome').value = this.dataset.nome;
+                document.getElementById('ficha-classe').value = this.dataset.classe;
+
+                modalFicha.show();
             });
+        });
+
+        // Enviar formulário
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const url = modoEdicao ? 'backend/editar_ficha_ajax.php' : 'backend/criar_ficha.php';
+
+            fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.status === 'sucesso') {
+                        alert(modoEdicao ? 'Ficha atualizada com sucesso!' : 'Ficha criada com sucesso!');
+                        location.reload();
+                    } else {
+                        alert(data.mensagem || 'Erro ao salvar');
+                    }
+                });
+        });
     });
 </script>
 
 <script>
-    // Quando o modal de edição for fechado, salva automaticamente
-    const modalEditar = document.getElementById('modalEditarFicha');
-    modalEditar.addEventListener('hidden.bs.modal', function () {
-        const form = document.getElementById('formEditarFicha');
+    // Quando o modal for fechado, salva automaticamente se estiver no modo de edição
+    const modalFicha = document.getElementById('modalFicha');
+    modalFicha.addEventListener('hidden.bs.modal', function() {
+        // Verifica se estava no modo de edição
+        if (!modoEdicao) return;
+
+        const form = document.getElementById('formFicha');
         const formData = new FormData(form);
 
         fetch('backend/editar_ficha_ajax.php', {
@@ -211,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(resp => resp.json())
         .then(data => {
             if (data.status === 'sucesso') {
-                // Atualiza a página após salvamento automático
                 location.reload();
             } else {
                 alert(data.mensagem || 'Erro ao salvar');
@@ -219,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 </script>
+
 
 
 
