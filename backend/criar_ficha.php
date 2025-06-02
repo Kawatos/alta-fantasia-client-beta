@@ -7,16 +7,53 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
+$usuario_id = $_SESSION['usuario_id'];
+
 $nome = $_POST['nome'] ?? '';
 $classe = $_POST['classe'] ?? '';
+$nivel = intval($_POST['nivel'] ?? 1);
+$descricao = $_POST['descricao'] ?? '';
+$raca = $_POST['raca'] ?? '';
+$habilidades = $_POST['habilidades'] ?? '';
+$magias_arcanas = $_POST['magias_arcanas'] ?? '';
+$magias_divinas = $_POST['magias_divinas'] ?? '';
+$itens = $_POST['itens'] ?? '';
+$atributos_mentais = $_POST['atributos_mentais'] ?? '';
+$atributos_corporais = $_POST['atributos_corporais'] ?? '';
+$pericias_corporais = $_POST['pericias_corporais'] ?? '';
+$pericias_mentais = $_POST['pericias_mentais'] ?? '';
 
+// Verificação mínima obrigatória
 if (empty($nome) || empty($classe)) {
-    echo json_encode(['status' => 'erro', 'mensagem' => 'Preencha todos os campos']);
+    echo json_encode(['status' => 'erro', 'mensagem' => 'Preencha nome e classe']);
     exit;
 }
 
-$stmt = $conn->prepare("INSERT INTO fichas (usuario_id, nome_personagem, classe, nivel, descricao) VALUES (?, ?, ?, 1, '')");
-$stmt->bind_param("iss", $_SESSION['usuario_id'], $nome, $classe);
+$stmt = $conn->prepare("
+    INSERT INTO fichas (
+        usuario_id, nome_personagem, classe, nivel, descricao, raca, habilidades,
+        magias_arcanas, magias_divinas, itens, atributos_mentais, atributos_corporais,
+        pericias_corporais, pericias_mentais
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+");
+
+$stmt->bind_param(
+    "ississssssssss",
+    $usuario_id,
+    $nome,
+    $classe,
+    $nivel,
+    $descricao,
+    $raca,
+    $habilidades,
+    $magias_arcanas,
+    $magias_divinas,
+    $itens,
+    $atributos_mentais,
+    $atributos_corporais,
+    $pericias_corporais,
+    $pericias_mentais
+);
 
 if ($stmt->execute()) {
     echo json_encode(['status' => 'sucesso']);

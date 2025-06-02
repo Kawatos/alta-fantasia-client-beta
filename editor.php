@@ -15,7 +15,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
                 <button id="botaoCriarFicha" class="btn btn-primary">Criar Novo Personagem</button>
-
             </div>
 
             <h2 class="mb-4">Seus Personagens</h2>
@@ -24,7 +23,26 @@ if (!isset($_SESSION['usuario_id'])) {
             require 'backend/conexao.php';
 
             $usuario_id = $_SESSION['usuario_id'];
-            $sql = "SELECT id, nome_personagem, classe, nivel, descricao FROM fichas WHERE usuario_id = ?";
+            $sql = "
+                SELECT 
+                    id,
+                    nome_personagem,
+                    classe,
+                    nivel,
+                    descricao,
+                    raca,
+                    habilidades,
+                    magias_arcanas,
+                    magias_divinas,
+                    itens,
+                    atributos_mentais,
+                    atributos_corporais,
+                    pericias_mentais,
+                    pericias_corporais
+                FROM fichas
+                WHERE usuario_id = ?
+                ";
+
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $usuario_id);
             $stmt->execute();
@@ -41,10 +59,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <p class="card-text"><?php echo htmlspecialchars($ficha['descricao']); ?></p>
                                     <div class="d-flex justify-content-between">
                                         <button class="btn btn-info btn-sm btn-editar"
-                                            data-id="<?php echo $ficha['id']; ?>"
-                                            data-nome="<?php echo htmlspecialchars($ficha['nome_personagem']); ?>"
-                                            data-classe="<?php echo htmlspecialchars($ficha['classe']); ?>">
-                                            <i class="fas fa-edit me-1"></i>Editar
+                                            data-id="<?= $ficha['id'] ?>"
+                                            data-nome="<?= htmlspecialchars($ficha['nome_personagem'] ?? '') ?>"
+                                            data-classe="<?= htmlspecialchars($ficha['classe'] ?? '') ?>"
+                                            data-nivel="<?= htmlspecialchars($ficha['nivel'] ?? '') ?>"
+                                            data-raca="<?= htmlspecialchars($ficha['raca'] ?? '') ?>"
+                                            data-descricao="<?= htmlspecialchars($ficha['descricao'] ?? '') ?>"
+                                            data-habilidades="<?= htmlspecialchars($ficha['habilidades'] ?? '') ?>"
+                                            data-magias_arcanas="<?= htmlspecialchars($ficha['magias_arcanas'] ?? '') ?>"
+                                            data-magias_divinas="<?= htmlspecialchars($ficha['magias_divinas'] ?? '') ?>"
+                                            data-itens="<?= htmlspecialchars($ficha['itens'] ?? '') ?>"
+                                            data-atributos_mentais="<?= htmlspecialchars($ficha['atributos_mentais'] ?? '') ?>"
+                                            data-atributos_corporais="<?= htmlspecialchars($ficha['atributos_corporais'] ?? '') ?>"
+                                            data-pericias_mentais="<?= htmlspecialchars($ficha['pericias_mentais'] ?? '') ?>"
+                                            data-pericias_corporais="<?= htmlspecialchars($ficha['pericias_corporais'] ?? '') ?>">
+                                            Editar
                                         </button>
 
                                         <button class="btn btn-danger btn-sm excluir-ficha" data-id="<?php echo $ficha['id']; ?>">
@@ -65,68 +94,61 @@ if (!isset($_SESSION['usuario_id'])) {
     </div>
 </div>
 
-<!-- Modal de criação -->
-<div class="modal fade" id="modalCriarFicha" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="formCriarFicha">
-                <div class="modal-header">
-                    <h5 class="modal-title">Criar Novo Personagem</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" name="nome" class="form-control mb-3" placeholder="Nome do Personagem" required>
-                    <input type="text" name="classe" class="form-control" placeholder="Classe" required>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Criar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".excluir-ficha").forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                const id = this.getAttribute("data-id");
-                if (confirm("Tem certeza que deseja excluir esta ficha?")) {
-                    fetch("backend/excluir_ficha.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                            },
-                            body: "id=" + encodeURIComponent(id)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.sucesso) {
-                                this.closest(".col").remove();
-                            } else {
-                                alert(data.erro || "Erro ao excluir a ficha.");
-                            }
-                        });
-                }
-            });
-        });
-    });
-</script>
-
+<!-- Modal Unificado para Criar/Editar -->
 <!-- Modal Unificado para Criar/Editar -->
 <div class="modal fade" id="modalFicha" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="formFicha">
                 <input type="hidden" name="id" id="ficha-id">
+
                 <div class="modal-header">
-                    <h5 class="modal-title" id="titulo-modal">Criar Novo Personagem</h5>
+                    <h5 class="modal-title" id="titulo-modal">Criar Novo Personagem1</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
-                <div class="modal-body">
-                    <input type="text" name="nome" id="ficha-nome" class="form-control mb-3" placeholder="Nome do Personagem" required>
-                    <input type="text" name="classe" id="ficha-classe" class="form-control" placeholder="Classe" required>
+
+                <div class="modal-body row g-3">
+                    <div class="col-md-6">
+                        <input type="text" name="nome" id="ficha-nome" class="form-control" placeholder="Nome do Personagem" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="classe" id="ficha-classe" class="form-control" placeholder="Classe" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="nivel" id="ficha-nivel" class="form-control" placeholder="Nível" min="1">
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="raca" id="ficha-raca" class="form-control" placeholder="Raça">
+                    </div>
+                    <div class="col-12">
+                        <textarea name="descricao" id="ficha-descricao" class="form-control" placeholder="Descrição" rows="2"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <textarea name="habilidades" id="ficha-habilidades" class="form-control" placeholder="Habilidades" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control" placeholder="Magias Arcanas" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control" placeholder="Magias Divinas" rows="2"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <textarea name="itens" id="ficha-itens" class="form-control" placeholder="Itens" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="atributos_mentais" id="ficha-atributos_mentais" class="form-control" placeholder="Atributos Mentais">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="atributos_corporais" id="ficha-atributos_corporais" class="form-control" placeholder="Atributos Corporais">
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="pericias_mentais" id="ficha-pericias_mentais" class="form-control" placeholder="Perícias Mentais" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control" placeholder="Perícias Corporais" rows="2"></textarea>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="botao-salvar">Criar</button>
                 </div>
@@ -134,7 +156,6 @@ if (!isset($_SESSION['usuario_id'])) {
         </div>
     </div>
 </div>
-
 
 <script>
     let modoEdicao = false;
@@ -162,7 +183,21 @@ if (!isset($_SESSION['usuario_id'])) {
 
                 document.getElementById('ficha-id').value = this.dataset.id;
                 document.getElementById('ficha-nome').value = this.dataset.nome;
+
+                console.log(this.dataset, "nome");
                 document.getElementById('ficha-classe').value = this.dataset.classe;
+                document.getElementById('ficha-nivel').value = this.dataset.nivel;
+                document.getElementById('ficha-raca').value = this.dataset.raca;
+                document.getElementById('ficha-descricao').value = this.dataset.descricao;
+                document.getElementById('ficha-habilidades').value = this.dataset.habilidades;
+                document.getElementById('ficha-magias_arcanas').value = this.dataset.magias_arcanas;
+                document.getElementById('ficha-magias_divinas').value = this.dataset.magias_divinas;
+                document.getElementById('ficha-itens').value = this.dataset.itens;
+                document.getElementById('ficha-atributos_mentais').value = this.dataset.atributos_mentais;
+                document.getElementById('ficha-atributos_corporais').value = this.dataset.atributos_corporais;
+                document.getElementById('ficha-pericias_mentais').value = this.dataset.pericias_mentais;
+                document.getElementById('ficha-pericias_corporais').value = this.dataset.pericias_corporais;
+
 
                 modalFicha.show();
             });
@@ -191,6 +226,34 @@ if (!isset($_SESSION['usuario_id'])) {
     });
 </script>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".excluir-ficha").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                if (confirm("Tem certeza que deseja excluir esta ficha?")) {
+                    fetch("backend/excluir_ficha.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: "id=" + encodeURIComponent(id)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.sucesso) {
+                                this.closest(".col").remove();
+                            } else {
+                                alert(data.erro || "Erro ao excluir a ficha.");
+                            }
+                        });
+                }
+            });
+        });
+    });
+</script>
+
 <script>
     // Quando o modal for fechado, salva automaticamente se estiver no modo de edição
     const modalFicha = document.getElementById('modalFicha');
@@ -202,24 +265,18 @@ if (!isset($_SESSION['usuario_id'])) {
         const formData = new FormData(form);
 
         fetch('backend/editar_ficha_ajax.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if (data.status === 'sucesso') {
-                location.reload();
-            } else {
-                alert(data.mensagem || 'Erro ao salvar');
-            }
-        });
+                method: 'POST',
+                body: formData
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    location.reload();
+                } else {
+                    alert(data.mensagem || 'Erro ao salvar');
+                }
+            });
     });
 </script>
-
-
-
-
-
-
 
 <?php include('footer.php'); ?>
