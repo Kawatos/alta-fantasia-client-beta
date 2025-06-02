@@ -109,42 +109,55 @@ if (!isset($_SESSION['usuario_id'])) {
 
                 <div class="modal-body row g-3">
                     <div class="col-md-6">
+                        <label for="ficha-nome" class="form-label">Nome do Personagem</label>
                         <input type="text" name="nome" id="ficha-nome" class="form-control" placeholder="Nome do Personagem" required>
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-classe" class="form-label">Classe</label>
                         <input type="text" name="classe" id="ficha-classe" class="form-control" placeholder="Classe" required>
                     </div>
                     <div class="col-md-4">
+                        <label for="ficha-nivel" class="form-label">Nível</label>
                         <input type="number" name="nivel" id="ficha-nivel" class="form-control" placeholder="Nível" min="1">
                     </div>
                     <div class="col-md-8">
+                        <label for="ficha-raca" class="form-label">Raça</label>
                         <input type="text" name="raca" id="ficha-raca" class="form-control" placeholder="Raça">
                     </div>
                     <div class="col-12">
+                        <label for="ficha-descricao" class="form-label">Descrição</label>
                         <textarea name="descricao" id="ficha-descricao" class="form-control" placeholder="Descrição" rows="2"></textarea>
                     </div>
                     <div class="col-12">
+                        <label for="ficha-habilidades" class="form-label">Habilidades</label>
                         <textarea name="habilidades" id="ficha-habilidades" class="form-control" placeholder="Habilidades" rows="2"></textarea>
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-magias_arcanas" class="form-label">Magias Arcanas</label>
                         <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control" placeholder="Magias Arcanas" rows="2"></textarea>
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-magias_divinas" class="form-label">Magias Divinas</label>
                         <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control" placeholder="Magias Divinas" rows="2"></textarea>
                     </div>
                     <div class="col-12">
+                        <label for="ficha-itens" class="form-label">Itens</label>
                         <textarea name="itens" id="ficha-itens" class="form-control" placeholder="Itens" rows="2"></textarea>
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-atributos_mentais" class="form-label">Atributos Mentais</label>
                         <input type="text" name="atributos_mentais" id="ficha-atributos_mentais" class="form-control" placeholder="Atributos Mentais">
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-atributos_corporais" class="form-label">Atributos Corporais</label>
                         <input type="text" name="atributos_corporais" id="ficha-atributos_corporais" class="form-control" placeholder="Atributos Corporais">
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-pericias_mentais" class="form-label">Perícias Mentais</label>
                         <textarea name="pericias_mentais" id="ficha-pericias_mentais" class="form-control" placeholder="Perícias Mentais" rows="2"></textarea>
                     </div>
                     <div class="col-md-6">
+                        <label for="ficha-pericias_corporais" class="form-label">Perícias Corporais</label>
                         <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control" placeholder="Perícias Corporais" rows="2"></textarea>
                     </div>
                 </div>
