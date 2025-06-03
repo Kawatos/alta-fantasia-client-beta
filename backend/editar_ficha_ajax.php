@@ -29,6 +29,9 @@ $atributos_mentais = $_POST['atributos_mentais'] ?? '';
 $atributos_corporais = $_POST['atributos_corporais'] ?? '';
 $pericias_corporais = $_POST['pericias_corporais'] ?? '';
 $pericias_mentais = $_POST['pericias_mentais'] ?? '';
+$pontos_de_vida = $_POST['pontos_de_vida'] ?? '';
+$pontos_de_mana = $_POST['pontos_de_mana'] ?? '';
+$status = $_POST['status'] ?? '';
 
 
 // Atualiza no banco
@@ -36,15 +39,15 @@ $stmt = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = ?, classe = ?, nivel = ?, descricao = ?, raca = ?, habilidades = ?,
         magias_arcanas = ?, magias_divinas = ?, itens = ?, atributos_mentais = ?, atributos_corporais = ?,
-        pericias_corporais = ?, pericias_mentais = ?
+        pericias_corporais = ?, pericias_mentais = ?, pontos_de_vida = ?, pontos_de_mana = ?, status_personagem = ?
     WHERE id = ? AND usuario_id = ?
 ");
 
 $stmt->bind_param(
-    "ssissssssssssii",
+    "ssisssssssssssiisi",
     $nome, $classe, $nivel, $descricao, $raca, $habilidades,
     $magias_arcanas, $magias_divinas, $itens, $atributos_mentais, $atributos_corporais,
-    $pericias_corporais, $pericias_mentais, $id, $usuario_id
+    $pericias_corporais, $pericias_mentais, $pontos_de_vida, $pontos_de_mana, $status, $id, $usuario_id
 );
 
 if ($stmt->execute()) {

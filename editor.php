@@ -38,7 +38,10 @@ if (!isset($_SESSION['usuario_id'])) {
                     atributos_mentais,
                     atributos_corporais,
                     pericias_mentais,
-                    pericias_corporais
+                    pericias_corporais,
+                    pontos_de_vida,
+                    pontos_de_mana,
+                    status_personagem
                 FROM fichas
                 WHERE usuario_id = ?
                 ";
@@ -72,7 +75,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                             data-atributos_mentais="<?= htmlspecialchars($ficha['atributos_mentais'] ?? '') ?>"
                                             data-atributos_corporais="<?= htmlspecialchars($ficha['atributos_corporais'] ?? '') ?>"
                                             data-pericias_mentais="<?= htmlspecialchars($ficha['pericias_mentais'] ?? '') ?>"
-                                            data-pericias_corporais="<?= htmlspecialchars($ficha['pericias_corporais'] ?? '') ?>">
+                                            data-pericias_corporais="<?= htmlspecialchars($ficha['pericias_corporais'] ?? '') ?>"
+                                            data-pontos_de_vida="<?= htmlspecialchars($ficha['pontos_de_vida'] ?? '') ?>"
+                                            data-pontos_de_mana="<?= htmlspecialchars($ficha['pontos_de_mana'] ?? '') ?>"
+                                            data-status_personagem="<?= htmlspecialchars($ficha['status_personagem'] ?? '') ?>">
                                             Editar
                                         </button>
 
@@ -95,7 +101,6 @@ if (!isset($_SESSION['usuario_id'])) {
 </div>
 
 <!-- Modal Unificado para Criar/Editar -->
-<!-- Modal Unificado para Criar/Editar -->
 <div class="modal fade" id="modalFicha" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -108,58 +113,131 @@ if (!isset($_SESSION['usuario_id'])) {
                 </div>
 
                 <div class="modal-body row g-3">
-                    <div class="col-md-6">
-                        <label for="ficha-nome" class="form-label">Nome do Personagem</label>
-                        <input type="text" name="nome" id="ficha-nome" class="form-control" placeholder="Nome do Personagem" required>
+                    <ul class="nav nav-tabs" id="fichaTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="tab-identificacao" data-bs-toggle="tab" data-bs-target="#identificacao" type="button" role="tab">Identificação</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-atributos" data-bs-toggle="tab" data-bs-target="#atributos" type="button" role="tab">Atributos</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-pericias" data-bs-toggle="tab" data-bs-target="#pericias" type="button" role="tab">Perícias</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-habilidades" data-bs-toggle="tab" data-bs-target="#habilidades" type="button" role="tab">Habilidades</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-magias-arcanas" data-bs-toggle="tab" data-bs-target="#magias-arcanas" type="button" role="tab">Magias Arcanas</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-magias-divinas" data-bs-toggle="tab" data-bs-target="#magias-divinas" type="button" role="tab">Magias Divinas</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-itens" data-bs-toggle="tab" data-bs-target="#itens" type="button" role="tab">Itens</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="ficha-nome" class="form-label">Nome do Personagem</label>
+                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-classe" class="form-label">Classe</label>
+                                    <input type="text" name="classe" id="ficha-classe" class="form-control classe-personagem" placeholder="Classe" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ficha-nivel" class="form-label">Nível</label>
+                                    <input type="number" name="nivel" id="ficha-nivel" class="form-control nivel-personagem" placeholder="Nível" min="1">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ficha-status" class="form-label">Status</label>
+                                    <input type="text" name="status" id="ficha-status" class="form-control status-personagem" placeholder="Status">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida</label>
+                                    <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
+                                    <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="ficha-raca" class="form-label">Raça</label>
+                                    <input type="text" name="raca" id="ficha-raca" class="form-control raca-personagem" placeholder="Raça">
+                                </div>
+                                <div class="col-12">
+                                    <label for="ficha-descricao" class="form-label">Descrição</label>
+                                    <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="2"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="atributos" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="ficha-atributos_mentais" class="form-label">Atributos Mentais</label>
+                                    <input type="text" name="atributos_mentais" id="ficha-atributos_mentais" class="form-control atributos-mentais-personagem" placeholder="Atributos Mentais">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-atributos_corporais" class="form-label">Atributos Corporais</label>
+                                    <input type="text" name="atributos_corporais" id="ficha-atributos_corporais" class="form-control atributos-corporais-personagem" placeholder="Atributos Corporais">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pericias" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="ficha-pericias_mentais" class="form-label">Perícias Mentais</label>
+                                    <textarea name="pericias_mentais" id="ficha-pericias_mentais" class="form-control pericias-mentais-personagem" placeholder="Perícias Mentais" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-pericias_corporais" class="form-label">Perícias Corporais</label>
+                                    <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control pericias-corporais-personagem" placeholder="Perícias Corporais" rows="2"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="habilidades" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="ficha-habilidades" class="form-label">Habilidades</label>
+                                    <textarea name="habilidades" id="ficha-habilidades" class="form-control habilidades-personagem" placeholder="Habilidades" rows="2"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="magias-arcanas" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="ficha-magias_arcanas" class="form-label">Magias Arcanas</label>
+                                    <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control magias-arcanas-personagem" placeholder="Magias Arcanas" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="magias-divinas" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="ficha-magias_divinas" class="form-label">Magias Divinas</label>
+                                    <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control magias-divinas-personagem" placeholder="Magias Divinas" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="itens" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="ficha-itens" class="form-label">Itens</label>
+                                    <textarea name="itens" id="ficha-itens" class="form-control itens-personagem" placeholder="Itens" rows="2"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="ficha-classe" class="form-label">Classe</label>
-                        <input type="text" name="classe" id="ficha-classe" class="form-control" placeholder="Classe" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="ficha-nivel" class="form-label">Nível</label>
-                        <input type="number" name="nivel" id="ficha-nivel" class="form-control" placeholder="Nível" min="1">
-                    </div>
-                    <div class="col-md-8">
-                        <label for="ficha-raca" class="form-label">Raça</label>
-                        <input type="text" name="raca" id="ficha-raca" class="form-control" placeholder="Raça">
-                    </div>
-                    <div class="col-12">
-                        <label for="ficha-descricao" class="form-label">Descrição</label>
-                        <textarea name="descricao" id="ficha-descricao" class="form-control" placeholder="Descrição" rows="2"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <label for="ficha-habilidades" class="form-label">Habilidades</label>
-                        <textarea name="habilidades" id="ficha-habilidades" class="form-control" placeholder="Habilidades" rows="2"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-magias_arcanas" class="form-label">Magias Arcanas</label>
-                        <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control" placeholder="Magias Arcanas" rows="2"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-magias_divinas" class="form-label">Magias Divinas</label>
-                        <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control" placeholder="Magias Divinas" rows="2"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <label for="ficha-itens" class="form-label">Itens</label>
-                        <textarea name="itens" id="ficha-itens" class="form-control" placeholder="Itens" rows="2"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-atributos_mentais" class="form-label">Atributos Mentais</label>
-                        <input type="text" name="atributos_mentais" id="ficha-atributos_mentais" class="form-control" placeholder="Atributos Mentais">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-atributos_corporais" class="form-label">Atributos Corporais</label>
-                        <input type="text" name="atributos_corporais" id="ficha-atributos_corporais" class="form-control" placeholder="Atributos Corporais">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-pericias_mentais" class="form-label">Perícias Mentais</label>
-                        <textarea name="pericias_mentais" id="ficha-pericias_mentais" class="form-control" placeholder="Perícias Mentais" rows="2"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ficha-pericias_corporais" class="form-label">Perícias Corporais</label>
-                        <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control" placeholder="Perícias Corporais" rows="2"></textarea>
-                    </div>
+
                 </div>
 
                 <div class="modal-footer">
@@ -192,24 +270,26 @@ if (!isset($_SESSION['usuario_id'])) {
             button.addEventListener('click', function() {
                 modoEdicao = true;
                 document.getElementById('titulo-modal').textContent = 'Editar Personagem';
+
                 document.getElementById('botao-salvar').textContent = 'Salvar';
-
                 document.getElementById('ficha-id').value = this.dataset.id;
-                document.getElementById('ficha-nome').value = this.dataset.nome;
+                document.querySelector('.nome-personagem').value = this.dataset.nome;
 
-                console.log(this.dataset, "nome");
-                document.getElementById('ficha-classe').value = this.dataset.classe;
-                document.getElementById('ficha-nivel').value = this.dataset.nivel;
-                document.getElementById('ficha-raca').value = this.dataset.raca;
-                document.getElementById('ficha-descricao').value = this.dataset.descricao;
-                document.getElementById('ficha-habilidades').value = this.dataset.habilidades;
-                document.getElementById('ficha-magias_arcanas').value = this.dataset.magias_arcanas;
-                document.getElementById('ficha-magias_divinas').value = this.dataset.magias_divinas;
-                document.getElementById('ficha-itens').value = this.dataset.itens;
-                document.getElementById('ficha-atributos_mentais').value = this.dataset.atributos_mentais;
-                document.getElementById('ficha-atributos_corporais').value = this.dataset.atributos_corporais;
-                document.getElementById('ficha-pericias_mentais').value = this.dataset.pericias_mentais;
-                document.getElementById('ficha-pericias_corporais').value = this.dataset.pericias_corporais;
+                document.querySelector('.classe-personagem').value = this.dataset.classe;
+                document.querySelector('.nivel-personagem').value = this.dataset.nivel;
+                document.querySelector('.raca-personagem').value = this.dataset.raca;
+                document.querySelector('.descricao-personagem').value = this.dataset.descricao;
+                document.querySelector('.habilidades-personagem').value = this.dataset.habilidades;
+                document.querySelector('.magias-arcanas-personagem').value = this.dataset.magias_arcanas;
+                document.querySelector('.magias-divinas-personagem').value = this.dataset.magias_divinas;
+                document.querySelector('.itens-personagem').value = this.dataset.itens;
+                document.querySelector('.atributos-mentais-personagem').value = this.dataset.atributos_mentais;
+                document.querySelector('.atributos-corporais-personagem').value = this.dataset.atributos_corporais;
+                document.querySelector('.pericias-mentais-personagem').value = this.dataset.pericias_mentais;
+                document.querySelector('.pericias-corporais-personagem').value = this.dataset.pericias_corporais;
+                document.querySelector('.pontos-de-vida-personagem').value = this.dataset.pontos_de_vida;
+                document.querySelector('.pontos-de-mana-personagem').value = this.dataset.pontos_de_mana;
+                document.querySelector('.status-personagem').value = this.dataset.status_personagem;
 
 
                 modalFicha.show();
