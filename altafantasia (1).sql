@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/06/2025 às 23:31
+-- Tempo de geração: 03/06/2025 às 03:19
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -42,16 +42,22 @@ CREATE TABLE `fichas` (
   `atributos_mentais` varchar(255) DEFAULT NULL,
   `atributos_corporais` varchar(255) DEFAULT NULL,
   `pericias_corporais` text DEFAULT NULL,
-  `pericias_mentais` text DEFAULT NULL
+  `pericias_mentais` text DEFAULT NULL,
+  `pontos_de_vida` int(255) DEFAULT NULL,
+  `pontos_de_mana` int(255) DEFAULT NULL,
+  `status_personagem` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `fichas`
 --
 
-INSERT INTO `fichas` (`id`, `usuario_id`, `nome_personagem`, `classe`, `nivel`, `descricao`, `raca`, `habilidades`, `magias_arcanas`, `magias_divinas`, `itens`, `atributos_mentais`, `atributos_corporais`, `pericias_corporais`, `pericias_mentais`) VALUES
-(1, 6, 'asdss', 'asdsss', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 6, 'Jooj e viadinho', 'Jooj e viadinho', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `fichas` (`id`, `usuario_id`, `nome_personagem`, `classe`, `nivel`, `descricao`, `raca`, `habilidades`, `magias_arcanas`, `magias_divinas`, `itens`, `atributos_mentais`, `atributos_corporais`, `pericias_corporais`, `pericias_mentais`, `pontos_de_vida`, `pontos_de_mana`, `status_personagem`) VALUES
+(1, 6, 'asdss', 'asdsss', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 6, 'Jooj e viadinho', 'Jooj e viadinho', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 1, 'sad2 asd', 'asd123123', 112, 'Teste', 'Mago1', 'Tese', 'detse', 'asd123', 'asdasd as', 'asd12e', 'asd123', 'asd123', 'asd123', 123, 0, '123'),
+(17, 1, 'Teste 123', 'asdasdasd', 123, 'asdasdasd', 'asdasdas', 'asdasd', 'asdasd', 'asdasd', 'asdas', 'dasdasd', 'asd', 'asd', 'asdasd', 123, 123, '0'),
+(19, 1, 'Viagem', 'asdasd', 23123, 'asdasd', 'asdasd', 'dasasd', 'asdasd', 'asdasd', 'xcvxcv', 'xcvxcv', 'xcvxcv', 'xcvxcv', 'xcvxcv', 123123, 123123, '0');
 
 -- --------------------------------------------------------
 
@@ -103,7 +109,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `fichas`
 --
 ALTER TABLE `fichas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
