@@ -25,6 +25,8 @@ $pericias_mentais = $_POST['pericias_mentais'] ?? '';
 $pontos_de_vida = $_POST['pontos_de_vida'] ?? '';
 $pontos_de_mana = $_POST['pontos_de_mana'] ?? '';
 $status = $_POST['status'] ?? '';
+$pvs_atuais = $_POST['pvs_atuais'] ?? '';
+$pm_atuais = $_POST['pm_atuais'] ?? '';
 
 // Verificação mínima obrigatória
 if (empty($nome) || empty($classe)) {
@@ -50,8 +52,10 @@ $stmt = $conn->prepare("
         pericias_mentais,
         pontos_de_vida,
         pontos_de_mana,
-        status_personagem
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        status_personagem,
+        pvs_atuais,
+        pm_atuais
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
 
 $stmt->bind_param(
@@ -72,7 +76,9 @@ $stmt->bind_param(
     $pericias_mentais,
     $pontos_de_vida,
     $pontos_de_mana,
-    $status
+    $status,
+    $pvs_atuais,
+    $pm_atuais
 );
 
 if ($stmt->execute()) {
