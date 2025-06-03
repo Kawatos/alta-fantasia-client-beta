@@ -41,7 +41,9 @@ if (!isset($_SESSION['usuario_id'])) {
                     pericias_corporais,
                     pontos_de_vida,
                     pontos_de_mana,
-                    status_personagem
+                    status_personagem,
+                    pvs_atuais,
+                    pm_atuais
                 FROM fichas
                 WHERE usuario_id = ?
                 ";
@@ -78,7 +80,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                             data-pericias_corporais="<?= htmlspecialchars($ficha['pericias_corporais'] ?? '') ?>"
                                             data-pontos_de_vida="<?= htmlspecialchars($ficha['pontos_de_vida'] ?? '') ?>"
                                             data-pontos_de_mana="<?= htmlspecialchars($ficha['pontos_de_mana'] ?? '') ?>"
-                                            data-status_personagem="<?= htmlspecialchars($ficha['status_personagem'] ?? '') ?>">
+                                            data-status_personagem="<?= htmlspecialchars($ficha['status_personagem'] ?? '') ?>"
+                                            data-pvs_atuais="<?= htmlspecialchars($ficha['pvs_atuais'] ?? '') ?>"
+                                            data-pm_atuais="<?= htmlspecialchars($ficha['pm_atuais'] ?? '') ?>">
                                             Editar
                                         </button>
 
@@ -290,6 +294,8 @@ if (!isset($_SESSION['usuario_id'])) {
                 document.querySelector('.pontos-de-vida-personagem').value = this.dataset.pontos_de_vida;
                 document.querySelector('.pontos-de-mana-personagem').value = this.dataset.pontos_de_mana;
                 document.querySelector('.status-personagem').value = this.dataset.status_personagem;
+                document.querySelector('.pvs_atuais').value = this.dataset.pvs_atuais;
+                document.querySelector('.pm_atuais').value = this.dataset.pm_atuais;
 
 
                 modalFicha.show();
