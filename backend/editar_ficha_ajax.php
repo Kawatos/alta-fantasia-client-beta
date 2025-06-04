@@ -78,13 +78,27 @@ $atributos_mentais = json_encode([
 // Atualiza no banco
 $stmt = $conn->prepare("
     UPDATE fichas SET
-        nome_personagem = ?, classe = ?, nivel = ?, descricao = ?, raca = ?, habilidades = ?,
+        nome_personagem = :nome_personagem, classe = ?, nivel = ?, descricao = ?, raca = ?, habilidades = ?,
         magias_arcanas = ?, magias_divinas = ?, itens = ?, atributos_mentais = ?, atributos_corporais = ?,
         pericias_corporais = ?, pericias_mentais = ?, pontos_de_vida = ?, pontos_de_mana = ?, status_personagem = ?,
         pvs_atuais = ?, pms_atuais = ?
     WHERE id = ? AND usuario_id = ?
 ");
-
+/* $stmt->bind_param(
+    ":nome_personagem" => $nome,
+    ":classe" => $classe,
+    ":nivel" => $nivel,
+    ":descricao" => $descricao,
+    ":raca" => $raca,
+    ":habilidades" => $habilidades,
+    ":magias_arcanas" => $magias_arcanas,
+    ":magias_divinas" => $magias_divinas,
+    ":itens" => $itens,
+    ":atributos_mentais" => $atributos_mentais,
+    ":atributos_corporais" => $atributos_corporais,
+    ":pericias_corporais" => $pericias_corporais,
+    ":pericias_mentais" => $pericias_mentais,
+) */
 $stmt->bind_param(
     "ssissssssssssiisiiii", // agora com 19 caracteres (tipos)
     $nome, $classe, $nivel, $descricao, $raca, $habilidades,
