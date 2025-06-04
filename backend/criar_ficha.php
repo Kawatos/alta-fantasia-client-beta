@@ -95,38 +95,49 @@ $stmt = $conn->prepare("
         status_personagem,
         pvs_atuais,
         pms_atuais
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (
+        :usuario_id,
+        :nome_personagem,
+        :classe,
+        :nivel,
+        :descricao,
+        :raca,
+        :habilidades,
+        :magias_arcanas,
+        :magias_divinas,
+        :itens,
+        :atributos_mentais,
+        :atributos_corporais,
+        :pericias_corporais,
+        :pericias_mentais,
+        :pontos_de_vida,
+        :pontos_de_mana,
+        :status_personagem,
+        :pvs_atuais,
+        :pms_atuais
+    )
 ");
 
-// Certifique-se de que os tipos batem com os dados.
-// i = inteiro, s = string
+$stmt->bindParam(':usuario_id',         $usuario_id, PDO::PARAM_INT);
+$stmt->bindParam(':nome_personagem',    $nome, PDO::PARAM_STR);
+$stmt->bindParam(':classe',             $classe, PDO::PARAM_STR);
+$stmt->bindParam(':nivel',              $nivel, PDO::PARAM_INT);
+$stmt->bindParam(':descricao',          $descricao, PDO::PARAM_STR);
+$stmt->bindParam(':raca',               $raca, PDO::PARAM_STR);
+$stmt->bindParam(':habilidades',        $habilidades, PDO::PARAM_STR);
+$stmt->bindParam(':magias_arcanas',     $magias_arcanas, PDO::PARAM_STR);
+$stmt->bindParam(':magias_divinas',     $magias_divinas, PDO::PARAM_STR);
+$stmt->bindParam(':itens',              $itens, PDO::PARAM_STR);
+$stmt->bindParam(':atributos_mentais',  $atributos_mentais, PDO::PARAM_STR);
+$stmt->bindParam(':atributos_corporais',$atributos_corporais, PDO::PARAM_STR);
+$stmt->bindParam(':pericias_corporais', $pericias_corporais, PDO::PARAM_STR);
+$stmt->bindParam(':pericias_mentais',   $pericias_mentais, PDO::PARAM_STR);
+$stmt->bindParam(':pontos_de_vida',     $pontos_de_vida, PDO::PARAM_INT);
+$stmt->bindParam(':pontos_de_mana',     $pontos_de_mana, PDO::PARAM_INT);
+$stmt->bindParam(':status_personagem',  $status, PDO::PARAM_STR);
+$stmt->bindParam(':pvs_atuais',         $pvs_atuais, PDO::PARAM_INT);
+$stmt->bindParam(':pms_atuais',         $pms_atuais, PDO::PARAM_INT);
 
-if (!$stmt) {
-    die("Erro ao preparar a query: " . $conn->error);
-}
-
-$stmt->bind_param(
-    "ississssssssssiisii", // agora com 19 caracteres
-    $usuario_id,           // i
-    $nome,                 // s
-    $classe,               // s
-    $nivel,                // i
-    $descricao,            // s
-    $raca,                 // s
-    $habilidades,          // s
-    $magias_arcanas,       // s
-    $magias_divinas,       // s
-    $itens,                // s
-    $atributos_mentais,    // s
-    $atributos_corporais,  // s
-    $pericias_corporais,   // s
-    $pericias_mentais,     // s
-    $pontos_de_vida,       // i
-    $pontos_de_mana,       // i
-    $status,               // s
-    $pvs_atuais,           // i
-    $pms_atuais            // i
-);
 
 
 if ($stmt->execute()) {

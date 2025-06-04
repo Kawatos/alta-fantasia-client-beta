@@ -74,8 +74,55 @@ $atributos_mentais = json_encode([
     'mod_carisma' => $mod_carisma
 ]);
 
+$stmt = $conn->prepare("
+    UPDATE fichas SET
+        nome_personagem = :nome_personagem,
+        classe = :classe,
+        nivel = :nivel,
+        descricao = :descricao,
+        raca = :raca,
+        habilidades = :habilidades,
+        magias_arcanas = :magias_arcanas,
+        magias_divinas = :magias_divinas,
+        itens = :itens,
+        atributos_mentais = :atributos_mentais,
+        atributos_corporais = :atributos_corporais,
+        pericias_corporais = :pericias_corporais,
+        pericias_mentais = :pericias_mentais,
+        pontos_de_vida = :pontos_de_vida,
+        pontos_de_mana = :pontos_de_mana,
+        status_personagem = :status_personagem,
+        pvs_atuais = :pvs_atuais,
+        pms_atuais = :pms_atuais
+    WHERE id = :id AND usuario_id = :usuario_id
+");
 
-// Atualiza no banco
+$stmt->bindParam(':nome_personagem', $nome);
+$stmt->bindParam(':classe', $classe);
+$stmt->bindParam(':nivel', $nivel);
+$stmt->bindParam(':id', $id);
+$stmt->bindParam(':usuario_id', $usuario_id);
+$stmt->bindParam(':descricao', $descricao);
+$stmt->bindParam(':raca', $raca);
+$stmt->bindParam(':habilidades', $habilidades);
+$stmt->bindParam(':magias_arcanas', $magias_arcanas);
+$stmt->bindParam(':magias_divinas', $magias_divinas);
+$stmt->bindParam(':itens', $itens);
+$stmt->bindParam(':atributos_mentais', $atributos_mentais);
+$stmt->bindParam(':atributos_corporais', $atributos_corporais);
+$stmt->bindParam(':pericias_corporais', $pericias_corporais);
+$stmt->bindParam(':pericias_mentais', $pericias_mentais);
+$stmt->bindParam(':pontos_de_vida', $pontos_de_vida);
+$stmt->bindParam(':pontos_de_mana', $pontos_de_mana);
+$stmt->bindParam(':status_personagem', $status);
+$stmt->bindParam(':pvs_atuais', $pvs_atuais);
+$stmt->bindParam(':pms_atuais', $pms_atuais);
+
+$stmt->execute();
+
+
+
+/* // Atualiza no banco
 $stmt = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = :nome_personagem, classe = ?, nivel = ?, descricao = ?, raca = ?, habilidades = ?,
@@ -84,21 +131,7 @@ $stmt = $conn->prepare("
         pvs_atuais = ?, pms_atuais = ?
     WHERE id = ? AND usuario_id = ?
 ");
-/* $stmt->bind_param(
-    ":nome_personagem" => $nome,
-    ":classe" => $classe,
-    ":nivel" => $nivel,
-    ":descricao" => $descricao,
-    ":raca" => $raca,
-    ":habilidades" => $habilidades,
-    ":magias_arcanas" => $magias_arcanas,
-    ":magias_divinas" => $magias_divinas,
-    ":itens" => $itens,
-    ":atributos_mentais" => $atributos_mentais,
-    ":atributos_corporais" => $atributos_corporais,
-    ":pericias_corporais" => $pericias_corporais,
-    ":pericias_mentais" => $pericias_mentais,
-) */
+
 $stmt->bind_param(
     "ssissssssssssiisiiii", // agora com 19 caracteres (tipos)
     $nome, $classe, $nivel, $descricao, $raca, $habilidades,
@@ -106,7 +139,7 @@ $stmt->bind_param(
     $pericias_corporais, $pericias_mentais, $pontos_de_vida, $pontos_de_mana, $status,
     $pvs_atuais, $pms_atuais, // adicionados corretamente
     $id, $usuario_id
-);
+); */
 
 
 if ($stmt->execute()) {
