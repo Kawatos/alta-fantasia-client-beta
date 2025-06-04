@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario_id'])) {
             require 'backend/conexao.php';
 
             $usuario_id = $_SESSION['usuario_id'];
-            $sql = "
+            $sqlFicha = "
                 SELECT 
                     id,
                     nome_personagem,
@@ -43,25 +43,37 @@ if (!isset($_SESSION['usuario_id'])) {
                     pontos_de_mana,
                     status_personagem,
                     pvs_atuais,
-                    pm_atuais
+                    pms_atuais
                 FROM fichas
                 WHERE usuario_id = ?
                 ";
 
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $usuario_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
+            $stmtFicha = $conn->prepare($sqlFicha);
+            $stmtFicha->bind_param("i", $usuario_id);
+            $stmtFicha->execute();
+            $resultFicha = $stmtFicha->get_result();
 
-            if ($result->num_rows > 0): ?>
+            if ($resultFicha->num_rows > 0): ?>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php while ($ficha = $result->fetch_assoc()): ?>
+                    <?php while ($ficha = $resultFicha->fetch_assoc()): ?>
+                        <?php
+                        $atributos_mentais = json_decode($ficha['atributos_mentais'], true);
+                        $atributos_corporais = json_decode($ficha['atributos_corporais'], true);
+                        /* echo "<pre>";
+                        print_r($ficha['atributos_mentais']);
+                        print_r($ficha['atributos_corporais']);
+                        var_dump($ficha['atributos_mentais']['intelecto']);
+                        echo "</pre>"; */
+
+
+                        ?>
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($ficha['nome_personagem']); ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['classe']) . ' Nível ' . htmlspecialchars($ficha['nivel']); ?></h6>
                                     <p class="card-text"><?php echo htmlspecialchars($ficha['descricao']); ?></p>
+
                                     <div class="d-flex justify-content-between">
                                         <button class="btn btn-info btn-sm btn-editar"
                                             data-id="<?= $ficha['id'] ?>"
@@ -82,7 +94,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                             data-pontos_de_mana="<?= htmlspecialchars($ficha['pontos_de_mana'] ?? '') ?>"
                                             data-status_personagem="<?= htmlspecialchars($ficha['status_personagem'] ?? '') ?>"
                                             data-pvs_atuais="<?= htmlspecialchars($ficha['pvs_atuais'] ?? '') ?>"
-                                            data-pm_atuais="<?= htmlspecialchars($ficha['pm_atuais'] ?? '') ?>">
+                                            data-pms_atuais="<?= htmlspecialchars($ficha['pms_atuais'] ?? '') ?>"
+                                            data-vigor="<?= htmlspecialchars($atributos_corporais['vigor'] ?? '') ?>"
+                                            data-mod_vigor="<?= htmlspecialchars($atributos_corporais['mod_vigor'] ?? '') ?>"
+                                            data-forca="<?= htmlspecialchars($atributos_corporais['forca'] ?? '') ?>"
+                                            data-mod_forca="<?= htmlspecialchars($atributos_corporais['mod_forca'] ?? '') ?>"
+                                            data-destreza="<?= htmlspecialchars($atributos_corporais['destreza'] ?? '') ?>"
+                                            data-mod_destreza="<?= htmlspecialchars($atributos_corporais['mod_destreza'] ?? '') ?>"
+                                            data-intelecto="<?= htmlspecialchars($atributos_mentais['intelecto'] ?? '') ?>"
+                                            data-mod_intelecto="<?= htmlspecialchars($atributos_mentais['mod_intelecto'] ?? '') ?>"
+                                            data-espirito="<?= htmlspecialchars($atributos_mentais['espirito'] ?? '') ?>"
+                                            data-mod_espirito="<?= htmlspecialchars($atributos_mentais['mod_espirito'] ?? '') ?>"
+                                            data-carisma="<?= htmlspecialchars($atributos_mentais['carisma'] ?? '') ?>"
+                                            data-mod_carisma="<?= htmlspecialchars($atributos_mentais['mod_carisma'] ?? '') ?>"
+
+                                            >
                                             Editar
                                         </button>
 
@@ -103,6 +129,7 @@ if (!isset($_SESSION['usuario_id'])) {
         </div>
     </div>
 </div>
+
 
 <!-- Modal Unificado para Criar/Editar -->
 <div class="modal fade" id="modalFicha" tabindex="-1" aria-hidden="true">
@@ -141,57 +168,165 @@ if (!isset($_SESSION['usuario_id'])) {
                         </li>
                     </ul>
                     <div class="tab-content">
+                        <!-- Identificação -->
                         <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
                             <div class="row g-3">
+                                <!-- Linha 1: Nome e Raça -->
                                 <div class="col-md-6">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
                                     <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="ficha-raca" class="form-label">Raça</label>
+                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem" required>
+                                        <option value="" selected>Selecione uma Raça</option>
+                                        <option value="Lichiru">Lichiru</option>
+                                        <option value="Dunkeriu">Dunkeriu</option>
+                                        <option value="Gnomo">Gnomo</option>
+                                        <option value="Dryad">Dryad</option>
+                                        <option value="Fada">Fada</option>
+                                        <option value="Elfo">Elfo</option>
+                                        <option value="Elfo Negro">Elfo Negro (Sharym'El)</option>
+                                        <option value="Elfo Negro">Draqueni</option>
+                                        <option value="Orc">Orc</option>
+                                        <option value="Ferali">Ferali</option>
+                                        <option value="Anão">Humano</option>
+                                    </select>
+                                </div>
+
+                                <!-- Linha 2: Classe e Nível -->
+                                <div class="col-md-6">
                                     <label for="ficha-classe" class="form-label">Classe</label>
-                                    <input type="text" name="classe" id="ficha-classe" class="form-control classe-personagem" placeholder="Classe" required>
+                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem" required>
+                                        <option value="" selected>Selecione uma Classe</option>
+                                        <option value="Guerreiro">Guerreiro</option>
+                                        <option value="Bárbaro">Bárbaro</option>
+                                        <option value="Samurai">Samurai</option>
+                                        <option value="Cavaleiro">Cavaleiro</option>
+                                        <option value="Ranger">Ranger</option>
+                                        <option value="Monge">Monge</option>
+                                        <option value="Swashbuckler">Swashbuckler</option>
+                                        <option value="Ninja">Ninja</option>
+                                        <option value="Caçador">Caçador</option>
+                                        <option value="Inventor">Inventor</option>
+                                        <option value="Nobre">Nobre</option>
+                                        <option value="Ladino">Ladino</option>
+                                        <option value="Mago">Mago</option>
+                                        <option value="Feiticeiro">Feiticeiro</option>
+                                        <option value="Bruxo">Bruxo</option>
+                                        <option value="Clérigo">Clérigo</option>
+                                        <option value="Bardo">Bardo</option>
+                                        <option value="Druida">Druida</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="ficha-nivel" class="form-label">Nível</label>
-                                    <input type="number" name="nivel" id="ficha-nivel" class="form-control nivel-personagem" placeholder="Nível" min="1">
+                                <div class="col-6">
+                                    <label for="ficha-xp" class="form-label">Experiência (XP)</label>
+                                    <input type="number" name="nivel" id="ficha-xp" class="form-control nivel-personagem" placeholder="XP Atual" value="100" min="0">
                                 </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Nível Atual: <span id="nivel-atual">1</span></label>
+                                    <div class="progress" style="height: 25px;">
+                                        <div class="progress-bar bg-success" id="barra-xp" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Progresso Total até o Nível 100: <span id="progresso-total-texto">1%</span></label>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-info" id="barra-progresso-total" role="progressbar" style="width: 1%;" aria-valuemin="0" aria-valuemax="100">1%</div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Linha 3: Status e Pontos de Vida -->
                                 <div class="col-md-4">
                                     <label for="ficha-status" class="form-label">Status</label>
-                                    <input type="text" name="status" id="ficha-status" class="form-control status-personagem" placeholder="Status">
+                                    <select name="status_personagem" id="'ficha-status'" class="form-control status-personagem" required>
+                                        <option value="">Selecione um Status</option>
+                                        <option value="Vivo">Vivo</option>
+                                        <option value="Morto">Morto</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida</label>
                                     <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida">
                                 </div>
                                 <div class="col-md-4">
+                                    <label for="ficha-pvs_atuais" class="form-label">Pontos de Vida Atuais</label>
+                                    <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida">
+                                </div>
+
+                                <!-- Linha 4: Pontos de Mana -->
+                                <div class="col-md-6">
                                     <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
                                     <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
                                 </div>
-                                <div class="col-md-8">
-                                    <label for="ficha-raca" class="form-label">Raça</label>
-                                    <input type="text" name="raca" id="ficha-raca" class="form-control raca-personagem" placeholder="Raça">
+                                <div class="col-md-6">
+                                    <label for="ficha-pms_atuais" class="form-label">Pontos de Mana Atuais</label>
+                                    <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
                                 </div>
+
+                                <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
                                     <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="2"></textarea>
                                 </div>
-
                             </div>
                         </div>
 
+
+                        <!-- Atributos -->
                         <div class="tab-pane fade" id="atributos" role="tabpanel">
                             <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="ficha-atributos_mentais" class="form-label">Atributos Mentais</label>
-                                    <input type="text" name="atributos_mentais" id="ficha-atributos_mentais" class="form-control atributos-mentais-personagem" placeholder="Atributos Mentais">
+                                <h5>Atributos Corporais</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Vigor</label>
+                                        <input type="number" name="vigor" class="form-control vigor">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_vigor" class="form-control mod_vigor">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Força</label>
+                                        <input type="number" name="forca" class="form-control forca">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_forca" class="form-control mod_forca">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Destreza</label>
+                                        <input type="number" name="destreza" class="form-control destreza">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_destreza" class="form-control mod_destreza">
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-atributos_corporais" class="form-label">Atributos Corporais</label>
-                                    <input type="text" name="atributos_corporais" id="ficha-atributos_corporais" class="form-control atributos-corporais-personagem" placeholder="Atributos Corporais">
+
+                                <h5 class="mt-3">Atributos Mentais</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Espírito</label>
+                                        <input type="number" name="espirito" class="form-control espirito">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_espirito" class="form-control mod_espirito">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Intelecto</label>
+                                        <input type="number" name="intelecto" class="form-control intelecto">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_intelecto" class="form-control mod_intelecto">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Carisma</label>
+                                        <input type="number" name="carisma" class="form-control carisma">
+                                        <label>Modificador</label>
+                                        <input type="number" name="mod_carisma" class="form-control mod_carisma">
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
+
+                        <!-- Perícias -->
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -205,6 +340,8 @@ if (!isset($_SESSION['usuario_id'])) {
 
                             </div>
                         </div>
+
+                        <!-- Habilidades -->
                         <div class="tab-pane fade" id="habilidades" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-12">
@@ -215,6 +352,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
                         </div>
 
+                        <!-- Magias Arcanas -->
                         <div class="tab-pane fade" id="magias-arcanas" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -223,6 +361,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Magias Divinas -->
                         <div class="tab-pane fade" id="magias-divinas" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -231,6 +371,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Itens -->
                         <div class="tab-pane fade" id="itens" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-12">
@@ -287,15 +429,31 @@ if (!isset($_SESSION['usuario_id'])) {
                 document.querySelector('.magias-arcanas-personagem').value = this.dataset.magias_arcanas;
                 document.querySelector('.magias-divinas-personagem').value = this.dataset.magias_divinas;
                 document.querySelector('.itens-personagem').value = this.dataset.itens;
-                document.querySelector('.atributos-mentais-personagem').value = this.dataset.atributos_mentais;
-                document.querySelector('.atributos-corporais-personagem').value = this.dataset.atributos_corporais;
+                /* document.querySelector('.atributos-mentais-personagem').value = this.dataset.atributos_mentais;
+                document.querySelector('.atributos-corporais-personagem').value = this.dataset.atributos_corporais; */
                 document.querySelector('.pericias-mentais-personagem').value = this.dataset.pericias_mentais;
                 document.querySelector('.pericias-corporais-personagem').value = this.dataset.pericias_corporais;
                 document.querySelector('.pontos-de-vida-personagem').value = this.dataset.pontos_de_vida;
                 document.querySelector('.pontos-de-mana-personagem').value = this.dataset.pontos_de_mana;
                 document.querySelector('.status-personagem').value = this.dataset.status_personagem;
-                document.querySelector('.pvs_atuais').value = this.dataset.pvs_atuais;
-                document.querySelector('.pm_atuais').value = this.dataset.pm_atuais;
+                document.querySelector('.pvs_atuais-personagem').value = this.dataset.pvs_atuais;
+                document.querySelector('.pms_atuais-personagem').value = this.dataset.pms_atuais;
+
+                // Atributos corporais
+                document.querySelector('.vigor').value = this.dataset.vigor;
+                document.querySelector('.mod_vigor').value = this.dataset.mod_vigor;
+                document.querySelector('.forca').value = this.dataset.forca;
+                document.querySelector('.mod_forca').value = this.dataset.mod_forca;
+                document.querySelector('.destreza').value = this.dataset.destreza;
+                document.querySelector('.mod_destreza').value = this.dataset.mod_destreza;
+
+                // Atributos mentais
+                document.querySelector('.intelecto').value = this.dataset.intelecto;
+                document.querySelector('.mod_intelecto').value = this.dataset.mod_intelecto;
+                document.querySelector('.espirito').value = this.dataset.espirito;
+                document.querySelector('.mod_espirito').value = this.dataset.mod_espirito;
+                document.querySelector('.carisma').value = this.dataset.carisma;
+                document.querySelector('.mod_carisma').value = this.dataset.mod_carisma;
 
 
                 modalFicha.show();
@@ -376,6 +534,34 @@ if (!isset($_SESSION['usuario_id'])) {
                 }
             });
     });
+
+    function atualizarNivelEBarra() {
+        const inputXp = document.getElementById("ficha-xp");
+        const spanNivel = document.getElementById("nivel-atual");
+        const barraXp = document.getElementById("barra-xp");
+
+        const barraProgressoTotal = document.getElementById("barra-progresso-total");
+        const textoProgressoTotal = document.getElementById("progresso-total-texto");
+
+        const xp = parseInt(inputXp.value) || 0;
+        const nivel = Math.floor(xp / 100);
+        const progresso = xp % 100;
+
+        // Atualiza nível e barra do nível atual
+        spanNivel.textContent = nivel;
+        barraXp.style.width = `${progresso}%`;
+        barraXp.textContent = `${progresso}%`;
+
+        // Atualiza barra de progresso total (máx 100 níveis)
+        const totalMaxXp = 100 * 100; // 100 níveis
+        const progressoTotal = Math.min(100, ((xp / totalMaxXp) * 100).toFixed(2));
+        barraProgressoTotal.style.width = `${progressoTotal}%`;
+        barraProgressoTotal.textContent = `${progressoTotal}%`;
+        textoProgressoTotal.textContent = `${progressoTotal}%`;
+    }
+
+    modalFicha.addEventListener('shown.bs.modal', atualizarNivelEBarra);
+    document.getElementById("ficha-xp").addEventListener("input", atualizarNivelEBarra);
 </script>
 
 <?php include('footer.php'); ?>
