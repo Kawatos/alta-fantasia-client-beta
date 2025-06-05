@@ -8,6 +8,11 @@ if (!isset($_SESSION['usuario_id'])) {
 
 <?php include('header.php'); ?>
 
+<form action="backend/logout.php" method="post">
+    <button type="submit" class="btn btn-danger m-4">Logout</button>
+</form>
+
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
@@ -29,86 +34,29 @@ if (!isset($_SESSION['usuario_id'])) {
                     nome_personagem,
                     classe,
                     nivel,
-                    descricao,
-                    raca,
-                    habilidades,
-                    magias_arcanas,
-                    magias_divinas,
-                    itens,
-                    atributos_mentais,
-                    atributos_corporais,
-                    pericias_mentais,
-                    pericias_corporais,
-                    pontos_de_vida,
-                    pontos_de_mana,
-                    status_personagem,
-                    pvs_atuais,
-                    pms_atuais
+                    status_personagem
                 FROM fichas
-                WHERE usuario_id = ?
+                WHERE usuario_id = :usuario_id
                 ";
 
             $stmtFicha = $conn->prepare($sqlFicha);
-            $stmtFicha->bind_param("i", $usuario_id);
+            $stmtFicha->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
             $stmtFicha->execute();
-            $resultFicha = $stmtFicha->get_result();
+            $resultFicha = $stmtFicha->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($resultFicha->num_rows > 0): ?>
+            if (count($resultFicha) > 0): ?>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php while ($ficha = $resultFicha->fetch_assoc()): ?>
-                        <?php
-                        $atributos_mentais = json_decode($ficha['atributos_mentais'], true);
-                        $atributos_corporais = json_decode($ficha['atributos_corporais'], true);
-                        /* echo "<pre>";
-                        print_r($ficha['atributos_mentais']);
-                        print_r($ficha['atributos_corporais']);
-                        var_dump($ficha['atributos_mentais']['intelecto']);
-                        echo "</pre>"; */
+                    <?php foreach ($resultFicha as $ficha): ?>
 
-
-                        ?>
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($ficha['nome_personagem']); ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['classe']) . ' Nível ' . htmlspecialchars($ficha['nivel']); ?></h6>
-                                    <p class="card-text"><?php echo htmlspecialchars($ficha['descricao']); ?></p>
+
 
                                     <div class="d-flex justify-content-between">
-                                        <button class="btn btn-info btn-sm btn-editar"
-                                            data-id="<?= $ficha['id'] ?>"
-                                            data-nome="<?= htmlspecialchars($ficha['nome_personagem'] ?? '') ?>"
-                                            data-classe="<?= htmlspecialchars($ficha['classe'] ?? '') ?>"
-                                            data-nivel="<?= htmlspecialchars($ficha['nivel'] ?? '') ?>"
-                                            data-raca="<?= htmlspecialchars($ficha['raca'] ?? '') ?>"
-                                            data-descricao="<?= htmlspecialchars($ficha['descricao'] ?? '') ?>"
-                                            data-habilidades="<?= htmlspecialchars($ficha['habilidades'] ?? '') ?>"
-                                            data-magias_arcanas="<?= htmlspecialchars($ficha['magias_arcanas'] ?? '') ?>"
-                                            data-magias_divinas="<?= htmlspecialchars($ficha['magias_divinas'] ?? '') ?>"
-                                            data-itens="<?= htmlspecialchars($ficha['itens'] ?? '') ?>"
-                                            data-atributos_mentais="<?= htmlspecialchars($ficha['atributos_mentais'] ?? '') ?>"
-                                            data-atributos_corporais="<?= htmlspecialchars($ficha['atributos_corporais'] ?? '') ?>"
-                                            data-pericias_mentais="<?= htmlspecialchars($ficha['pericias_mentais'] ?? '') ?>"
-                                            data-pericias_corporais="<?= htmlspecialchars($ficha['pericias_corporais'] ?? '') ?>"
-                                            data-pontos_de_vida="<?= htmlspecialchars($ficha['pontos_de_vida'] ?? '') ?>"
-                                            data-pontos_de_mana="<?= htmlspecialchars($ficha['pontos_de_mana'] ?? '') ?>"
-                                            data-status_personagem="<?= htmlspecialchars($ficha['status_personagem'] ?? '') ?>"
-                                            data-pvs_atuais="<?= htmlspecialchars($ficha['pvs_atuais'] ?? '') ?>"
-                                            data-pms_atuais="<?= htmlspecialchars($ficha['pms_atuais'] ?? '') ?>"
-                                            data-vigor="<?= htmlspecialchars($atributos_corporais['vigor'] ?? '') ?>"
-                                            data-mod_vigor="<?= htmlspecialchars($atributos_corporais['mod_vigor'] ?? '') ?>"
-                                            data-forca="<?= htmlspecialchars($atributos_corporais['forca'] ?? '') ?>"
-                                            data-mod_forca="<?= htmlspecialchars($atributos_corporais['mod_forca'] ?? '') ?>"
-                                            data-destreza="<?= htmlspecialchars($atributos_corporais['destreza'] ?? '') ?>"
-                                            data-mod_destreza="<?= htmlspecialchars($atributos_corporais['mod_destreza'] ?? '') ?>"
-                                            data-intelecto="<?= htmlspecialchars($atributos_mentais['intelecto'] ?? '') ?>"
-                                            data-mod_intelecto="<?= htmlspecialchars($atributos_mentais['mod_intelecto'] ?? '') ?>"
-                                            data-espirito="<?= htmlspecialchars($atributos_mentais['espirito'] ?? '') ?>"
-                                            data-mod_espirito="<?= htmlspecialchars($atributos_mentais['mod_espirito'] ?? '') ?>"
-                                            data-carisma="<?= htmlspecialchars($atributos_mentais['carisma'] ?? '') ?>"
-                                            data-mod_carisma="<?= htmlspecialchars($atributos_mentais['mod_carisma'] ?? '') ?>"
-
-                                            >
+                                        <button class="btn btn-info btn-sm btn-editar" data-id="<?= $ficha['id'] ?>">
                                             Editar
                                         </button>
 
@@ -120,7 +68,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </div>
             <?php else: ?>
                 <p class="text-center">Você ainda não criou nenhum personagem.</p>
@@ -285,19 +233,19 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <label>Vigor</label>
                                         <input type="number" name="vigor" class="form-control vigor">
                                         <label>Modificador</label>
-                                        <input type="number" name="mod_vigor" class="form-control mod_vigor">
+                                        <input type="number" name="vigor_mod" class="form-control vigor_mod">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Força</label>
                                         <input type="number" name="forca" class="form-control forca">
                                         <label>Modificador</label>
-                                        <input type="number" name="mod_forca" class="form-control mod_forca">
+                                        <input type="number" name="forca_mod" class="form-control forca_mod">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Destreza</label>
                                         <input type="number" name="destreza" class="form-control destreza">
                                         <label>Modificador</label>
-                                        <input type="number" name="mod_destreza" class="form-control mod_destreza">
+                                        <input type="number" name="destreza_mod" class="form-control destreza_mod">
                                     </div>
                                 </div>
 
@@ -307,20 +255,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <label>Espírito</label>
                                         <input type="number" name="espirito" class="form-control espirito">
                                         <label>Modificador</label>
-                                        <input type="number" name="mod_espirito" class="form-control mod_espirito">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Intelecto</label>
-                                        <input type="number" name="intelecto" class="form-control intelecto">
-                                        <label>Modificador</label>
-                                        <input type="number" name="mod_intelecto" class="form-control mod_intelecto">
+                                        <input type="number" name="espirito_mod" class="form-control espirito_mod">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Carisma</label>
                                         <input type="number" name="carisma" class="form-control carisma">
                                         <label>Modificador</label>
-                                        <input type="number" name="mod_carisma" class="form-control mod_carisma">
+                                        <input type="number" name="carisma_mod" class="form-control carisma_mod">
                                     </div>
+                                    <div class="col-md-4">
+                                        <label>Intelecto</label>
+                                        <input type="number" name="intelecto" class="form-control intelecto">
+                                        <label>Modificador</label>
+                                        <input type="number" name="intelecto_mod" class="form-control intelecto_mod">
+                                    </div>
+                                    
                                 </div>
 
                             </div>
@@ -411,50 +360,72 @@ if (!isset($_SESSION['usuario_id'])) {
             modalFicha.show();
         });
 
-        // Botões de edição
         document.querySelectorAll('.btn-editar').forEach(button => {
             button.addEventListener('click', function() {
                 modoEdicao = true;
                 document.getElementById('titulo-modal').textContent = 'Editar Personagem';
 
                 document.getElementById('botao-salvar').textContent = 'Salvar';
-                document.getElementById('ficha-id').value = this.dataset.id;
-                document.querySelector('.nome-personagem').value = this.dataset.nome;
+                fichaId = this.dataset.id;
 
-                document.querySelector('.classe-personagem').value = this.dataset.classe;
-                document.querySelector('.nivel-personagem').value = this.dataset.nivel;
-                document.querySelector('.raca-personagem').value = this.dataset.raca;
-                document.querySelector('.descricao-personagem').value = this.dataset.descricao;
-                document.querySelector('.habilidades-personagem').value = this.dataset.habilidades;
-                document.querySelector('.magias-arcanas-personagem').value = this.dataset.magias_arcanas;
-                document.querySelector('.magias-divinas-personagem').value = this.dataset.magias_divinas;
-                document.querySelector('.itens-personagem').value = this.dataset.itens;
-                /* document.querySelector('.atributos-mentais-personagem').value = this.dataset.atributos_mentais;
-                document.querySelector('.atributos-corporais-personagem').value = this.dataset.atributos_corporais; */
-                document.querySelector('.pericias-mentais-personagem').value = this.dataset.pericias_mentais;
-                document.querySelector('.pericias-corporais-personagem').value = this.dataset.pericias_corporais;
-                document.querySelector('.pontos-de-vida-personagem').value = this.dataset.pontos_de_vida;
-                document.querySelector('.pontos-de-mana-personagem').value = this.dataset.pontos_de_mana;
-                document.querySelector('.status-personagem').value = this.dataset.status_personagem;
-                document.querySelector('.pvs_atuais-personagem').value = this.dataset.pvs_atuais;
-                document.querySelector('.pms_atuais-personagem').value = this.dataset.pms_atuais;
+                $.ajax({
+                    url: 'backend/get_dados_ficha.php',
+                    method: 'POST',
+                    data: {
+                        id_ficha: fichaId
+                    },
+                    dataType: 'json',
+                    success: function(resposta) {
+                        if (resposta.status === 'sucesso') {
+                            const ficha = resposta.ficha;
+                            const atributos = resposta.atributos;
+                            console.log(ficha);
+                            console.log(atributos);
+                            document.querySelector('#ficha-id').value = ficha.id;
+                            document.querySelector('.nome-personagem').value = ficha.nome_personagem;
 
-                // Atributos corporais
-                document.querySelector('.vigor').value = this.dataset.vigor;
-                document.querySelector('.mod_vigor').value = this.dataset.mod_vigor;
-                document.querySelector('.forca').value = this.dataset.forca;
-                document.querySelector('.mod_forca').value = this.dataset.mod_forca;
-                document.querySelector('.destreza').value = this.dataset.destreza;
-                document.querySelector('.mod_destreza').value = this.dataset.mod_destreza;
+                            document.querySelector('.classe-personagem').value = ficha.classe;
+                            document.querySelector('.nivel-personagem').value = ficha.nivel;
+                            document.querySelector('.raca-personagem').value = ficha.raca;
+                            document.querySelector('.descricao-personagem').value = ficha.descricao;
+                            document.querySelector('.habilidades-personagem').value = ficha.habilidades;
+                            document.querySelector('.magias-arcanas-personagem').value = ficha.magias_arcanas;
+                            document.querySelector('.magias-divinas-personagem').value = ficha.magias_divinas;
+                            document.querySelector('.itens-personagem').value = ficha.itens;
+                            
+                            document.querySelector('.pericias-mentais-personagem').value = ficha.pericias_mentais;
+                            document.querySelector('.pericias-corporais-personagem').value = ficha.pericias_corporais;
+                            document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
+                            document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
+                            document.querySelector('.status-personagem').value = ficha.status_personagem;
+                            document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais;
+                            document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais;
 
-                // Atributos mentais
-                document.querySelector('.intelecto').value = this.dataset.intelecto;
-                document.querySelector('.mod_intelecto').value = this.dataset.mod_intelecto;
-                document.querySelector('.espirito').value = this.dataset.espirito;
-                document.querySelector('.mod_espirito').value = this.dataset.mod_espirito;
-                document.querySelector('.carisma').value = this.dataset.carisma;
-                document.querySelector('.mod_carisma').value = this.dataset.mod_carisma;
+                            // Atributos
+                            document.querySelector('.vigor').value = atributos.vigor;
+                            document.querySelector('.vigor_mod').value = atributos.vigor_mod;
+                            document.querySelector('.forca').value = atributos.forca;
+                            document.querySelector('.forca_mod').value = atributos.forca_mod;
+                            document.querySelector('.destreza').value = atributos.destreza;
+                            document.querySelector('.destreza_mod').value = atributos.destreza_mod;
 
+                            
+                            document.querySelector('.espirito').value = atributos.espirito;
+                            document.querySelector('.espirito_mod').value = atributos.espirito_mod;
+                            document.querySelector('.carisma').value = atributos.carisma;
+                            document.querySelector('.carisma_mod').value = atributos.carisma_mod;
+                            document.querySelector('.intelecto').value = atributos.intelecto;
+                            document.querySelector('.intelecto_mod').value = atributos.intelecto_mod;
+
+
+                        } else {
+                            alert(resposta.mensagem);
+                        }
+                    },
+                    error: function() {
+                        alert('Erro ao buscar a ficha.');
+                    }
+                });
 
                 modalFicha.show();
             });
@@ -514,20 +485,24 @@ if (!isset($_SESSION['usuario_id'])) {
 <script>
     // Quando o modal for fechado, salva automaticamente se estiver no modo de edição
     const modalFicha = document.getElementById('modalFicha');
+
     modalFicha.addEventListener('hidden.bs.modal', function() {
-        // Verifica se estava no modo de edição
-        if (!modoEdicao) return;
-
         const form = document.getElementById('formFicha');
-        const formData = new FormData(form);
 
-        fetch('backend/editar_ficha_ajax.php', {
+        // Garante que o formulário existe
+        if (!form) return;
+
+        const formData = new FormData(form);
+        const url = modoEdicao ? 'backend/editar_ficha_ajax.php' : 'backend/criar_ficha.php';
+
+        fetch(url, {
                 method: 'POST',
                 body: formData
             })
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
+                    alert(modoEdicao ? 'Ficha atualizada com sucesso!' : 'Ficha criada com sucesso!');
                     location.reload();
                 } else {
                     alert(data.mensagem || 'Erro ao salvar');

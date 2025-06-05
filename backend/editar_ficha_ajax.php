@@ -25,10 +25,6 @@ $habilidades = $_POST['habilidades'] ?? '';
 $magias_arcanas = $_POST['magias_arcanas'] ?? '';
 $magias_divinas = $_POST['magias_divinas'] ?? '';
 $itens = $_POST['itens'] ?? '';
-/* $atributos_mentais_cru = $_POST['atributos_mentais'] ?? '';
-$atributos_mentais = json_encode($atributos_mentais_cru);
-$atributos_corporais_cru = $_POST['atributos_corporais'] ?? '';
-$atributos_corporais = json_encode($atributos_corporais_cru); */
 $pericias_corporais = $_POST['pericias_corporais'] ?? '';
 $pericias_mentais = $_POST['pericias_mentais'] ?? '';
 $pontos_de_vida = $_POST['pontos_de_vida'] ?? '';
@@ -39,42 +35,25 @@ $pms_atuais = $_POST['pms_atuais'] ?? '';
 
 
 $vigor = $_POST['vigor'] ?? 0;
-$mod_vigor = $_POST['mod_vigor'] ?? 0;
+$vigor_mod = $_POST['vigor_mod'] ?? 0;
 
 $forca = $_POST['forca'] ?? 0;
-$mod_forca = $_POST['mod_forca'] ?? 0;
+$forca_mod = $_POST['forca_mod'] ?? 0;
 
 $destreza = $_POST['destreza'] ?? 0;
-$mod_destreza = $_POST['mod_destreza'] ?? 0;
+$destreza_mod = $_POST['destreza_mod'] ?? 0;
 
 $inteligencia = $_POST['intelecto'] ?? 0;
-$mod_inteligencia = $_POST['mod_intelecto'] ?? 0;
+$intelecto_mod = $_POST['intelecto_mod'] ?? 0;
 
 $sabedoria = $_POST['espirito'] ?? 0;
-$mod_sabedoria = $_POST['mod_espirito'] ?? 0;
+$espirito_mod = $_POST['espirito_mod'] ?? 0;
 
 $carisma = $_POST['carisma'] ?? 0;
-$mod_carisma = $_POST['mod_carisma'] ?? 0;
+$carisma_mod = $_POST['carisma_mod'] ?? 0;
 
-$atributos_corporais = json_encode([
-    'vigor' => $vigor,
-    'mod_vigor' => $mod_vigor,
-    'forca' => $forca,
-    'mod_forca' => $mod_forca,
-    'destreza' => $destreza,
-    'mod_destreza' => $mod_destreza
-]);
 
-$atributos_mentais = json_encode([
-    'intelecto' => $inteligencia,
-    'mod_intelecto' => $mod_inteligencia,
-    'espirito' => $sabedoria,
-    'mod_espirito' => $mod_sabedoria,
-    'carisma' => $carisma,
-    'mod_carisma' => $mod_carisma
-]);
-
-$stmt = $conn->prepare("
+$stmtFicha = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = :nome_personagem,
         classe = :classe,
@@ -97,53 +76,66 @@ $stmt = $conn->prepare("
     WHERE id = :id AND usuario_id = :usuario_id
 ");
 
-$stmt->bindParam(':nome_personagem', $nome);
-$stmt->bindParam(':classe', $classe);
-$stmt->bindParam(':nivel', $nivel);
-$stmt->bindParam(':id', $id);
-$stmt->bindParam(':usuario_id', $usuario_id);
-$stmt->bindParam(':descricao', $descricao);
-$stmt->bindParam(':raca', $raca);
-$stmt->bindParam(':habilidades', $habilidades);
-$stmt->bindParam(':magias_arcanas', $magias_arcanas);
-$stmt->bindParam(':magias_divinas', $magias_divinas);
-$stmt->bindParam(':itens', $itens);
-$stmt->bindParam(':atributos_mentais', $atributos_mentais);
-$stmt->bindParam(':atributos_corporais', $atributos_corporais);
-$stmt->bindParam(':pericias_corporais', $pericias_corporais);
-$stmt->bindParam(':pericias_mentais', $pericias_mentais);
-$stmt->bindParam(':pontos_de_vida', $pontos_de_vida);
-$stmt->bindParam(':pontos_de_mana', $pontos_de_mana);
-$stmt->bindParam(':status_personagem', $status);
-$stmt->bindParam(':pvs_atuais', $pvs_atuais);
-$stmt->bindParam(':pms_atuais', $pms_atuais);
+$stmtFicha->bindParam(':nome_personagem', $nome);
+$stmtFicha->bindParam(':classe', $classe);
+$stmtFicha->bindParam(':nivel', $nivel);
+$stmtFicha->bindParam(':id', $id);
+$stmtFicha->bindParam(':usuario_id', $usuario_id);
+$stmtFicha->bindParam(':descricao', $descricao);
+$stmtFicha->bindParam(':raca', $raca);
+$stmtFicha->bindParam(':habilidades', $habilidades);
+$stmtFicha->bindParam(':magias_arcanas', $magias_arcanas);
+$stmtFicha->bindParam(':magias_divinas', $magias_divinas);
+$stmtFicha->bindParam(':itens', $itens);
+$stmtFicha->bindParam(':atributos_mentais', $atributos_mentais);
+$stmtFicha->bindParam(':atributos_corporais', $atributos_corporais);
+$stmtFicha->bindParam(':pericias_corporais', $pericias_corporais);
+$stmtFicha->bindParam(':pericias_mentais', $pericias_mentais);
+$stmtFicha->bindParam(':pontos_de_vida', $pontos_de_vida);
+$stmtFicha->bindParam(':pontos_de_mana', $pontos_de_mana);
+$stmtFicha->bindParam(':status_personagem', $status);
+$stmtFicha->bindParam(':pvs_atuais', $pvs_atuais);
+$stmtFicha->bindParam(':pms_atuais', $pms_atuais);
 
-$stmt->execute();
+if ($stmtFicha->execute()) {
 
+    $stmtAtributos = $conn->prepare("
+    UPDATE atributos SET
+        vigor = :vigor,
+        vigor_mod = :vigor_mod,
+        forca = :forca,
+        forca_mod = :forca_mod,
+        destreza = :destreza,
+        destreza_mod = :destreza_mod,
+        espirito = :espirito,
+        espirito_mod = :espirito_mod,
+        carisma = :carisma,
+        carisma_mod = :carisma_mod,
+        intelecto = :intelecto,
+        intelecto_mod = :intelecto_mod
+    WHERE id_ficha = :id_ficha
+    ");
 
+    $stmtAtributos->bindParam(':id_ficha', $id);
+    $stmtAtributos->bindParam(':vigor', $vigor);
+    $stmtAtributos->bindParam(':vigor_mod', $vigor_mod);
+    $stmtAtributos->bindParam(':forca', $forca);
+    $stmtAtributos->bindParam(':forca_mod', $forca_mod);
+    $stmtAtributos->bindParam(':destreza', $destreza);
+    $stmtAtributos->bindParam(':destreza_mod', $destreza_mod);
+    $stmtAtributos->bindParam(':espirito', $sabedoria);
+    $stmtAtributos->bindParam(':espirito_mod', $espirito_mod);
+    $stmtAtributos->bindParam(':carisma', $carisma);
+    $stmtAtributos->bindParam(':carisma_mod', $carisma_mod);
+    $stmtAtributos->bindParam(':intelecto', $inteligencia);
+    $stmtAtributos->bindParam(':intelecto_mod', $intelecto_mod);
 
-/* // Atualiza no banco
-$stmt = $conn->prepare("
-    UPDATE fichas SET
-        nome_personagem = :nome_personagem, classe = ?, nivel = ?, descricao = ?, raca = ?, habilidades = ?,
-        magias_arcanas = ?, magias_divinas = ?, itens = ?, atributos_mentais = ?, atributos_corporais = ?,
-        pericias_corporais = ?, pericias_mentais = ?, pontos_de_vida = ?, pontos_de_mana = ?, status_personagem = ?,
-        pvs_atuais = ?, pms_atuais = ?
-    WHERE id = ? AND usuario_id = ?
-");
+    if ($stmtAtributos->execute()) {
+        echo json_encode(['status' => 'sucesso']);
+    } else {
+        echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao editar atributos']);
+    }
 
-$stmt->bind_param(
-    "ssissssssssssiisiiii", // agora com 19 caracteres (tipos)
-    $nome, $classe, $nivel, $descricao, $raca, $habilidades,
-    $magias_arcanas, $magias_divinas, $itens, $atributos_mentais, $atributos_corporais,
-    $pericias_corporais, $pericias_mentais, $pontos_de_vida, $pontos_de_mana, $status,
-    $pvs_atuais, $pms_atuais, // adicionados corretamente
-    $id, $usuario_id
-); */
-
-
-if ($stmt->execute()) {
-    echo json_encode(['status' => 'sucesso']);
 } else {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao editar ficha']);
 }
