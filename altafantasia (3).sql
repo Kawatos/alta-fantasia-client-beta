@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/06/2025 às 04:36
+-- Tempo de geração: 05/06/2025 às 05:07
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `altafantasia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `atributos`
+--
+
+CREATE TABLE `atributos` (
+  `id_atributos` int(255) NOT NULL,
+  `vigor` int(11) DEFAULT NULL,
+  `vigor_mod` int(11) DEFAULT NULL,
+  `forca` int(11) DEFAULT NULL,
+  `forca_mod` int(11) DEFAULT NULL,
+  `destreza` int(11) DEFAULT NULL,
+  `destreza_mod` int(11) DEFAULT NULL,
+  `espirito` int(11) DEFAULT NULL,
+  `espirito_mod` int(11) DEFAULT NULL,
+  `carisma` int(11) DEFAULT NULL,
+  `carisma_mod` int(11) DEFAULT NULL,
+  `intelecto` int(11) DEFAULT NULL,
+  `intelecto_mod` int(11) DEFAULT NULL,
+  `id_ficha` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atributos`
+--
+
+INSERT INTO `atributos` (`id_atributos`, `vigor`, `vigor_mod`, `forca`, `forca_mod`, `destreza`, `destreza_mod`, `espirito`, `espirito_mod`, `carisma`, `carisma_mod`, `intelecto`, `intelecto_mod`, `id_ficha`) VALUES
+(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33);
 
 -- --------------------------------------------------------
 
@@ -57,11 +87,14 @@ CREATE TABLE `fichas` (
 INSERT INTO `fichas` (`id`, `usuario_id`, `nome_personagem`, `classe`, `nivel`, `descricao`, `raca`, `habilidades`, `magias_arcanas`, `magias_divinas`, `itens`, `atributos_mentais`, `atributos_corporais`, `pericias_corporais`, `pericias_mentais`, `pontos_de_vida`, `pontos_de_mana`, `status_personagem`, `pvs_atuais`, `pms_atuais`) VALUES
 (1, 6, 'asdss', 'asdsss', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
 (2, 6, 'Jooj e viadinho', 'Jooj e viadinho', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
-(10, 1, 'Phinneas t', 'Bárbaro', 12345, 'Teste222', 'Dunkeriu', 'Tese', 'detse', 'asd123', 'asdasd as', '{\"intelecto\":\"12\",\"mod_intelecto\":\"12\",\"espirito\":\"12\",\"mod_espirito\":\"12\",\"carisma\":\"12\",\"mod_carisma\":\"12\"}', '{\"vigor\":\"22\",\"mod_vigor\":\"12\",\"forca\":\"12\",\"mod_forca\":\"12\",\"destreza\":\"12\",\"mod_destreza\":\"\"}', 'asd123', 'asd123', 12322, 322, 'Vivo', 422, 999),
+(10, 1, 'Phinneas t', 'Bárbaro', 12345, 'Teste222', 'Dunkeriu', 'Tese', '', '', '', NULL, NULL, '', '', 0, 0, 'Vivo', 0, 0),
 (17, 1, 'Teste 123', 'Bárbaro', 1234, 'asdasdasd', 'Dunkeriu', 'asdasd', 'asdasd', 'asdasd', 'asdas', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"13\",\"mod_carisma\":\"2\"}', '{\"vigor\":\"10\",\"mod_vigor\":\"2\",\"forca\":\"12\",\"mod_forca\":\"3\",\"destreza\":\"9\",\"mod_destreza\":\"1\"}', 'asd', 'asdasd', 123, 123, 'Vivo', 0, 0),
 (22, 1, 'Kaua S', 'Bárbaro', 176, '', 'Lichiru', '', '', '', '', '', '', '', '', 0, 0, '0', 0, 0),
 (23, 1, 'om32', 'Guerreiro', 100, '123', 'Gnomo', '', '', '', '', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"13\",\"mod_carisma\":\"2\"}', '{\"vigor\":\"10\",\"mod_vigor\":\"2\",\"forca\":\"12\",\"mod_forca\":\"3\",\"destreza\":\"9\",\"mod_destreza\":\"1\"}', '', '', 123, 123, 'Vivo', 123, 0),
-(24, 1, '12 zilson da silva', 'Guerreiro', 188, 'asd', 'Dunkeriu', '', '', '', '', '{\"intelecto\":\"12\",\"mod_intelecto\":\"12\",\"espirito\":\"12\",\"mod_espirito\":\"12\",\"carisma\":\"12\",\"mod_carisma\":\"12\"}', '{\"vigor\":\"12\",\"mod_vigor\":\"12\",\"forca\":\"12\",\"mod_forca\":\"12\",\"destreza\":\"12\",\"mod_destreza\":\"12\"}', '', '', 123, 123, 'Vivo', 123, 123);
+(24, 1, '12 zilson da silva', 'Guerreiro', 188, 'asd', 'Dunkeriu', '', '', '', '', '{\"intelecto\":\"12\",\"mod_intelecto\":\"12\",\"espirito\":\"12\",\"mod_espirito\":\"12\",\"carisma\":\"12\",\"mod_carisma\":\"12\"}', '{\"vigor\":\"12\",\"mod_vigor\":\"12\",\"forca\":\"12\",\"mod_forca\":\"12\",\"destreza\":\"12\",\"mod_destreza\":\"12\"}', '', '', 123, 123, 'Vivo', 123, 123),
+(27, 1, 'tetetetete', 'Guerreiro', 12300, '23', 'Lichiru', '', '', '', '', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"\",\"mod_carisma\":\"\"}', '{\"vigor\":\"\",\"mod_vigor\":\"\",\"forca\":\"\",\"mod_forca\":\"\",\"destreza\":\"\",\"mod_destreza\":\"\"}', '', '', 23, 23, 'Vivo', 23, 23),
+(32, 1, 'qwe', 'Bárbaro', 100, '123', 'Lichiru', '', '', '', '', NULL, NULL, '', '', 123, 123, 'Vivo', 123, 123),
+(33, 1, 'atributilson o cara', 'Bárbaro', 100, 'asd', 'Lichiru', '', '', '', '', NULL, NULL, '', '', 123, 0, 'Vivo', 123, 0);
 
 -- --------------------------------------------------------
 
@@ -111,6 +144,12 @@ INSERT INTO `usuarios` (`id`, `username`, `senha`) VALUES
 --
 
 --
+-- Índices de tabela `atributos`
+--
+ALTER TABLE `atributos`
+  ADD PRIMARY KEY (`id_atributos`);
+
+--
 -- Índices de tabela `fichas`
 --
 ALTER TABLE `fichas`
@@ -138,7 +177,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `fichas`
 --
 ALTER TABLE `fichas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `magias`
@@ -150,7 +189,7 @@ ALTER TABLE `magias`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restrições para tabelas despejadas
