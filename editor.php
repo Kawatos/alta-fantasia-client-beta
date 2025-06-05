@@ -8,14 +8,15 @@ if (!isset($_SESSION['usuario_id'])) {
 
 <?php include('header.php'); ?>
 
-<form action="backend/logout.php" method="post">
-    <button type="submit" class="btn btn-danger m-4">Logout</button>
-</form>
+
 
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
+            <form action="backend/logout.php" method="post">
+                <button type="submit" class="btn btn-danger m-4">Logout</button>
+            </form>
             <h1 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
@@ -269,7 +270,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <label>Modificador</label>
                                         <input type="number" name="intelecto_mod" class="form-control intelecto_mod">
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -392,7 +393,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.magias-arcanas-personagem').value = ficha.magias_arcanas;
                             document.querySelector('.magias-divinas-personagem').value = ficha.magias_divinas;
                             document.querySelector('.itens-personagem').value = ficha.itens;
-                            
+
                             document.querySelector('.pericias-mentais-personagem').value = ficha.pericias_mentais;
                             document.querySelector('.pericias-corporais-personagem').value = ficha.pericias_corporais;
                             document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
@@ -409,7 +410,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.destreza').value = atributos.destreza;
                             document.querySelector('.destreza_mod').value = atributos.destreza_mod;
 
-                            
+
                             document.querySelector('.espirito').value = atributos.espirito;
                             document.querySelector('.espirito_mod').value = atributos.espirito_mod;
                             document.querySelector('.carisma').value = atributos.carisma;

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/06/2025 às 05:07
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.0.28
+-- Tempo de geração: 05/06/2025 às 18:01
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,15 +41,21 @@ CREATE TABLE `atributos` (
   `carisma_mod` int(11) DEFAULT NULL,
   `intelecto` int(11) DEFAULT NULL,
   `intelecto_mod` int(11) DEFAULT NULL,
-  `id_ficha` int(11) DEFAULT NULL
+  `id_ficha` int(11) DEFAULT NULL,
+  `vigor_mod_nv` int(11) DEFAULT NULL,
+  `forca_mod_nv` int(11) DEFAULT NULL,
+  `destreza_mod_nv` int(11) DEFAULT NULL,
+  `espirito_mod_nv` int(11) DEFAULT NULL,
+  `carisma_mod_nv` int(11) DEFAULT NULL,
+  `intelecto_mod_nv` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `atributos`
 --
 
-INSERT INTO `atributos` (`id_atributos`, `vigor`, `vigor_mod`, `forca`, `forca_mod`, `destreza`, `destreza_mod`, `espirito`, `espirito_mod`, `carisma`, `carisma_mod`, `intelecto`, `intelecto_mod`, `id_ficha`) VALUES
-(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33);
+INSERT INTO `atributos` (`id_atributos`, `vigor`, `vigor_mod`, `forca`, `forca_mod`, `destreza`, `destreza_mod`, `espirito`, `espirito_mod`, `carisma`, `carisma_mod`, `intelecto`, `intelecto_mod`, `id_ficha`, `vigor_mod_nv`, `forca_mod_nv`, `destreza_mod_nv`, `espirito_mod_nv`, `carisma_mod_nv`, `intelecto_mod_nv`) VALUES
+(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33, NULL, NULL, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -69,32 +75,42 @@ CREATE TABLE `fichas` (
   `magias_arcanas` text DEFAULT NULL,
   `magias_divinas` text DEFAULT NULL,
   `itens` text DEFAULT NULL,
-  `atributos_mentais` varchar(255) DEFAULT NULL,
-  `atributos_corporais` varchar(255) DEFAULT NULL,
   `pericias_corporais` text DEFAULT NULL,
   `pericias_mentais` text DEFAULT NULL,
   `pontos_de_vida` int(255) DEFAULT NULL,
   `pontos_de_mana` int(255) DEFAULT NULL,
   `status_personagem` varchar(255) DEFAULT NULL,
   `pvs_atuais` int(255) DEFAULT NULL,
-  `pms_atuais` int(255) DEFAULT NULL
+  `pms_atuais` int(255) DEFAULT NULL,
+  `deslocamento` int(11) DEFAULT NULL,
+  `regen_pv` varchar(255) DEFAULT NULL,
+  `regen_pm` int(255) DEFAULT NULL,
+  `observacoes_atributos` text DEFAULT NULL,
+  `observacoes_pericias` text DEFAULT NULL,
+  `observacoes_habilidades` text DEFAULT NULL,
+  `observacoes_magias_arcanas` text DEFAULT NULL,
+  `observacoes_magias_divinas` text DEFAULT NULL,
+  `observacoes_itens` text DEFAULT NULL,
+  `observacoes_jogador` text DEFAULT NULL,
+  `divindade` varchar(255) DEFAULT NULL,
+  `escola_arcana` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `fichas`
 --
 
-INSERT INTO `fichas` (`id`, `usuario_id`, `nome_personagem`, `classe`, `nivel`, `descricao`, `raca`, `habilidades`, `magias_arcanas`, `magias_divinas`, `itens`, `atributos_mentais`, `atributos_corporais`, `pericias_corporais`, `pericias_mentais`, `pontos_de_vida`, `pontos_de_mana`, `status_personagem`, `pvs_atuais`, `pms_atuais`) VALUES
-(1, 6, 'asdss', 'asdsss', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
-(2, 6, 'Jooj e viadinho', 'Jooj e viadinho', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
-(10, 1, 'Phinneas t', 'Bárbaro', 12345, 'Teste222', 'Dunkeriu', 'Tese', '', '', '', NULL, NULL, '', '', 0, 0, 'Vivo', 0, 0),
-(17, 1, 'Teste 123', 'Bárbaro', 1234, 'asdasdasd', 'Dunkeriu', 'asdasd', 'asdasd', 'asdasd', 'asdas', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"13\",\"mod_carisma\":\"2\"}', '{\"vigor\":\"10\",\"mod_vigor\":\"2\",\"forca\":\"12\",\"mod_forca\":\"3\",\"destreza\":\"9\",\"mod_destreza\":\"1\"}', 'asd', 'asdasd', 123, 123, 'Vivo', 0, 0),
-(22, 1, 'Kaua S', 'Bárbaro', 176, '', 'Lichiru', '', '', '', '', '', '', '', '', 0, 0, '0', 0, 0),
-(23, 1, 'om32', 'Guerreiro', 100, '123', 'Gnomo', '', '', '', '', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"13\",\"mod_carisma\":\"2\"}', '{\"vigor\":\"10\",\"mod_vigor\":\"2\",\"forca\":\"12\",\"mod_forca\":\"3\",\"destreza\":\"9\",\"mod_destreza\":\"1\"}', '', '', 123, 123, 'Vivo', 123, 0),
-(24, 1, '12 zilson da silva', 'Guerreiro', 188, 'asd', 'Dunkeriu', '', '', '', '', '{\"intelecto\":\"12\",\"mod_intelecto\":\"12\",\"espirito\":\"12\",\"mod_espirito\":\"12\",\"carisma\":\"12\",\"mod_carisma\":\"12\"}', '{\"vigor\":\"12\",\"mod_vigor\":\"12\",\"forca\":\"12\",\"mod_forca\":\"12\",\"destreza\":\"12\",\"mod_destreza\":\"12\"}', '', '', 123, 123, 'Vivo', 123, 123),
-(27, 1, 'tetetetete', 'Guerreiro', 12300, '23', 'Lichiru', '', '', '', '', '{\"intelecto\":\"\",\"mod_intelecto\":\"\",\"espirito\":\"\",\"mod_espirito\":\"\",\"carisma\":\"\",\"mod_carisma\":\"\"}', '{\"vigor\":\"\",\"mod_vigor\":\"\",\"forca\":\"\",\"mod_forca\":\"\",\"destreza\":\"\",\"mod_destreza\":\"\"}', '', '', 23, 23, 'Vivo', 23, 23),
-(32, 1, 'qwe', 'Bárbaro', 100, '123', 'Lichiru', '', '', '', '', NULL, NULL, '', '', 123, 123, 'Vivo', 123, 123),
-(33, 1, 'atributilson o cara', 'Bárbaro', 100, 'asd', 'Lichiru', '', '', '', '', NULL, NULL, '', '', 123, 0, 'Vivo', 123, 0);
+INSERT INTO `fichas` (`id`, `usuario_id`, `nome_personagem`, `classe`, `nivel`, `descricao`, `raca`, `habilidades`, `magias_arcanas`, `magias_divinas`, `itens`, `pericias_corporais`, `pericias_mentais`, `pontos_de_vida`, `pontos_de_mana`, `status_personagem`, `pvs_atuais`, `pms_atuais`, `deslocamento`, `regen_pv`, `regen_pm`, `observacoes_atributos`, `observacoes_pericias`, `observacoes_habilidades`, `observacoes_magias_arcanas`, `observacoes_magias_divinas`, `observacoes_itens`, `observacoes_jogador`, `divindade`, `escola_arcana`) VALUES
+(1, 6, 'asdss', 'asdsss', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 6, 'Jooj e viadinho', 'Jooj e viadinho', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 1, 'Phinneas t', 'Bárbaro', 12345, 'Teste222', 'Dunkeriu', 'Tese', '', '', '', '', '', 0, 0, 'Vivo', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 1, 'Teste 123', 'Bárbaro', 1234, 'asdasdasd', 'Dunkeriu', 'asdasd', 'asdasd', 'asdasd', 'asdas', 'asd', 'asdasd', 123, 123, 'Vivo', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 1, 'Kaua S', 'Bárbaro', 176, '', 'Lichiru', '', '', '', '', '', '', 0, 0, '0', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 1, 'om32', 'Guerreiro', 100, '123', 'Gnomo', '', '', '', '', '', '', 123, 123, 'Vivo', 123, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 1, '12 zilson da silva', 'Guerreiro', 188, 'asd', 'Dunkeriu', '', '', '', '', '', '', 123, 123, 'Vivo', 123, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 1, 'tetetetete', 'Guerreiro', 12300, '23', 'Lichiru', '', '', '', '', '', '', 23, 23, 'Vivo', 23, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 1, 'qwe', 'Bárbaro', 100, '123', 'Lichiru', '', '', '', '', '', '', 123, 123, 'Vivo', 123, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 1, 'atributilson o cara', 'Bárbaro', 100, 'asd', 'Lichiru', '', '', '', '', '', '', 123, 0, 'Vivo', 123, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

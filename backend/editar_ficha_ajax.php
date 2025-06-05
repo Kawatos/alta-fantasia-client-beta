@@ -32,7 +32,18 @@ $pontos_de_mana = $_POST['pontos_de_mana'] ?? '';
 $status = $_POST['status_personagem'] ?? '';
 $pvs_atuais = $_POST['pvs_atuais'] ?? '';
 $pms_atuais = $_POST['pms_atuais'] ?? '';
-
+$deslocamento = $_POST['deslocamento'] ?? '';
+$regen_pv = $_POST['regen_pv'] ?? '';
+$regen_pm = $_POST['regen_pm'] ?? '';
+$observacoes_atributos = $_POST['observacoes_atributos'] ?? '';
+$observacoes_pericias = $_POST['observacoes_pericias'] ?? '';
+$observacoes_habilidades = $_POST['observacoes_habilidades'] ?? '';
+$observacoes_magias_arcanas = $_POST['observacoes_magias_arcanas'] ?? '';
+$observacoes_magias_divinas = $_POST['observacoes_magias_divinas'] ?? '';
+$observacoes_itens = $_POST['observacoes_itens'] ?? '';
+$observacoes_jogador = $_POST['observacoes_jogador'] ?? '';
+$divindade = $_POST['divindade'] ?? '';
+$escola_arcana = $_POST['escola_arcana'] ?? '';
 
 $vigor = $_POST['vigor'] ?? 0;
 $vigor_mod = $_POST['vigor_mod'] ?? 0;
@@ -51,6 +62,13 @@ $espirito_mod = $_POST['espirito_mod'] ?? 0;
 
 $carisma = $_POST['carisma'] ?? 0;
 $carisma_mod = $_POST['carisma_mod'] ?? 0;
+
+$vigor_mod_nv = $_POST['vigor_mod_nv'] ?? 0;
+$forca_mod_nv = $_POST['forca_mod_nv'] ?? 0;
+$destreza_mod_nv = $_POST['destreza_mod_nv'] ?? 0;
+$espirito_mod_nv = $_POST['espirito_mod_nv'] ?? 0;
+$carisma_mod_nv = $_POST['carisma_mod_nv'] ?? 0;
+$intelecto_mod_nv = $_POST['intelecto_mod_nv'] ?? 0;
 
 
 $stmtFicha = $conn->prepare("
@@ -72,7 +90,19 @@ $stmtFicha = $conn->prepare("
         pontos_de_mana = :pontos_de_mana,
         status_personagem = :status_personagem,
         pvs_atuais = :pvs_atuais,
-        pms_atuais = :pms_atuais
+        pms_atuais = :pms_atuais,
+        deslocamento = :deslocamento,
+        regen_pv = :regen_pv,
+        regen_pm = :regen_pm,
+        observacoes_atributos = :observacoes_atributos,
+        observacoes_pericias = :observacoes_pericias,
+        observacoes_habilidades = :observacoes_habilidades,
+        observacoes_magias_arcanas = :observacoes_magias_arcanas,
+        observacoes_magias_divinas = :observacoes_magias_divinas,
+        observacoes_itens = :observacoes_itens,
+        observacoes_jogador = :observacoes_jogador,
+        divindade = :divindade,
+        escola_arcana = :escola_arcana
     WHERE id = :id AND usuario_id = :usuario_id
 ");
 
@@ -96,6 +126,18 @@ $stmtFicha->bindParam(':pontos_de_mana', $pontos_de_mana);
 $stmtFicha->bindParam(':status_personagem', $status);
 $stmtFicha->bindParam(':pvs_atuais', $pvs_atuais);
 $stmtFicha->bindParam(':pms_atuais', $pms_atuais);
+$stmtFicha->bindParam(':deslocamento', $deslocamento);
+$stmtFicha->bindParam(':regen_pv', $regen_pv);
+$stmtFicha->bindParam(':regen_pm', $regen_pm);
+$stmtFicha->bindParam(':observacoes_atributos', $observacoes_atributos);
+$stmtFicha->bindParam(':observacoes_pericias', $observacoes_pericias);
+$stmtFicha->bindParam(':observacoes_habilidades', $observacoes_habilidades);
+$stmtFicha->bindParam(':observacoes_magias_arcanas', $observacoes_magias_arcanas);
+$stmtFicha->bindParam(':observacoes_magias_divinas', $observacoes_magias_divinas);
+$stmtFicha->bindParam(':observacoes_itens', $observacoes_itens);
+$stmtFicha->bindParam(':observacoes_jogador', $observacoes_jogador);
+$stmtFicha->bindParam(':divindade', $divindade);
+$stmtFicha->bindParam(':escola_arcana', $escola_arcana);
 
 if ($stmtFicha->execute()) {
 
@@ -112,7 +154,13 @@ if ($stmtFicha->execute()) {
         carisma = :carisma,
         carisma_mod = :carisma_mod,
         intelecto = :intelecto,
-        intelecto_mod = :intelecto_mod
+        intelecto_mod = :intelecto_mod,
+        vigor_mod_nv = :vigor_mod_nv,
+        forca_mod_nv = :forca_mod_nv,
+        destreza_mod_nv = :destreza_mod_nv,
+        espirito_mod_nv = :espirito_mod_nv,
+        carisma_mod_nv = :carisma_mod_nv,
+        intelecto_mod_nv = :intelecto_mod_nv
     WHERE id_ficha = :id_ficha
     ");
 
@@ -129,6 +177,12 @@ if ($stmtFicha->execute()) {
     $stmtAtributos->bindParam(':carisma_mod', $carisma_mod);
     $stmtAtributos->bindParam(':intelecto', $inteligencia);
     $stmtAtributos->bindParam(':intelecto_mod', $intelecto_mod);
+    $stmtAtributos->bindParam(':vigor_mod_nv', $vigor_mod_nv);
+    $stmtAtributos->bindParam(':forca_mod_nv', $forca_mod_nv);
+    $stmtAtributos->bindParam(':destreza_mod_nv', $destreza_mod_nv);
+    $stmtAtributos->bindParam(':espirito_mod_nv', $espirito_mod_nv);
+    $stmtAtributos->bindParam(':carisma_mod_nv', $carisma_mod_nv);
+    $stmtAtributos->bindParam(':intelecto_mod_nv', $intelecto_mod_nv);
 
     if ($stmtAtributos->execute()) {
         echo json_encode(['status' => 'sucesso']);
