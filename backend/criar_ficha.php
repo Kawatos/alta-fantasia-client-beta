@@ -65,6 +65,43 @@ $espirito_mod_nv = $_POST['espirito_mod_nv'] ?? 0;
 $carisma_mod_nv = $_POST['carisma_mod_nv'] ?? 0;
 $intelecto_mod_nv = $_POST['intelecto_mod_nv'] ?? 0;
 
+
+/* Pericias */
+$tenacidade_mod = $_POST['tenacidade_mod'] ?? 0;
+$fortitude_mod = $_POST['fortitude_mod'] ?? 0;
+$reflexo_mod = $_POST['reflexo_mod'] ?? 0;
+$controle_mod = $_POST['controle_mod'] ?? 0;
+$atletismo_mod = $_POST['atletismo_mod'] ?? 0;
+$corpoacorpo_mod = $_POST['corpoacorpo_mod'] ?? 0;
+$autocontrole_mod = $_POST['autocontrole_mod'] ?? 0;
+$resiliencia_mod = $_POST['resiliencia_mod'] ?? 0;
+$intuicao_mod = $_POST['intuicao_mod'] ?? 0;
+$percepcao_mod = $_POST['percepcao_mod'] ?? 0;
+$influencia_mod = $_POST['influencia_mod'] ?? 0;
+$atuacao_mod = $_POST['atuacao_mod'] ?? 0;
+
+$c_arcano_mod = $_POST['c_arcano_mod'] ?? 0;
+$c_religioso_mod = $_POST['c_religioso_mod'] ?? 0;
+$c_historico_mod = $_POST['c_historico_mod'] ?? 0;
+$c_natureza_mod = $_POST['c_natureza_mod'] ?? 0;
+$c_engenharia_mod = $_POST['c_engenharia_mod'] ?? 0;
+$c_alquimia_mod = $_POST['c_alquimia_mod'] ?? 0;
+$c_navegacao_mod = $_POST['c_navegacao_mod'] ?? 0;
+$c_linguistico_mod = $_POST['c_linguistico_mod'] ?? 0;
+$t_esgrima_mod = $_POST['t_esgrima_mod'] ?? 0;
+$t_pontaria_mod = $_POST['t_pontaria_mod'] ?? 0;
+$t_marcial_mod = $_POST['t_marcial_mod'] ?? 0;
+$t_metalurgia_mod = $_POST['t_metalurgia_mod'] ?? 0;
+$t_artesanato_mod = $_POST['t_artesanato_mod'] ?? 0;
+$t_ladinagem_mod = $_POST['t_ladinagem_mod'] ?? 0;
+$t_instrumentos_mod = $_POST['t_instrumentos_mod'] ?? 0;
+$t_pilotagem_mod = $_POST['t_pilotagem_mod'] ?? 0;
+
+
+
+
+
+
 // Verificação mínima obrigatória
 if (empty($nome) || empty($classe)) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Preencha nome e classe']);
@@ -239,7 +276,107 @@ if ($stmtFicha->execute()) {
     $stmtAtributos->bindParam(':intelecto_mod_nv',     $intelecto_mod_nv, PDO::PARAM_INT);
 
     if ($stmtAtributos->execute()) {
-        echo json_encode(['status' => 'sucesso']);
+
+        $stmtPericias = $conn->prepare("
+        INSERT INTO pericias (
+            id_ficha,
+            tenacidade_mod,
+            fortitude_mod,
+            reflexo_mod,
+            controle_mod,
+            atletismo_mod,
+            corpoacorpo_mod,
+            autocontrole_mod,
+            resiliencia_mod,
+            intuicao_mod,
+            percepcao_mod,
+            influencia_mod,
+            atuacao_mod,
+            c_arcano_mod,
+            c_religioso_mod,
+            c_historico_mod,
+            c_natureza_mod,
+            c_engenharia_mod,
+            c_alquimia_mod,
+            c_navegacao_mod,
+            c_linguistico_mod,
+            t_esgrima_mod,
+            t_pontaria_mod,
+            t_marcial_mod,
+            t_metalurgia_mod,
+            t_artesanato_mod,
+            t_ladinagem_mod,
+            t_instrumentos_mod,
+            t_pilotagem_mod
+        ) VALUES (
+            :id_ficha,
+            :tenacidade_mod,
+            :fortitude_mod,
+            :reflexo_mod,
+            :controle_mod,
+            :atletismo_mod,
+            :corpoacorpo_mod,
+            :autocontrole_mod,
+            :resiliencia_mod,
+            :intuicao_mod,
+            :percepcao_mod,
+            :influencia_mod,
+            :atuacao_mod,
+            :c_arcano_mod,
+            :c_religioso_mod,
+            :c_historico_mod,
+            :c_natureza_mod,
+            :c_engenharia_mod,
+            :c_alquimia_mod,
+            :c_navegacao_mod,
+            :c_linguistico_mod,
+            :t_esgrima_mod,
+            :t_pontaria_mod,
+            :t_marcial_mod,
+            :t_metalurgia_mod,
+            :t_artesanato_mod,
+            :t_ladinagem_mod,
+            :t_instrumentos_mod,
+            :t_pilotagem_mod
+        )
+        ");
+
+        $stmtPericias->bindParam(':id_ficha',         $ficha_id, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':tenacidade_mod',     $tenacidade_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':fortitude_mod',     $fortitude_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':reflexo_mod',     $reflexo_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':controle_mod',     $controle_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':atletismo_mod',     $atletismo_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':corpoacorpo_mod',     $corpoacorpo_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':autocontrole_mod',     $autocontrole_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':resiliencia_mod',     $resiliencia_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':intuicao_mod',     $intuicao_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':percepcao_mod',     $percepcao_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':influencia_mod',     $influencia_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':atuacao_mod',     $atuacao_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_arcano_mod',     $c_arcano_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_religioso_mod',     $c_religioso_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_historico_mod',     $c_historico_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_natureza_mod',     $c_natureza_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_engenharia_mod',     $c_engenharia_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_alquimia_mod',     $c_alquimia_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_navegacao_mod',     $c_navegacao_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':c_linguistico_mod',     $c_linguistico_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_esgrima_mod',     $t_esgrima_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_pontaria_mod',     $t_pontaria_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_marcial_mod',     $t_marcial_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_metalurgia_mod',     $t_metalurgia_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_artesanato_mod',     $t_artesanato_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_ladinagem_mod',     $t_ladinagem_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_instrumentos_mod',     $t_instrumentos_mod, PDO::PARAM_INT);
+        $stmtPericias->bindParam(':t_pilotagem_mod',     $t_pilotagem_mod, PDO::PARAM_INT);
+
+        if ($stmtPericias->execute()) {
+            echo json_encode(['status' => 'sucesso']);
+        } else {
+            echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao salvar pericias']);
+        }
+
     } else {
         echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao salvar atributos']);
     }

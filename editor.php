@@ -318,13 +318,118 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label for="ficha-pericias_mentais" class="form-label">Perícias Mentais</label>
-                                    <textarea name="pericias_mentais" id="ficha-pericias_mentais" class="form-control pericias-mentais-personagem" placeholder="Perícias Mentais" rows="2"></textarea>
+                                    <label for="ficha-tenacidade_mod" class="form-label">Modificador Tenacidade</label>
+                                    <input type="number" name="tenacidade_mod" id="ficha-tenacidade_mod" class="form-control tenacidade_mod" placeholder="Modificador Tenacidade">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="ficha-pericias_corporais" class="form-label">Perícias Corporais</label>
-                                    <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control pericias-corporais-personagem" placeholder="Perícias Corporais" rows="2"></textarea>
+                                    <label for="ficha-fortitude_mod" class="form-label">Modificador Fortitude</label>
+                                    <input type="number" name="fortitude_mod" id="ficha-fortitude_mod" class="form-control fortitude_mod" placeholder="Modificador Fortitude">
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-reflexo_mod" class="form-label">Modificador Reflexo</label>
+                                    <input type="number" name="reflexo_mod" id="ficha-reflexo_mod" class="form-control reflexo_mod" placeholder="Modificador Reflexo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-controle_mod" class="form-label">Modificador Controle</label>
+                                    <input type="number" name="controle_mod" id="ficha-controle_mod" class="form-control controle_mod" placeholder="Modificador Controle">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-atletismo_mod" class="form-label">Modificador Atletismo</label>
+                                    <input type="number" name="atletismo_mod" id="ficha-atletismo_mod" class="form-control atletismo_mod" placeholder="Modificador Atletismo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-corpoacorpo_mod" class="form-label">Modificador Corpo a Corpo</label>
+                                    <input type="number" name="corpoacorpo_mod" id="ficha-corpoacorpo_mod" class="form-control corpoacorpo_mod" placeholder="Modificador Corpo a Corpo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-autocontrole_mod" class="form-label">Modificador Autocontrole</label>
+                                    <input type="number" name="autocontrole_mod" id="ficha-autocontrole_mod" class="form-control autocontrole_mod" placeholder="Modificador Autocontrole">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-resiliencia_mod" class="form-label">Modificador Resiliência</label>
+                                    <input type="number" name="resiliencia_mod" id="ficha-resiliencia_mod" class="form-control resiliencia_mod" placeholder="Modificador Resiliência">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-intuicao_mod" class="form-label">Modificador Intuição</label>
+                                    <input type="number" name="intuicao_mod" id="ficha-intuicao_mod" class="form-control intuicao_mod" placeholder="Modificador Intuição">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-percepcao_mod" class="form-label">Modificador Percepção</label>
+                                    <input type="number" name="percepcao_mod" id="ficha-percepcao_mod" class="form-control percepcao_mod" placeholder="Modificador Percepção">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-influencia_mod" class="form-label">Modificador Influência</label>
+                                    <input type="number" name="influencia_mod" id="ficha-influencia_mod" class="form-control influencia_mod" placeholder="Modificador Influência">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-atuacao_mod" class="form-label">Modificador Atuação</label>
+                                    <input type="number" name="atuacao_mod" id="ficha-atuacao_mod" class="form-control atuacao_mod" placeholder="Modificador Atuação">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_arcano_mod" class="form-label">Modificador C. Arcano</label>
+                                    <input type="number" name="c_arcano_mod" id="ficha-c_arcano_mod" class="form-control c_arcano_mod" placeholder="Modificador C. Arcana">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_religioso_mod" class="form-label">Modificador C. Religioso</label>
+                                    <input type="number" name="c_religioso_mod" id="ficha-c_religioso_mod" class="form-control c_religioso_mod" placeholder="Modificador C. Religioso">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_historico_mod" class="form-label">Modificador C. Histórico</label>
+                                    <input type="number" name="c_historico_mod" id="ficha-c_historico_mod" class="form-control c_historico_mod" placeholder="Modificador C. Histórico">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_natureza_mod" class="form-label">Modificador C. Natureza</label>
+                                    <input type="number" name="c_natureza_mod" id="ficha-c_natureza_mod" class="form-control c_natureza_mod" placeholder="Modificador C. Natureza">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_engenharia_mod" class="form-label">Modificador C. Engenharia</label>
+                                    <input type="number" name="c_engenharia_mod" id="ficha-c_engenharia_mod" class="form-control c_engenharia_mod" placeholder="Modificador C. Engenharia">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_alquimia_mod" class="form-label">Modificador C. Alquimia</label>
+                                    <input type="number" name="c_alquimia_mod" id="ficha-c_alquimia_mod" class="form-control c_alquimia_mod" placeholder="Modificador C. Alquimia">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_navegacao_mod" class="form-label">Modificador C. Navegação</label>
+                                    <input type="number" name="c_navegacao_mod" id="ficha-c_navegacao_mod" class="form-control c_navegacao_mod" placeholder="Modificador C. Navegação">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-c_linguistico_mod" class="form-label">Modificador C. Linguístico</label>
+                                    <input type="number" name="c_linguistico_mod" id="ficha-c_linguistico_mod" class="form-control c_linguistico_mod" placeholder="Modificador C. Linguístico">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_esgrima_mod" class="form-label">Modificador T. Esgrima</label>
+                                    <input type="number" name="t_esgrima_mod" id="ficha-t_esgrima_mod" class="form-control t_esgrima_mod" placeholder="Modificador T. Esgrima">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_pontaria_mod" class="form-label">Modificador T. Pontaria</label>
+                                    <input type="number" name="t_pontaria_mod" id="ficha-t_pontaria_mod" class="form-control t_pontaria_mod" placeholder="Modificador T. Pontaria">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_marcial_mod" class="form-label">Modificador T. Marcial</label>
+                                    <input type="number" name="t_marcial_mod" id="ficha-t_marcial_mod" class="form-control t_marcial_mod" placeholder="Modificador T. Marcial">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_metalurgia_mod" class="form-label">Modificador T. Metalurgia</label>
+                                    <input type="number" name="t_metalurgia_mod" id="ficha-t_metalurgia_mod" class="form-control t_metalurgia_mod" placeholder="Modificador T. Metalurgia">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_artesanato_mod" class="form-label">Modificador T. Artesanato</label>
+                                    <input type="number" name="t_artesanato_mod" id="ficha-t_artesanato_mod" class="form-control t_artesanato_mod" placeholder="Modificador T. Artesanato">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_ladinagem_mod" class="form-label">Modificador T. Ladinagem</label>
+                                    <input type="number" name="t_ladinagem_mod" id="ficha-t_ladinagem_mod" class="form-control t_ladinagem_mod" placeholder="Modificador T. Ladinagem">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_instrumentos_mod" class="form-label">Modificador T. Instrumentos</label>
+                                    <input type="number" name="t_instrumentos_mod" id="ficha-t_instrumentos_mod" class="form-control t_instrumentos_mod" placeholder="Modificador T. Instrumentos">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-t_pilotagem_mod" class="form-label">Modificador T. Pilotagem</label>
+                                    <input type="number" name="t_pilotagem_mod" id="ficha-t_pilotagem_mod" class="form-control t_pilotagem_mod" placeholder="Modificador T. Pilotagem">
+                                </div>
+                                
                                 <div class="col-12">
                                     <label for="ficha-observacoes_pericias" class="form-label">Observações Perícias</label>
                                     <textarea name="observacoes_pericias" id="ficha-observacoes_pericias" class="form-control observacoes_pericias-personagem" placeholder="Observações Perícias" rows="2"></textarea>
@@ -445,6 +550,8 @@ if (!isset($_SESSION['usuario_id'])) {
                         if (resposta.status === 'sucesso') {
                             const ficha = resposta.ficha;
                             const atributos = resposta.atributos;
+                            const pericias = resposta.pericias;
+                            console.log(pericias);
                             console.log(ficha);
                             console.log(atributos);
                             document.querySelector('#ficha-id').value = ficha.id;
@@ -459,8 +566,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.magias-divinas-personagem').value = ficha.magias_divinas;
                             document.querySelector('.itens-personagem').value = ficha.itens;
 
-                            document.querySelector('.pericias-mentais-personagem').value = ficha.pericias_mentais;
-                            document.querySelector('.pericias-corporais-personagem').value = ficha.pericias_corporais;
+                            
                             document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
                             document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
                             document.querySelector('.status-personagem').value = ficha.status_personagem;
@@ -502,6 +608,36 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.espirito_mod_nv').value = atributos.espirito_mod_nv;
                             document.querySelector('.carisma_mod_nv').value = atributos.carisma_mod_nv;
                             document.querySelector('.intelecto_mod_nv').value = atributos.intelecto_mod_nv;
+
+                            // Pericias
+                            document.querySelector('.tenacidade_mod').value = pericias.tenacidade_mod;
+                            document.querySelector('.fortitude_mod').value = pericias.fortitude_mod;
+                            document.querySelector('.reflexo_mod').value = pericias.reflexo_mod;
+                            document.querySelector('.controle_mod').value = pericias.controle_mod;
+                            document.querySelector('.atletismo_mod').value = pericias.atletismo_mod;
+                            document.querySelector('.corpoacorpo_mod').value = pericias.corpoacorpo_mod;
+                            document.querySelector('.autocontrole_mod').value = pericias.autocontrole_mod;
+                            document.querySelector('.resiliencia_mod').value = pericias.resiliencia_mod;
+                            document.querySelector('.intuicao_mod').value = pericias.intuicao_mod;
+                            document.querySelector('.percepcao_mod').value = pericias.percepcao_mod;
+                            document.querySelector('.influencia_mod').value = pericias.influencia_mod;
+                            document.querySelector('.atuacao_mod').value = pericias.atuacao_mod;
+                            document.querySelector('.c_arcano_mod').value = pericias.c_arcano_mod;
+                            document.querySelector('.c_religioso_mod').value = pericias.c_religioso_mod;
+                            document.querySelector('.c_historico_mod').value = pericias.c_historico_mod;
+                            document.querySelector('.c_natureza_mod').value = pericias.c_natureza_mod;
+                            document.querySelector('.c_engenharia_mod').value = pericias.c_engenharia_mod;
+                            document.querySelector('.c_alquimia_mod').value = pericias.c_alquimia_mod;
+                            document.querySelector('.c_navegacao_mod').value = pericias.c_navegacao_mod;
+                            document.querySelector('.c_linguistico_mod').value = pericias.c_linguistico_mod;
+                            document.querySelector('.t_esgrima_mod').value = pericias.t_esgrima_mod;
+                            document.querySelector('.t_pontaria_mod').value = pericias.t_pontaria_mod;
+                            document.querySelector('.t_marcial_mod').value = pericias.t_marcial_mod;
+                            document.querySelector('.t_metalurgia_mod').value = pericias.t_metalurgia_mod;
+                            document.querySelector('.t_artesanato_mod').value = pericias.t_artesanato_mod;
+                            document.querySelector('.t_ladinagem_mod').value = pericias.t_ladinagem_mod;
+                            document.querySelector('.t_instrumentos_mod').value = pericias.t_instrumentos_mod;
+                            document.querySelector('.t_pilotagem_mod').value = pericias.t_pilotagem_mod;
 
 
                         } else {

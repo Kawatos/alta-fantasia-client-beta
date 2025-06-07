@@ -30,8 +30,22 @@ $stmtAtributos->execute();
 
 $atributos = $stmtAtributos->fetch(PDO::FETCH_ASSOC);
 
+$stmtPericias = $conn->prepare("SELECT * FROM pericias WHERE id_ficha = :id_ficha");
+$stmtPericias->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
+$stmtPericias->execute();
+
+$pericias = $stmtPericias->fetch(PDO::FETCH_ASSOC);
+
 if ($ficha) {
-    echo json_encode(['status' => 'sucesso', 'ficha' => $ficha, 'atributos' => $atributos]);
+    if ($atributos) {
+        if ($pericias) {
+            echo json_encode(['status' => 'sucesso', 'ficha' => $ficha, 'atributos' => $atributos, 'pericias' => $pericias]);
+        } else {
+            echo json_encode(['status' => 'erro', 'mensagem' => 'Pericias não encontradas']);
+        }
+    } else {
+        echo json_encode(['status' => 'erro', 'mensagem' => 'Atributos não encontrados']);
+    }
 } else {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Ficha não encontrada']);
 }
