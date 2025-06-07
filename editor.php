@@ -446,46 +446,44 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade" aria-label="Fechar"></button>
                                     <div class="collapse mt-3" id="collapseHabilidade">
                                         <div class="card card-body">
-                                                <div class="col-md-6">
-                                                    <label for="habilidade-nome" class="form-label">Nome</label>
-                                                    <input type="text" class="form-control" id="habilidade-nome" name="nome">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="habilidade-requisitos" class="form-label">Requisitos</label>
-                                                    <input type="text" class="form-control" id="habilidade-requisitos" name="requisitos">
-                                                </div>
-                                                <div class="col-12">
-                                                    <label for="habilidade-descricao" class="form-label">Descrição</label>
-                                                    <textarea class="form-control" id="habilidade-descricao" name="descricao" rows="3"></textarea>
-                                                </div>
-                                                <div class="col-12 mt-3">
-                                                    <button type="button" class="btn btn-success" id="salvar-habilidade">Salvar Habilidade</button>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <label for="habilidade-nome" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="habilidade-nome" name="nome-habilidade">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="habilidade-requisitos" class="form-label">Requisitos</label>
+                                                <input type="text" class="form-control" id="habilidade-requisitos" name="requisitos">
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="habilidade-descricao" class="form-label">Descrição</label>
+                                                <textarea class="form-control" id="habilidade-descricao" name="descricao" rows="3"></textarea>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <button type="button" class="btn btn-success" id="salvar-habilidade">Salvar Habilidade</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        // Fecha o collapse ao clicar fora dele
-                                        $(document).on('click', function(e) {
-                                            if (!$(e.target).closest('#collapseHabilidade, #criar-habilidade').length) {
-                                                $('#collapseHabilidade').collapse('hide');
-                                            }
-                                        });
-                                    </script>
-
                                 </div>
-                                <div class="col-12 mt-3">
-                                    <label for="ficha-habilidades" class="form-label">Habilidades</label>
-                                    <textarea name="habilidades" id="ficha-habilidades" class="form-control habilidades-personagem" placeholder="Habilidades" rows="2"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label for="ficha-observacoes_habilidades" class="form-label">Observações Habilidades</label>
-                                    <textarea name="observacoes_habilidades" id="ficha-observacoes_habilidades" class="form-control observacoes_habilidades-personagem" placeholder="Observações Habilidades" rows="2"></textarea>
-                                </div>
+                                <script>
+                                    // Fecha o collapse ao clicar fora dele
+                                    $(document).on('click', function(e) {
+                                        if (!$(e.target).closest('#collapseHabilidade, #criar-habilidade').length) {
+                                            $('#collapseHabilidade').collapse('hide');
+                                        }
+                                    });
+                                </script>
 
                             </div>
-                        </div>
+                            <div class="col-12 mt-3">
+                                <label for="ficha-habilidades" class="form-label">Habilidades</label>
+                                <textarea name="habilidades" id="ficha-habilidades" class="form-control habilidades-personagem" placeholder="Habilidades" rows="2"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="ficha-observacoes_habilidades" class="form-label">Observações Habilidades</label>
+                                <textarea name="observacoes_habilidades" id="ficha-observacoes_habilidades" class="form-control observacoes_habilidades-personagem" placeholder="Observações Habilidades" rows="2"></textarea>
+                            </div>
 
+                        </div>
                         <!-- Magias Arcanas -->
                         <div class="tab-pane fade" id="magias-arcanas" role="tabpanel">
                             <div class="row g-3">
@@ -536,9 +534,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="botao-salvar">Criar</button>
                 </div>
@@ -554,14 +550,31 @@ if (!isset($_SESSION['usuario_id'])) {
         const modalFicha = new bootstrap.Modal(document.getElementById('modalFicha'));
         const form = document.getElementById('formFicha');
         const botaoSalvar = document.getElementById('botao-salvar');
+        const formHabilidade = document.getElementById('formHabilidade');
+        const botaoSalvarHabilidade = document.getElementById('salvar-habilidade');
 
         // Botão para abrir em modo CRIAÇÃO
         document.querySelector('#botaoCriarFicha').addEventListener('click', function() {
-            modoEdicao = false;
-            form.reset();
-            document.getElementById('ficha-id').value = ''; // Limpa o campo ID
-            botaoSalvar.click();            
+            fetch('backend/criar_ficha.php', {
+                    method: 'POST', // ou 'GET' se você quiser, mas POST é melhor por segurança.
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.status === 'sucesso') {
+                        alert('Ficha criada com sucesso!');
+                        location.reload(); // ou atualizar só o DOM necessário
+                    } else {
+                        alert(data.mensagem || 'Erro ao criar ficha.');
+                    }
+                })
+                .catch(erro => {
+                    alert('Erro na requisição: ' + erro);
+                });
         });
+
 
         document.querySelectorAll('.btn-editar').forEach(button => {
             button.addEventListener('click', function() {
@@ -681,7 +694,30 @@ if (!isset($_SESSION['usuario_id'])) {
                     }
                 });
 
+                getHabilidades();
+
                 modalFicha.show();
+            });
+        });
+
+        // Criar habilidade
+        formHabilidade.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(formHabilidade);
+            const url = 'backend/criar_habilidade_ajax.php';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    alert('Habilidade criada com sucesso!');
+                    getHabilidades();
+                } else {
+                    alert(data.mensagem || 'Erro ao salvar');
+                }
             });
         });
 
@@ -689,7 +725,7 @@ if (!isset($_SESSION['usuario_id'])) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(form);
-            const url = modoEdicao ? 'backend/editar_ficha_ajax.php' : 'backend/criar_ficha.php';
+            const url = 'backend/editar_ficha_ajax.php';
 
             fetch(url, {
                     method: 'POST',
@@ -698,7 +734,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 .then(resp => resp.json())
                 .then(data => {
                     if (data.status === 'sucesso') {
-                        alert(modoEdicao ? 'Ficha atualizada com sucesso!' : 'Ficha criada com sucesso!');
+                        alert('Ficha atualizada com sucesso!');
                         location.reload();
                     } else {
                         alert(data.mensagem || 'Erro ao salvar');
@@ -747,7 +783,7 @@ if (!isset($_SESSION['usuario_id'])) {
         if (!form) return;
 
         const formData = new FormData(form);
-        const url = modoEdicao ? 'backend/editar_ficha_ajax.php' : 'backend/criar_ficha.php';
+        const url = 'backend/editar_ficha_ajax.php';
 
         fetch(url, {
                 method: 'POST',
@@ -756,7 +792,7 @@ if (!isset($_SESSION['usuario_id'])) {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert(modoEdicao ? 'Ficha atualizada com sucesso!' : 'Ficha criada com sucesso!');
+                    alert('Ficha atualizada com sucesso!');
                     location.reload();
                 } else {
                     alert(data.mensagem || 'Erro ao salvar');
