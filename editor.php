@@ -126,11 +126,11 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 1: Nome e Raça -->
                                 <div class="col-md-6">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
-                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem" required>
+                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="ficha-raca" class="form-label">Raça</label>
-                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem" required>
+                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem">
                                         <option value="" selected>Selecione uma Raça</option>
                                         <option value="Lichiru">Lichiru</option>
                                         <option value="Dunkeriu">Dunkeriu</option>
@@ -149,7 +149,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 2: Classe e Nível -->
                                 <div class="col-md-6">
                                     <label for="ficha-classe" class="form-label">Classe</label>
-                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem" required>
+                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem">
                                         <option value="" selected>Selecione uma Classe</option>
                                         <option value="Guerreiro">Guerreiro</option>
                                         <option value="Bárbaro">Bárbaro</option>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
                                     <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="2"></textarea>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -429,7 +429,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-t_pilotagem_mod" class="form-label">Modificador T. Pilotagem</label>
                                     <input type="number" name="t_pilotagem_mod" id="ficha-t_pilotagem_mod" class="form-control t_pilotagem_mod" placeholder="Modificador T. Pilotagem">
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <label for="ficha-observacoes_pericias" class="form-label">Observações Perícias</label>
                                     <textarea name="observacoes_pericias" id="ficha-observacoes_pericias" class="form-control observacoes_pericias-personagem" placeholder="Observações Perícias" rows="2"></textarea>
@@ -442,6 +442,39 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade" id="habilidades" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-12">
+                                    <button type="button" class="btn btn-primary criar-habilidade" id="criar-habilidade" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade">Criar Nova Habilidade</button>
+                                    <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade" aria-label="Fechar"></button>
+                                    <div class="collapse mt-3" id="collapseHabilidade">
+                                        <div class="card card-body">
+                                                <div class="col-md-6">
+                                                    <label for="habilidade-nome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control" id="habilidade-nome" name="nome">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="habilidade-requisitos" class="form-label">Requisitos</label>
+                                                    <input type="text" class="form-control" id="habilidade-requisitos" name="requisitos">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="habilidade-descricao" class="form-label">Descrição</label>
+                                                    <textarea class="form-control" id="habilidade-descricao" name="descricao" rows="3"></textarea>
+                                                </div>
+                                                <div class="col-12 mt-3">
+                                                    <button type="button" class="btn btn-success" id="salvar-habilidade">Salvar Habilidade</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        // Fecha o collapse ao clicar fora dele
+                                        $(document).on('click', function(e) {
+                                            if (!$(e.target).closest('#collapseHabilidade, #criar-habilidade').length) {
+                                                $('#collapseHabilidade').collapse('hide');
+                                            }
+                                        });
+                                    </script>
+
+                                </div>
+                                <div class="col-12 mt-3">
                                     <label for="ficha-habilidades" class="form-label">Habilidades</label>
                                     <textarea name="habilidades" id="ficha-habilidades" class="form-control habilidades-personagem" placeholder="Habilidades" rows="2"></textarea>
                                 </div>
@@ -520,15 +553,14 @@ if (!isset($_SESSION['usuario_id'])) {
     document.addEventListener("DOMContentLoaded", function() {
         const modalFicha = new bootstrap.Modal(document.getElementById('modalFicha'));
         const form = document.getElementById('formFicha');
+        const botaoSalvar = document.getElementById('botao-salvar');
 
         // Botão para abrir em modo CRIAÇÃO
         document.querySelector('#botaoCriarFicha').addEventListener('click', function() {
             modoEdicao = false;
-            document.getElementById('titulo-modal').textContent = 'Criar Novo Personagem';
-            document.getElementById('botao-salvar').textContent = 'Criar';
             form.reset();
             document.getElementById('ficha-id').value = ''; // Limpa o campo ID
-            modalFicha.show();
+            botaoSalvar.click();            
         });
 
         document.querySelectorAll('.btn-editar').forEach(button => {
@@ -566,7 +598,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.magias-divinas-personagem').value = ficha.magias_divinas;
                             document.querySelector('.itens-personagem').value = ficha.itens;
 
-                            
+
                             document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
                             document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
                             document.querySelector('.status-personagem').value = ficha.status_personagem;

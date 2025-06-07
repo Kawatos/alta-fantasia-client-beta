@@ -98,16 +98,6 @@ $t_instrumentos_mod = $_POST['t_instrumentos_mod'] ?? 0;
 $t_pilotagem_mod = $_POST['t_pilotagem_mod'] ?? 0;
 
 
-
-
-
-
-// Verificação mínima obrigatória
-if (empty($nome) || empty($classe)) {
-    echo json_encode(['status' => 'erro', 'mensagem' => 'Preencha nome e classe']);
-    exit;
-}
-
 $stmtFicha = $conn->prepare("
     INSERT INTO fichas (
         usuario_id,
