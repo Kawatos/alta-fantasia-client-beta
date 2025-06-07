@@ -82,8 +82,6 @@ $stmtFicha = $conn->prepare("
         magias_arcanas = :magias_arcanas,
         magias_divinas = :magias_divinas,
         itens = :itens,
-        atributos_mentais = :atributos_mentais,
-        atributos_corporais = :atributos_corporais,
         pericias_corporais = :pericias_corporais,
         pericias_mentais = :pericias_mentais,
         pontos_de_vida = :pontos_de_vida,
@@ -117,8 +115,6 @@ $stmtFicha->bindParam(':habilidades', $habilidades);
 $stmtFicha->bindParam(':magias_arcanas', $magias_arcanas);
 $stmtFicha->bindParam(':magias_divinas', $magias_divinas);
 $stmtFicha->bindParam(':itens', $itens);
-$stmtFicha->bindParam(':atributos_mentais', $atributos_mentais);
-$stmtFicha->bindParam(':atributos_corporais', $atributos_corporais);
 $stmtFicha->bindParam(':pericias_corporais', $pericias_corporais);
 $stmtFicha->bindParam(':pericias_mentais', $pericias_mentais);
 $stmtFicha->bindParam(':pontos_de_vida', $pontos_de_vida);

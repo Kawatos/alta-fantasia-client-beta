@@ -115,6 +115,9 @@ if (!isset($_SESSION['usuario_id'])) {
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab-itens" data-bs-toggle="tab" data-bs-target="#itens" type="button" role="tab">Itens</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-jogador" data-bs-toggle="tab" data-bs-target="#jogador" type="button" role="tab">Jogador</button>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <!-- Identificação -->
@@ -186,14 +189,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
-
-
                                 <!-- Linha 3: Status e Pontos de Vida -->
                                 <div class="col-md-4">
                                     <label for="ficha-status" class="form-label">Status</label>
                                     <select name="status_personagem" id="'ficha-status'" class="form-control status-personagem" required>
                                         <option value="">Selecione um Status</option>
-                                        <option value="Vivo">Vivo</option>
+                                        <option value="Vivo" selected>Vivo</option>
                                         <option value="Morto">Morto</option>
                                     </select>
                                 </div>
@@ -215,12 +216,32 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-pms_atuais" class="form-label">Pontos de Mana Atuais</label>
                                     <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
                                 </div>
-
+                                <div class="col-md-6">
+                                    <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
+                                    <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-regen_pm" class="form-label">Regeneração de Pontos de Mana</label>
+                                    <input type="number" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de Pontos de Mana">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-deslocamento" class="form-label">Deslocamento</label>
+                                    <input type="number" name="deslocamento" id="ficha-deslocamento" class="form-control deslocamento-personagem" placeholder="Deslocamento">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-divindade" class="form-label">Divindade</label>
+                                    <input type="text" name="divindade" id="ficha-divindade" class="form-control divindade-personagem" placeholder="Divindade">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-escola_arcana" class="form-label">Escola Arcana</label>
+                                    <input type="text" name="escola_arcana" id="ficha-escola_arcana" class="form-control escola_arcana-personagem" placeholder="Escola Arcana">
+                                </div>
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
                                     <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="2"></textarea>
                                 </div>
+                                
                             </div>
                         </div>
 
@@ -235,18 +256,24 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <input type="number" name="vigor" class="form-control vigor">
                                         <label>Modificador</label>
                                         <input type="number" name="vigor_mod" class="form-control vigor_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="vigor_mod_nv" class="form-control vigor_mod_nv">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Força</label>
                                         <input type="number" name="forca" class="form-control forca">
                                         <label>Modificador</label>
                                         <input type="number" name="forca_mod" class="form-control forca_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="forca_mod_nv" class="form-control forca_mod_nv">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Destreza</label>
                                         <input type="number" name="destreza" class="form-control destreza">
                                         <label>Modificador</label>
                                         <input type="number" name="destreza_mod" class="form-control destreza_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="destreza_mod_nv" class="form-control destreza_mod_nv">
                                     </div>
                                 </div>
 
@@ -257,20 +284,31 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <input type="number" name="espirito" class="form-control espirito">
                                         <label>Modificador</label>
                                         <input type="number" name="espirito_mod" class="form-control espirito_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="espirito_mod_nv" class="form-control espirito_mod_nv">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Carisma</label>
                                         <input type="number" name="carisma" class="form-control carisma">
                                         <label>Modificador</label>
                                         <input type="number" name="carisma_mod" class="form-control carisma_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="carisma_mod_nv" class="form-control carisma_mod_nv">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Intelecto</label>
                                         <input type="number" name="intelecto" class="form-control intelecto">
                                         <label>Modificador</label>
                                         <input type="number" name="intelecto_mod" class="form-control intelecto_mod">
+                                        <label>Modificador Nível</label>
+                                        <input type="number" name="intelecto_mod_nv" class="form-control intelecto_mod_nv">
                                     </div>
 
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_atributos" class="form-label">Observações Atributos</label>
+                                    <textarea name="observacoes_atributos" id="ficha-observacoes_atributos" class="form-control observacoes_atributos-personagem" placeholder="Observações Atributos" rows="2"></textarea>
                                 </div>
 
                             </div>
@@ -287,6 +325,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-pericias_corporais" class="form-label">Perícias Corporais</label>
                                     <textarea name="pericias_corporais" id="ficha-pericias_corporais" class="form-control pericias-corporais-personagem" placeholder="Perícias Corporais" rows="2"></textarea>
                                 </div>
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_pericias" class="form-label">Observações Perícias</label>
+                                    <textarea name="observacoes_pericias" id="ficha-observacoes_pericias" class="form-control observacoes_pericias-personagem" placeholder="Observações Perícias" rows="2"></textarea>
+                                </div>
 
                             </div>
                         </div>
@@ -297,6 +339,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div class="col-12">
                                     <label for="ficha-habilidades" class="form-label">Habilidades</label>
                                     <textarea name="habilidades" id="ficha-habilidades" class="form-control habilidades-personagem" placeholder="Habilidades" rows="2"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_habilidades" class="form-label">Observações Habilidades</label>
+                                    <textarea name="observacoes_habilidades" id="ficha-observacoes_habilidades" class="form-control observacoes_habilidades-personagem" placeholder="Observações Habilidades" rows="2"></textarea>
                                 </div>
 
                             </div>
@@ -309,6 +355,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-magias_arcanas" class="form-label">Magias Arcanas</label>
                                     <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control magias-arcanas-personagem" placeholder="Magias Arcanas" rows="2"></textarea>
                                 </div>
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_magias_arcanas" class="form-label">Observações Magias Arcanas</label>
+                                    <textarea name="observacoes_magias_arcanas" id="ficha-observacoes_magias_arcanas" class="form-control observacoes_magias_arcanas-personagem" placeholder="Observações Magias Arcanas" rows="2"></textarea>
+                                </div>
                             </div>
                         </div>
 
@@ -318,6 +368,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div class="col-md-6">
                                     <label for="ficha-magias_divinas" class="form-label">Magias Divinas</label>
                                     <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control magias-divinas-personagem" placeholder="Magias Divinas" rows="2"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_magias_divinas" class="form-label">Observações Magias Divinas</label>
+                                    <textarea name="observacoes_magias_divinas" id="ficha-observacoes_magias_divinas" class="form-control observacoes_magias_divinas-personagem" placeholder="Observações Magias Divinas" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -329,7 +383,18 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-itens" class="form-label">Itens</label>
                                     <textarea name="itens" id="ficha-itens" class="form-control itens-personagem" placeholder="Itens" rows="2"></textarea>
                                 </div>
-
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_itens" class="form-label">Observações Itens</label>
+                                    <textarea name="observacoes_itens" id="ficha-observacoes_itens" class="form-control observacoes_itens-personagem" placeholder="Observações Itens" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="jogador" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="ficha-observacoes_jogador" class="form-label">Observações Jogador</label>
+                                    <textarea name="observacoes_jogador" id="ficha-observacoes_jogador" class="form-control observacoes_jogador-personagem" placeholder="Observações Jogador" rows="2"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -401,6 +466,19 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.status-personagem').value = ficha.status_personagem;
                             document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais;
                             document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais;
+                            document.querySelector('.deslocamento-personagem').value = ficha.deslocamento;
+                            document.querySelector('.regen_pv-personagem').value = ficha.regen_pv;
+                            document.querySelector('.regen_pm-personagem').value = ficha.regen_pm;
+                            document.querySelector('.observacoes_atributos-personagem').value = ficha.observacoes_atributos;
+                            document.querySelector('.observacoes_pericias-personagem').value = ficha.observacoes_pericias;
+                            document.querySelector('.observacoes_habilidades-personagem').value = ficha.observacoes_habilidades;
+                            document.querySelector('.observacoes_magias_arcanas-personagem').value = ficha.observacoes_magias_arcanas;
+                            document.querySelector('.observacoes_magias_divinas-personagem').value = ficha.observacoes_magias_divinas;
+                            document.querySelector('.observacoes_itens-personagem').value = ficha.observacoes_itens;
+                            document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador;
+                            document.querySelector('.divindade-personagem').value = ficha.divindade;
+                            document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
+
 
                             // Atributos
                             document.querySelector('.vigor').value = atributos.vigor;
@@ -417,6 +495,13 @@ if (!isset($_SESSION['usuario_id'])) {
                             document.querySelector('.carisma_mod').value = atributos.carisma_mod;
                             document.querySelector('.intelecto').value = atributos.intelecto;
                             document.querySelector('.intelecto_mod').value = atributos.intelecto_mod;
+
+                            document.querySelector('.vigor_mod_nv').value = atributos.vigor_mod_nv;
+                            document.querySelector('.forca_mod_nv').value = atributos.forca_mod_nv;
+                            document.querySelector('.destreza_mod_nv').value = atributos.destreza_mod_nv;
+                            document.querySelector('.espirito_mod_nv').value = atributos.espirito_mod_nv;
+                            document.querySelector('.carisma_mod_nv').value = atributos.carisma_mod_nv;
+                            document.querySelector('.intelecto_mod_nv').value = atributos.intelecto_mod_nv;
 
 
                         } else {

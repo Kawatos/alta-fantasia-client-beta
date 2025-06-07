@@ -83,8 +83,6 @@ $stmtFicha = $conn->prepare("
         magias_arcanas,
         magias_divinas,
         itens,
-        atributos_mentais,
-        atributos_corporais,
         pericias_corporais,
         pericias_mentais,
         pontos_de_vida,
@@ -115,8 +113,6 @@ $stmtFicha = $conn->prepare("
         :magias_arcanas,
         :magias_divinas,
         :itens,
-        :atributos_mentais,
-        :atributos_corporais,
         :pericias_corporais,
         :pericias_mentais,
         :pontos_de_vida,
@@ -149,8 +145,6 @@ $stmtFicha->bindParam(':habilidades',        $habilidades, PDO::PARAM_STR);
 $stmtFicha->bindParam(':magias_arcanas',     $magias_arcanas, PDO::PARAM_STR);
 $stmtFicha->bindParam(':magias_divinas',     $magias_divinas, PDO::PARAM_STR);
 $stmtFicha->bindParam(':itens',              $itens, PDO::PARAM_STR);
-$stmtFicha->bindParam(':atributos_mentais',  $atributos_mentais, PDO::PARAM_STR);
-$stmtFicha->bindParam(':atributos_corporais', $atributos_corporais, PDO::PARAM_STR);
 $stmtFicha->bindParam(':pericias_corporais', $pericias_corporais, PDO::PARAM_STR);
 $stmtFicha->bindParam(':pericias_mentais',   $pericias_mentais, PDO::PARAM_STR);
 $stmtFicha->bindParam(':pontos_de_vida',     $pontos_de_vida, PDO::PARAM_INT);
@@ -194,7 +188,7 @@ if ($stmtFicha->execute()) {
         carisma,
         carisma_mod,
         intelecto,
-        intelecto_mod
+        intelecto_mod,
         vigor_mod_nv,
         forca_mod_nv,
         destreza_mod_nv,
