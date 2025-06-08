@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("salvar-habilidade-nova").addEventListener("click", () => controleHabilidade('criar'));
     document.getElementById("salvar-magia-nova").addEventListener("click", () => controleMagia('criar'));
+    document.getElementById("salvar-item-novo").addEventListener("click", () => controleItem('criar'));
 
     function ativarBotoesHabilidades() {
         // Botão de salvar (edição)
@@ -564,6 +565,197 @@ document.addEventListener("DOMContentLoaded", function () {
                 containerDivina.innerHTML = 'Erro ao renderizar magias.';
             });
     }
+
+    function ativarBotoesItens() {
+        // Botão de salvar (edição)
+        document.querySelectorAll('.salvar-item').forEach(botao => {
+            botao.addEventListener('click', () => {
+                const id = botao.dataset.id;
+                const card = botao.closest('.card-body');
+
+                const nome = card.querySelectorAll('input[type="text"]')[0].value;
+                const rank = card.querySelector('input[type="number"]').value;
+                const peso = card.querySelectorAll('input[type="number"]')[1].value;
+                const volume = card.querySelectorAll('input[type="text"]')[1].value;
+                const equipado = card.querySelector('select').value;
+                const descricao = card.querySelector('textarea').value;
+
+                const formData = new FormData();
+                formData.append('acao', 'editar');
+                formData.append('id_item', id);
+                formData.append('id_ficha', fichaId);
+                formData.append('nome', nome);
+                formData.append('rank', rank);
+                formData.append('peso', peso);
+                formData.append('volume', volume);
+                formData.append('equipado', equipado);
+                formData.append('descricao', descricao);
+
+                fetch('backend/itens/controle_itens.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Item atualizado com sucesso!');
+                            getItens();
+                        } else {
+                            alert(data.mensagem || 'Erro ao atualizar item');
+                        }
+                    });
+            });
+        });
+
+        // Botão de excluir
+        document.querySelectorAll('.excluir-item').forEach(botao => {
+            botao.addEventListener('click', () => {
+                const id = botao.dataset.id;
+                if (!confirm('Tem certeza que deseja excluir este item?')) return;
+
+                const formData = new FormData();
+                formData.append('acao', 'excluir');
+                formData.append('id_item', id);
+                formData.append('id_ficha', fichaId);
+
+                fetch('backend/itens/controle_itens.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Item excluído com sucesso!');
+                            getItens();
+                        } else {
+                            alert(data.mensagem || 'Erro ao excluir item');
+                        }
+                    });
+            });
+        });
+    }
+
+
+    // Criar Item
+
+    function controleItem(acao) {
+        const itemNome = document.getElementById('item-nome').value;
+        const itemRank = document.getElementById('item-rank').value;
+        const itemDescricao = document.getElementById('item-descricao').value;
+        const itemPeso = document.getElementById('item-peso').value;
+        const itemVolume = document.getElementById('item-volume').value;
+        const itemEquipado = document.getElementById('item-equipado').value;
+
+        console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
+        console.log(fichaId, "dentro de criar item");
+
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+        formData.append('nome', itemNome);
+        formData.append('rank', itemRank);
+        formData.append('descricao', itemDescricao);
+        formData.append('peso', itemPeso);
+        formData.append('volume', itemVolume);
+        formData.append('equipado', itemEquipado);
+        formData.append('acao', acao);
+
+        fetch('backend/itens/controle_itens.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    alert('Item criado com sucesso!');
+                    getItens(); // Função que você deverá criar para recarregar os itens na tela
+                } else {
+                    console.error('Erro:', data);
+                    alert(data.mensagem || 'Erro ao salvar');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                alert('Erro ao enviar os dados');
+            });
+    }
+
+
+    function getItens() {
+        const itensContainer = document.querySelector('#itensContainer');
+        itensContainer.innerHTML = '';
+
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+
+        fetch('backend/itens/get_itens.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                try {
+                    if (data.status === 'sucesso') {
+                        data.itens.forEach((item) => {
+                            const card = document.createElement('div');
+                            card.className = 'card mb-2';
+
+                            card.innerHTML = `
+                                <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#item${item.id_item}">
+                                    <strong>${item.nome}</strong>
+                                </div>
+                                <div class="collapse" id="item${item.id_item}">
+                                    <div class="card-body p-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nome:</label>
+                                            <input type="text" class="form-control" value="${item.nome}" data-id="${item.id_item}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Rank:</label>
+                                            <input type="number" class="form-control" value="${item.rank}" data-id="${item.id_item}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Peso:</label>
+                                            <input type="number" class="form-control" value="${item.peso}" data-id="${item.id_item}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Volume:</label>
+                                            <input type="text" class="form-control" value="${item.volume}" data-id="${item.id_item}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Equipado:</label>
+                                            <select class="form-control" data-id="${item.id_item}">
+                                                <option value="">Selecione</option>
+                                                <option value="sim" ${item.equipado === 'sim' ? 'selected' : ''}>Sim</option>
+                                                <option value="nao" ${item.equipado === 'nao' ? 'selected' : ''}>Não</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Descrição:</label>
+                                            <textarea class="form-control" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
+                                        </div>
+                                        <div class="text-end">
+                                            <button class="btn btn-primary btn-sm me-2 salvar-item" data-id="${item.id_item}">Salvar</button>
+                                            <button class="btn btn-danger btn-sm excluir-item" data-id="${item.id_item}">Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            itensContainer.appendChild(card);
+                        });
+
+                        ativarBotoesItens(); // Crie essa função para lidar com edição e exclusão
+                    } else {
+                        itensContainer.innerHTML = 'Nenhum item encontrado.';
+                    }
+                } catch (err) {
+                    console.error('Erro ao processar itens:', err);
+                    itensContainer.innerHTML = 'Erro ao renderizar itens.';
+                }
+            });
+    }
+
+
 
 
 

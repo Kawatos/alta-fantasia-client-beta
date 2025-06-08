@@ -589,15 +589,67 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade" id="itens" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <label for="ficha-itens" class="form-label">Itens</label>
-                                    <textarea name="itens" id="ficha-itens" class="form-control itens-personagem" placeholder="Itens" rows="2"></textarea>
+                                    <button type="button" class="btn btn-primary criar-item" id="criar-item" data-bs-toggle="collapse" data-bs-target="#collapseItem">Criar Novo Item</button>
+                                    <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseItem" aria-label="Fechar"></button>
+
+                                    <div class="collapse mt-3" id="collapseItem">
+                                        <div class="card card-body">
+                                            <div class="col-md-6">
+                                                <label for="item-nome" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="item-nome" name="nome-item">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="item-rank" class="form-label">Rank</label>
+                                                <input type="number" class="form-control" id="item-rank" name="rank">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="item-peso" class="form-label">Peso</label>
+                                                <input type="number" class="form-control" id="item-peso" name="peso">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="item-volume" class="form-label">Volume</label>
+                                                <input type="text" class="form-control" id="item-volume" name="volume">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="item-equipado" class="form-label">Equipado</label>
+                                                <select class="form-control" id="item-equipado" name="equipado">
+                                                    <option value="">Selecione</option>
+                                                    <option value="sim">Sim</option>
+                                                    <option value="nao">Não</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="item-descricao" class="form-label">Descrição</label>
+                                                <textarea class="form-control" id="item-descricao" name="descricao" rows="3"></textarea>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <button type="button" class="btn btn-success" id="salvar-item-novo">Salvar Item</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-12">
-                                    <label for="ficha-observacoes_itens" class="form-label">Observações Itens</label>
-                                    <textarea name="observacoes_itens" id="ficha-observacoes_itens" class="form-control observacoes_itens-personagem" placeholder="Observações Itens" rows="2"></textarea>
-                                </div>
+
+                                <script>
+                                    // Fecha o collapse ao clicar fora dele
+                                    $(document).on('click', function(e) {
+                                        if (!$(e.target).closest('#collapseItem, #criar-item').length) {
+                                            $('#collapseItem').collapse('hide');
+                                        }
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <label for="ficha-itens" class="form-label">Itens</label>
+                                <div id="itensContainer"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="ficha-observacoes_itens" class="form-label">Observações Itens</label>
+                                <textarea name="observacoes_itens" id="ficha-observacoes_itens" class="form-control observacoes_itens-personagem" placeholder="Observações Itens" rows="2"></textarea>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="jogador" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-12">
