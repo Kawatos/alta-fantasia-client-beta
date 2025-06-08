@@ -28,6 +28,120 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    function getDadosFicha(fichaId) {
+        $.ajax({
+            url: 'backend/get_dados_ficha.php',
+            method: 'POST',
+            data: {
+                id_ficha: fichaId
+            },
+            dataType: 'json',
+            success: function (resposta) {
+                if (resposta.status === 'sucesso') {
+                    const ficha = resposta.ficha;
+                    const atributos = resposta.atributos;
+                    const pericias = resposta.pericias;
+                    console.log(pericias);
+                    console.log(ficha);
+                    console.log(atributos);
+                    document.querySelector('#ficha-id').value = ficha.id;
+                    document.querySelector('.nome-personagem').value = ficha.nome_personagem;
+
+                    document.querySelector('.classe-personagem').value = ficha.classe;
+                    document.querySelector('.nivel-personagem').value = ficha.nivel;
+                    document.querySelector('.raca-personagem').value = ficha.raca;
+                    document.querySelector('.descricao-personagem').value = ficha.descricao;
+
+                    document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
+                    document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
+                    document.querySelector('.status-personagem').value = ficha.status_personagem;
+                    document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais;
+                    document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais;
+                    document.querySelector('.deslocamento-personagem').value = ficha.deslocamento;
+                    document.querySelector('.regen_pv-personagem').value = ficha.regen_pv;
+                    document.querySelector('.regen_pm-personagem').value = ficha.regen_pm;
+                    document.querySelector('.observacoes_atributos-personagem').value = ficha.observacoes_atributos;
+                    document.querySelector('.observacoes_pericias-personagem').value = ficha.observacoes_pericias;
+                    document.querySelector('.observacoes_habilidades-personagem').value = ficha.observacoes_habilidades;
+                    document.querySelector('.observacoes_magias_arcanas-personagem').value = ficha.observacoes_magias_arcanas;
+                    document.querySelector('.observacoes_magias_divinas-personagem').value = ficha.observacoes_magias_divinas;
+                    document.querySelector('.observacoes_itens-personagem').value = ficha.observacoes_itens;
+                    document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador;
+                    document.querySelector('.divindade-personagem').value = ficha.divindade;
+                    document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
+
+
+                    // Atributos
+                    document.querySelector('.vigor').value = atributos.vigor;
+                    document.querySelector('.vigor_mod').value = atributos.vigor_mod;
+                    document.querySelector('.forca').value = atributos.forca;
+                    document.querySelector('.forca_mod').value = atributos.forca_mod;
+                    document.querySelector('.destreza').value = atributos.destreza;
+                    document.querySelector('.destreza_mod').value = atributos.destreza_mod;
+
+
+                    document.querySelector('.espirito').value = atributos.espirito;
+                    document.querySelector('.espirito_mod').value = atributos.espirito_mod;
+                    document.querySelector('.carisma').value = atributos.carisma;
+                    document.querySelector('.carisma_mod').value = atributos.carisma_mod;
+                    document.querySelector('.intelecto').value = atributos.intelecto;
+                    document.querySelector('.intelecto_mod').value = atributos.intelecto_mod;
+
+                    document.querySelector('.vigor_mod_nv').value = atributos.vigor_mod_nv;
+                    document.querySelector('.forca_mod_nv').value = atributos.forca_mod_nv;
+                    document.querySelector('.destreza_mod_nv').value = atributos.destreza_mod_nv;
+                    document.querySelector('.espirito_mod_nv').value = atributos.espirito_mod_nv;
+                    document.querySelector('.carisma_mod_nv').value = atributos.carisma_mod_nv;
+                    document.querySelector('.intelecto_mod_nv').value = atributos.intelecto_mod_nv;
+
+                    // Pericias
+                    document.querySelector('.tenacidade_mod').value = pericias.tenacidade_mod;
+                    document.querySelector('.fortitude_mod').value = pericias.fortitude_mod;
+                    document.querySelector('.reflexo_mod').value = pericias.reflexo_mod;
+                    document.querySelector('.controle_mod').value = pericias.controle_mod;
+                    document.querySelector('.atletismo_mod').value = pericias.atletismo_mod;
+                    document.querySelector('.corpoacorpo_mod').value = pericias.corpoacorpo_mod;
+                    document.querySelector('.autocontrole_mod').value = pericias.autocontrole_mod;
+                    document.querySelector('.resiliencia_mod').value = pericias.resiliencia_mod;
+                    document.querySelector('.intuicao_mod').value = pericias.intuicao_mod;
+                    document.querySelector('.percepcao_mod').value = pericias.percepcao_mod;
+                    document.querySelector('.influencia_mod').value = pericias.influencia_mod;
+                    document.querySelector('.atuacao_mod').value = pericias.atuacao_mod;
+                    document.querySelector('.c_arcano_mod').value = pericias.c_arcano_mod;
+                    document.querySelector('.c_religioso_mod').value = pericias.c_religioso_mod;
+                    document.querySelector('.c_historico_mod').value = pericias.c_historico_mod;
+                    document.querySelector('.c_natureza_mod').value = pericias.c_natureza_mod;
+                    document.querySelector('.c_engenharia_mod').value = pericias.c_engenharia_mod;
+                    document.querySelector('.c_alquimia_mod').value = pericias.c_alquimia_mod;
+                    document.querySelector('.c_navegacao_mod').value = pericias.c_navegacao_mod;
+                    document.querySelector('.c_linguistico_mod').value = pericias.c_linguistico_mod;
+                    document.querySelector('.t_esgrima_mod').value = pericias.t_esgrima_mod;
+                    document.querySelector('.t_pontaria_mod').value = pericias.t_pontaria_mod;
+                    document.querySelector('.t_marcial_mod').value = pericias.t_marcial_mod;
+                    document.querySelector('.t_metalurgia_mod').value = pericias.t_metalurgia_mod;
+                    document.querySelector('.t_artesanato_mod').value = pericias.t_artesanato_mod;
+                    document.querySelector('.t_ladinagem_mod').value = pericias.t_ladinagem_mod;
+                    document.querySelector('.t_instrumentos_mod').value = pericias.t_instrumentos_mod;
+                    document.querySelector('.t_pilotagem_mod').value = pericias.t_pilotagem_mod;
+
+                    getHabilidades();
+
+
+                    modalFicha.show();
+
+
+
+
+                } else {
+                    alert(resposta.mensagem);
+                }
+            },
+            error: function () {
+                alert('Erro ao buscar a ficha.');
+            }
+        });
+    }
+
 
     document.querySelectorAll('.btn-editar').forEach(button => {
         button.addEventListener('click', function () {
@@ -37,158 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('botao-salvar').textContent = 'Salvar';
             fichaId = this.dataset.id;
 
-            $.ajax({
-                url: 'backend/get_dados_ficha.php',
-                method: 'POST',
-                data: {
-                    id_ficha: fichaId
-                },
-                dataType: 'json',
-                success: function (resposta) {
-                    if (resposta.status === 'sucesso') {
-                        const ficha = resposta.ficha;
-                        const atributos = resposta.atributos;
-                        const pericias = resposta.pericias;
-                        console.log(pericias);
-                        console.log(ficha);
-                        console.log(atributos);
-                        document.querySelector('#ficha-id').value = ficha.id;
-                        document.querySelector('.nome-personagem').value = ficha.nome_personagem;
-
-                        document.querySelector('.classe-personagem').value = ficha.classe;
-                        document.querySelector('.nivel-personagem').value = ficha.nivel;
-                        document.querySelector('.raca-personagem').value = ficha.raca;
-                        document.querySelector('.descricao-personagem').value = ficha.descricao;
-
-                        document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
-                        document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
-                        document.querySelector('.status-personagem').value = ficha.status_personagem;
-                        document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais;
-                        document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais;
-                        document.querySelector('.deslocamento-personagem').value = ficha.deslocamento;
-                        document.querySelector('.regen_pv-personagem').value = ficha.regen_pv;
-                        document.querySelector('.regen_pm-personagem').value = ficha.regen_pm;
-                        document.querySelector('.observacoes_atributos-personagem').value = ficha.observacoes_atributos;
-                        document.querySelector('.observacoes_pericias-personagem').value = ficha.observacoes_pericias;
-                        document.querySelector('.observacoes_habilidades-personagem').value = ficha.observacoes_habilidades;
-                        document.querySelector('.observacoes_magias_arcanas-personagem').value = ficha.observacoes_magias_arcanas;
-                        document.querySelector('.observacoes_magias_divinas-personagem').value = ficha.observacoes_magias_divinas;
-                        document.querySelector('.observacoes_itens-personagem').value = ficha.observacoes_itens;
-                        document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador;
-                        document.querySelector('.divindade-personagem').value = ficha.divindade;
-                        document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
-
-
-                        // Atributos
-                        document.querySelector('.vigor').value = atributos.vigor;
-                        document.querySelector('.vigor_mod').value = atributos.vigor_mod;
-                        document.querySelector('.forca').value = atributos.forca;
-                        document.querySelector('.forca_mod').value = atributos.forca_mod;
-                        document.querySelector('.destreza').value = atributos.destreza;
-                        document.querySelector('.destreza_mod').value = atributos.destreza_mod;
-
-
-                        document.querySelector('.espirito').value = atributos.espirito;
-                        document.querySelector('.espirito_mod').value = atributos.espirito_mod;
-                        document.querySelector('.carisma').value = atributos.carisma;
-                        document.querySelector('.carisma_mod').value = atributos.carisma_mod;
-                        document.querySelector('.intelecto').value = atributos.intelecto;
-                        document.querySelector('.intelecto_mod').value = atributos.intelecto_mod;
-
-                        document.querySelector('.vigor_mod_nv').value = atributos.vigor_mod_nv;
-                        document.querySelector('.forca_mod_nv').value = atributos.forca_mod_nv;
-                        document.querySelector('.destreza_mod_nv').value = atributos.destreza_mod_nv;
-                        document.querySelector('.espirito_mod_nv').value = atributos.espirito_mod_nv;
-                        document.querySelector('.carisma_mod_nv').value = atributos.carisma_mod_nv;
-                        document.querySelector('.intelecto_mod_nv').value = atributos.intelecto_mod_nv;
-
-                        // Pericias
-                        document.querySelector('.tenacidade_mod').value = pericias.tenacidade_mod;
-                        document.querySelector('.fortitude_mod').value = pericias.fortitude_mod;
-                        document.querySelector('.reflexo_mod').value = pericias.reflexo_mod;
-                        document.querySelector('.controle_mod').value = pericias.controle_mod;
-                        document.querySelector('.atletismo_mod').value = pericias.atletismo_mod;
-                        document.querySelector('.corpoacorpo_mod').value = pericias.corpoacorpo_mod;
-                        document.querySelector('.autocontrole_mod').value = pericias.autocontrole_mod;
-                        document.querySelector('.resiliencia_mod').value = pericias.resiliencia_mod;
-                        document.querySelector('.intuicao_mod').value = pericias.intuicao_mod;
-                        document.querySelector('.percepcao_mod').value = pericias.percepcao_mod;
-                        document.querySelector('.influencia_mod').value = pericias.influencia_mod;
-                        document.querySelector('.atuacao_mod').value = pericias.atuacao_mod;
-                        document.querySelector('.c_arcano_mod').value = pericias.c_arcano_mod;
-                        document.querySelector('.c_religioso_mod').value = pericias.c_religioso_mod;
-                        document.querySelector('.c_historico_mod').value = pericias.c_historico_mod;
-                        document.querySelector('.c_natureza_mod').value = pericias.c_natureza_mod;
-                        document.querySelector('.c_engenharia_mod').value = pericias.c_engenharia_mod;
-                        document.querySelector('.c_alquimia_mod').value = pericias.c_alquimia_mod;
-                        document.querySelector('.c_navegacao_mod').value = pericias.c_navegacao_mod;
-                        document.querySelector('.c_linguistico_mod').value = pericias.c_linguistico_mod;
-                        document.querySelector('.t_esgrima_mod').value = pericias.t_esgrima_mod;
-                        document.querySelector('.t_pontaria_mod').value = pericias.t_pontaria_mod;
-                        document.querySelector('.t_marcial_mod').value = pericias.t_marcial_mod;
-                        document.querySelector('.t_metalurgia_mod').value = pericias.t_metalurgia_mod;
-                        document.querySelector('.t_artesanato_mod').value = pericias.t_artesanato_mod;
-                        document.querySelector('.t_ladinagem_mod').value = pericias.t_ladinagem_mod;
-                        document.querySelector('.t_instrumentos_mod').value = pericias.t_instrumentos_mod;
-                        document.querySelector('.t_pilotagem_mod').value = pericias.t_pilotagem_mod;
-
-
-
-                        // Pegar Habilidades
-                        const habilidadesContainer = document.querySelector('#habilidadesContainer');
-                        habilidadesContainer.innerHTML = '';
-
-                        fetch('backend/get_habilidades.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                id_ficha: fichaId
-                            })
-                        })
-                            .then(resp => resp.json())
-                            .then(data => {
-                                if (data.status === 'sucesso') {
-                                    data.habilidades.forEach(hab => {
-                                        const div = document.createElement('div');
-                                        div.classList.add('habilidade-item');
-                                        div.innerHTML = `
-                            <strong>${hab.nome}</strong>: ${hab.descricao}
-                            <button class="btn btn-sm btn-warning editar-habilidade" data-id="${hab.id}">Editar</button>
-                            <button class="btn btn-sm btn-danger excluir-habilidade" data-id="${hab.id}">Excluir</button>
-                        `;
-                                        habilidadesContainer.appendChild(div);
-                                    });
-
-                                    // Ativa os botões criados dinamicamente
-                                    ativarBotoesHabilidades();
-                                } else {
-                                    habilidadesContainer.innerHTML = 'Nenhuma habilidade encontrada.';
-                                }
-                            })
-                            .catch(() => {
-                                habilidadesContainer.innerHTML = 'Erro ao carregar habilidades.';
-                            });
-
-
-
-                        modalFicha.show();
-
-
-
-
-                    } else {
-                        alert(resposta.mensagem);
-                    }
-                },
-                error: function () {
-                    alert('Erro ao buscar a ficha.');
-                }
-            });
-
-
-
+            getDadosFicha(fichaId);
 
         });
 
@@ -211,40 +174,103 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Ficha atualizada com sucesso!');
-                    location.reload();
+                    alert('Ficha atualizada com sucesso! 3');
+                    getDadosFicha(fichaId);
                 } else {
                     alert(data.mensagem || 'Erro ao salvar');
                 }
             });
     });
 
-    document.getElementById("salvar-habilidade").addEventListener("click", criarHabilidade);
+    document.getElementById("salvar-habilidade-nova").addEventListener("click", () => controleHabilidade('criar'));
+
+    function ativarBotoesHabilidades() {
+        // Botão de salvar (edição)
+        document.querySelectorAll('.salvar-habilidade').forEach(botao => {
+            botao.addEventListener('click', () => {
+                const id = botao.dataset.id;
+                const card = botao.closest('.card-body');
+
+                const nome = card.querySelector('input[type="text"]').value;
+                const requisitos = card.querySelectorAll('input[type="text"]')[1].value;
+                const descricao = card.querySelector('textarea').value;
+
+                const formData = new FormData();
+                formData.append('acao', 'editar');
+                formData.append('id_habilidade', id);
+                formData.append('nome', nome);
+                formData.append('requisitos', requisitos);
+                formData.append('descricao', descricao);
+                formData.append('id_ficha', fichaId);
+
+                fetch('backend/habilidades/controle_habilidades.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Habilidade atualizada com sucesso!');
+                            getHabilidades();
+                        } else {
+                            alert(data.mensagem || 'Erro ao atualizar habilidade');
+                        }
+                    });
+            });
+        });
+
+        // Botão de excluir
+        document.querySelectorAll('.excluir-habilidade').forEach(botao => {
+            botao.addEventListener('click', () => {
+                const id = botao.dataset.id;
+                if (!confirm('Tem certeza que deseja excluir esta habilidade?')) return;
+
+                const formData = new FormData();
+                formData.append('acao', 'excluir');
+                formData.append('id_habilidade', id);
+                formData.append('id_ficha', fichaId);
+
+                fetch('backend/habilidades/controle_habilidades.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Habilidade excluída com sucesso!');
+                            getHabilidades();
+                        } else {
+                            alert(data.mensagem || 'Erro ao excluir habilidade');
+                        }
+                    });
+            });
+        });
+    }
+
 
     // Criar Habilidade
 
-
-    function criarHabilidade() {
+    function controleHabilidade(acao) {
         const habilidadeNome = document.getElementById('habilidade-nome').value;
         const habilidadeRequisitos = document.getElementById('habilidade-requisitos').value;
         const habilidadeDescricao = document.getElementById('habilidade-descricao').value;
 
+
         console.log(habilidadeNome);
         console.log(habilidadeRequisitos);
         console.log(habilidadeDescricao);
+        console.log(fichaId, "dentro de criar habilidade");
 
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+        formData.append('nome', habilidadeNome);
+        formData.append('requisitos', habilidadeRequisitos);
+        formData.append('descricao', habilidadeDescricao);
+        formData.append('acao', acao);
 
-
-        
-        const url = 'backend/criar_habilidade_ajax.php';
-
-        fetch(url, {
+        fetch('backend/habilidades/controle_habilidades.php', {
             method: 'POST',
-            body: {
-                nome: habilidadeNome,
-                requisitos: habilidadeRequisitos,
-                descricao: habilidadeDescricao
-            }
+            body: formData
         })
             .then(resp => resp.json())
             .then(data => {
@@ -252,10 +278,78 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert('Habilidade criada com sucesso!');
                     getHabilidades();
                 } else {
+                    console.error('Erro:', data);
                     alert(data.mensagem || 'Erro ao salvar');
                 }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                alert('Erro ao enviar os dados');
             });
     }
+
+    function getHabilidades() {
+        const habilidadesContainer = document.querySelector('#habilidadesContainer');
+        habilidadesContainer.innerHTML = '';
+
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+
+        fetch('backend/habilidades/get_habilidades.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                try {
+                    if (data.status === 'sucesso') {
+                        data.habilidades.forEach((hab, index) => {
+                            const card = document.createElement('div');
+                            card.className = 'card mb-2';
+
+                            card.innerHTML = `
+                            <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#habilidade${hab.id_habilidade}">
+                                <strong>${hab.nome}</strong>
+                            </div>
+                            <div class="collapse" id="habilidade${hab.id_habilidade}">
+                                <div class="card-body p-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome:</label>
+                                        <input type="text" class="form-control" value="${hab.nome}" data-id="${hab.id_habilidade}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Requisitos:</label>
+                                        <input type="text" class="form-control" value="${hab.requisitos}" data-id="${hab.id_habilidade}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Descrição:</label>
+                                        <textarea class="form-control" rows="3" data-id="${hab.id_habilidade}">${hab.descricao}</textarea>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-primary btn-sm me-2 salvar-habilidade" data-id="${hab.id_habilidade}">Salvar</button>
+                                        <button class="btn btn-danger btn-sm excluir-habilidade" data-id="${hab.id_habilidade}">Excluir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                            habilidadesContainer.appendChild(card);
+                        });
+                        ativarBotoesHabilidades();
+
+                    } else {
+                        habilidadesContainer.innerHTML = 'Nenhuma habilidade encontrada.';
+                    }
+
+                } catch (err) {
+                    console.error('Erro ao processar habilidades:', err);
+                    habilidadesContainer.innerHTML = 'Erro ao renderizar habilidades.';
+                }
+            })
+
+    }
+
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {

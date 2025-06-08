@@ -460,11 +460,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <textarea class="form-control" id="habilidade-descricao" name="descricao" rows="3"></textarea>
                                             </div>
                                             <div class="col-12 mt-3">
-                                                <button type="button" class="btn btn-success" id="salvar-habilidade" onclick="criarHabilidade()">Salvar Habilidade</button>
+                                                <button type="button" class="btn btn-success" id="salvar-habilidade-nova">Salvar Habilidade</button>
                                             </div>
-
-
-
                                         </div>
                                     </div>
                                 </div>
