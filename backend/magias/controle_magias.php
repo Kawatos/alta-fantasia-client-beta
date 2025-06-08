@@ -13,7 +13,7 @@ $usuario_id = $_SESSION['usuario_id'];
 // Dados enviados via POST
 $acao = $_POST['acao'] ?? '';
 $id_magia = $_POST['id_magia'] ?? null;
-$ficha_id = $_POST['ficha_id'] ?? null;
+$ficha_id = $_POST['id_ficha'] ?? null;
 $nome_magia = $_POST['nome_magia'] ?? '';
 $tipo_magia = $_POST['tipo_magia'] ?? '';
 $nivel = $_POST['nivel'] ?? null;
@@ -81,6 +81,8 @@ try {
             $stmt->bindParam(':id_magia', $id_magia, PDO::PARAM_INT);
             $stmt->bindParam(':ficha_id', $ficha_id, PDO::PARAM_INT);
             $stmt->execute();
+
+
 
             echo json_encode(['status' => 'sucesso', 'mensagem' => 'Magia atualizada']);
             break;

@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.t_pilotagem_mod').value = pericias.t_pilotagem_mod;
 
                     getHabilidades();
+                    getMagias();
 
 
                     modalFicha.show();
@@ -183,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("salvar-habilidade-nova").addEventListener("click", () => controleHabilidade('criar'));
+    document.getElementById("salvar-magia-nova").addEventListener("click", () => controleMagia('criar'));
 
     function ativarBotoesHabilidades() {
         // Botão de salvar (edição)
@@ -348,6 +350,223 @@ document.addEventListener("DOMContentLoaded", function () {
             })
 
     }
+
+    function ativarBotoesMagias() {
+        // Event listener para salvar
+        document.querySelectorAll('.salvar-magia').forEach(botao => {
+            botao.onclick = () => {
+                const id = botao.dataset.id;
+                const nome = document.querySelector(`.nome-magia[data-id="${id}"]`)?.value;
+                const tipo = document.querySelector(`.tipo-magia[data-id="${id}"]`)?.value;
+                const nivel = document.querySelector(`.nivel-magia[data-id="${id}"]`)?.value;
+                const custo = document.querySelector(`.custo-magia[data-id="${id}"]`)?.value;
+                const alcance = document.querySelector(`.alcance-magia[data-id="${id}"]`)?.value;
+                const duracao = document.querySelector(`.duracao-magia[data-id="${id}"]`)?.value;
+                const descritor = document.querySelector(`.descritor-magia[data-id="${id}"]`)?.value;
+                const descricao = document.querySelector(`.descricao-magia[data-id="${id}"]`)?.value;
+
+                const formData = new FormData();
+                formData.append('id_magia', id);
+                formData.append('id_ficha', fichaId);
+                formData.append('nome_magia', nome);
+                formData.append('tipo_magia', tipo);
+                formData.append('nivel', nivel);
+                formData.append('custo_pm', custo);
+                formData.append('alcance', alcance);
+                formData.append('duracao', duracao);
+                formData.append('descritor', descritor);
+                formData.append('descricao', descricao);
+                formData.append('acao', 'editar');
+
+                fetch('backend/magias/controle_magias.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Magia salva com sucesso!');
+                            /* getMagias(); */
+                        } else {
+                            alert('Erro ao salvar magia.');
+                        }
+                    });
+            };
+        });
+
+        // Event listener para excluir
+        document.querySelectorAll('.excluir-magia').forEach(botao => {
+            botao.onclick = () => {
+                const id = botao.dataset.id;
+
+                if (!confirm("Tem certeza que deseja excluir esta magia?")) return;
+
+                const formData = new FormData();
+                formData.append('id_magia', id);
+                formData.append('id_ficha', fichaId);
+                formData.append('acao', 'excluir');
+
+                fetch('backend/magias/controle_magias.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            alert('Magia excluída com sucesso!');
+                            getMagias();
+                        } else {
+                            alert('Erro ao excluir magia.');
+                        }
+                    });
+            };
+        });
+    }
+
+
+
+    function controleMagia(acao) {
+        const magiaNome = document.getElementById('magia-nome').value;
+        const magiaTipo = document.getElementById('magia-tipo').value;
+        const magiaNivel = document.getElementById('magia-nivel').value;
+        const magiaCusto = document.getElementById('magia-custo').value;
+        const magiaAlcance = document.getElementById('magia-alcance').value;
+        const magiaDuracao = document.getElementById('magia-duracao').value;
+        const magiaDescritor = document.getElementById('magia-descritor').value;
+        const magiaDescricao = document.getElementById('magia-descricao').value;
+
+        console.log(magiaNome, magiaTipo, magiaNivel, magiaCusto, magiaAlcance, magiaDuracao, magiaDescritor, magiaDescricao);
+        console.log(fichaId, "dentro de controleMagia");
+
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+        formData.append('nome_magia', magiaNome);
+        formData.append('tipo_magia', magiaTipo);
+        formData.append('nivel', magiaNivel);
+        formData.append('custo_pm', magiaCusto);
+        formData.append('alcance', magiaAlcance);
+        formData.append('duracao', magiaDuracao);
+        formData.append('descritor', magiaDescritor);
+        formData.append('descricao', magiaDescricao);
+        formData.append('acao', acao);
+
+        fetch('backend/magias/controle_magias.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    alert('Magia salva com sucesso!');
+                    getMagias(); // Certifique-se que essa função exista
+                } else {
+                    console.error('Erro:', data);
+                    alert(data.mensagem || 'Erro ao salvar magia');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                alert('Erro ao enviar os dados');
+            });
+    }
+
+    function getMagias() {
+        const containerArcana = document.querySelector('#magias-arcanas');
+        const containerDivina = document.querySelector('#magias-divinas');
+        containerArcana.innerHTML = '';
+        containerDivina.innerHTML = '';
+
+        const formData = new FormData();
+        formData.append('id_ficha', fichaId);
+
+        fetch('backend/magias/get_magias.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    data.magias.forEach(magia => {
+                        const card = document.createElement('div');
+                        card.className = 'card mb-2';
+
+                        console.log(magia, "magia");
+
+                        card.innerHTML = `
+                            <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#magia${magia.id_magia}">
+                                <strong>${magia.nome_magia}</strong>
+                            </div>
+                            <div class="collapse" id="magia${magia.id_magia}">
+                                <div class="card-body p-3">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Nome:</label>
+                                            <input type="text" class="form-control nome-magia" value="${magia.nome_magia}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Tipo:</label>
+                                            <select class="form-select tipo-magia" data-id="${magia.id_magias}">
+                                                <option value="arcana" ${magia.tipo_magia === 'arcana' ? 'selected' : ''}>Arcana</option>
+                                                <option value="divina" ${magia.tipo_magia === 'divina' ? 'selected' : ''}>Divina</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Nível:</label>
+                                            <input type="number" class="form-control nivel-magia" value="${magia.nivel}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Custo (PM):</label>
+                                            <input type="number" class="form-control custo-magia" value="${magia.custo_pm}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Alcance:</label>
+                                            <input type="text" class="form-control alcance-magia" value="${magia.alcance}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Duração:</label>
+                                            <input type="text" class="form-control duracao-magia" value="${magia.duracao}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Descritor:</label>
+                                            <input type="text" class="form-control descritor-magia" value="${magia.descritor}" data-id="${magia.id_magias}">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Descrição:</label>
+                                            <textarea class="form-control descricao-magia" rows="3" data-id="${magia.id_magias}">${magia.descricao}</textarea>
+                                        </div>
+                                        <div class="col-12 text-end mt-3">
+                                            <button class="btn btn-primary btn-sm me-2 salvar-magia" data-id="${magia.id_magias}">Salvar</button>
+                                            <button class="btn btn-danger btn-sm excluir-magia" data-id="${magia.id_magias}">Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+
+                        if (magia.tipo_magia == 'arcana') {
+                            containerArcana.appendChild(card);
+                        } else {
+                            containerDivina.appendChild(card);
+                        }
+                    });
+
+                    ativarBotoesMagias();
+
+                } else {
+                    containerArcana.innerHTML = 'Nenhuma magia arcana encontrada.';
+                    containerDivina.innerHTML = 'Nenhuma magia divina encontrada.';
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao processar magias:', err);
+                containerArcana.innerHTML = 'Erro ao renderizar magias.';
+                containerDivina.innerHTML = 'Erro ao renderizar magias.';
+            });
+    }
+
+
+
 
 
 });

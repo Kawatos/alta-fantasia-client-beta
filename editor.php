@@ -107,11 +107,9 @@ if (!isset($_SESSION['usuario_id'])) {
                             <button class="nav-link" id="tab-habilidades" data-bs-toggle="tab" data-bs-target="#habilidades" type="button" role="tab">Habilidades</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="tab-magias-arcanas" data-bs-toggle="tab" data-bs-target="#magias-arcanas" type="button" role="tab">Magias Arcanas</button>
+                            <button class="nav-link" id="tab-magias" data-bs-toggle="tab" data-bs-target="#magias" type="button" role="tab">Magias</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="tab-magias-divinas" data-bs-toggle="tab" data-bs-target="#magias-divinas" type="button" role="tab">Magias Divinas</button>
-                        </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab-itens" data-bs-toggle="tab" data-bs-target="#itens" type="button" role="tab">Itens</button>
                         </li>
@@ -487,33 +485,105 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
 
                         </div>
-                        <!-- Magias Arcanas -->
-                        <div class="tab-pane fade" id="magias-arcanas" role="tabpanel">
+                        <!-- Magias -->
+                        <div class="tab-pane fade" id="magias" role="tabpanel">
                             <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="ficha-magias_arcanas" class="form-label">Magias Arcanas</label>
-                                    <textarea name="magias_arcanas" id="ficha-magias_arcanas" class="form-control magias-arcanas-personagem" placeholder="Magias Arcanas" rows="2"></textarea>
-                                </div>
+                                <!-- Botão Criar Magia -->
                                 <div class="col-12">
-                                    <label for="ficha-observacoes_magias_arcanas" class="form-label">Observações Magias Arcanas</label>
-                                    <textarea name="observacoes_magias_arcanas" id="ficha-observacoes_magias_arcanas" class="form-control observacoes_magias_arcanas-personagem" placeholder="Observações Magias Arcanas" rows="2"></textarea>
+                                    <button type="button" class="btn btn-primary criar-magia" id="criar-magia" data-bs-toggle="collapse" data-bs-target="#collapseMagia">Criar Nova Magia</button>
+                                    <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseMagia" aria-label="Fechar"></button>
+                                    <div class="collapse mt-3" id="collapseMagia">
+                                        <div class="card card-body">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="magia-nome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control" id="magia-nome">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="magia-tipo" class="form-label">Tipo</label>
+                                                    <select class="form-control" id="magia-tipo">
+                                                        <option value="arcana">Arcana</option>
+                                                        <option value="divina">Divina</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="magia-nivel" class="form-label">Nível</label>
+                                                    <input type="number" class="form-control" id="magia-nivel">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="magia-custo" class="form-label">Custo (PM)</label>
+                                                    <input type="number" class="form-control" id="magia-custo">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="magia-alcance" class="form-label">Alcance</label>
+                                                    <input type="text" class="form-control" id="magia-alcance">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="magia-duracao" class="form-label">Duração</label>
+                                                    <input type="text" class="form-control" id="magia-duracao">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="magia-descritor" class="form-label">Descritor</label>
+                                                    <input type="text" class="form-control" id="magia-descritor">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="magia-descricao" class="form-label">Descrição</label>
+                                                    <textarea class="form-control" id="magia-descricao" rows="3"></textarea>
+                                                </div>
+                                                <div class="col-12 mt-3">
+                                                    <button type="button" class="btn btn-success" id="salvar-magia-nova">Salvar Magia</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!-- Fecha o collapse ao clicar fora -->
+                                <script>
+                                    $(document).on('click', function(e) {
+                                        if (!$(e.target).closest('#collapseMagia, #criar-magia').length) {
+                                            $('#collapseMagia').collapse('hide');
+                                        }
+                                    });
+                                </script>
+
+                                <!-- Tabs de Navegação -->
+                                <div class="col-12 mt-4">
+                                    <ul class="nav nav-tabs" id="tabs-magias" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="tab-arcana-tab" data-bs-toggle="tab" data-bs-target="#tab-arcana" type="button" role="tab">Magias Arcanas</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="tab-divina-tab" data-bs-toggle="tab" data-bs-target="#tab-divina" type="button" role="tab">Magias Divinas</button>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content mt-3" id="magias-tab-content">
+                                        <!-- Aba de Magias Arcanas -->
+                                        <div class="tab-pane fade show active" id="tab-arcana" role="tabpanel">
+                                            <div id="magias-arcanas"></div> <!-- Aqui o JS renderiza as magias arcanas -->
+                                            <div class="col-12 mt-3">
+                                                <label for="ficha-observacoes_magias_arcanas" class="form-label">Observações Magias Arcanas</label>
+                                                <textarea name="observacoes_magias_arcanas" id="ficha-observacoes_magias_arcanas" class="form-control observacoes_magias_arcanas-personagem" placeholder="Observações Magias Arcanas" rows="2"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Aba de Magias Divinas -->
+                                        <div class="tab-pane fade" id="tab-divina" role="tabpanel">
+                                            <div id="magias-divinas"></div> <!-- Aqui o JS renderiza as magias divinas -->
+                                            <div class="col-12 mt-3">
+                                                <label for="ficha-observacoes_magias_divinas" class="form-label">Observações Magias Divinas</label>
+                                                <textarea name="observacoes_magias_divinas" id="ficha-observacoes_magias_divinas" class="form-control observacoes_magias_divinas-personagem" placeholder="Observações Magias Divinas" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
 
-                        <!-- Magias Divinas -->
-                        <div class="tab-pane fade" id="magias-divinas" role="tabpanel">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="ficha-magias_divinas" class="form-label">Magias Divinas</label>
-                                    <textarea name="magias_divinas" id="ficha-magias_divinas" class="form-control magias-divinas-personagem" placeholder="Magias Divinas" rows="2"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label for="ficha-observacoes_magias_divinas" class="form-label">Observações Magias Divinas</label>
-                                    <textarea name="observacoes_magias_divinas" id="ficha-observacoes_magias_divinas" class="form-control observacoes_magias_divinas-personagem" placeholder="Observações Magias Divinas" rows="2"></textarea>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <!-- Itens -->
                         <div class="tab-pane fade" id="itens" role="tabpanel">
