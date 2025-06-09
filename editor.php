@@ -53,7 +53,9 @@ if (!isset($_SESSION['usuario_id'])) {
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($ficha['nome_personagem']); ?></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['classe']) . ' Nível ' . htmlspecialchars($ficha['nivel']); ?></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['classe']) . ' Nível: ' . floor(htmlspecialchars($ficha['nivel'] / 100)); ?></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['status_personagem']); ?></h6>
+
 
 
                                     <div class="d-flex justify-content-between">
@@ -88,7 +90,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <input type="hidden" name="id" id="ficha-id">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="titulo-modal">Criar Novo Personagem1</h5>
+                    <h5 class="modal-title" id="titulo-modal">Editar Personagem: <span class="nome-personagem-exibicao"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
 
@@ -234,6 +236,15 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-escola_arcana" class="form-label">Escola Arcana</label>
                                     <input type="text" name="escola_arcana" id="ficha-escola_arcana" class="form-control escola_arcana-personagem" placeholder="Escola Arcana">
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-idiomas" class="form-label">Idiomas</label>
+                                    <input type="text" name="idiomas" id="ficha-idiomas" class="form-control idiomas-personagem" placeholder="Idiomas">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-carga_suportada_mod" class="form-label">Carga Suportada Modificador</label>
+                                    <input type="number" name="carga_suportada_mod" id="ficha-carga_suportada_mod" class="form-control carga_suportada_mod-personagem" placeholder="Carga Suportada Modificador">
+                                </div>
+
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
@@ -247,31 +258,42 @@ if (!isset($_SESSION['usuario_id'])) {
                         <!-- Atributos -->
                         <div class="tab-pane fade" id="atributos" role="tabpanel">
                             <div class="row g-3">
-                                <h5>Atributos Corporais</h5>
+
+                                <h5>Atributos Corporais </h5>
                                 <div class="row">
+                                    <!-- Exemplo: Vigor -->
                                     <div class="col-md-4">
                                         <label>Vigor</label>
-                                        <input type="number" name="vigor" class="form-control vigor">
-                                        <label>Modificador</label>
-                                        <input type="number" name="vigor_mod" class="form-control vigor_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="vigor_mod_nv" class="form-control vigor_mod_nv">
+                                        <div class="input-group">
+                                            <input type="number" name="vigor_mod" class="form-control vigor_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="vigor_mod_nv" class="form-control vigor_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="vigor" class="form-control vigor" id="vigorId" readonly />
+                                        </div>
+
                                     </div>
+
                                     <div class="col-md-4">
                                         <label>Força</label>
-                                        <input type="number" name="forca" class="form-control forca">
-                                        <label>Modificador</label>
-                                        <input type="number" name="forca_mod" class="form-control forca_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="forca_mod_nv" class="form-control forca_mod_nv">
+                                        <div class="input-group">
+                                            <input type="number" name="forca_mod" class="form-control forca_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="forca_mod_nv" class="form-control forca_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="forca" class="form-control forca" id="forcaId" readonly />
+                                        </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <label>Destreza</label>
-                                        <input type="number" name="destreza" class="form-control destreza">
-                                        <label>Modificador</label>
-                                        <input type="number" name="destreza_mod" class="form-control destreza_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="destreza_mod_nv" class="form-control destreza_mod_nv">
+                                        <div class="input-group">
+                                            <input type="number" name="destreza_mod" class="form-control destreza_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="destreza_mod_nv" class="form-control destreza_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="destreza" class="form-control destreza" id="destrezaId" readonly />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -279,30 +301,42 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Espírito</label>
-                                        <input type="number" name="espirito" class="form-control espirito">
-                                        <label>Modificador</label>
-                                        <input type="number" name="espirito_mod" class="form-control espirito_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="espirito_mod_nv" class="form-control espirito_mod_nv">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Carisma</label>
-                                        <input type="number" name="carisma" class="form-control carisma">
-                                        <label>Modificador</label>
-                                        <input type="number" name="carisma_mod" class="form-control carisma_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="carisma_mod_nv" class="form-control carisma_mod_nv">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Intelecto</label>
-                                        <input type="number" name="intelecto" class="form-control intelecto">
-                                        <label>Modificador</label>
-                                        <input type="number" name="intelecto_mod" class="form-control intelecto_mod">
-                                        <label>Modificador Nível</label>
-                                        <input type="number" name="intelecto_mod_nv" class="form-control intelecto_mod_nv">
+                                        <div class="input-group">
+                                            <input type="number" name="espirito_mod" class="form-control espirito_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="espirito_mod_nv" class="form-control espirito_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="espirito" class="form-control espirito" id="espiritoId" readonly />
+                                        </div>
                                     </div>
 
+                                    <div class="col-md-4">
+                                        <label>Carisma</label>
+                                        <div class="input-group">
+                                            <input type="number" name="carisma_mod" class="form-control carisma_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="carisma_mod_nv" class="form-control carisma_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="carisma" class="form-control carisma" id="carismaId" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>Intelecto</label>
+                                        <div class="input-group">
+                                            <input type="number" name="intelecto_mod" class="form-control intelecto_mod" placeholder="Mod" />
+                                            <span class="input-group-text">+</span>
+                                            <input type="number" name="intelecto_mod_nv" class="form-control intelecto_mod_nv" placeholder="Mod Nível" />
+                                            <span class="input-group-text">=</span>
+                                            <input type="number" name="intelecto" class="form-control intelecto" id="intelectoId" readonly />
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-12 mt-3">
+                                    <p>Estilo de cálculo (Mod + Mod Nível = Atributo)</p>
+                                    <p>Total de Pontos de Modificadores de Nível: <span id="total-mod-nivel">0</span> / <span id="pontos-por-nivel">1</span></p>
+                                </div>
+
 
                                 <div class="col-12">
                                     <label for="ficha-observacoes_atributos" class="form-label">Observações Atributos</label>
@@ -314,6 +348,41 @@ if (!isset($_SESSION['usuario_id'])) {
 
                         <!-- Perícias -->
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
+
+                            <div class="col-12 pericia mb-3" data-atributo="vigor">
+                                <label class="form-label d-block">Tenacidade</label>
+
+                                <!-- Linha de inputs compactos para treinamento/proeficiência -->
+                                <div class="d-flex align-items-center mb-2 flex-wrap">
+                                    <label class="me-2 mb-1">Treinamentos</label>
+                                    <input type="number" class="form-control form-control-sm treinado me-3" style="width: 70px;" />
+
+                                    <label class="me-2 mb-1">Proeficiências</label>
+                                    <input type="number" class="form-control form-control-sm proeficiente me-3" style="width: 70px;" />
+                                </div>
+
+                                <!-- Linha de cálculo final -->
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">Modificador Base</span>
+                                    <input type="number" class="form-control pericia-mod" />
+
+                                    <span class="input-group-text">+</span>
+                                    <span class="input-group-text treinado-valor">0</span>
+
+                                    <span class="input-group-text">+</span>
+                                    <span class="input-group-text proeficiente-valor">0</span>
+
+                                    <span class="input-group-text">+</span>
+                                    <span class="input-group-text atributo-valor">0</span>
+
+                                    <span class="input-group-text">=</span>
+                                    <input type="number" class="form-control pericia-final" readonly />
+                                </div>
+                            </div>
+
+
+
+
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="ficha-tenacidade_mod" class="form-label">Modificador Tenacidade</label>
@@ -661,7 +730,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="botao-salvar">Criar</button>
+                    <button type="submit" class="btn btn-primary" id="botao-salvar">Salvar</button>
                 </div>
             </form>
         </div>

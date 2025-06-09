@@ -41,11 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     const ficha = resposta.ficha;
                     const atributos = resposta.atributos;
                     const pericias = resposta.pericias;
+
                     console.log(pericias);
                     console.log(ficha);
                     console.log(atributos);
                     document.querySelector('#ficha-id').value = ficha.id;
                     document.querySelector('.nome-personagem').value = ficha.nome_personagem;
+                    document.querySelector('.nome-personagem-exibicao').textContent = ficha.nome_personagem;
 
                     document.querySelector('.classe-personagem').value = ficha.classe;
                     document.querySelector('.nivel-personagem').value = ficha.nivel;
@@ -69,22 +71,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador;
                     document.querySelector('.divindade-personagem').value = ficha.divindade;
                     document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
+                    document.querySelector('.idiomas-personagem').value = ficha.idiomas;
+                    document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod;
 
 
                     // Atributos
-                    document.querySelector('.vigor').value = atributos.vigor;
+
                     document.querySelector('.vigor_mod').value = atributos.vigor_mod;
-                    document.querySelector('.forca').value = atributos.forca;
                     document.querySelector('.forca_mod').value = atributos.forca_mod;
-                    document.querySelector('.destreza').value = atributos.destreza;
                     document.querySelector('.destreza_mod').value = atributos.destreza_mod;
-
-
-                    document.querySelector('.espirito').value = atributos.espirito;
                     document.querySelector('.espirito_mod').value = atributos.espirito_mod;
-                    document.querySelector('.carisma').value = atributos.carisma;
                     document.querySelector('.carisma_mod').value = atributos.carisma_mod;
-                    document.querySelector('.intelecto').value = atributos.intelecto;
                     document.querySelector('.intelecto_mod').value = atributos.intelecto_mod;
 
                     document.querySelector('.vigor_mod_nv').value = atributos.vigor_mod_nv;
@@ -126,12 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     getHabilidades();
                     getMagias();
+                    getItens();
+
 
 
                     modalFicha.show();
-
-
-
 
                 } else {
                     alert(resposta.mensagem);
@@ -147,9 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.btn-editar').forEach(button => {
         button.addEventListener('click', function () {
             modoEdicao = true;
-            document.getElementById('titulo-modal').textContent = 'Editar Personagem';
 
-            document.getElementById('botao-salvar').textContent = 'Salvar';
             fichaId = this.dataset.id;
 
             getDadosFicha(fichaId);
@@ -491,13 +485,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         const card = document.createElement('div');
                         card.className = 'card mb-2';
 
-                        console.log(magia, "magia");
-
                         card.innerHTML = `
-                            <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#magia${magia.id_magia}">
+                            <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#magia${magia.id_magias}">
                                 <strong>${magia.nome_magia}</strong>
                             </div>
-                            <div class="collapse" id="magia${magia.id_magia}">
+                            <div class="collapse" id="magia${magia.id_magias}">
                                 <div class="card-body p-3">
                                     <div class="row g-3">
                                         <div class="col-md-6">
@@ -758,6 +750,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+    // Executa ao carregar
+
+
+
+
 
 
 
@@ -815,6 +812,10 @@ modalFicha.addEventListener('hidden.bs.modal', function () {
         });
 });
 
+
+
+
+
 function atualizarNivelEBarra() {
     const inputXp = document.getElementById("ficha-xp");
     const spanNivel = document.getElementById("nivel-atual");
@@ -840,5 +841,98 @@ function atualizarNivelEBarra() {
     textoProgressoTotal.textContent = `${progressoTotal}%`;
 }
 
+function atualizarAtributos() {
+    const atributos = ["vigor", "forca", "destreza", "espirito", "carisma", "intelecto"];
+    let totalModNivel = 0;
+    const nivelAtual = parseInt(document.getElementById("nivel-atual").textContent) || 1;
+
+    atributos.forEach(attr => {
+        const modBase = parseInt(document.querySelector(`.${attr}_mod`)?.value) || 0;
+        const modNivel = parseInt(document.querySelector(`.${attr}_mod_nv`)?.value) || 0;
+        totalModNivel += modNivel;
+
+        const total = modBase + modNivel;
+        const inputAtributo = document.querySelector(`.${attr}`);
+        if (inputAtributo) {
+            inputAtributo.value = total;
+        }
+        calcularPericias();
+    });
+
+    // Atualiza total de pontos gastos e nível
+    document.getElementById("total-mod-nivel").textContent = totalModNivel;
+    document.getElementById("pontos-por-nivel").textContent = nivelAtual;
+
+    // Atualiza total de pontos gastos e nível
+    const totalModNivelElement = document.getElementById("total-mod-nivel");
+    const pontosPorNivelElement = document.getElementById("pontos-por-nivel");
+
+    // Seleciona o <h5> onde estão os dois <span>
+    const h5Container = totalModNivelElement.closest("p");
+
+
+    // Adiciona ou remove a cor vermelha se exceder os pontos do nível
+    if (totalModNivel > nivelAtual) {
+        h5Container.style.color = "red";
+    } else {
+        h5Container.style.color = ""; // volta ao padrão
+    }
+
+}
+
+// Adiciona listeners aos campos de modificadores
+document.querySelectorAll("input").forEach(input => {
+    if (input.name.endsWith("_mod") || input.name.endsWith("_mod_nv")) {
+        input.addEventListener("input", atualizarAtributos);
+    }
+});
+
+
+
+const getNivel = () => parseInt(document.getElementById("nivel-atual")?.textContent) || 1;
+const getAtributoValor = (atributo) => parseInt(document.querySelector(`.${atributo}`)?.value) || 0;
+
+function calcularPericias() {
+    console.log("calculando pericias");
+    const nivel = getNivel();
+    const escalaNivel = Math.ceil(nivel / 10);
+    const pericias = document.querySelectorAll(".pericia");
+
+    pericias.forEach(pericia => {
+        const modBase = parseInt(pericia.querySelector(".pericia-mod")?.value) || 0;
+        const valorTreinamento = parseInt(pericia.querySelector(".treinado")?.value) || 0;
+        const valorProeficiencia = parseInt(pericia.querySelector(".proeficiente")?.value) || 0;
+        const atributo = pericia.dataset.atributo;
+        const valorAtributo = getAtributoValor(atributo);
+
+        const bonusTreinamento = 2 * escalaNivel * valorTreinamento;
+        const bonusProeficiencia = 1 * escalaNivel * valorProeficiencia;
+
+        const resultado = modBase + bonusTreinamento + bonusProeficiencia + valorAtributo;
+
+        // Atualizar valores visuais
+        pericia.querySelector(".treinado-valor").textContent = bonusTreinamento;
+        pericia.querySelector(".proeficiente-valor").textContent = bonusProeficiencia;
+        pericia.querySelector(".atributo-valor").textContent = valorAtributo;
+        pericia.querySelector(".pericia-final").value = resultado;
+    });
+}
+
+// Recalcular ao alterar qualquer campo relevante
+document.querySelectorAll(".pericia-mod, .treinado, .proeficiente").forEach(el => {
+    el.addEventListener("input", calcularPericias);
+});
+
+
 modalFicha.addEventListener('shown.bs.modal', atualizarNivelEBarra);
+modalFicha.addEventListener('shown.bs.modal', atualizarAtributos);
+modalFicha.addEventListener('shown.bs.modal', calcularPericias);
 document.getElementById("ficha-xp").addEventListener("input", atualizarNivelEBarra);
+document.getElementById("ficha-xp").addEventListener("input", atualizarAtributos);
+
+
+
+
+
+
+

@@ -21,12 +21,6 @@ $classe = $_POST['classe'] ?? '';
 $nivel = intval($_POST['nivel'] ?? 1);
 $descricao = $_POST['descricao'] ?? '';
 $raca = $_POST['raca'] ?? '';
-$habilidades = $_POST['habilidades'] ?? '';
-$magias_arcanas = $_POST['magias_arcanas'] ?? '';
-$magias_divinas = $_POST['magias_divinas'] ?? '';
-$itens = $_POST['itens'] ?? '';
-$pericias_corporais = $_POST['pericias_corporais'] ?? '';
-$pericias_mentais = $_POST['pericias_mentais'] ?? '';
 $pontos_de_vida = $_POST['pontos_de_vida'] ?? '';
 $pontos_de_mana = $_POST['pontos_de_mana'] ?? '';
 $status = $_POST['status_personagem'] ?? '';
@@ -44,23 +38,28 @@ $observacoes_itens = $_POST['observacoes_itens'] ?? '';
 $observacoes_jogador = $_POST['observacoes_jogador'] ?? '';
 $divindade = $_POST['divindade'] ?? '';
 $escola_arcana = $_POST['escola_arcana'] ?? '';
+$idiomas = $_POST['idiomas'] ?? '';
+$carga_suportada_mod = $_POST['carga_suportada_mod'] ?? '';
 
-$vigor = $_POST['vigor'] ?? 0;
+
+/* Atributos */
+
+
 $vigor_mod = $_POST['vigor_mod'] ?? 0;
 
-$forca = $_POST['forca'] ?? 0;
+
 $forca_mod = $_POST['forca_mod'] ?? 0;
 
-$destreza = $_POST['destreza'] ?? 0;
+
 $destreza_mod = $_POST['destreza_mod'] ?? 0;
 
-$inteligencia = $_POST['intelecto'] ?? 0;
+
 $intelecto_mod = $_POST['intelecto_mod'] ?? 0;
 
-$sabedoria = $_POST['espirito'] ?? 0;
+
 $espirito_mod = $_POST['espirito_mod'] ?? 0;
 
-$carisma = $_POST['carisma'] ?? 0;
+
 $carisma_mod = $_POST['carisma_mod'] ?? 0;
 
 $vigor_mod_nv = $_POST['vigor_mod_nv'] ?? 0;
@@ -113,12 +112,6 @@ $stmtFicha = $conn->prepare("
         nivel = :nivel,
         descricao = :descricao,
         raca = :raca,
-        habilidades = :habilidades,
-        magias_arcanas = :magias_arcanas,
-        magias_divinas = :magias_divinas,
-        itens = :itens,
-        pericias_corporais = :pericias_corporais,
-        pericias_mentais = :pericias_mentais,
         pontos_de_vida = :pontos_de_vida,
         pontos_de_mana = :pontos_de_mana,
         status_personagem = :status_personagem,
@@ -135,7 +128,9 @@ $stmtFicha = $conn->prepare("
         observacoes_itens = :observacoes_itens,
         observacoes_jogador = :observacoes_jogador,
         divindade = :divindade,
-        escola_arcana = :escola_arcana
+        escola_arcana = :escola_arcana,
+        idiomas = :idiomas,
+        carga_suportada_mod = :carga_suportada_mod
     WHERE id = :id AND usuario_id = :usuario_id
 ");
 
@@ -146,12 +141,6 @@ $stmtFicha->bindParam(':id', $id);
 $stmtFicha->bindParam(':usuario_id', $usuario_id);
 $stmtFicha->bindParam(':descricao', $descricao);
 $stmtFicha->bindParam(':raca', $raca);
-$stmtFicha->bindParam(':habilidades', $habilidades);
-$stmtFicha->bindParam(':magias_arcanas', $magias_arcanas);
-$stmtFicha->bindParam(':magias_divinas', $magias_divinas);
-$stmtFicha->bindParam(':itens', $itens);
-$stmtFicha->bindParam(':pericias_corporais', $pericias_corporais);
-$stmtFicha->bindParam(':pericias_mentais', $pericias_mentais);
 $stmtFicha->bindParam(':pontos_de_vida', $pontos_de_vida);
 $stmtFicha->bindParam(':pontos_de_mana', $pontos_de_mana);
 $stmtFicha->bindParam(':status_personagem', $status);
@@ -169,22 +158,18 @@ $stmtFicha->bindParam(':observacoes_itens', $observacoes_itens);
 $stmtFicha->bindParam(':observacoes_jogador', $observacoes_jogador);
 $stmtFicha->bindParam(':divindade', $divindade);
 $stmtFicha->bindParam(':escola_arcana', $escola_arcana);
+$stmtFicha->bindParam(':idiomas', $idiomas);
+$stmtFicha->bindParam(':carga_suportada_mod', $carga_suportada_mod);
 
 if ($stmtFicha->execute()) {
 
     $stmtAtributos = $conn->prepare("
     UPDATE atributos SET
-        vigor = :vigor,
         vigor_mod = :vigor_mod,
-        forca = :forca,
         forca_mod = :forca_mod,
-        destreza = :destreza,
         destreza_mod = :destreza_mod,
-        espirito = :espirito,
         espirito_mod = :espirito_mod,
-        carisma = :carisma,
         carisma_mod = :carisma_mod,
-        intelecto = :intelecto,
         intelecto_mod = :intelecto_mod,
         vigor_mod_nv = :vigor_mod_nv,
         forca_mod_nv = :forca_mod_nv,
@@ -196,17 +181,11 @@ if ($stmtFicha->execute()) {
     ");
 
     $stmtAtributos->bindParam(':id_ficha', $id);
-    $stmtAtributos->bindParam(':vigor', $vigor);
     $stmtAtributos->bindParam(':vigor_mod', $vigor_mod);
-    $stmtAtributos->bindParam(':forca', $forca);
     $stmtAtributos->bindParam(':forca_mod', $forca_mod);
-    $stmtAtributos->bindParam(':destreza', $destreza);
     $stmtAtributos->bindParam(':destreza_mod', $destreza_mod);
-    $stmtAtributos->bindParam(':espirito', $sabedoria);
     $stmtAtributos->bindParam(':espirito_mod', $espirito_mod);
-    $stmtAtributos->bindParam(':carisma', $carisma);
     $stmtAtributos->bindParam(':carisma_mod', $carisma_mod);
-    $stmtAtributos->bindParam(':intelecto', $inteligencia);
     $stmtAtributos->bindParam(':intelecto_mod', $intelecto_mod);
     $stmtAtributos->bindParam(':vigor_mod_nv', $vigor_mod_nv);
     $stmtAtributos->bindParam(':forca_mod_nv', $forca_mod_nv);
