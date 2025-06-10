@@ -160,10 +160,6 @@ $t_instrumentos_proeficiencias = $_POST['t_instrumentos_proeficiencias'] ?? 0;
 $t_pilotagem_treinamentos = $_POST['t_pilotagem_treinamentos'] ?? 0;
 $t_pilotagem_proeficiencias = $_POST['t_pilotagem_proeficiencias'] ?? 0;
 
-
-
-
-
 $stmtFicha = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = :nome_personagem,
@@ -373,6 +369,62 @@ if ($stmtFicha->execute()) {
         $stmtPericias->bindParam(':t_ladinagem_mod', $t_ladinagem_mod);
         $stmtPericias->bindParam(':t_instrumentos_mod', $t_instrumentos_mod);
         $stmtPericias->bindParam(':t_pilotagem_mod', $t_pilotagem_mod);
+        $stmtPericias->bindParam(':tenacidade_treinamentos', $tenacidade_treinamentos);
+        $stmtPericias->bindParam(':tenacidade_proeficiencias', $tenacidade_proeficiencias);
+        $stmtPericias->bindParam(':fortitude_treinamentos', $fortitude_treinamentos);
+        $stmtPericias->bindParam(':fortitude_proeficiencias', $fortitude_proeficiencias);
+        $stmtPericias->bindParam(':reflexo_treinamentos', $reflexo_treinamentos);
+        $stmtPericias->bindParam(':reflexo_proeficiencias', $reflexo_proeficiencias);
+        $stmtPericias->bindParam(':controle_treinamentos', $controle_treinamentos);
+        $stmtPericias->bindParam(':controle_proeficiencias', $controle_proeficiencias);
+        $stmtPericias->bindParam(':atletismo_treinamentos', $atletismo_treinamentos);
+        $stmtPericias->bindParam(':atletismo_proeficiencias', $atletismo_proeficiencias);
+        $stmtPericias->bindParam(':corpoacorpo_treinamentos', $corpoacorpo_treinamentos);
+        $stmtPericias->bindParam(':corpoacorpo_proeficiencias', $corpoacorpo_proeficiencias);
+        $stmtPericias->bindParam(':autocontrole_treinamentos', $autocontrole_treinamentos);
+        $stmtPericias->bindParam(':autocontrole_proeficiencias', $autocontrole_proeficiencias);
+        $stmtPericias->bindParam(':resiliencia_treinamentos', $resiliencia_treinamentos);
+        $stmtPericias->bindParam(':resiliencia_proeficiencias', $resiliencia_proeficiencias);
+        $stmtPericias->bindParam(':intuicao_treinamentos', $intuicao_treinamentos);
+        $stmtPericias->bindParam(':intuicao_proeficiencias', $intuicao_proeficiencias);
+        $stmtPericias->bindParam(':percepcao_treinamentos', $percepcao_treinamentos);
+        $stmtPericias->bindParam(':percepcao_proeficiencias', $percepcao_proeficiencias);
+        $stmtPericias->bindParam(':influencia_treinamentos', $influencia_treinamentos);
+        $stmtPericias->bindParam(':influencia_proeficiencias', $influencia_proeficiencias);
+        $stmtPericias->bindParam(':atuacao_treinamentos', $atuacao_treinamentos);
+        $stmtPericias->bindParam(':atuacao_proeficiencias', $atuacao_proeficiencias);
+        $stmtPericias->bindParam(':c_arcano_treinamentos', $c_arcano_treinamentos);
+        $stmtPericias->bindParam(':c_arcano_proeficiencias', $c_arcano_proeficiencias);
+        $stmtPericias->bindParam(':c_religioso_treinamentos', $c_religioso_treinamentos);
+        $stmtPericias->bindParam(':c_religioso_proeficiencias', $c_religioso_proeficiencias);
+        $stmtPericias->bindParam(':c_historico_treinamentos', $c_historico_treinamentos);
+        $stmtPericias->bindParam(':c_historico_proeficiencias', $c_historico_proeficiencias);
+        $stmtPericias->bindParam(':c_natureza_treinamentos', $c_natureza_treinamentos);
+        $stmtPericias->bindParam(':c_natureza_proeficiencias', $c_natureza_proeficiencias);
+        $stmtPericias->bindParam(':c_engenharia_treinamentos', $c_engenharia_treinamentos);
+        $stmtPericias->bindParam(':c_engenharia_proeficiencias', $c_engenharia_proeficiencias);
+        $stmtPericias->bindParam(':c_alquimia_treinamentos', $c_alquimia_treinamentos);
+        $stmtPericias->bindParam(':c_alquimia_proeficiencias', $c_alquimia_proeficiencias);
+        $stmtPericias->bindParam(':c_navegacao_treinamentos', $c_navegacao_treinamentos);
+        $stmtPericias->bindParam(':c_navegacao_proeficiencias', $c_navegacao_proeficiencias);
+        $stmtPericias->bindParam(':c_linguistico_treinamentos', $c_linguistico_treinamentos);
+        $stmtPericias->bindParam(':c_linguistico_proeficiencias', $c_linguistico_proeficiencias);
+        $stmtPericias->bindParam(':t_esgrima_treinamentos', $t_esgrima_treinamentos);
+        $stmtPericias->bindParam(':t_esgrima_proeficiencias', $t_esgrima_proeficiencias);
+        $stmtPericias->bindParam(':t_pontaria_treinamentos', $t_pontaria_treinamentos);
+        $stmtPericias->bindParam(':t_pontaria_proeficiencias', $t_pontaria_proeficiencias);
+        $stmtPericias->bindParam(':t_marcial_treinamentos', $t_marcial_treinamentos);
+        $stmtPericias->bindParam(':t_marcial_proeficiencias', $t_marcial_proeficiencias);
+        $stmtPericias->bindParam(':t_metalurgia_treinamentos', $t_metalurgia_treinamentos);
+        $stmtPericias->bindParam(':t_metalurgia_proeficiencias', $t_metalurgia_proeficiencias);
+        $stmtPericias->bindParam(':t_artesanato_treinamentos', $t_artesanato_treinamentos);
+        $stmtPericias->bindParam(':t_artesanato_proeficiencias', $t_artesanato_proeficiencias);
+        $stmtPericias->bindParam(':t_ladinagem_treinamentos', $t_ladinagem_treinamentos);
+        $stmtPericias->bindParam(':t_ladinagem_proeficiencias', $t_ladinagem_proeficiencias);
+        $stmtPericias->bindParam(':t_instrumentos_treinamentos', $t_instrumentos_treinamentos);
+        $stmtPericias->bindParam(':t_instrumentos_proeficiencias', $t_instrumentos_proeficiencias);
+        $stmtPericias->bindParam(':t_pilotagem_treinamentos', $t_pilotagem_treinamentos);
+        $stmtPericias->bindParam(':t_pilotagem_proeficiencias', $t_pilotagem_proeficiencias);
 
         if ($stmtPericias->execute()) {
             echo json_encode(['status' => 'sucesso']);
