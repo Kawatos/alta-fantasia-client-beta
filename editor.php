@@ -349,36 +349,43 @@ if (!isset($_SESSION['usuario_id'])) {
                         <!-- Perícias -->
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
 
-                            <div class="col-12 pericia mb-3" data-atributo="vigor">
-                                <label class="form-label d-block">Tenacidade</label>
+                            <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="vigor">
 
-                                <!-- Linha de inputs compactos para treinamento/proeficiência -->
-                                <div class="d-flex align-items-center mb-2 flex-wrap">
-                                    <label class="me-2 mb-1">Treinamentos</label>
-                                    <input type="number" class="form-control form-control-sm treinado me-3" style="width: 70px;" />
-
-                                    <label class="me-2 mb-1">Proeficiências</label>
-                                    <input type="number" class="form-control form-control-sm proeficiente me-3" style="width: 70px;" />
+                                <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-tenacidade">
+                                    <h4>Tenacidade = <span class="pericia-final"></span></h4>
+                                    <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                        P: <span class="proeficiente-valor">0</span> +
+                                        M: <span class="modbase-valor">0</span> +
+                                        A: <span class="atributotxt-valor">0</span>) </h5>
                                 </div>
 
-                                <!-- Linha de cálculo final -->
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-text">Modificador Base</span>
-                                    <input type="number" class="form-control pericia-mod" />
+                                <!-- Conteúdo expandido -->
+                                <div class="collapse" id="pericia-tenacidade">
+                                    <div class="row g-2 align-items-end">
 
-                                    <span class="input-group-text">+</span>
-                                    <span class="input-group-text treinado-valor">0</span>
+                                        <div class="col-6 col-md-3">
+                                            <label class="form-label mb-1">Treinamentos</label>
+                                            <input type="number" class="form-control form-control-sm treinado" />
+                                        </div>
 
-                                    <span class="input-group-text">+</span>
-                                    <span class="input-group-text proeficiente-valor">0</span>
+                                        <div class="col-6 col-md-3">
+                                            <label class="form-label mb-1">Proeficiências</label>
+                                            <input type="number" class="form-control form-control-sm proeficiente" />
+                                        </div>
 
-                                    <span class="input-group-text">+</span>
-                                    <span class="input-group-text atributo-valor">0</span>
+                                        <div class="col-6 col-md-3">
+                                            <label class="form-label mb-1">Mod. Geral</label>
+                                            <input type="number" class="form-control form-control-sm pericia-mod" />
+                                        </div>
 
-                                    <span class="input-group-text">=</span>
-                                    <input type="number" class="form-control pericia-final" readonly />
+                                        <div class="col-6 col-md-3">
+                                            <label class="form-label mb-1">Atributo</label>
+                                            <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
 
 
 

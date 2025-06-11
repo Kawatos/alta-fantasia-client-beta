@@ -911,10 +911,12 @@ function calcularPericias() {
         const resultado = modBase + bonusTreinamento + bonusProeficiencia + valorAtributo;
 
         // Atualizar valores visuais
+        pericia.querySelector(".modbase-valor").textContent = modBase;
         pericia.querySelector(".treinado-valor").textContent = bonusTreinamento;
         pericia.querySelector(".proeficiente-valor").textContent = bonusProeficiencia;
-        pericia.querySelector(".atributo-valor").textContent = valorAtributo;
-        pericia.querySelector(".pericia-final").value = resultado;
+        pericia.querySelector(".atributo-valor").value = valorAtributo;
+        pericia.querySelector(".atributotxt-valor").textContent = valorAtributo;
+        pericia.querySelector(".pericia-final").textContent = resultado;
     });
 }
 
