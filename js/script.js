@@ -932,9 +932,3 @@ modalFicha.addEventListener('shown.bs.modal', calcularPericias);
 document.getElementById("ficha-xp").addEventListener("input", atualizarNivelEBarra);
 document.getElementById("ficha-xp").addEventListener("input", atualizarAtributos);
 
-
-
-
-
-
-

@@ -349,42 +349,229 @@ if (!isset($_SESSION['usuario_id'])) {
                         <!-- Perícias -->
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
 
-                            <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="vigor">
+                            <!-- Tabs de Navegação Pericias-->
+                            <div class="col-12 mt-4">
+                                <ul class="nav nav-tabs" id="tabs-pericias" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="tab-corporais-tab" data-bs-toggle="tab" data-bs-target="#tab-corporais" type="button" role="tab">Corporais</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="tab-mentais-tab" data-bs-toggle="tab" data-bs-target="#tab-mentais" type="button" role="tab">Mentais</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="tab-tecnicas-tab" data-bs-toggle="tab" data-bs-target="#tab-tecnicas" type="button" role="tab">Tecnicas</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="tab-conhecimentos-tab" data-bs-toggle="tab" data-bs-target="#tab-conhecimentos" type="button" role="tab">Conhecimentos</button>
+                                    </li>
+                                </ul>
 
-                                <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-tenacidade">
-                                    <h4>Tenacidade = <span class="pericia-final"></span></h4>
-                                    <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
-                                        P: <span class="proeficiente-valor">0</span> +
-                                        M: <span class="modbase-valor">0</span> +
-                                        A: <span class="atributotxt-valor">0</span>) </h5>
-                                </div>
+                                <div class="tab-content mt-3" id="pericias-tab-content">
+                                    <div class="tab-pane fade show active" id="tab-corporais" role="tabpanel">
 
-                                <!-- Conteúdo expandido -->
-                                <div class="collapse" id="pericia-tenacidade">
-                                    <div class="row g-2 align-items-end">
+                                        
 
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label mb-1">Treinamentos</label>
-                                            <input type="number" class="form-control form-control-sm treinado" />
+                                        <!-- Tenacidade -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="vigor">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-tenacidade">
+                                                <h4>Tenacidade = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-tenacidade">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label mb-1">Proeficiências</label>
-                                            <input type="number" class="form-control form-control-sm proeficiente" />
+                                        <!-- Fortitude -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="vigor">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-fortitude">
+                                                <h4>Fortitude = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-fortitude">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label mb-1">Mod. Geral</label>
-                                            <input type="number" class="form-control form-control-sm pericia-mod" />
+                                        <!-- Reflexo -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="destreza">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-reflexo">
+                                                <h4>Reflexo = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-reflexo">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label mb-1">Atributo</label>
-                                            <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                        <!-- Controle -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="destreza">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-controle">
+                                                <h4>Controle = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-controle">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <!-- Atletismo -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="forca">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-atletismo">
+                                                <h4>Atletismo = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-atletismo">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Corpo-a-corpo -->
+                                        <div class="col-12 pericia border border-secondary-subtle rounded mb-3 p-3" data-atributo="vigor">
+                                            <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#pericia-tenacidade">
+                                                <h4>Tenacidade = <span class="pericia-final"></span></h4>
+                                                <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
+                                                    P: <span class="proeficiente-valor">0</span> +
+                                                    M: <span class="modbase-valor">0</span> +
+                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                            </div>
+                                            <div class="collapse" id="pericia-tenacidade">
+                                                <div class="row g-2 align-items-end">
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Treinamentos</label>
+                                                        <input type="number" class="form-control form-control-sm treinado" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Proeficiências</label>
+                                                        <input type="number" class="form-control form-control-sm proeficiente" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Mod. Geral</label>
+                                                        <input type="number" class="form-control form-control-sm pericia-mod" />
+                                                    </div>
+                                                    <div class="col-6 col-md-3">
+                                                        <label class="form-label mb-1">Atributo</label>
+                                                        <input type="number" class="form-control form-control-sm atributo-valor" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab-mentais" role="tabpanel">
+
+                                    </div>
+                                    <div class="tab-pane fade" id="tab-tecnicas" role="tabpanel">
+
+                                    </div>
+                                    <div class="tab-pane fade" id="tab-conhecimentos" role="tabpanel">
+
                                     </div>
                                 </div>
                             </div>
+
 
 
 
