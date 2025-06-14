@@ -121,6 +121,68 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.t_instrumentos_mod').value = pericias.t_instrumentos_mod;
                     document.querySelector('.t_pilotagem_mod').value = pericias.t_pilotagem_mod;
 
+                    // Treinamentos
+                    document.querySelector('.tenacidade_treinamentos').value = pericias.tenacidade_treinamentos;
+                    document.querySelector('.fortitude_treinamentos').value = pericias.fortitude_treinamentos;
+                    document.querySelector('.reflexo_treinamentos').value = pericias.reflexo_treinamentos;
+                    document.querySelector('.controle_treinamentos').value = pericias.controle_treinamentos;
+                    document.querySelector('.atletismo_treinamentos').value = pericias.atletismo_treinamentos;
+                    document.querySelector('.corpoacorpo_treinamentos').value = pericias.corpoacorpo_treinamentos;
+                    document.querySelector('.autocontrole_treinamentos').value = pericias.autocontrole_treinamentos;
+                    document.querySelector('.resiliencia_treinamentos').value = pericias.resiliencia_treinamentos;
+                    document.querySelector('.intuicao_treinamentos').value = pericias.intuicao_treinamentos;
+                    document.querySelector('.percepcao_treinamentos').value = pericias.percepcao_treinamentos;
+                    document.querySelector('.influencia_treinamentos').value = pericias.influencia_treinamentos;
+                    document.querySelector('.atuacao_treinamentos').value = pericias.atuacao_treinamentos;
+                    document.querySelector('.c_arcano_treinamentos').value = pericias.c_arcano_treinamentos;
+                    document.querySelector('.c_religioso_treinamentos').value = pericias.c_religioso_treinamentos;
+                    document.querySelector('.c_historico_treinamentos').value = pericias.c_historico_treinamentos;
+                    document.querySelector('.c_natureza_treinamentos').value = pericias.c_natureza_treinamentos;
+                    document.querySelector('.c_engenharia_treinamentos').value = pericias.c_engenharia_treinamentos;
+                    document.querySelector('.c_alquimia_treinamentos').value = pericias.c_alquimia_treinamentos;
+                    document.querySelector('.c_navegacao_treinamentos').value = pericias.c_navegacao_treinamentos;
+                    document.querySelector('.c_linguistico_treinamentos').value = pericias.c_linguistico_treinamentos;
+                    document.querySelector('.t_esgrima_treinamentos').value = pericias.t_esgrima_treinamentos;
+                    document.querySelector('.t_pontaria_treinamentos').value = pericias.t_pontaria_treinamentos;
+                    document.querySelector('.t_marcial_treinamentos').value = pericias.t_marcial_treinamentos;
+                    document.querySelector('.t_metalurgia_treinamentos').value = pericias.t_metalurgia_treinamentos;
+                    document.querySelector('.t_artesanato_treinamentos').value = pericias.t_artesanato_treinamentos;
+                    document.querySelector('.t_ladinagem_treinamentos').value = pericias.t_ladinagem_treinamentos;
+                    document.querySelector('.t_instrumentos_treinamentos').value = pericias.t_instrumentos_treinamentos;
+                    document.querySelector('.t_pilotagem_treinamentos').value = pericias.t_pilotagem_treinamentos;
+
+                    // Proficiências
+                    document.querySelector('.tenacidade_proeficiencias').value = pericias.tenacidade_proeficiencias;
+                    document.querySelector('.fortitude_proeficiencias').value = pericias.fortitude_proeficiencias;
+                    document.querySelector('.reflexo_proeficiencias').value = pericias.reflexo_proeficiencias;
+                    document.querySelector('.controle_proeficiencias').value = pericias.controle_proeficiencias;
+                    document.querySelector('.atletismo_proeficiencias').value = pericias.atletismo_proeficiencias;
+                    document.querySelector('.corpoacorpo_proeficiencias').value = pericias.corpoacorpo_proeficiencias;
+                    document.querySelector('.autocontrole_proeficiencias').value = pericias.autocontrole_proeficiencias;
+                    document.querySelector('.resiliencia_proeficiencias').value = pericias.resiliencia_proeficiencias;
+                    document.querySelector('.intuicao_proeficiencias').value = pericias.intuicao_proeficiencias;
+                    document.querySelector('.percepcao_proeficiencias').value = pericias.percepcao_proeficiencias;
+                    document.querySelector('.influencia_proeficiencias').value = pericias.influencia_proeficiencias;
+                    document.querySelector('.atuacao_proeficiencias').value = pericias.atuacao_proeficiencias;
+                    document.querySelector('.c_arcano_proeficiencias').value = pericias.c_arcano_proeficiencias;
+                    document.querySelector('.c_religioso_proeficiencias').value = pericias.c_religioso_proeficiencias;
+                    document.querySelector('.c_historico_proeficiencias').value = pericias.c_historico_proeficiencias;
+                    document.querySelector('.c_natureza_proeficiencias').value = pericias.c_natureza_proeficiencias;
+                    document.querySelector('.c_engenharia_proeficiencias').value = pericias.c_engenharia_proeficiencias;
+                    document.querySelector('.c_alquimia_proeficiencias').value = pericias.c_alquimia_proeficiencias;
+                    document.querySelector('.c_navegacao_proeficiencias').value = pericias.c_navegacao_proeficiencias;
+                    document.querySelector('.c_linguistico_proeficiencias').value = pericias.c_linguistico_proeficiencias;
+                    document.querySelector('.t_esgrima_proeficiencias').value = pericias.t_esgrima_proeficiencias;
+                    document.querySelector('.t_pontaria_proeficiencias').value = pericias.t_pontaria_proeficiencias;
+                    document.querySelector('.t_marcial_proeficiencias').value = pericias.t_marcial_proeficiencias;
+                    document.querySelector('.t_metalurgia_proeficiencias').value = pericias.t_metalurgia_proeficiencias;
+                    document.querySelector('.t_artesanato_proeficiencias').value = pericias.t_artesanato_proeficiencias;
+                    document.querySelector('.t_ladinagem_proeficiencias').value = pericias.t_ladinagem_proeficiencias;
+                    document.querySelector('.t_instrumentos_proeficiencias').value = pericias.t_instrumentos_proeficiencias;
+                    document.querySelector('.t_pilotagem_proeficiencias').value = pericias.t_pilotagem_proeficiencias;
+
+
+
                     getHabilidades();
                     getMagias();
                     getItens();
@@ -853,8 +915,12 @@ function atualizarAtributos() {
 
         const total = modBase + modNivel;
         const inputAtributo = document.querySelector(`.${attr}`);
+        const spanAtributo = document.querySelector(`.${attr}-txt`);
         if (inputAtributo) {
             inputAtributo.value = total;
+            if (spanAtributo) {
+                spanAtributo.textContent = total;
+            }
         }
         calcularPericias();
     });
