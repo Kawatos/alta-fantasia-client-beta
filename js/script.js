@@ -1,3 +1,4 @@
+
 let modoEdicao = false;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -186,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     getHabilidades();
                     getMagias();
                     getItens();
+
 
 
 
@@ -632,6 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const peso = card.querySelectorAll('input[type="number"]')[1].value;
                 const volume = card.querySelectorAll('input[type="text"]')[1].value;
                 const equipado = card.querySelector('select').value;
+                const inventario_interno = card.querySelectorAll('select')[1].value;
                 const descricao = card.querySelector('textarea').value;
 
                 const formData = new FormData();
@@ -643,6 +646,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('peso', peso);
                 formData.append('volume', volume);
                 formData.append('equipado', equipado);
+                formData.append('inventario_interno', inventario_interno);
                 formData.append('descricao', descricao);
 
                 fetch('backend/itens/controle_itens.php', {
@@ -687,6 +691,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
             });
         });
+
+        configurarListenersDeItens();
     }
 
 
@@ -699,6 +705,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemPeso = document.getElementById('item-peso').value;
         const itemVolume = document.getElementById('item-volume').value;
         const itemEquipado = document.getElementById('item-equipado').value;
+        const itemInventarioInterno = document.getElementById('item-inventario-interno').value;
 
         console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
         console.log(fichaId, "dentro de criar item");
@@ -711,6 +718,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('peso', itemPeso);
         formData.append('volume', itemVolume);
         formData.append('equipado', itemEquipado);
+        formData.append('inventario_interno', itemInventarioInterno);
+
         formData.append('acao', acao);
 
         fetch('backend/itens/controle_itens.php', {
@@ -759,41 +768,52 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <div class="collapse" id="item${item.id_item}">
                                     <div class="card-body p-3">
-                                        <div class="mb-3">
-                                            <label class="form-label">Nome:</label>
-                                            <input type="text" class="form-control" value="${item.nome}" data-id="${item.id_item}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Rank:</label>
-                                            <input type="number" class="form-control" value="${item.rank}" data-id="${item.id_item}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Peso:</label>
-                                            <input type="number" class="form-control" value="${item.peso}" data-id="${item.id_item}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Volume:</label>
-                                            <input type="text" class="form-control" value="${item.volume}" data-id="${item.id_item}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Equipado:</label>
-                                            <select class="form-control" data-id="${item.id_item}">
-                                                <option value="">Selecione</option>
-                                                <option value="sim" ${item.equipado === 'sim' ? 'selected' : ''}>Sim</option>
-                                                <option value="nao" ${item.equipado === 'nao' ? 'selected' : ''}>Não</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Descrição:</label>
-                                            <textarea class="form-control" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
-                                        </div>
-                                        <div class="text-end">
-                                            <button class="btn btn-primary btn-sm me-2 salvar-item" data-id="${item.id_item}">Salvar</button>
-                                            <button class="btn btn-danger btn-sm excluir-item" data-id="${item.id_item}">Excluir</button>
+                                        <div class="row g-3 item-details">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Nome:</label>
+                                                <input type="text" class="form-control" value="${item.nome}" data-id="${item.id_item}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Rank:</label>
+                                                <input type="number" class="form-control" value="${item.rank}" data-id="${item.id_item}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Peso (kg):</label>
+                                                <input type="number" class="form-control" value="${item.peso}" data-id="${item.id_item}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Volume:</label>
+                                                <input type="text" class="form-control" value="${item.volume}" data-id="${item.id_item}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Equipado:</label>
+                                                <select class="form-control" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="sim" ${item.equipado === 'sim' ? 'selected' : ''}>Sim</option>
+                                                    <option value="nao" ${item.equipado === 'nao' ? 'selected' : ''}>Não</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Inventário Interno:</label>
+                                                <select class="form-control" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="sim" ${item.inventario_interno === 'sim' ? 'selected' : ''}>Sim</option>
+                                                    <option value="nao" ${item.inventario_interno === 'nao' ? 'selected' : ''}>Não</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Descrição:</label>
+                                                <textarea class="form-control" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
+                                            </div>
+                                            <div class="col-12 text-end">
+                                                <button class="btn btn-primary btn-sm me-2 salvar-item" data-id="${item.id_item}">Salvar</button>
+                                                <button class="btn btn-danger btn-sm excluir-item" data-id="${item.id_item}">Excluir</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             `;
+
 
                             itensContainer.appendChild(card);
                         });
@@ -807,6 +827,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     itensContainer.innerHTML = 'Erro ao renderizar itens.';
                 }
             });
+
     }
 
 
@@ -911,18 +932,28 @@ function atualizarAtributos() {
     atributos.forEach(attr => {
         const modBase = parseInt(document.querySelector(`.${attr}_mod`)?.value) || 0;
         const modNivel = parseInt(document.querySelector(`.${attr}_mod_nv`)?.value) || 0;
+
         totalModNivel += modNivel;
 
         const total = modBase + modNivel;
         const inputAtributo = document.querySelector(`.${attr}`);
         const spanAtributo = document.querySelector(`.${attr}-txt`);
+        const spanAtrbutoMod = document.querySelector(`.${attr}_mod-txt`);
+        const spanAtrbutoModNivel = document.querySelector(`.${attr}_mod_nv-txt`);
         if (inputAtributo) {
             inputAtributo.value = total;
             if (spanAtributo) {
                 spanAtributo.textContent = total;
             }
+            if (spanAtrbutoMod) {
+                spanAtrbutoMod.textContent = modBase;
+            }
+            if (spanAtrbutoModNivel) {
+                spanAtrbutoModNivel.textContent = modNivel;
+            }
         }
         calcularPericias();
+        verificarLimiteDeCarga()
     });
 
     // Atualiza total de pontos gastos e nível
@@ -990,6 +1021,212 @@ function calcularPericias() {
 document.querySelectorAll(".pericia-mod, .treinado, .proeficiente").forEach(el => {
     el.addEventListener("input", calcularPericias);
 });
+
+function atualizarPesoTotal() {
+    let totalPeso = 0;
+    console.log("atualizando peso total");
+
+    console.log(document.querySelectorAll('.item-details').length, "cards de item encontrados");
+    // Percorre todos os cards de item
+    document.querySelectorAll('.item-details').forEach(details => {
+        console.log("calculando peso para card");
+        // Pega todos os inputs numéricos (rank e peso)
+        const inputsNumericos = details.querySelectorAll('input[type="number"]');
+        if (inputsNumericos.length < 2) return;
+
+        const inputPeso = inputsNumericos[1]; // O segundo input é o PESO
+        const peso = parseFloat(inputPeso.value) || 0;
+
+        // Pega todos os selects (equipado e inventário interno)
+        const selects = details.querySelectorAll('select');
+        if (selects.length < 2) return;
+
+        const selectInventarioInterno = selects[1]; // O segundo select é INVENTÁRIO INTERNO
+        const inventarioInterno = selectInventarioInterno.value;
+
+        // Soma somente se inventário interno for diferente de "sim"
+        if (inventarioInterno !== 'sim') {
+            totalPeso += peso;
+        }
+    });
+
+    document.getElementById('peso-total-carregado').textContent = totalPeso.toFixed(2);
+    verificarLimiteDeCarga();
+}
+
+
+// Atualiza peso total sempre que o campo de peso ou inventário interno mudar
+function configurarListenersDeItens() {
+    document.querySelectorAll('.item-details').forEach(card => {
+        const inputsNumericos = card.querySelectorAll('input[type="number"]');
+        const selects = card.querySelectorAll('select');
+
+        if (inputsNumericos.length >= 2) {
+            inputsNumericos[1].addEventListener('input', atualizarPesoTotal); // peso
+        }
+
+        if (selects.length >= 2) {
+            selects[1].addEventListener('change', atualizarPesoTotal); // inventário interno
+        }
+    });
+
+    atualizarPesoTotal(); // Atualiza imediatamente após configurar
+}
+
+function verificarLimiteDeCarga() {
+    const pesoAtual = parseFloat(document.getElementById('peso-total-carregado').textContent) || 0;
+    const pesoTotalH5 = document.getElementById('peso-total-h5');
+    const inputForca = document.querySelector('.forca');
+    const inputCargaMod = document.getElementById('ficha-carga_suportada_mod');
+    const pesoMaximoSpan = document.getElementById('peso-maximo-carregavel');
+
+    const forca = parseInt(inputForca?.value) || 0;
+    const cargaMod = parseFloat(inputCargaMod?.value) || 0;
+
+    const limite = (forca * 3) + cargaMod;
+
+    pesoMaximoSpan.textContent = limite.toFixed(2);
+
+    const spanPeso = document.getElementById('peso-total-carregado');
+
+    if (pesoAtual > limite) {
+        pesoTotalH5.style.color = 'red';
+    } else {
+        pesoTotalH5.style.color = ''; // Cor padrão
+    }
+}
+
+
+function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, tipo = "vida", exibirAlerta = false }) {
+    const inputMax = document.getElementById(inputMaxId);
+    const inputAtual = document.getElementById(inputAtualId);
+    const barra = document.getElementById(barraId);
+    const bgBarra = document.getElementById(bgBarraId);
+
+    const max = parseInt(inputMax?.value) || 1;
+    const atual = parseInt(inputAtual?.value) || 0;
+    const percentual = Math.round(Math.min(100, Math.max(0, (atual / max) * 100)));
+
+    barra.style.width = `${percentual}%`;
+    barra.textContent = `${percentual}%`;
+
+    // Remove estilos anteriores
+    barra.classList.remove('bg-success', 'bg-warning', 'bg-danger', 'bg-dark');
+    if (bgBarra) bgBarra.classList.remove('bg-dark');
+
+
+    /// Limpa classes Bootstrap e estilo
+    barra.classList.remove('bg-success', 'bg-warning', 'bg-danger', 'bg-dark');
+    barra.style.backgroundColor = '';
+    if (bgBarra) {
+        bgBarra.classList.remove('bg-dark');
+        bgBarra.style.backgroundColor = '';
+    }
+
+    if (tipo === "mana") {
+        // Cor vai de roxo escuro (100%) a azul claro (0%)
+        const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff');
+        barra.style.backgroundColor = cor;
+    } else if (atual <= 0) {
+        barra.classList.add('bg-dark');
+        if (bgBarra) bgBarra.classList.add('bg-dark');
+
+        if (exibirAlerta && !barra.dataset.alertShown) {
+            Swal.fire({
+                title: '[ALERTA DO SISTEMA]',
+                html: `
+                <b>Seus Pontos de Vida chegaram a 0.</b><br><br>
+                Morte permanente será aplicada conforme as regras deste mundo, se não houverem contramedidas.<br><br>
+                ⚠️ <i>Continue por sua conta e risco.</i>
+            `,
+                icon: 'warning',
+                background: '#1a1a1a',
+                color: '#00ccff',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#000000',
+                customClass: {
+                    popup: 'swal2-border-radius'
+                }
+            });
+            barra.dataset.alertShown = "true";
+        }
+    } else {
+        barra.classList.add(
+            percentual >= 70 ? 'bg-success' :
+                percentual >= 30 ? 'bg-warning' : 'bg-danger'
+        );
+        delete barra.dataset.alertShown;
+    }
+
+
+}
+
+function interpolarCor(percentual, corInicial, corFinal) {
+    // Converte HEX para RGB
+    function hexToRgb(hex) {
+        const bigint = parseInt(hex.replace("#", ""), 16);
+        return {
+            r: (bigint >> 16) & 255,
+            g: (bigint >> 8) & 255,
+            b: bigint & 255
+        };
+    }
+
+    // Interpola entre dois valores
+    function lerp(a, b, t) {
+        return Math.round(a + (b - a) * t);
+    }
+
+    const c1 = hexToRgb(corInicial);
+    const c2 = hexToRgb(corFinal);
+
+    const r = lerp(c1.r, c2.r, percentual);
+    const g = lerp(c1.g, c2.g, percentual);
+    const b = lerp(c1.b, c2.b, percentual);
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+
+function atualizarBarraDeVida() {
+    atualizarBarraDeStatus({
+        inputMaxId: "ficha-pontos_de_vida",
+        inputAtualId: "ficha-pvs_atuais",
+        barraId: "barra-pv",
+        bgBarraId: "barra-vida",
+        tipo: "vida",
+        exibirAlerta: true
+    });
+}
+
+function atualizarBarraDeMana() {
+    atualizarBarraDeStatus({
+        inputMaxId: "ficha-pontos_de_mana",
+        inputAtualId: "ficha-pms_atuais",
+        barraId: "barra-pm",
+        bgBarraId: "barra-mana",
+        tipo: "mana",
+        exibirAlerta: false
+    });
+}
+
+
+
+
+
+document.getElementById("ficha-pontos_de_vida").addEventListener("input", atualizarBarraDeVida);
+document.getElementById("ficha-pvs_atuais").addEventListener("input", atualizarBarraDeVida);
+
+document.getElementById("ficha-pontos_de_mana").addEventListener("input", atualizarBarraDeMana);
+document.getElementById("ficha-pms_atuais").addEventListener("input", atualizarBarraDeMana);
+
+modalFicha.addEventListener('shown.bs.modal', () => {
+    atualizarBarraDeVida();
+    atualizarBarraDeMana();
+});
+
+
+
 
 
 modalFicha.addEventListener('shown.bs.modal', atualizarNivelEBarra);

@@ -171,6 +171,23 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <option value="Druida">Druida</option>
                                     </select>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label for="ficha-deslocamento" class="form-label">Deslocamento</label>
+                                    <input type="number" name="deslocamento" id="ficha-deslocamento" class="form-control deslocamento-personagem" placeholder="Deslocamento">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-divindade" class="form-label">Divindade</label>
+                                    <input type="text" name="divindade" id="ficha-divindade" class="form-control divindade-personagem" placeholder="Divindade">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-escola_arcana" class="form-label">Escola Arcana</label>
+                                    <input type="text" name="escola_arcana" id="ficha-escola_arcana" class="form-control escola_arcana-personagem" placeholder="Escola Arcana">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-idiomas" class="form-label">Idiomas</label>
+                                    <input type="text" name="idiomas" id="ficha-idiomas" class="form-control idiomas-personagem" placeholder="Idiomas">
+                                </div>
                                 <div class="col-6">
                                     <label for="ficha-xp" class="form-label">Experiência (XP)</label>
                                     <input type="number" name="nivel" id="ficha-xp" class="form-control nivel-personagem" placeholder="XP Atual" value="100" min="0">
@@ -207,6 +224,15 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida">
                                 </div>
 
+                                <div class="col-md-12 mt-2">
+                                    <label class="form-label">Barra de Vida</label>
+                                    <div class="progress" id="barra-vida" style="height: 25px;">
+                                        <div id="barra-pv" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
+                                    </div>
+                                </div>
+
+
+
                                 <!-- Linha 4: Pontos de Mana -->
                                 <div class="col-md-6">
                                     <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
@@ -216,6 +242,14 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-pms_atuais" class="form-label">Pontos de Mana Atuais</label>
                                     <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
                                 </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <label class="form-label">Barra de PM</label>
+                                    <div class="progress" id="barra-mana" style="height: 25px;">
+                                        <div id="barra-pm" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6">
                                     <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
                                     <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
@@ -224,22 +258,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-regen_pm" class="form-label">Regeneração de Pontos de Mana</label>
                                     <input type="number" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de Pontos de Mana">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-deslocamento" class="form-label">Deslocamento</label>
-                                    <input type="number" name="deslocamento" id="ficha-deslocamento" class="form-control deslocamento-personagem" placeholder="Deslocamento">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-divindade" class="form-label">Divindade</label>
-                                    <input type="text" name="divindade" id="ficha-divindade" class="form-control divindade-personagem" placeholder="Divindade">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-escola_arcana" class="form-label">Escola Arcana</label>
-                                    <input type="text" name="escola_arcana" id="ficha-escola_arcana" class="form-control escola_arcana-personagem" placeholder="Escola Arcana">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-idiomas" class="form-label">Idiomas</label>
-                                    <input type="text" name="idiomas" id="ficha-idiomas" class="form-control idiomas-personagem" placeholder="Idiomas">
-                                </div>
+
 
 
                                 <!-- Linha 5: Descrição -->
@@ -273,6 +292,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atvigor">
                                                 <h4>Vigor = <span class="vigor-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="vigor_mod-txt">0</span> + M/N: <span class="vigor_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atvigor">
                                                 <div class="row g-2 align-items-end">
@@ -295,6 +315,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atforca">
                                                 <h4>Força = <span class="forca-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="forca_mod-txt">0</span> + M/N: <span class="forca_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atforca">
                                                 <div class="row g-2 align-items-end">
@@ -317,6 +338,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atdestreza">
                                                 <h4>Destreza = <span class="destreza-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="destreza_mod-txt">0</span> + M/N: <span class="destreza_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atdestreza">
                                                 <div class="row g-2 align-items-end">
@@ -341,6 +363,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atespirito">
                                                 <h4>Espírito = <span class="espirito-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="espirito_mod-txt">0</span> + M/N: <span class="espirito_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atespirito">
                                                 <div class="row g-2 align-items-end">
@@ -363,6 +386,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atcarisma">
                                                 <h4>Carisma = <span class="carisma-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="carisma_mod-txt">0</span> + M/N: <span class="carisma_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atcarisma">
                                                 <div class="row g-2 align-items-end">
@@ -385,6 +409,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-12 border border-secondary-subtle rounded mb-3 p-3">
                                             <div class="w-100" type="button" data-bs-toggle="collapse" data-bs-target="#atintelecto">
                                                 <h4>Intelecto = <span class="intelecto-txt"></span></h4>
+                                                <h5 class="mb-1 text-muted">(M: <span class="intelecto_mod-txt">0</span> + M/N: <span class="intelecto_mod_nv-txt">0</span>) </h5>
                                             </div>
                                             <div class="collapse" id="atintelecto">
                                                 <div class="row g-2 align-items-end">
@@ -408,7 +433,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-12 mt-3">
                                 <p>Estilo de cálculo (Mod + Mod Nível = Atributo)</p>
                                 <p>Total de Pontos de Modificadores de Nível: <span id="total-mod-nivel">0</span> / <span id="pontos-por-nivel">1</span></p>
@@ -1467,46 +1492,58 @@ if (!isset($_SESSION['usuario_id'])) {
                         <!-- Itens -->
                         <div class="tab-pane fade" id="itens" role="tabpanel">
                             <div class="row g-3">
+                                <!-- Botão Criar Item -->
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-primary criar-item" id="criar-item" data-bs-toggle="collapse" data-bs-target="#collapseItem">Criar Novo Item</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseItem">Criar Novo Item</button>
                                     <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseItem" aria-label="Fechar"></button>
 
                                     <div class="collapse mt-3" id="collapseItem">
                                         <div class="card card-body">
-                                            <div class="col-md-6">
-                                                <label for="item-nome" class="form-label">Nome</label>
-                                                <input type="text" class="form-control" id="item-nome" name="nome-item">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="item-rank" class="form-label">Rank</label>
-                                                <input type="number" class="form-control" id="item-rank" name="rank">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="item-peso" class="form-label">Peso</label>
-                                                <input type="number" class="form-control" id="item-peso" name="peso">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="item-volume" class="form-label">Volume</label>
-                                                <input type="text" class="form-control" id="item-volume" name="volume">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="item-equipado" class="form-label">Equipado</label>
-                                                <select class="form-control" id="item-equipado" name="equipado">
-                                                    <option value="">Selecione</option>
-                                                    <option value="sim">Sim</option>
-                                                    <option value="nao">Não</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="item-descricao" class="form-label">Descrição</label>
-                                                <textarea class="form-control" id="item-descricao" name="descricao" rows="3"></textarea>
-                                            </div>
-                                            <div class="col-12 mt-3">
-                                                <button type="button" class="btn btn-success" id="salvar-item-novo">Salvar Item</button>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="item-nome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control" id="item-nome" name="nome-item">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-rank" class="form-label">Rank</label>
+                                                    <input type="number" class="form-control" id="item-rank" name="rank">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-peso" class="form-label">Peso (kg):</label>
+                                                    <input type="number" class="form-control" id="item-peso" name="peso">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-volume" class="form-label">Volume</label>
+                                                    <input type="text" class="form-control" id="item-volume" name="volume">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-equipado" class="form-label">Equipado</label>
+                                                    <select class="form-control" id="item-equipado" name="equipado">
+                                                        <option value="">Selecione</option>
+                                                        <option value="sim">Sim</option>
+                                                        <option value="nao">Não</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-inventario-interno" class="form-label">Inventário Interno</label>
+                                                    <select class="form-control" id="item-inventario-interno" name="inventario_interno">
+                                                        <option value="">Selecione</option>
+                                                        <option value="sim">Sim</option>
+                                                        <option value="nao">Não</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="item-descricao" class="form-label">Descrição</label>
+                                                    <textarea class="form-control" id="item-descricao" name="descricao" rows="3"></textarea>
+                                                </div>
+                                                <div class="col-12 mt-3">
+                                                    <button type="button" class="btn btn-success" id="salvar-item-novo">Salvar Item</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <script>
                                     // Fecha o collapse ao clicar fora dele
@@ -1522,8 +1559,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <label for="ficha-itens" class="form-label">Itens</label>
                                 <div id="itensContainer"></div>
                             </div>
+
+                            <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
+                            <p>Máximo Base (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
+
                             <div class="col-md-6">
-                                <label for="ficha-carga_suportada_mod" class="form-label">Carga Suportada Modificador</label>
+                                <label for="ficha-carga_suportada_mod" class="form-label">Carga Suportada Modificador (kg)</label>
                                 <input type="number" name="carga_suportada_mod" id="ficha-carga_suportada_mod" class="form-control carga_suportada_mod-personagem" placeholder="Carga Suportada Modificador">
                             </div>
 
