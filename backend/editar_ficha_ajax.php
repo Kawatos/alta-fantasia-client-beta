@@ -164,6 +164,13 @@ $t_pilotagem_proeficiencias = $_POST['t_pilotagem_proeficiencias'] ?? 0;
 // Processa imagem se enviada
 $caminhoImagem = null;
 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+    // Verificação de tamanho da imagem (máximo 3MB)
+    $tamanhoMaximo = 3 * 1024 * 1024; // 3 MB em bytes
+    if ($_FILES['imagem']['size'] > $tamanhoMaximo) {
+        echo json_encode(['status' => 'erro', 'mensagem' => 'Imagem excede o tamanho máximo permitido de 3 MB.']);
+        exit;
+    }
+
     $pastaWeb = 'uploads/'; // usado para exibir no navegador (salvo no banco)
     $pastaSistema = __DIR__ . '/../uploads/'; // caminho real do sistema de arquivos
 
@@ -183,9 +190,8 @@ if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao salvar a imagem.']);
         exit;
     }
-
-    // agora $caminhoImagemWeb pode ser salvo no banco normalmente
 }
+
 
 
 $sqlImagem = '';
