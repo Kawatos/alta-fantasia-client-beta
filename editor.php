@@ -14,7 +14,10 @@ if (!isset($_SESSION['usuario_id'])) {
 <div class="container text-center">
     <div class="row g-2">
         <div class="col-12">
-            <h1 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
+            <h1 class="logo-site1">
+                <span class="altaT">Alta</span> <span class="fantasiaT1">Fantasia</span>
+            </h1>
+            <h3 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h3>
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
                 <button id="botaoCriarFicha" class="btn btn-primary">Criar Novo Personagem</button>
@@ -143,22 +146,22 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
                             <div class="row g-3">
                                 <!-- Linha 1: Nome e Raça -->
-                                <h4 class="mt-4">Indentificação</h4>
+                                <h4 class="mt-4">Identificação</h4>
                                 <div class="col-md-6">
-                                    
+
                                     <div class="mb-2 text-center">
                                         <img id="preview_imagem_personagem" src="uploads/perfil-vazio.png" alt="Preview da Imagem"
-                                        style="max-width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">
+                                            style="max-width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">
                                     </div>
 
                                     <label for="personagem_imagem_id" class="form-label">Imagem do Personagem:</label>
-                                    
+
                                     <div class="input-group">
                                         <input type="file" class="form-control personagem_imagem" id="personagem_imagem_id"
-                                        name="imagem" accept="image/*">
+                                            name="imagem" accept="image/*">
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 d-flex flex-column justify-content-end">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
                                     <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem mb-3" placeholder="Nome do Personagem">
@@ -182,7 +185,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
 
 
-                               
+
 
                                 <!-- Linha 2: Classe e Nível -->
                                 <div class="col-md-6">
