@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.idiomas-personagem').value = ficha.idiomas;
                     document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod;
                     document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod;
-                    document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem;
+                    document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
+
 
 
                     // Atributos
@@ -1224,14 +1225,17 @@ function interpolarMultiplasCores(percentual, coresHex) {
 
 
 
-function atualizarBarraDeVida() {
+function atualizarBarraDeVida(exibirAlerta = true) {
+    if (exibirAlerta === 'false') {
+        exibirAlerta = false;
+    }
     atualizarBarraDeStatus({
         inputMaxId: "ficha-pontos_de_vida",
         inputAtualId: "ficha-pvs_atuais",
         barraId: "barra-pv",
         bgBarraId: "barra-vida",
         tipo: "vida",
-        exibirAlerta: true
+        exibirAlerta: exibirAlerta
     });
 }
 
@@ -1280,7 +1284,7 @@ document.getElementById("ficha-pontos_de_mana").addEventListener("input", atuali
 document.getElementById("ficha-pms_atuais").addEventListener("input", atualizarBarraDeMana);
 
 modalFicha.addEventListener('shown.bs.modal', () => {
-    atualizarBarraDeVida();
+    atualizarBarraDeVida('false');
     atualizarBarraDeMana();
     
 });

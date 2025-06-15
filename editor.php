@@ -14,9 +14,6 @@ if (!isset($_SESSION['usuario_id'])) {
 <div class="container text-center">
     <div class="row g-2">
         <div class="col-12">
-            <form action="backend/logout.php" method="post">
-                <button type="submit" class="btn btn-danger m-4">Logout</button>
-            </form>
             <h1 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
