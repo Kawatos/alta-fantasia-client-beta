@@ -1222,6 +1222,29 @@ function atualizarBarraDeMana() {
     });
 }
 
+function aplicarDano() {
+    const inputAtual = document.getElementById("ficha-pvs_atuais");
+    const valor = parseInt(document.getElementById("pv-valor-ajuste").value) || 0;
+    let atual = parseInt(inputAtual.value) || 0;
+
+    atual -= valor;
+    inputAtual.value = Math.max(0, atual);
+    atualizarBarraDeVida(); // já que você usa essa função
+}
+
+function aplicarCura() {
+    const inputAtual = document.getElementById("ficha-pvs_atuais");
+    const inputMax = document.getElementById("ficha-pontos_de_vida");
+    const valor = parseInt(document.getElementById("pv-valor-ajuste").value) || 0;
+    let atual = parseInt(inputAtual.value) || 0;
+    const max = parseInt(inputMax.value) || 0;
+
+    atual += valor;
+    inputAtual.value = Math.min(max, atual);
+    atualizarBarraDeVida(); // já que você usa essa função
+}
+
+
 
 
 

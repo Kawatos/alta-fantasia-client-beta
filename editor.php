@@ -252,6 +252,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
                                         <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
                                     </div>
+
+                                    <div class="row mt-3" >
+                                        <div class="" style="display: flex; align-items: flex-end; justify-content: center;" >
+                                            <div class="mr-3" style="min-width: 200px;">
+                                                <label for="pv-valor-ajuste" class="form-label">Valor de Cura/Dano</label>
+                                                <input type="number" id="pv-valor-ajuste" class="form-control" placeholder="Valor em PVs">
+                                            </div>
+                                            <div class="mx-3">
+                                                <button type="button" class="btn btn-danger" onclick="aplicarDano()">Sofrer</button>
+                                                <button type="button" class="btn btn-success" onclick="aplicarCura()">Curar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <h4 class="mt-4">Atributos</h4>
