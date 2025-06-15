@@ -100,7 +100,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             <button class="nav-link active" id="tab-identificacao" data-bs-toggle="tab" data-bs-target="#identificacao" type="button" role="tab">Identificação</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="tab-atributos" data-bs-toggle="tab" data-bs-target="#atributos" type="button" role="tab">Atributos</button>
+                            <button class="nav-link" id="tab-atributos" data-bs-toggle="tab" data-bs-target="#atributos" type="button" role="tab">Status e Atributos</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab-pericias" data-bs-toggle="tab" data-bs-target="#pericias" type="button" role="tab">Perícias</button>
@@ -124,6 +124,7 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
                             <div class="row g-3">
                                 <!-- Linha 1: Nome e Raça -->
+                                <h4 class="mt-4">Indentificação</h4>
                                 <div class="col-md-6">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
                                     <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem">
@@ -206,61 +207,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
-                                <!-- Linha 3: Status e Pontos de Vida -->
-                                <div class="col-md-4">
-                                    <label for="ficha-status" class="form-label">Status</label>
-                                    <select name="status_personagem" id="'ficha-status'" class="form-control status-personagem" required>
-                                        <option value="">Selecione um Status</option>
-                                        <option value="Vivo" selected>Vivo</option>
-                                        <option value="Morto">Morto</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida</label>
-                                    <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="ficha-pvs_atuais" class="form-label">Pontos de Vida Atuais</label>
-                                    <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida">
-                                </div>
-
-                                <div class="col-md-12 mt-2">
-                                    <label class="form-label">Barra de Vida</label>
-                                    <div class="progress" id="barra-vida" style="height: 25px;">
-                                        <div id="barra-pv" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- Linha 4: Pontos de Mana -->
-                                <div class="col-md-6">
-                                    <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
-                                    <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-pms_atuais" class="form-label">Pontos de Mana Atuais</label>
-                                    <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
-                                </div>
-
-                                <div class="col-md-12 mt-2">
-                                    <label class="form-label">Barra de PM</label>
-                                    <div class="progress" id="barra-mana" style="height: 25px;">
-                                        <div id="barra-pm" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
-                                    <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="ficha-regen_pm" class="form-label">Regeneração de Pontos de Mana</label>
-                                    <input type="number" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de Pontos de Mana">
-                                </div>
-
-
-
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
@@ -275,8 +221,43 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade" id="atributos" role="tabpanel">
 
                             <!-- Tabs de Navegação Atributos-->
-                            <div class="col-12 mt-4">
-                                <ul class="nav nav-tabs" id="tabs-atributos" role="tablist">
+                            <div class="col-12 mt-3">
+                                <!-- Linha 3: Status e Pontos de Vida -->
+                                <div class="row g-3 mb-3">
+                                    <h4 class="mt-1">Status</h4>
+                                    <div class="col-md-12 mt-2">
+                                        <label class="form-label">Barra de Vida</label>
+                                        <div class="progress" id="barra-vida" style="height: 25px;">
+                                            <div id="barra-pv" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida</label>
+                                        <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ficha-pvs_atuais" class="form-label">Pontos de Vida Atuais</label>
+                                        <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ficha-status" class="form-label">Status</label>
+                                        <select name="status_personagem" id="ficha-status" class="form-control status-personagem" required>
+                                            <option value="">Selecione um Status</option>
+                                            <option value="Vivo" selected>Vivo</option>
+                                            <option value="Morto">Morto</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
+                                        <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
+                                    </div>
+                                </div>
+
+                                <h4 class="mt-4">Atributos</h4>
+                                <p class="text-muted">Estilo de cálculo (Mod + Mod Nível = Atributo)</p>
+
+                                <ul class="nav nav-tabs mt-4" id="tabs-atributos" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="tab-atcorporais-tab" data-bs-toggle="tab" data-bs-target="#tab-atcorporais" type="button" role="tab">Corporais</button>
                                     </li>
@@ -435,7 +416,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
 
                             <div class="col-12 mt-3">
-                                <p>Estilo de cálculo (Mod + Mod Nível = Atributo)</p>
+
                                 <p>Total de Pontos de Modificadores de Nível: <span id="total-mod-nivel">0</span> / <span id="pontos-por-nivel">1</span></p>
                             </div>
                             <div class="col-12">
@@ -446,7 +427,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                         <!-- Perícias -->
                         <div class="tab-pane fade" id="pericias" role="tabpanel">
-
+                            <h4 class="mt-2">Perícias</h4>
                             <!-- Tabs de Navegação Pericias-->
                             <div class="col-12 mt-4">
                                 <ul class="nav nav-tabs" id="tabs-pericias" role="tablist">
@@ -1342,6 +1323,8 @@ if (!isset($_SESSION['usuario_id'])) {
 
                         <!-- Habilidades -->
                         <div class="tab-pane fade" id="habilidades" role="tabpanel">
+
+                            <h4 class="mt-2 mb-4">Habilidades</h4>
                             <div class="row g-3">
                                 <div class="col-12">
                                     <button type="button" class="btn btn-primary criar-habilidade" id="criar-habilidade" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade">Criar Nova Habilidade</button>
@@ -1391,9 +1374,35 @@ if (!isset($_SESSION['usuario_id'])) {
                         </div>
                         <!-- Magias -->
                         <div class="tab-pane fade" id="magias" role="tabpanel">
+                            <h4 class="mt-2 mb-4">Magias</h4>
                             <div class="row g-3">
+
+                                <!-- Linha 4: Pontos de Mana -->
+                                <div class="col-md-12 my-2">
+                                    <label class="form-label">Barra de PM</label>
+                                    <div class="progress" id="barra-mana" style="height: 25px;">
+                                        <div id="barra-pm" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0%</div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 mb-4">
+                                    <div class="col-md-4 ">
+                                        <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
+                                        <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="ficha-pms_atuais" class="form-label">PMs Atuais</label>
+                                        <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="ficha-regen_pm" class="form-label">Regeneração de PMs</label>
+                                        <input type="text" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de Pontos de Mana">
+                                    </div>
+                                </div>
+
+
+
                                 <!-- Botão Criar Magia -->
-                                <div class="col-12">
+                                <div class="col-12 mt-4">
                                     <button type="button" class="btn btn-primary criar-magia" id="criar-magia" data-bs-toggle="collapse" data-bs-target="#collapseMagia">Criar Nova Magia</button>
                                     <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseMagia" aria-label="Fechar"></button>
                                     <div class="collapse mt-3" id="collapseMagia">
@@ -1491,9 +1500,27 @@ if (!isset($_SESSION['usuario_id'])) {
 
                         <!-- Itens -->
                         <div class="tab-pane fade" id="itens" role="tabpanel">
+                            <h4 class="mt-2 mb-4">Itens</h4>
                             <div class="row g-3">
+
                                 <!-- Botão Criar Item -->
                                 <div class="col-12">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label for="ficha-carga_suportada_mod" class="form-label">Carga Suportada Modificador (kg)</label>
+                                            <input type="number" name="carga_suportada_mod" id="ficha-carga_suportada_mod" class="form-control carga_suportada_mod-personagem" placeholder="Carga Suportada Modificador">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="ficha-carga_suportada_mod" class="form-label">Inventário Interno Modificador</label>
+                                            <input type="number" name="inventario_interno_mod" id="ficha-inventario_interno_mod" class="form-control inventario_interno_mod-personagem" placeholder="Inventário Interno Modificador">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
+                                            <p class="text-muted">Máximo Base (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
+                                        </div>
+                                    </div>
+
                                     <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseItem">Criar Novo Item</button>
                                     <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseItem" aria-label="Fechar"></button>
 
@@ -1560,13 +1587,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div id="itensContainer"></div>
                             </div>
 
-                            <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
-                            <p>Máximo Base (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
 
-                            <div class="col-md-6">
-                                <label for="ficha-carga_suportada_mod" class="form-label">Carga Suportada Modificador (kg)</label>
-                                <input type="number" name="carga_suportada_mod" id="ficha-carga_suportada_mod" class="form-control carga_suportada_mod-personagem" placeholder="Carga Suportada Modificador">
-                            </div>
 
                             <div class="col-12">
                                 <label for="ficha-observacoes_itens" class="form-label">Observações Itens</label>
@@ -1575,13 +1596,28 @@ if (!isset($_SESSION['usuario_id'])) {
                         </div>
 
                         <div class="tab-pane fade" id="jogador" role="tabpanel">
+                            <h4 class="mt-1 mb-1">Jogador</h4>
+
+                            <div class="text-muted" role="alert">
+                                Jogador, este espaço é reservado exclusivamente para você. Registre estratégias, fraquezas de inimigos, rotas ocultas ou segredos que não devem ser esquecidos.<br>
+                            </div>
+                            <br>
+                            <span class="text-danger"><em>O Sistema não se responsabiliza por memórias perdidas.</em></span>
+
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <label for="ficha-observacoes_jogador" class="form-label">Observações Jogador</label>
-                                    <textarea name="observacoes_jogador" id="ficha-observacoes_jogador" class="form-control observacoes_jogador-personagem" placeholder="Observações Jogador" rows="2"></textarea>
+                                    <br>
+                                    <label for="ficha-observacoes_jogador" class="form-label">Observações do Jogador</label>
+                                    <textarea
+                                        name="observacoes_jogador"
+                                        id="ficha-observacoes_jogador"
+                                        class="form-control observacoes_jogador-personagem"
+                                        placeholder="Digite aqui suas anotações estratégicas ou pessoais..."
+                                        rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

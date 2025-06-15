@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
                     document.querySelector('.idiomas-personagem').value = ficha.idiomas;
                     document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod;
+                    document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod;
 
 
                     // Atributos
@@ -1125,7 +1126,11 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
 
     if (tipo === "mana") {
         // Cor vai de roxo escuro (100%) a azul claro (0%)
-        const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff');
+        /* const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff'); */
+        const cor = interpolarMultiplasCores((100 - percentual) / 100, [
+            '#4b0082',
+            '#00e0ff'
+        ]);
         barra.style.backgroundColor = cor;
     } else if (atual <= 0) {
         barra.classList.add('bg-dark');
@@ -1139,7 +1144,6 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
                 Morte permanente será aplicada conforme as regras deste mundo, se não houverem contramedidas.<br><br>
                 ⚠️ <i>Continue por sua conta e risco.</i>
             `,
-                icon: 'warning',
                 background: '#1a1a1a',
                 color: '#00ccff',
                 confirmButtonText: 'Entendido',
@@ -1151,41 +1155,49 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
             barra.dataset.alertShown = "true";
         }
     } else {
-        barra.classList.add(
-            percentual >= 70 ? 'bg-success' :
-                percentual >= 30 ? 'bg-warning' : 'bg-danger'
-        );
+        const cor = interpolarMultiplasCores((100 - percentual) / 100, [
+            '#006400', // verde escuro
+            '#8b8000', // amarelo escuro
+            '#8b0000', // vermelho escuro
+            '#000000'  // preto
+        ]);
+        barra.style.backgroundColor = cor;
         delete barra.dataset.alertShown;
     }
 
 
 }
 
-function interpolarCor(percentual, corInicial, corFinal) {
+function interpolarMultiplasCores(percentual, coresHex) {
     // Converte HEX para RGB
-    function hexToRgb(hex) {
+    const hexToRgb = hex => {
         const bigint = parseInt(hex.replace("#", ""), 16);
         return {
             r: (bigint >> 16) & 255,
             g: (bigint >> 8) & 255,
             b: bigint & 255
         };
-    }
+    };
 
-    // Interpola entre dois valores
-    function lerp(a, b, t) {
-        return Math.round(a + (b - a) * t);
-    }
+    const lerp = (a, b, t) => Math.round(a + (b - a) * t);
 
-    const c1 = hexToRgb(corInicial);
-    const c2 = hexToRgb(corFinal);
+    const total = coresHex.length - 1;
+    const intervalo = 1 / total;
+    let index = Math.floor(percentual / intervalo);
 
-    const r = lerp(c1.r, c2.r, percentual);
-    const g = lerp(c1.g, c2.g, percentual);
-    const b = lerp(c1.b, c2.b, percentual);
+    if (index >= total) index = total - 1;
+
+    const localT = (percentual - (index * intervalo)) / intervalo;
+    const c1 = hexToRgb(coresHex[index]);
+    const c2 = hexToRgb(coresHex[index + 1]);
+
+    const r = lerp(c1.r, c2.r, localT);
+    const g = lerp(c1.g, c2.g, localT);
+    const b = lerp(c1.b, c2.b, localT);
 
     return `rgb(${r}, ${g}, ${b})`;
 }
+
 
 
 function atualizarBarraDeVida() {

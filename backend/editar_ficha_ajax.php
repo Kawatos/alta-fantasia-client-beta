@@ -40,6 +40,7 @@ $divindade = $_POST['divindade'] ?? '';
 $escola_arcana = $_POST['escola_arcana'] ?? '';
 $idiomas = $_POST['idiomas'] ?? '';
 $carga_suportada_mod = $_POST['carga_suportada_mod'] ?? '';
+$inventario_interno_mod = $_POST['inventario_interno_mod'] ?? '';
 
 
 /* Atributos */
@@ -185,7 +186,8 @@ $stmtFicha = $conn->prepare("
         divindade = :divindade,
         escola_arcana = :escola_arcana,
         idiomas = :idiomas,
-        carga_suportada_mod = :carga_suportada_mod
+        carga_suportada_mod = :carga_suportada_mod,
+        inventario_interno_mod = :inventario_interno_mod
     WHERE id = :id AND usuario_id = :usuario_id
 ");
 
@@ -215,6 +217,7 @@ $stmtFicha->bindParam(':divindade', $divindade);
 $stmtFicha->bindParam(':escola_arcana', $escola_arcana);
 $stmtFicha->bindParam(':idiomas', $idiomas);
 $stmtFicha->bindParam(':carga_suportada_mod', $carga_suportada_mod);
+$stmtFicha->bindParam(':inventario_interno_mod', $inventario_interno_mod);
 
 if ($stmtFicha->execute()) {
 
