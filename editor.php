@@ -11,8 +11,8 @@ if (!isset($_SESSION['usuario_id'])) {
 
 
 
-<div class="container mt-5">
-    <div class="row">
+<div class="container text-center">
+    <div class="row g-2">
         <div class="col-12">
             <form action="backend/logout.php" method="post">
                 <button type="submit" class="btn btn-danger m-4">Logout</button>
@@ -24,59 +24,81 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
 
             <h2 class="mb-4">Seus Personagens</h2>
+            <div class="container">
 
-            <?php
-            require 'backend/conexao.php';
 
-            $usuario_id = $_SESSION['usuario_id'];
-            $sqlFicha = "
+                <?php
+                require 'backend/conexao.php';
+
+                $usuario_id = $_SESSION['usuario_id'];
+                $sqlFicha = "
                 SELECT 
                     id,
                     nome_personagem,
                     classe,
                     nivel,
-                    status_personagem
+                    status_personagem, 
+                    personagem_imagem
                 FROM fichas
                 WHERE usuario_id = :usuario_id
                 ";
 
-            $stmtFicha = $conn->prepare($sqlFicha);
-            $stmtFicha->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
-            $stmtFicha->execute();
-            $resultFicha = $stmtFicha->fetchAll(PDO::FETCH_ASSOC);
+                $stmtFicha = $conn->prepare($sqlFicha);
+                $stmtFicha->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+                $stmtFicha->execute();
+                $resultFicha = $stmtFicha->fetchAll(PDO::FETCH_ASSOC);
 
-            if (count($resultFicha) > 0): ?>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php foreach ($resultFicha as $ficha): ?>
+                if (count($resultFicha) > 0): ?>
+                    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
+                        <?php foreach ($resultFicha as $ficha): ?>
 
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($ficha['nome_personagem']); ?></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['classe']) . ' Nível: ' . floor(htmlspecialchars($ficha['nivel'] / 100)); ?></h6>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($ficha['status_personagem']); ?></h6>
+                            <div class="col mb-4">
+                                <div class="card h-100 text-center py-4 mx-auto btn-editar" style="max-width: 300px; width: 100%;" data-id="<?= $ficha['id'] ?>">
+
+                                    <?php if (!empty($ficha['personagem_imagem'])): ?>
+                                        <img src="<?= htmlspecialchars($ficha['personagem_imagem']) ?>"
+                                            alt="Imagem do Personagem"
+                                            class="rounded mx-auto d-block mb-2"
+                                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px;">
+                                    <?php else: ?>
+                                        <img src="uploads/perfil-vazio.png"
+                                            alt="Sem imagem"
+                                            class="rounded mx-auto d-block mb-2"
+                                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; opacity: 0.5;">
+                                    <?php endif; ?>
 
 
 
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-info btn-sm btn-editar" data-id="<?= $ficha['id'] ?>">
-                                            Editar
-                                        </button>
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title mb-1">
+                                            <?= htmlspecialchars($ficha['nome_personagem']) ?>
+                                        </h5>
+                                        <h6 class="card-subtitle text-muted mb-1">
+                                            <?= htmlspecialchars($ficha['classe']) ?> - Nível: <?= floor(htmlspecialchars($ficha['nivel'] / 100)) ?>
+                                        </h6>
+                                        <h6 class="card-subtitle text-muted mb-2">
+                                            <?= htmlspecialchars($ficha['status_personagem']) ?>
+                                        </h6>
 
-                                        <button class="btn btn-danger btn-sm excluir-ficha" data-id="<?php echo $ficha['id']; ?>">
-                                            <i class="fas fa-trash-alt me-1"></i>Excluir
-                                        </button>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button class="btn btn-info btn-sm btn-editar" data-id="<?= $ficha['id'] ?>">
+                                                Editar
+                                            </button>
 
+                                            <button class="btn btn-danger btn-sm excluir-ficha" data-id="<?= $ficha['id'] ?>">
+                                                <i class="fas fa-trash-alt me-1"></i>Excluir
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p class="text-center">Você ainda não criou nenhum personagem.</p>
-            <?php endif; ?>
 
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <p class="text-center">Você ainda não criou nenhum personagem.</p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>
@@ -86,7 +108,7 @@ if (!isset($_SESSION['usuario_id'])) {
 <div class="modal fade" id="modalFicha" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="formFicha">
+            <form id="formFicha" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="ficha-id">
 
                 <div class="modal-header">
@@ -126,12 +148,25 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 1: Nome e Raça -->
                                 <h4 class="mt-4">Indentificação</h4>
                                 <div class="col-md-6">
-                                    <label for="ficha-nome" class="form-label">Nome do Personagem</label>
-                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem" placeholder="Nome do Personagem">
+                                    
+                                    <div class="mb-2 text-center">
+                                        <img id="preview_imagem_personagem" src="uploads/perfil-vazio.png" alt="Preview da Imagem"
+                                        style="max-width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">
+                                    </div>
+
+                                    <label for="personagem_imagem_id" class="form-label">Imagem do Personagem:</label>
+                                    
+                                    <div class="input-group">
+                                        <input type="file" class="form-control personagem_imagem" id="personagem_imagem_id"
+                                        name="imagem" accept="image/*">
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
+                                
+                                <div class="col-md-6 d-flex flex-column justify-content-end">
+                                    <label for="ficha-nome" class="form-label">Nome do Personagem</label>
+                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem mb-3" placeholder="Nome do Personagem">
                                     <label for="ficha-raca" class="form-label">Raça</label>
-                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem">
+                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem mb-3">
                                         <option value="" selected>Selecione uma Raça</option>
                                         <option value="Lichiru">Lichiru</option>
                                         <option value="Dunkeriu">Dunkeriu</option>
@@ -143,9 +178,14 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <option value="Elfo Negro">Draqueni</option>
                                         <option value="Orc">Orc</option>
                                         <option value="Ferali">Ferali</option>
-                                        <option value="Anão">Humano</option>
+                                        <option value="Anao">Anão</option>
+                                        <option value="Humano">Humano</option>
                                     </select>
                                 </div>
+
+
+
+                               
 
                                 <!-- Linha 2: Classe e Nível -->
                                 <div class="col-md-6">
@@ -253,8 +293,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
                                     </div>
 
-                                    <div class="row mt-3" >
-                                        <div class="" style="display: flex; align-items: flex-end; justify-content: center;" >
+                                    <div class="row mt-3">
+                                        <div class="" style="display: flex; align-items: flex-end; justify-content: center;">
                                             <div class="mr-3" style="min-width: 200px;">
                                                 <label for="pv-valor-ajuste" class="form-label">Valor de Cura/Dano</label>
                                                 <input type="number" id="pv-valor-ajuste" class="form-control" placeholder="Valor em PVs">
@@ -1527,12 +1567,17 @@ if (!isset($_SESSION['usuario_id'])) {
                                             <input type="number" name="carga_suportada_mod" id="ficha-carga_suportada_mod" class="form-control carga_suportada_mod-personagem" placeholder="Carga Suportada Modificador">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="ficha-carga_suportada_mod" class="form-label">Inventário Interno Modificador</label>
+                                            <label for="ficha-carga_suportada_mod" class="form-label">Espaço Interno Mod</label>
                                             <input type="number" name="inventario_interno_mod" id="ficha-inventario_interno_mod" class="form-control inventario_interno_mod-personagem" placeholder="Inventário Interno Modificador">
                                         </div>
+
                                         <div class="col-md-6">
                                             <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
                                             <p class="text-muted">Máximo Base (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="mt-3" id="peso-total-h5">Itens no Espaço Interno: <span id="inventario-interno-atual-span">0</span></h5>
+                                            <p class="text-muted">Espaço Interno Total: <span id="inventario-interno-total-span"></span></p>
                                         </div>
                                     </div>
 
@@ -1567,7 +1612,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="item-inventario-interno" class="form-label">Inventário Interno</label>
+                                                    <label for="item-inventario-interno" class="form-label">Interno</label>
                                                     <select class="form-control" id="item-inventario-interno" name="inventario_interno">
                                                         <option value="">Selecione</option>
                                                         <option value="sim">Sim</option>

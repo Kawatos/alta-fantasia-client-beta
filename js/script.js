@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.idiomas-personagem').value = ficha.idiomas;
                     document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod;
                     document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod;
+                    document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem;
 
 
                     // Atributos
@@ -184,10 +185,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.t_pilotagem_proeficiencias').value = pericias.t_pilotagem_proeficiencias;
 
 
-
+                    
                     getHabilidades();
                     getMagias();
                     getItens();
+                    
 
 
 
@@ -552,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         card.innerHTML = `
                             <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#magia${magia.id_magias}">
-                                <strong>${magia.nome_magia}</strong>
+                                <strong>${magia.nome_magia}</strong> - Nível ${magia.nivel} - Custo ${magia.custo_pm} PM
                             </div>
                             <div class="collapse" id="magia${magia.id_magias}">
                                 <div class="card-body p-3">
@@ -694,6 +696,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         configurarListenersDeItens();
+        
     }
 
 
@@ -765,7 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             card.innerHTML = `
                                 <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#item${item.id_item}">
-                                    <strong>${item.nome}</strong>
+                                    <strong>${item.nome}</strong> - Equipado: ${item.equipado === 'sim' ? 'Sim' : 'Não'}   -   Interno: ${item.inventario_interno === 'sim' ? 'Sim' : 'Não'}   -   Peso: ${item.peso} kg
                                 </div>
                                 <div class="collapse" id="item${item.id_item}">
                                     <div class="card-body p-3">
@@ -795,7 +798,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label">Inventário Interno:</label>
+                                                <label class="form-label">Interno:</label>
                                                 <select class="form-control" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
                                                     <option value="sim" ${item.inventario_interno === 'sim' ? 'selected' : ''}>Sim</option>
@@ -923,6 +926,8 @@ function atualizarNivelEBarra() {
     barraProgressoTotal.style.width = `${progressoTotal}%`;
     barraProgressoTotal.textContent = `${progressoTotal}%`;
     textoProgressoTotal.textContent = `${progressoTotal}%`;
+
+    getValorMaxInventarioInterno()
 }
 
 function atualizarAtributos() {
@@ -1026,33 +1031,52 @@ document.querySelectorAll(".pericia-mod, .treinado, .proeficiente").forEach(el =
 function atualizarPesoTotal() {
     let totalPeso = 0;
     console.log("atualizando peso total");
-
-    console.log(document.querySelectorAll('.item-details').length, "cards de item encontrados");
     // Percorre todos os cards de item
+    
+    var itensInventarioInterno = 0;
     document.querySelectorAll('.item-details').forEach(details => {
         console.log("calculando peso para card");
+        
         // Pega todos os inputs numéricos (rank e peso)
         const inputsNumericos = details.querySelectorAll('input[type="number"]');
         if (inputsNumericos.length < 2) return;
-
+        
         const inputPeso = inputsNumericos[1]; // O segundo input é o PESO
         const peso = parseFloat(inputPeso.value) || 0;
-
+        
         // Pega todos os selects (equipado e inventário interno)
         const selects = details.querySelectorAll('select');
         if (selects.length < 2) return;
-
+        
         const selectInventarioInterno = selects[1]; // O segundo select é INVENTÁRIO INTERNO
         const inventarioInterno = selectInventarioInterno.value;
-
+        
         // Soma somente se inventário interno for diferente de "sim"
         if (inventarioInterno !== 'sim') {
             totalPeso += peso;
         }
+        
+        if (inventarioInterno == 'sim') {
+            itensInventarioInterno += 1;
+        }
     });
-
+    
+    
+    
+    document.getElementById('inventario-interno-atual-span').textContent = itensInventarioInterno;
     document.getElementById('peso-total-carregado').textContent = totalPeso.toFixed(2);
     verificarLimiteDeCarga();
+}
+
+function getValorMaxInventarioInterno() {
+
+    var nivel = getNivel();
+
+    console.log("nivel:", nivel);
+    const modInterno = parseInt(document.getElementById('ficha-inventario_interno_mod')?.value) || 0;
+
+    const totalEspaco = (Math.floor(nivel / 10) * 10) + modInterno;
+    document.getElementById('inventario-interno-total-span').textContent = totalEspaco;
 }
 
 
@@ -1070,7 +1094,7 @@ function configurarListenersDeItens() {
             selects[1].addEventListener('change', atualizarPesoTotal); // inventário interno
         }
     });
-
+    
     atualizarPesoTotal(); // Atualiza imediatamente após configurar
 }
 
@@ -1258,15 +1282,16 @@ document.getElementById("ficha-pms_atuais").addEventListener("input", atualizarB
 modalFicha.addEventListener('shown.bs.modal', () => {
     atualizarBarraDeVida();
     atualizarBarraDeMana();
+    
 });
 
 
-
-
-
+document.getElementById('ficha-inventario_interno_mod')?.addEventListener('input', getValorMaxInventarioInterno);
 modalFicha.addEventListener('shown.bs.modal', atualizarNivelEBarra);
 modalFicha.addEventListener('shown.bs.modal', atualizarAtributos);
 modalFicha.addEventListener('shown.bs.modal', calcularPericias);
+document.getElementById('ficha-xp')?.addEventListener('input', getValorMaxInventarioInterno);
 document.getElementById("ficha-xp").addEventListener("input", atualizarNivelEBarra);
 document.getElementById("ficha-xp").addEventListener("input", atualizarAtributos);
+
 

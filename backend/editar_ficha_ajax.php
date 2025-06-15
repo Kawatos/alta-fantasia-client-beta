@@ -161,6 +161,40 @@ $t_instrumentos_proeficiencias = $_POST['t_instrumentos_proeficiencias'] ?? 0;
 $t_pilotagem_treinamentos = $_POST['t_pilotagem_treinamentos'] ?? 0;
 $t_pilotagem_proeficiencias = $_POST['t_pilotagem_proeficiencias'] ?? 0;
 
+// Processa imagem se enviada
+$caminhoImagem = null;
+if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+    $pastaWeb = 'uploads/'; // usado para exibir no navegador (salvo no banco)
+    $pastaSistema = __DIR__ . '/../uploads/'; // caminho real do sistema de arquivos
+
+    if (!is_dir($pastaSistema)) {
+        mkdir($pastaSistema, 0755, true);
+    }
+
+    $nomeOriginal = $_FILES['imagem']['name'];
+    $nomeTemp = $_FILES['imagem']['tmp_name'];
+    $extensao = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
+    $nomeArquivo = uniqid('img_') . "." . $extensao;
+
+    $caminhoImagemSistema = $pastaSistema . $nomeArquivo;
+    $caminhoImagem = $pastaWeb . $nomeArquivo; // esse vai para o banco
+
+    if (!move_uploaded_file($nomeTemp, $caminhoImagemSistema)) {
+        echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao salvar a imagem.']);
+        exit;
+    }
+
+    // agora $caminhoImagemWeb pode ser salvo no banco normalmente
+}
+
+
+$sqlImagem = '';
+if ($caminhoImagem) {
+    $sqlImagem = ', personagem_imagem = :personagem_imagem';
+}
+
+
+
 $stmtFicha = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = :nome_personagem,
@@ -188,6 +222,7 @@ $stmtFicha = $conn->prepare("
         idiomas = :idiomas,
         carga_suportada_mod = :carga_suportada_mod,
         inventario_interno_mod = :inventario_interno_mod
+        $sqlImagem
     WHERE id = :id AND usuario_id = :usuario_id
 ");
 
@@ -218,6 +253,10 @@ $stmtFicha->bindParam(':escola_arcana', $escola_arcana);
 $stmtFicha->bindParam(':idiomas', $idiomas);
 $stmtFicha->bindParam(':carga_suportada_mod', $carga_suportada_mod);
 $stmtFicha->bindParam(':inventario_interno_mod', $inventario_interno_mod);
+if ($caminhoImagem) {
+    $stmtFicha->bindParam(':personagem_imagem', $caminhoImagem);
+}
+
 
 if ($stmtFicha->execute()) {
 
