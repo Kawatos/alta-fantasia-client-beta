@@ -18,15 +18,32 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Ficha criada com sucesso!');
-                    location.reload(); // ou atualizar só o DOM necessário
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ficha criada com sucesso!',
+                        showConfirmButton: false,
+                        timer: 700
+                    }).then(() => {
+                        location.reload(); // recarrega a página após o alerta
+                    });
                 } else {
-                    alert(data.mensagem || 'Erro ao criar ficha.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao criar ficha.',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 }
             })
             .catch(erro => {
-                alert('Erro na requisição: ' + erro);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro na requisição: ' + erro,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             });
+
     });
 
     function getDadosFicha(fichaId) {
@@ -46,36 +63,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(pericias);
                     console.log(ficha);
                     console.log(atributos);
-                    document.querySelector('#ficha-id').value = ficha.id;
-                    document.querySelector('.nome-personagem').value = ficha.nome_personagem;
-                    document.querySelector('.nome-personagem-exibicao').textContent = ficha.nome_personagem;
 
-                    document.querySelector('.classe-personagem').value = ficha.classe;
-                    document.querySelector('.nivel-personagem').value = ficha.nivel;
-                    document.querySelector('.raca-personagem').value = ficha.raca;
-                    document.querySelector('.descricao-personagem').value = ficha.descricao;
 
-                    document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida;
-                    document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana;
-                    document.querySelector('.status-personagem').value = ficha.status_personagem;
-                    document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais;
-                    document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais;
-                    document.querySelector('.deslocamento-personagem').value = ficha.deslocamento;
-                    document.querySelector('.regen_pv-personagem').value = ficha.regen_pv;
-                    document.querySelector('.regen_pm-personagem').value = ficha.regen_pm;
-                    document.querySelector('.observacoes_atributos-personagem').value = ficha.observacoes_atributos;
-                    document.querySelector('.observacoes_pericias-personagem').value = ficha.observacoes_pericias;
-                    document.querySelector('.observacoes_habilidades-personagem').value = ficha.observacoes_habilidades;
-                    document.querySelector('.observacoes_magias_arcanas-personagem').value = ficha.observacoes_magias_arcanas;
-                    document.querySelector('.observacoes_magias_divinas-personagem').value = ficha.observacoes_magias_divinas;
-                    document.querySelector('.observacoes_itens-personagem').value = ficha.observacoes_itens;
-                    document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador;
-                    document.querySelector('.divindade-personagem').value = ficha.divindade;
-                    document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana;
-                    document.querySelector('.idiomas-personagem').value = ficha.idiomas;
-                    document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod;
-                    document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod;
+                    ficha.id != null && (document.querySelector('#ficha-id').value = ficha.id);
+                    ficha.nome_personagem != null && (document.querySelector('.nome-personagem').value = ficha.nome_personagem);
+                    ficha.nome_personagem != null && (document.querySelector('.nome-personagem-exibicao').textContent = ficha.nome_personagem);
+                    ficha.classe != null && (document.querySelector('.classe-personagem').value = ficha.classe);
+                    ficha.nivel != null && (document.querySelector('.nivel-personagem').value = ficha.nivel);
+                    ficha.raca != null && (document.querySelector('.raca-personagem').value = ficha.raca);
+                    ficha.descricao != null && (document.querySelector('.descricao-personagem').value = ficha.descricao);
+
+                    ficha.pontos_de_vida != null && (document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida);
+                    ficha.pontos_de_mana != null && (document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana);
+                    ficha.status_personagem != null && (document.querySelector('.status-personagem').value = ficha.status_personagem);
+                    ficha.pvs_atuais != null && (document.querySelector('.pvs_atuais-personagem').value = ficha.pvs_atuais);
+                    ficha.pms_atuais != null && (document.querySelector('.pms_atuais-personagem').value = ficha.pms_atuais);
+                    ficha.deslocamento != null && (document.querySelector('.deslocamento-personagem').value = ficha.deslocamento);
+                    ficha.regen_pv != null && (document.querySelector('.regen_pv-personagem').value = ficha.regen_pv);
+                    ficha.regen_pm != null && (document.querySelector('.regen_pm-personagem').value = ficha.regen_pm);
+                    ficha.observacoes_atributos != null && (document.querySelector('.observacoes_atributos-personagem').value = ficha.observacoes_atributos);
+                    ficha.observacoes_pericias != null && (document.querySelector('.observacoes_pericias-personagem').value = ficha.observacoes_pericias);
+                    ficha.observacoes_habilidades != null && (document.querySelector('.observacoes_habilidades-personagem').value = ficha.observacoes_habilidades);
+                    ficha.observacoes_magias_arcanas != null && (document.querySelector('.observacoes_magias_arcanas-personagem').value = ficha.observacoes_magias_arcanas);
+                    ficha.observacoes_magias_divinas != null && (document.querySelector('.observacoes_magias_divinas-personagem').value = ficha.observacoes_magias_divinas);
+                    ficha.observacoes_itens != null && (document.querySelector('.observacoes_itens-personagem').value = ficha.observacoes_itens);
+                    ficha.observacoes_jogador != null && (document.querySelector('.observacoes_jogador-personagem').value = ficha.observacoes_jogador);
+                    ficha.divindade != null && (document.querySelector('.divindade-personagem').value = ficha.divindade);
+                    ficha.escola_arcana != null && (document.querySelector('.escola_arcana-personagem').value = ficha.escola_arcana);
+                    ficha.idiomas != null && (document.querySelector('.idiomas-personagem').value = ficha.idiomas);
+                    ficha.carga_suportada_mod != null && (document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod);
+                    ficha.inventario_interno_mod != null && (document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod);
+
+                    // Imagem com fallback
                     document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
+
 
 
 
@@ -186,11 +207,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector('.t_pilotagem_proeficiencias').value = pericias.t_pilotagem_proeficiencias;
 
 
-                    
+
                     getHabilidades();
                     getMagias();
                     getItens();
-                    
+
 
 
 
@@ -198,11 +219,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     modalFicha.show();
 
                 } else {
-                    alert(resposta.mensagem);
+                    Swal.fire({
+                        icon: 'info',
+                        title: resposta.mensagem,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+
                 }
             },
             error: function () {
-                alert('Erro ao buscar a ficha.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao buscar a ficha.',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+
             }
         });
     }
@@ -227,6 +260,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Enviar formulário
     form.addEventListener('submit', function (e) {
         e.preventDefault();
+    });
+
+    // Enviar formulário
+    this.querySelector('#botao-salvar').addEventListener('click', function (e) {
+        e.preventDefault();
         const formData = new FormData(form);
         const url = 'backend/editar_ficha_ajax.php';
 
@@ -237,12 +275,23 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Ficha atualizada com sucesso! 3');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ficha atualizada com sucesso!',
+                        showConfirmButton: false,
+                        timer: 700, // 1 segundos
+                    });
                     getDadosFicha(fichaId);
                 } else {
-                    alert(data.mensagem || 'Erro ao salvar');
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao salvar',
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
                 }
             });
+
     });
 
     document.getElementById("salvar-habilidade-nova").addEventListener("click", () => controleHabilidade('criar'));
@@ -275,12 +324,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Habilidade atualizada com sucesso!');
-                            getHabilidades();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Habilidade atualizada com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getHabilidades(); // Atualiza lista após o alerta
+                            });
                         } else {
-                            alert(data.mensagem || 'Erro ao atualizar habilidade');
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.mensagem || 'Erro ao atualizar habilidade',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             });
         });
 
@@ -302,12 +363,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Habilidade excluída com sucesso!');
-                            getHabilidades();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Habilidade excluída com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getHabilidades(); // Atualiza lista após o alerta
+                            });
                         } else {
-                            alert(data.mensagem || 'Erro ao excluir habilidade');
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.mensagem || 'Erro ao excluir habilidade',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             });
         });
     }
@@ -340,22 +413,38 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Habilidade criada com sucesso!');
-                    getHabilidades();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Habilidade criada com sucesso!',
+                        showConfirmButton: false,
+                        timer: 700
+                    }).then(() => {
+                        getHabilidades(); // Recarrega a lista de habilidades após o alerta
+                    });
                 } else {
                     console.error('Erro:', data);
-                    alert(data.mensagem || 'Erro ao salvar');
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao salvar',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 }
             })
             .catch(error => {
                 console.error('Erro na requisição:', error);
-                alert('Erro ao enviar os dados');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar os dados',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             });
+
     }
 
     function getHabilidades() {
         const habilidadesContainer = document.querySelector('#habilidadesContainer');
-        habilidadesContainer.innerHTML = '';
 
         const formData = new FormData();
         formData.append('id_ficha', fichaId);
@@ -367,6 +456,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 try {
+                    habilidadesContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
                         data.habilidades.forEach((hab, index) => {
                             const card = document.createElement('div');
@@ -448,12 +538,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Magia salva com sucesso!');
-                            /* getMagias(); */
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Magia salva com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getMagias(); // Atualiza a lista de magias após o alerta
+                            });
                         } else {
-                            alert('Erro ao salvar magia.');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro ao salvar magia.',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             };
         });
 
@@ -476,12 +578,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Magia excluída com sucesso!');
-                            getMagias();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Magia excluída com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getMagias(); // Atualiza a lista de magias após o alerta
+                            });
                         } else {
-                            alert('Erro ao excluir magia.');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro ao excluir magia.',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             };
         });
     }
@@ -520,27 +634,43 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Magia salva com sucesso!');
-                    getMagias(); // Certifique-se que essa função exista
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Magia salva com sucesso!',
+                        showConfirmButton: false,
+                        timer: 700
+                    }).then(() => {
+                        getMagias(); // Recarrega a lista de magias após o alerta
+                    });
                 } else {
                     console.error('Erro:', data);
-                    alert(data.mensagem || 'Erro ao salvar magia');
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao salvar magia',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 }
             })
             .catch(error => {
                 console.error('Erro na requisição:', error);
-                alert('Erro ao enviar os dados');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar os dados',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             });
+
     }
 
     function getMagias() {
         const containerArcana = document.querySelector('#magias-arcanas');
         const containerDivina = document.querySelector('#magias-divinas');
-        containerArcana.innerHTML = '';
-        containerDivina.innerHTML = '';
 
         const formData = new FormData();
         formData.append('id_ficha', fichaId);
+
 
         fetch('backend/magias/get_magias.php', {
             method: 'POST',
@@ -549,6 +679,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
+                    containerArcana.innerHTML = '';
+                    containerDivina.innerHTML = '';
                     data.magias.forEach(magia => {
                         const card = document.createElement('div');
                         card.className = 'card mb-2';
@@ -660,12 +792,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Item atualizado com sucesso!');
-                            getItens();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Item atualizado com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getItens(); // Atualiza a lista após o alerta
+                            });
                         } else {
-                            alert(data.mensagem || 'Erro ao atualizar item');
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.mensagem || 'Erro ao atualizar item',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             });
         });
 
@@ -687,17 +831,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status === 'sucesso') {
-                            alert('Item excluído com sucesso!');
-                            getItens();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Item excluído com sucesso!',
+                                showConfirmButton: false,
+                                timer: 700
+                            }).then(() => {
+                                getItens(); // Atualiza a lista de itens após o alerta
+                            });
                         } else {
-                            alert(data.mensagem || 'Erro ao excluir item');
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.mensagem || 'Erro ao excluir item',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
                         }
                     });
+
             });
         });
 
         configurarListenersDeItens();
-        
+
     }
 
 
@@ -734,23 +890,39 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    alert('Item criado com sucesso!');
-                    getItens(); // Função que você deverá criar para recarregar os itens na tela
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Item criado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 700
+                    }).then(() => {
+                        getItens(); // Recarrega os itens após o alerta sumir
+                    });
                 } else {
                     console.error('Erro:', data);
-                    alert(data.mensagem || 'Erro ao salvar');
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao salvar',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 }
             })
             .catch(error => {
                 console.error('Erro na requisição:', error);
-                alert('Erro ao enviar os dados');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar os dados',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             });
+
     }
 
 
     function getItens() {
         const itensContainer = document.querySelector('#itensContainer');
-        itensContainer.innerHTML = '';
 
         const formData = new FormData();
         formData.append('id_ficha', fichaId);
@@ -762,6 +934,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 try {
+                    console.log('renderizando itens')
+                    itensContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
                         data.itens.forEach((item) => {
                             const card = document.createElement('div');
@@ -865,7 +1039,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (data.sucesso) {
                             this.closest(".col").remove();
                         } else {
-                            alert(data.erro || "Erro ao excluir a ficha.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.erro || "Erro ao excluir a ficha.",
+                                showConfirmButton: false,
+                                timer: 1000,
+
+                            });
                         }
                     });
             }
@@ -890,13 +1070,28 @@ modalFicha.addEventListener('hidden.bs.modal', function () {
         body: formData
     })
         .then(resp => resp.json())
-        .then(data => {
+        /* .then(data => {
             if (data.status === 'sucesso') {
                 alert('Ficha atualizada com sucesso!');
                 location.reload();
             } else {
                 alert(data.mensagem || 'Erro ao salvar');
             }
+        }); */
+
+        .then(data => {
+            if (data.status === 'sucesso') {
+                location.reload();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.mensagem || 'Erro ao salvar',
+                    showConfirmButton: false,
+                    timer: 1000,
+
+                });
+            }
+
         });
 });
 
@@ -1033,37 +1228,37 @@ function atualizarPesoTotal() {
     let totalPeso = 0;
     console.log("atualizando peso total");
     // Percorre todos os cards de item
-    
+
     var itensInventarioInterno = 0;
     document.querySelectorAll('.item-details').forEach(details => {
         console.log("calculando peso para card");
-        
+
         // Pega todos os inputs numéricos (rank e peso)
         const inputsNumericos = details.querySelectorAll('input[type="number"]');
         if (inputsNumericos.length < 2) return;
-        
+
         const inputPeso = inputsNumericos[1]; // O segundo input é o PESO
         const peso = parseFloat(inputPeso.value) || 0;
-        
+
         // Pega todos os selects (equipado e inventário interno)
         const selects = details.querySelectorAll('select');
         if (selects.length < 2) return;
-        
+
         const selectInventarioInterno = selects[1]; // O segundo select é INVENTÁRIO INTERNO
         const inventarioInterno = selectInventarioInterno.value;
-        
+
         // Soma somente se inventário interno for diferente de "sim"
         if (inventarioInterno !== 'sim') {
             totalPeso += peso;
         }
-        
+
         if (inventarioInterno == 'sim') {
             itensInventarioInterno += 1;
         }
     });
-    
-    
-    
+
+
+
     document.getElementById('inventario-interno-atual-span').textContent = itensInventarioInterno;
     document.getElementById('peso-total-carregado').textContent = totalPeso.toFixed(2);
     verificarLimiteDeCarga();
@@ -1095,7 +1290,7 @@ function configurarListenersDeItens() {
             selects[1].addEventListener('change', atualizarPesoTotal); // inventário interno
         }
     });
-    
+
     atualizarPesoTotal(); // Atualiza imediatamente após configurar
 }
 
@@ -1286,7 +1481,7 @@ document.getElementById("ficha-pms_atuais").addEventListener("input", atualizarB
 modalFicha.addEventListener('shown.bs.modal', () => {
     atualizarBarraDeVida('false');
     atualizarBarraDeMana();
-    
+
 });
 
 

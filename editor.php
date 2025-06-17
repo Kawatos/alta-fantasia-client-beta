@@ -190,8 +190,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 2: Classe e Nível -->
                                 <div class="col-md-6">
                                     <label for="ficha-classe" class="form-label">Classe</label>
-                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem">
-                                        <option value="" selected>Selecione uma Classe</option>
+                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem" value="Selecione uma Classe">
+                                        <option value="Sem Classe" selected>Selecione uma Classe</option>
                                         <option value="Guerreiro">Guerreiro</option>
                                         <option value="Bárbaro">Bárbaro</option>
                                         <option value="Samurai">Samurai</option>
@@ -214,7 +214,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="ficha-deslocamento" class="form-label">Deslocamento</label>
+                                    <label for="ficha-deslocamento" class="form-label">Deslocamento (Metros)</label>
                                     <input type="number" name="deslocamento" id="ficha-deslocamento" class="form-control deslocamento-personagem" placeholder="Deslocamento">
                                 </div>
                                 <div class="col-md-6">
@@ -273,12 +273,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida</label>
-                                        <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida">
+                                        <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida Totais</label>
+                                        <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida Totais" value="100">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ficha-pvs_atuais" class="form-label">Pontos de Vida Atuais</label>
-                                        <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida">
+                                        <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida Atuais" value="100">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ficha-status" class="form-label">Status</label>
@@ -289,22 +289,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="ficha-regen_pv" class="form-label">Regeneração de Pontos de Vida</label>
-                                        <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de Pontos de Vida">
+                                        <label for="ficha-regen_pv" class="form-label">Regeneração de PVs</label>
+                                        <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de PVs">
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="" style="display: flex; align-items: flex-end; justify-content: center;">
-                                            <div class="mr-3" style="min-width: 200px;">
+                                    <div class="col-12 mt-3 ">
+                                        <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
+                                            <div class="" >
                                                 <label for="pv-valor-ajuste" class="form-label">Valor de Cura/Dano</label>
                                                 <input type="number" id="pv-valor-ajuste" class="form-control" placeholder="Valor em PVs">
                                             </div>
-                                            <div class="mx-3">
-                                                <button type="button" class="btn btn-danger" onclick="aplicarDano()">Sofrer</button>
-                                                <button type="button" class="btn btn-success" onclick="aplicarCura()">Curar</button>
-                                            </div>
-
                                         </div>
+                                    </div>
+                                    <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
+                                        <button type="button" class="btn btn-danger mx-2" onclick="aplicarDano()">Sofrer</button>
+                                        <button type="button" class="btn btn-success mx-2" onclick="aplicarCura()">Curar</button>
                                     </div>
 
                                 </div>
@@ -512,7 +511,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Vigor]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-tenacidade">
                                                 <div class="row g-2 align-items-end">
@@ -543,7 +542,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Vigor]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-fortitude">
                                                 <div class="row g-2 align-items-end">
@@ -574,7 +573,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Força]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-atletismo">
                                                 <div class="row g-2 align-items-end">
@@ -605,7 +604,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Força]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-corpoacorpo">
                                                 <div class="row g-2 align-items-end">
@@ -636,7 +635,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-reflexo">
                                                 <div class="row g-2 align-items-end">
@@ -667,7 +666,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-controle">
                                                 <div class="row g-2 align-items-end">
@@ -701,7 +700,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Espírito]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-autocontrole">
                                                 <div class="row g-2 align-items-end">
@@ -732,7 +731,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Espírito]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-resiliencia">
                                                 <div class="row g-2 align-items-end">
@@ -763,7 +762,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-intuicao">
                                                 <div class="row g-2 align-items-end">
@@ -794,7 +793,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-percepcao">
                                                 <div class="row g-2 align-items-end">
@@ -825,7 +824,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Carísma]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-influencia">
                                                 <div class="row g-2 align-items-end">
@@ -856,7 +855,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Carísma]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-atuacao">
                                                 <div class="row g-2 align-items-end">
@@ -889,7 +888,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-esgrima">
                                                 <div class="row g-2 align-items-end">
@@ -919,7 +918,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-pontaria">
                                                 <div class="row g-2 align-items-end">
@@ -949,7 +948,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-marcial">
                                                 <div class="row g-2 align-items-end">
@@ -979,7 +978,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-metalurgia">
                                                 <div class="row g-2 align-items-end">
@@ -1009,7 +1008,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-artesanato">
                                                 <div class="row g-2 align-items-end">
@@ -1039,7 +1038,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-ladinagem">
                                                 <div class="row g-2 align-items-end">
@@ -1069,7 +1068,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-instrumentos">
                                                 <div class="row g-2 align-items-end">
@@ -1099,7 +1098,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-pilotagem">
                                                 <div class="row g-2 align-items-end">
@@ -1132,7 +1131,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-arcano">
                                                 <div class="row g-2 align-items-end">
@@ -1162,7 +1161,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-religioso">
                                                 <div class="row g-2 align-items-end">
@@ -1192,7 +1191,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-historico">
                                                 <div class="row g-2 align-items-end">
@@ -1222,7 +1221,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-natureza">
                                                 <div class="row g-2 align-items-end">
@@ -1252,7 +1251,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-engenharia">
                                                 <div class="row g-2 align-items-end">
@@ -1282,7 +1281,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-alquimia">
                                                 <div class="row g-2 align-items-end">
@@ -1312,7 +1311,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-navegacao">
                                                 <div class="row g-2 align-items-end">
@@ -1342,7 +1341,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <h5 class="mb-3 text-muted">(T: <span class="treinado-valor">0</span> +
                                                     P: <span class="proeficiente-valor">0</span> +
                                                     M: <span class="modbase-valor">0</span> +
-                                                    A: <span class="atributotxt-valor">0</span>) </h5>
+                                                    A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-linguistico">
                                                 <div class="row g-2 align-items-end">
@@ -1450,7 +1449,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                     <div class="col-md-4">
                                         <label for="ficha-regen_pm" class="form-label">Regeneração de PMs</label>
-                                        <input type="text" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de Pontos de Mana">
+                                        <input type="text" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de PMs">
                                     </div>
                                 </div>
 
