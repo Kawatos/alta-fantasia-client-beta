@@ -49,11 +49,11 @@ if (!isset($_SESSION['usuario_id'])) {
                 $resultFicha = $stmtFicha->fetchAll(PDO::FETCH_ASSOC);
 
                 if (count($resultFicha) > 0): ?>
-                    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
+                    <div class="row row-cols-1 row-cols-lg-5 justify-content-center">
                         <?php foreach ($resultFicha as $ficha): ?>
 
-                            <div class="col mb-4">
-                                <div class="card h-100 text-center py-4 mx-auto btn-editar" style="max-width: 300px; width: 100%;" data-id="<?= $ficha['id'] ?>">
+                            <div class="col col-6 mb-4 mx-2" style="width: 240px">
+                                <div class="card h-100 text-center py-4 mx-auto btn-editar" style="width: 240px" data-id="<?= $ficha['id'] ?>">
 
                                     <?php if (!empty($ficha['personagem_imagem'])): ?>
                                         <img src="<?= htmlspecialchars($ficha['personagem_imagem']) ?>"
@@ -143,15 +143,15 @@ if (!isset($_SESSION['usuario_id'])) {
                     </ul>
                     <div class="tab-content">
                         <!-- Identificação -->
+                        
                         <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
-                            <div class="row g-3">
-                                <!-- Linha 1: Nome e Raça -->
-                                <h4 class="mt-4">Identificação</h4>
+                            <h4 class="mt-4">Identificação</h4>
+                            <div class="row g-3 mb-2" style="display: flex; justify-content: center;">
                                 <div class="col-md-6">
 
                                     <div class="mb-2 text-center">
                                         <img id="preview_imagem_personagem" src="uploads/perfil-vazio.png" alt="Preview da Imagem"
-                                            style="max-width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">
+                                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px;">
                                     </div>
 
                                     <label for="personagem_imagem_id" class="form-label">Imagem do Personagem:</label>
@@ -162,11 +162,17 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 d-flex flex-column justify-content-end">
+                            </div>
+                            <div class="row g-3">
+                                <!-- Linha 1: Nome e Raça -->
+                                <div class="col-md-6">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
-                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem mb-3" placeholder="Nome do Personagem">
+                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem my-1" placeholder="Nome do Personagem">
+                                    
+                                </div>
+                                <div class="col-md-6">
                                     <label for="ficha-raca" class="form-label">Raça</label>
-                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem mb-3">
+                                    <select name="raca" id="ficha-raca" class="form-control raca-personagem my-1">
                                         <option value="" selected>Selecione uma Raça</option>
                                         <option value="Lichiru">Lichiru</option>
                                         <option value="Dunkeriu">Dunkeriu</option>
@@ -182,12 +188,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <option value="Humano">Humano</option>
                                     </select>
                                 </div>
-
-
-
-
-
-                                <!-- Linha 2: Classe e Nível -->
                                 <div class="col-md-6">
                                     <label for="ficha-classe" class="form-label">Classe</label>
                                     <select name="classe" id="ficha-classe" class="form-control classe-personagem" value="Selecione uma Classe">
@@ -213,9 +213,43 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </select>
                                 </div>
 
+                                
+
+
                                 <div class="col-md-6">
-                                    <label for="ficha-deslocamento" class="form-label">Deslocamento (Metros)</label>
+                                    <label for="ficha-deslocamento" class="form-label">Deslocamento (Metros):</label>
                                     <input type="number" name="deslocamento" id="ficha-deslocamento" class="form-control deslocamento-personagem" placeholder="Deslocamento">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-deslocamento" class="form-label">Altura:</label>
+                                    <input type="text" name="altura" id="altura-personagem" class="form-control altura-personagem" placeholder="Ex: 1.80m">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ficha-deslocamento" class="form-label">Idade:</label>
+                                    <input type="text" name="idade" id="idade-personagem" class="form-control idade-personagem" placeholder="Ex: 25 anos">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="sexo-personagem" class="form-label">Sexo (Biológico):</label>
+                                    <select name="sexo" id="sexo-personagem" class="form-control sexo-personagem" value="">
+                                        <option value="" selected>Selecione uma opção</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="hemafrodita">Hemafrodita (ambos)</option>
+                                        <option value="Não Possui">Não Possui</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="tendencia-personagem" class="form-label">Tendência:</label>
+                                    <select name="tendencia" id="tendencia-personagem" class="form-control tendencia-personagem" value="">
+                                        <option value="" selected>Selecione uma opção</option>
+                                        <option value="Leal - Bondoso">Leal - Bondoso</option>
+                                        <option value="Leal - Neutro">Leal - Neutro</option>
+                                        <option value="Leal - Maligno">Leal - Maligno</option>
+                                        <option value="Neutro - Neutro">Neutro - Neutro</option>
+                                        <option value="Caótico - Bondoso">Caótico - Bondoso</option>
+                                        <option value="Caótico - Neutro">Caótico - Neutro</option>
+                                        <option value="Caótico - Maligno">Caótico - Maligno</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="ficha-divindade" class="form-label">Divindade</label>
@@ -295,7 +329,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                                     <div class="col-12 mt-3 ">
                                         <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
-                                            <div class="" >
+                                            <div class="">
                                                 <label for="pv-valor-ajuste" class="form-label">Valor de Cura/Dano</label>
                                                 <input type="number" id="pv-valor-ajuste" class="form-control" placeholder="Valor em PVs">
                                             </div>
@@ -1453,6 +1487,19 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
+                                <div class="col-12 mt-1 ">
+                                    <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
+                                        <div class="">
+                                            <label for="pm-valor-ajuste" class="form-label">PMs Custo/Recuperação</label>
+                                            <input type="number" id="pm-valor-ajuste" class="form-control" placeholder="Valor em PVs">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
+                                    <button type="button" class="btn btn-danger mx-2" onclick="ConjurarMagia()">Conjurar</button>
+                                    <button type="button" class="btn btn-success mx-2" onclick="RecuperarMana()">Recuperar</button>
+                                </div>
+
 
 
                                 <!-- Botão Criar Magia -->
@@ -1593,6 +1640,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 <div class="col-md-6">
                                                     <label for="item-rank" class="form-label">Rank</label>
                                                     <input type="number" class="form-control" id="item-rank" name="rank">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="item-quantidade" class="form-label">Quantidade:</label>
+                                                    <input type="number" class="form-control" id="item-quantidade" name="quantidade">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="item-peso" class="form-label">Peso (kg):</label>

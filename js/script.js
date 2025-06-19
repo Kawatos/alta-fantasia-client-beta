@@ -93,7 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     ficha.idiomas != null && (document.querySelector('.idiomas-personagem').value = ficha.idiomas);
                     ficha.carga_suportada_mod != null && (document.querySelector('.carga_suportada_mod-personagem').value = ficha.carga_suportada_mod);
                     ficha.inventario_interno_mod != null && (document.querySelector('.inventario_interno_mod-personagem').value = ficha.inventario_interno_mod);
-
+                    ficha.altura != null && (document.querySelector('.altura-personagem').value = ficha.altura);
+                    ficha.idade != null && (document.querySelector('.idade-personagem').value = ficha.idade);
+                    ficha.sexo != null && (document.querySelector('.sexo-personagem').value = ficha.sexo);
+                    ficha.tendencia != null && (document.querySelector('.tendencia-personagem').value = ficha.tendencia);
                     // Imagem com fallback
                     document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
 
@@ -765,13 +768,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 const id = botao.dataset.id;
                 const card = botao.closest('.card-body');
 
-                const nome = card.querySelectorAll('input[type="text"]')[0].value;
-                const rank = card.querySelector('input[type="number"]').value;
-                const peso = card.querySelectorAll('input[type="number"]')[1].value;
-                const volume = card.querySelectorAll('input[type="text"]')[1].value;
-                const equipado = card.querySelector('select').value;
-                const inventario_interno = card.querySelectorAll('select')[1].value;
-                const descricao = card.querySelector('textarea').value;
+                const nome = card.querySelector('.item-nome').value;
+                const rank = card.querySelector('.item-nome').value;
+                const peso = card.querySelector('.item-peso').value;
+                const volume = card.querySelector('.item-volume').value;
+                const equipado = card.querySelector('.item-equipado').value;
+                const inventario_interno = card.querySelector('.item-inventario_interno').value;
+                const descricao = card.querySelector('.item-descricao').value;
+                const quantidade = card.querySelector('.item-quantidade').value
+
+                console.log(nome, rank, peso, volume, equipado, inventario_interno, descricao, quantidade)
 
                 const formData = new FormData();
                 formData.append('acao', 'editar');
@@ -783,6 +789,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('volume', volume);
                 formData.append('equipado', equipado);
                 formData.append('inventario_interno', inventario_interno);
+                formData.append('quantidade', quantidade);
+
                 formData.append('descricao', descricao);
 
                 fetch('backend/itens/controle_itens.php', {
@@ -934,7 +942,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 try {
-                    console.log('renderizando itens')
+                    console.log('renderizando itens 23')
                     itensContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
                         data.itens.forEach((item) => {
@@ -950,23 +958,27 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <div class="row g-3 item-details">
                                             <div class="col-md-6">
                                                 <label class="form-label">Nome:</label>
-                                                <input type="text" class="form-control" value="${item.nome}" data-id="${item.id_item}">
+                                                <input type="text" class="form-control item-nome" value="${item.nome}" data-id="${item.id_item}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Rank:</label>
-                                                <input type="number" class="form-control" value="${item.rank}" data-id="${item.id_item}">
+                                                <input type="number" class="form-control item-rank" value="${item.rank}" data-id="${item.id_item}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Quantidade:</label>
+                                                <input type="number" class="form-control item-quantidade" value="${item.quantidade}" data-id="${item.id_item}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Peso (kg):</label>
-                                                <input type="number" class="form-control" value="${item.peso}" data-id="${item.id_item}">
+                                                <input type="number" class="form-control item-peso" value="${item.peso}" data-id="${item.id_item}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Volume:</label>
-                                                <input type="text" class="form-control" value="${item.volume}" data-id="${item.id_item}">
+                                                <input type="text" class="form-control item-volume" value="${item.volume}" data-id="${item.id_item}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Equipado:</label>
-                                                <select class="form-control" data-id="${item.id_item}">
+                                                <select class="form-control item-equipado" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
                                                     <option value="sim" ${item.equipado === 'sim' ? 'selected' : ''}>Sim</option>
                                                     <option value="nao" ${item.equipado === 'nao' ? 'selected' : ''}>Não</option>
@@ -974,7 +986,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Interno:</label>
-                                                <select class="form-control" data-id="${item.id_item}">
+                                                <select class="form-control item-inventario_interno" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
                                                     <option value="sim" ${item.inventario_interno === 'sim' ? 'selected' : ''}>Sim</option>
                                                     <option value="nao" ${item.inventario_interno === 'nao' ? 'selected' : ''}>Não</option>
@@ -982,7 +994,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label">Descrição:</label>
-                                                <textarea class="form-control" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
+                                                <textarea class="form-control item-descricao" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
                                             </div>
                                             <div class="col-12 text-end">
                                                 <button class="btn btn-primary btn-sm me-2 salvar-item" data-id="${item.id_item}">Salvar</button>
@@ -1231,21 +1243,15 @@ function atualizarPesoTotal() {
 
     var itensInventarioInterno = 0;
     document.querySelectorAll('.item-details').forEach(details => {
-        console.log("calculando peso para card");
+        
 
-        // Pega todos os inputs numéricos (rank e peso)
-        const inputsNumericos = details.querySelectorAll('input[type="number"]');
-        if (inputsNumericos.length < 2) return;
+        const inputPeso  = details.querySelector('.item-peso');
+        const inputQuantidade = details.querySelector('.item-quantidade')
 
-        const inputPeso = inputsNumericos[1]; // O segundo input é o PESO
-        const peso = parseFloat(inputPeso.value) || 0;
+        const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value)))  || 0;
 
-        // Pega todos os selects (equipado e inventário interno)
-        const selects = details.querySelectorAll('select');
-        if (selects.length < 2) return;
-
-        const selectInventarioInterno = selects[1]; // O segundo select é INVENTÁRIO INTERNO
-        const inventarioInterno = selectInventarioInterno.value;
+        const selectInventarioInterno = details.querySelector('.item-inventario_interno');
+        const inventarioInterno = selectInventarioInterno.value || "nao";
 
         // Soma somente se inventário interno for diferente de "sim"
         if (inventarioInterno !== 'sim') {
@@ -1271,7 +1277,7 @@ function getValorMaxInventarioInterno() {
     console.log("nivel:", nivel);
     const modInterno = parseInt(document.getElementById('ficha-inventario_interno_mod')?.value) || 0;
 
-    const totalEspaco = (Math.floor(nivel / 10) * 10) + modInterno;
+    const totalEspaco = ((Math.floor(nivel / 10) * 10) + modInterno) + 10;
     document.getElementById('inventario-interno-total-span').textContent = totalEspaco;
 }
 
@@ -1279,16 +1285,14 @@ function getValorMaxInventarioInterno() {
 // Atualiza peso total sempre que o campo de peso ou inventário interno mudar
 function configurarListenersDeItens() {
     document.querySelectorAll('.item-details').forEach(card => {
-        const inputsNumericos = card.querySelectorAll('input[type="number"]');
-        const selects = card.querySelectorAll('select');
+        const pesoi = card.querySelector('.item-peso');
+        const quantidadei = card.querySelector('.item-quantidade');
+        const internoi = card.querySelector('.item-inventario_interno');
+        pesoi.addEventListener('change', atualizarPesoTotal);
+        quantidadei.addEventListener('change', atualizarPesoTotal);
+        internoi.addEventListener('change', atualizarPesoTotal);
 
-        if (inputsNumericos.length >= 2) {
-            inputsNumericos[1].addEventListener('input', atualizarPesoTotal); // peso
-        }
-
-        if (selects.length >= 2) {
-            selects[1].addEventListener('change', atualizarPesoTotal); // inventário interno
-        }
+        
     });
 
     atualizarPesoTotal(); // Atualiza imediatamente após configurar
@@ -1326,7 +1330,9 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
 
     const max = parseInt(inputMax?.value) || 1;
     const atual = parseInt(inputAtual?.value) || 0;
-    const percentual = Math.round(Math.min(100, Math.max(0, (atual / max) * 100)));
+
+    // Agora exibe o valor real, sem limitar entre 0 e 100
+    const percentual = Math.round((atual / max) * 100);
 
     barra.style.width = `${percentual}%`;
     barra.textContent = `${percentual}%`;
@@ -1347,11 +1353,16 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
     if (tipo === "mana") {
         // Cor vai de roxo escuro (100%) a azul claro (0%)
         /* const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff'); */
-        const cor = interpolarMultiplasCores((100 - percentual) / 100, [
-            '#4b0082',
-            '#00e0ff'
-        ]);
-        barra.style.backgroundColor = cor;
+        if (atual > max) {
+            barra.style.backgroundColor = '#FFD700';
+        } else {
+            const cor = interpolarMultiplasCores((100 - percentual) / 100, [
+                '#4b0082',
+                '#00e0ff'
+            ]);
+            barra.style.backgroundColor = cor;
+
+        }
     } else if (atual <= 0) {
         barra.classList.add('bg-dark');
         if (bgBarra) bgBarra.classList.add('bg-dark');
@@ -1375,14 +1386,20 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
             barra.dataset.alertShown = "true";
         }
     } else {
-        const cor = interpolarMultiplasCores((100 - percentual) / 100, [
-            '#006400', // verde escuro
-            '#8b8000', // amarelo escuro
-            '#8b0000', // vermelho escuro
-            '#000000'  // preto
-        ]);
-        barra.style.backgroundColor = cor;
-        delete barra.dataset.alertShown;
+        if (atual > max) {
+            barra.style.backgroundColor = '#FFD700';
+            delete barra.dataset.alertShown;
+
+        } else {
+            const cor = interpolarMultiplasCores((100 - percentual) / 100, [
+                '#006400', // verde escuro
+                '#8b8000', // amarelo escuro
+                '#8b0000', // vermelho escuro
+                '#000000'  // preto
+            ]);
+            barra.style.backgroundColor = cor;
+            delete barra.dataset.alertShown;
+        }
     }
 
 
@@ -1451,20 +1468,38 @@ function aplicarDano() {
     let atual = parseInt(inputAtual.value) || 0;
 
     atual -= valor;
-    inputAtual.value = Math.max(0, atual);
-    atualizarBarraDeVida(); // já que você usa essa função
+    inputAtual.value = atual;
+    atualizarBarraDeVida(); 
 }
 
 function aplicarCura() {
     const inputAtual = document.getElementById("ficha-pvs_atuais");
-    const inputMax = document.getElementById("ficha-pontos_de_vida");
     const valor = parseInt(document.getElementById("pv-valor-ajuste").value) || 0;
     let atual = parseInt(inputAtual.value) || 0;
-    const max = parseInt(inputMax.value) || 0;
 
     atual += valor;
-    inputAtual.value = Math.min(max, atual);
-    atualizarBarraDeVida(); // já que você usa essa função
+    inputAtual.value = atual;
+    atualizarBarraDeVida(); 
+}
+
+function ConjurarMagia() {
+    const inputAtual = document.getElementById("ficha-pms_atuais");
+    const valor = parseInt(document.getElementById("pm-valor-ajuste").value) || 0;
+    let atual = parseInt(inputAtual.value) || 0;
+
+    atual -= valor;
+    inputAtual.value = atual;
+    atualizarBarraDeMana(); 
+}
+
+function RecuperarMana() {
+    const inputAtual = document.getElementById("ficha-pms_atuais");
+    const valor = parseInt(document.getElementById("pm-valor-ajuste").value) || 0;
+    let atual = parseInt(inputAtual.value) || 0;
+
+    atual += valor;
+    inputAtual.value = atual;
+    atualizarBarraDeMana(); 
 }
 
 
