@@ -11,11 +11,12 @@ if (!isset($_SESSION['usuario_id'])) {
 
 
 
-<div class="container text-center">
+<div class="container text-center mt-4">
     <div class="row g-2">
         <div class="col-12">
-            <h1 class="logo-site1">
-                <span class="altaT">Alta</span> <span class="fantasiaT1">Fantasia</span>
+            <h1 class=" fw-bold mb-4">
+                <span class="title-static">Alta</span>
+                <span class="title-dynamic font-script fw-bold" id="fantasiaText">Fantasia</span>
             </h1>
             <h3 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h3>
 
@@ -81,7 +82,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </h6>
 
                                         <div class="d-flex justify-content-center gap-2">
-                                            <button class="btn btn-info btn-sm btn-editar" data-id="<?= $ficha['id'] ?>">
+                                            <button class="btn btn-secondary btn-sm btn-editar" data-id="<?= $ficha['id'] ?>">
                                                 Editar
                                             </button>
 
@@ -143,7 +144,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     </ul>
                     <div class="tab-content">
                         <!-- Identificação -->
-                        
+
                         <div class="tab-pane fade show active" id="identificacao" role="tabpanel">
                             <h4 class="mt-4">Identificação</h4>
                             <div class="row g-3 mb-2" style="display: flex; justify-content: center;">
@@ -168,7 +169,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div class="col-md-6">
                                     <label for="ficha-nome" class="form-label">Nome do Personagem</label>
                                     <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem my-1" placeholder="Nome do Personagem">
-                                    
+
                                 </div>
                                 <div class="col-md-6">
                                     <label for="ficha-raca" class="form-label">Raça</label>
@@ -213,7 +214,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </select>
                                 </div>
 
-                                
+
 
 
                                 <div class="col-md-6">
@@ -1491,7 +1492,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
                                         <div class="">
                                             <label for="pm-valor-ajuste" class="form-label">PMs Custo/Recuperação</label>
-                                            <input type="number" id="pm-valor-ajuste" class="form-control" placeholder="Valor em PVs">
+                                            <input type="number" id="pm-valor-ajuste" class="form-control" placeholder="Valor em PMs">
                                         </div>
                                     </div>
                                 </div>

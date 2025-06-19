@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Estilos e bibliotecas compartilhadas -->
-  <link rel="stylesheet" href="css/style.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -25,17 +25,20 @@ if (session_status() === PHP_SESSION_NONE) {
   <!-- sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+  <link rel="stylesheet" href="css/style.css">
   <!-- Scripts personalizados -->
   <script src="js/script.js" defer></script>
 </head>
 
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-white bg-white mb-4">
+<body class="" style="height: 100vh;">
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <h1 class="h3 text-dark m-0">Alta Fantasia</h1>
+      <a class="navbar-brand" href="alta.php">
+        <h1 class="h3 fw-bold text-primary">
+          <span class="">Alta</span>
+          <span class="font-script fw-bold" id="">Fantasia</span>
+        </h1>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

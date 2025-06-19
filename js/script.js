@@ -1243,12 +1243,12 @@ function atualizarPesoTotal() {
 
     var itensInventarioInterno = 0;
     document.querySelectorAll('.item-details').forEach(details => {
-        
 
-        const inputPeso  = details.querySelector('.item-peso');
+
+        const inputPeso = details.querySelector('.item-peso');
         const inputQuantidade = details.querySelector('.item-quantidade')
 
-        const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value)))  || 0;
+        const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value))) || 0;
 
         const selectInventarioInterno = details.querySelector('.item-inventario_interno');
         const inventarioInterno = selectInventarioInterno.value || "nao";
@@ -1292,7 +1292,7 @@ function configurarListenersDeItens() {
         quantidadei.addEventListener('change', atualizarPesoTotal);
         internoi.addEventListener('change', atualizarPesoTotal);
 
-        
+
     });
 
     atualizarPesoTotal(); // Atualiza imediatamente após configurar
@@ -1354,7 +1354,7 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
         // Cor vai de roxo escuro (100%) a azul claro (0%)
         /* const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff'); */
         if (atual > max) {
-            barra.style.backgroundColor = '#FFD700';
+            barra.style.backgroundColor = '#b8860b';
         } else {
             const cor = interpolarMultiplasCores((100 - percentual) / 100, [
                 '#4b0082',
@@ -1387,7 +1387,7 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
         }
     } else {
         if (atual > max) {
-            barra.style.backgroundColor = '#FFD700';
+            barra.style.backgroundColor = '#b8860b';
             delete barra.dataset.alertShown;
 
         } else {
@@ -1469,7 +1469,7 @@ function aplicarDano() {
 
     atual -= valor;
     inputAtual.value = atual;
-    atualizarBarraDeVida(); 
+    atualizarBarraDeVida();
 }
 
 function aplicarCura() {
@@ -1479,7 +1479,7 @@ function aplicarCura() {
 
     atual += valor;
     inputAtual.value = atual;
-    atualizarBarraDeVida(); 
+    atualizarBarraDeVida();
 }
 
 function ConjurarMagia() {
@@ -1489,7 +1489,7 @@ function ConjurarMagia() {
 
     atual -= valor;
     inputAtual.value = atual;
-    atualizarBarraDeMana(); 
+    atualizarBarraDeMana();
 }
 
 function RecuperarMana() {
@@ -1499,7 +1499,7 @@ function RecuperarMana() {
 
     atual += valor;
     inputAtual.value = atual;
-    atualizarBarraDeMana(); 
+    atualizarBarraDeMana();
 }
 
 
