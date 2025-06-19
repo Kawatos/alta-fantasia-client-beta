@@ -21,7 +21,7 @@ $peso = $_POST['peso'] ?? null;
 $volume = $_POST['volume'] ?? '';
 $equipado = $_POST['equipado'] ?? null;
 $inventario_interno = $_POST['inventario_interno'] ?? '';
-$quantidade = $_POST['quantidade'] ?? '1';
+$quantidade = $_POST['quantidade'] ?? '0';
 
 if (!$id_ficha) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'ID da ficha é obrigatório']);

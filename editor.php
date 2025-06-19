@@ -1723,7 +1723,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         id="ficha-observacoes_jogador"
                                         class="form-control observacoes_jogador-personagem"
                                         placeholder="Digite aqui suas anotações estratégicas ou pessoais..."
-                                        rows="5"></textarea>
+                                        rows="20"></textarea>
                                 </div>
                             </div>
                         </div>
