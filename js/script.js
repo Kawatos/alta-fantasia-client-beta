@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Descrição:</label>
-                                        <textarea class="form-control" rows="3" data-id="${hab.id_habilidade}">${hab.descricao}</textarea>
+                                        <textarea class="form-control" rows="5" data-id="${hab.id_habilidade}">${hab.descricao}</textarea>
                                     </div>
                                     <div class="text-end">
                                         <button class="btn btn-primary btn-sm me-2 salvar-habilidade" data-id="${hab.id_habilidade}">Salvar</button>
@@ -728,7 +728,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         </div>
                                         <div class="col-md-12">
                                             <label class="form-label">Descrição:</label>
-                                            <textarea class="form-control descricao-magia" rows="3" data-id="${magia.id_magias}">${magia.descricao}</textarea>
+                                            <textarea class="form-control descricao-magia" rows="5" data-id="${magia.id_magias}">${magia.descricao}</textarea>
                                         </div>
                                         <div class="col-12 text-end mt-3">
                                             <button class="btn btn-primary btn-sm me-2 salvar-magia" data-id="${magia.id_magias}">Salvar</button>
@@ -994,7 +994,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label">Descrição:</label>
-                                                <textarea class="form-control item-descricao" rows="3" data-id="${item.id_item}">${item.descricao}</textarea>
+                                                <textarea class="form-control item-descricao" rows="5" data-id="${item.id_item}">${item.descricao}</textarea>
                                             </div>
                                             <div class="col-12 text-end">
                                                 <button class="btn btn-primary btn-sm me-2 salvar-item" data-id="${item.id_item}">Salvar</button>

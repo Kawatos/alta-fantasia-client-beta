@@ -285,7 +285,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
-                                    <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="2"></textarea>
+                                    <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="10"></textarea>
                                 </div>
 
                             </div>
@@ -510,7 +510,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
                             <div class="col-12">
                                 <label for="ficha-observacoes_atributos" class="form-label">Observações Atributos</label>
-                                <textarea name="observacoes_atributos" id="ficha-observacoes_atributos" class="form-control observacoes_atributos-personagem" placeholder="Observações Atributos" rows="2"></textarea>
+                                <textarea name="observacoes_atributos" id="ficha-observacoes_atributos" class="form-control observacoes_atributos-personagem" placeholder="Observações Atributos" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -1406,7 +1406,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                             <div class="col-12">
                                 <label for="ficha-observacoes_pericias" class="form-label">Observações Perícias</label>
-                                <textarea name="observacoes_pericias" id="ficha-observacoes_pericias" class="form-control observacoes_pericias-personagem" placeholder="Observações Perícias" rows="2"></textarea>
+                                <textarea name="observacoes_pericias" id="ficha-observacoes_pericias" class="form-control observacoes_pericias-personagem" placeholder="Observações Perícias" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -1431,7 +1431,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                             </div>
                                             <div class="col-12">
                                                 <label for="habilidade-descricao" class="form-label">Descrição</label>
-                                                <textarea class="form-control" id="habilidade-descricao" name="descricao" rows="3"></textarea>
+                                                <textarea class="form-control" id="habilidade-descricao" name="descricao-habilidade" rows="5"></textarea>
                                             </div>
                                             <div class="col-12 mt-3">
                                                 <button type="button" class="btn btn-success" id="salvar-habilidade-nova">Salvar Habilidade</button>
@@ -1457,7 +1457,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
                             <div class="col-12">
                                 <label for="ficha-observacoes_habilidades" class="form-label">Observações Habilidades</label>
-                                <textarea name="observacoes_habilidades" id="ficha-observacoes_habilidades" class="form-control observacoes_habilidades-personagem" placeholder="Observações Habilidades" rows="2"></textarea>
+                                <textarea name="observacoes_habilidades" id="ficha-observacoes_habilidades" class="form-control observacoes_habilidades-personagem" placeholder="Observações Habilidades" rows="5"></textarea>
                             </div>
 
                         </div>
@@ -1543,7 +1543,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="magia-descricao" class="form-label">Descrição</label>
-                                                    <textarea class="form-control" id="magia-descricao" rows="3"></textarea>
+                                                    <textarea class="form-control" id="magia-descricao" rows="5"></textarea>
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <button type="button" class="btn btn-success" id="salvar-magia-nova">Salvar Magia</button>
@@ -1579,7 +1579,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                             <div id="magias-arcanas"></div> <!-- Aqui o JS renderiza as magias arcanas -->
                                             <div class="col-12 mt-3">
                                                 <label for="ficha-observacoes_magias_arcanas" class="form-label">Observações Magias Arcanas</label>
-                                                <textarea name="observacoes_magias_arcanas" id="ficha-observacoes_magias_arcanas" class="form-control observacoes_magias_arcanas-personagem" placeholder="Observações Magias Arcanas" rows="2"></textarea>
+                                                <textarea name="observacoes_magias_arcanas" id="ficha-observacoes_magias_arcanas" class="form-control observacoes_magias_arcanas-personagem" placeholder="Observações Magias Arcanas" rows="5"></textarea>
                                             </div>
                                         </div>
 
@@ -1588,7 +1588,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                             <div id="magias-divinas"></div> <!-- Aqui o JS renderiza as magias divinas -->
                                             <div class="col-12 mt-3">
                                                 <label for="ficha-observacoes_magias_divinas" class="form-label">Observações Magias Divinas</label>
-                                                <textarea name="observacoes_magias_divinas" id="ficha-observacoes_magias_divinas" class="form-control observacoes_magias_divinas-personagem" placeholder="Observações Magias Divinas" rows="2"></textarea>
+                                                <textarea name="observacoes_magias_divinas" id="ficha-observacoes_magias_divinas" class="form-control observacoes_magias_divinas-personagem" placeholder="Observações Magias Divinas" rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1672,7 +1672,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="item-descricao" class="form-label">Descrição</label>
-                                                    <textarea class="form-control" id="item-descricao" name="descricao" rows="3"></textarea>
+                                                    <textarea class="form-control" id="item-descricao" name="descricao-item-novo" rows="5"></textarea>
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <button type="button" class="btn btn-success" id="salvar-item-novo">Salvar Item</button>
@@ -1702,7 +1702,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                             <div class="col-12">
                                 <label for="ficha-observacoes_itens" class="form-label">Observações Itens</label>
-                                <textarea name="observacoes_itens" id="ficha-observacoes_itens" class="form-control observacoes_itens-personagem" placeholder="Observações Itens" rows="2"></textarea>
+                                <textarea name="observacoes_itens" id="ficha-observacoes_itens" class="form-control observacoes_itens-personagem" placeholder="Observações Itens" rows="5"></textarea>
                             </div>
                         </div>
 

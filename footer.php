@@ -59,7 +59,7 @@
                 <!-- Feedback de Sistema -->
                 <div>
                     <h6 class="text-warning fw-semibold mb-2">
-                        <i class="fas fa-comments me-1"></i>Feedback de Sistema e players
+                        <i class="fas fa-comments me-1"></i>Feedback de Sistema e Players
                     </h6>
                     <div class="small">
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Jooj <span class="text-muted">(Lucas Khun)</span></p>
@@ -69,6 +69,7 @@
                         <p class="mb-1"><i class="fas fa-user me-1"></i>Gui <span class="text-muted">(Guilherme A. Paes)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gado <span class="text-muted">(Gabriel Padilha)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gãgs <span class="text-muted">(Gadiel Vargas)</span></p>
+                        <p class="mb-0"><i class="fas fa-user me-1"></i>Steizera <span class="text-muted">(João Artur Endres)</span></p>
                     </div>
                 </div>
             </div>

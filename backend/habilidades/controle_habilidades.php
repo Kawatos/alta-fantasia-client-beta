@@ -16,7 +16,7 @@ $id_ficha = $_POST['id_ficha'] ?? null;
 $id_habilidade = $_POST['id_habilidade'] ?? null;
 $nome = $_POST['nome'] ?? '';
 $requisitos = $_POST['requisitos'] ?? '';
-$descricao = $_POST['descricao'] ?? '';
+$descricao = $_POST['descricao-habilidade'] ?? '';
 
 if (!$id_ficha) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'ID da ficha é obrigatório']);

@@ -29,50 +29,6 @@
     color: var(--cor-fundo-texto-claro) !important;
   }
 
-  /* Fontes variadas com cursivas */
-  .font-serif {
-    font-family: Georgia, serif;
-  }
-
-  .font-times {
-    font-family: 'Times New Roman', serif;
-    font-style: italic;
-  }
-
-  .font-palatino {
-    font-family: Palatino, serif;
-  }
-
-  .font-garamond {
-    font-family: Garamond, serif;
-    font-style: italic;
-  }
-
-  .font-cursive {
-    font-family: 'Brush Script MT', cursive;
-  }
-
-  .font-script {
-    font-family: 'Lucida Handwriting', cursive;
-  }
-
-  .font-book {
-    font-family: 'Book Antiqua', serif;
-    font-style: italic;
-  }
-
-  .font-century {
-    font-family: Century, serif;
-  }
-
-  .font-elegant {
-    font-family: 'Edwardian Script ITC', cursive;
-  }
-
-  .font-royal {
-    font-family: 'Old English Text MT', serif;
-  }
-
   .creator-photo {
     width: 120px;
     height: 120px;
