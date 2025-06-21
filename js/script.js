@@ -1502,6 +1502,101 @@ function RecuperarMana() {
     atualizarBarraDeMana();
 }
 
+const mensagens = [
+    '"Que suas aventuras sejam épicas e seus dados sempre favoráveis!"',
+    '"Nunca subestime o poder de um crítico natural."',
+    '"Até os goblins merecem uma chance... talvez."',
+    '"A sorte favorece os audaciosos, mas um bom plano nunca é demais."',
+    '"Em um mundo de fantasia, até os sonhos mais loucos podem se tornar realidade."',
+    '"A magia está em todo lugar, basta saber onde olhar."',
+    '"Cada dado lançado é uma nova história esperando para ser contada."',
+    '"A jornada é tão importante quanto o destino."',
+    '"Um bom mestre de jogo sabe que a narrativa é mais importante que as regras."',
+    '"A amizade é o maior tesouro que um aventureiro pode encontrar."',
+    '"A imaginação é o único limite em um mundo de fantasia."',
+    '"Role os dados e confie no destino."',
+    '"Um herói é feito de escolhas e sorte."',
+    '"A verdadeira aventura começa onde o conforto termina."',
+    '"Em cada esquina, uma nova história espera para ser descoberta."',
+    '"Em Alta Fantasia, um dos pilares da Magia é a criatividade."',
+    '"A diplomacia é tão poderosa quanto a espada."',
+    '"Nunca subestime o poder de um bom plano de fuga."',
+    '"A violencia não é a resposta, mas às vezes é a única opção."',
+    '"Nem todos os monstros são maus, e nem todos os heróis são bons."',
+    '"Nem todos os vilões podem ser convencidos com palavras."',
+    '"As vezes o reconhecimento é o maior tesouro que um aventureiro pode encontrar."',
+    '"Atitudes bondosas podem ser mal vistas em certos lugares."',
+    '"Mostros se chamam monstros por um motivo."',
+    '"Anote os nomes dos NPCs, eles podem ser importantes mais tarde."',
+    '"Sempre leve em conta as intenções daqueles que falam com você."',
+    '"Violencia gratuíta não é bem vista na grande maioria dos lugares."',
+    '"Um bom mestre de jogo sabe que ele não está competindo com os jogadores."',
+    '"A verdadeira magia está na capacidade de contar histórias que unem as pessoas."',
+    '"Em Alta Fantasia, cada personagem é uma peça fundamental na tapeçaria da aventura."',
+    '"O caminho fácil nem sempre é o mais divertido."',
+    '"Nem sempre o inimigo do seu inimigo é seu amigo."',
+    '"A GhostMachines é uma empresa que surgiu do nada, mas que se tornou um dos maiores conglomerados de tecnologia do mundo."',
+    '"A única diferença entre Alta e o mundo real, é que no mundo real não existem goblins, mas existem pessoas que agem como tais."',
+    '"Em Alta existem magos que destroem cidades e guerreiros que partem montanhas ao meio."',
+    '"Antes de Alta ascender, ela era uma criança como qualquer outra."',
+    '"Resolver um problema com diplomacia também dá XP, e às vezes até mais do que na base da violência."',
+];
+
+// Embaralha o array usando o algoritmo de Fisher-Yates
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffleArray(mensagens); // embaralha uma única vez ao carregar
+
+const mensagemEl = document.getElementById('mensagem');
+let index = 0;
+
+// Mostra a primeira mensagem imediatamente
+mensagemEl.innerHTML = `
+    <i class="fas fa-dice-d20 me-1"></i>
+    <em>${mensagens[index]}</em>
+    <i class="fas fa-dice-d20 ms-1"></i>
+`;
+mensagemEl.style.opacity = 1;
+
+setInterval(() => {
+    mensagemEl.style.opacity = 0;
+
+    setTimeout(() => {
+        index = (index + 1) % mensagens.length;
+        mensagemEl.innerHTML = `
+            <i class="fas fa-dice-d20 me-1"></i>
+            <em>${mensagens[index]}</em>
+            <i class="fas fa-dice-d20 ms-1"></i>
+        `;
+        mensagemEl.style.opacity = 1;
+    }, 500);
+}, 4000);
+
+
+// Quando o usuário clicar na imagem, simula o clique no input
+document.getElementById('preview_imagem_personagem').addEventListener('click', function () {
+    document.getElementById('personagem_imagem_id').click();
+});
+
+// Quando o usuário selecionar uma imagem, atualiza a prévia
+document.getElementById('personagem_imagem_id').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('preview_imagem_personagem').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+
+
 
 
 

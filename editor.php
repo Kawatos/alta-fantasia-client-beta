@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: ../login.php");
+    header("Location: bemvindo.php");
     exit;
 }
 ?>
@@ -14,10 +14,17 @@ if (!isset($_SESSION['usuario_id'])) {
 <div class="container text-center mt-4">
     <div class="row g-2">
         <div class="col-12">
-            <h1 class=" fw-bold mb-4">
-                <span class="title-static">Alta</span>
-                <span class="title-dynamic font-script fw-bold" id="fantasiaText">Fantasia</span>
+            <h1 class="display-5 fw-bold">
+                <span class="font-alta">Alta</span>
+                <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia</span>
             </h1>
+            <div class="text-center mt-2 mb-4">
+                <p id="mensagem" class="mb-0 text-muted fade">
+                    <i class="fas fa-dice-d20 me-1"></i>
+                    <em>"Que suas aventuras sejam épicas e seus dados sempre favoráveis!"</em>
+                    <i class="fas fa-dice-d20 ms-1"></i>
+                </p>
+            </div>
             <h3 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h3>
 
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
@@ -25,7 +32,8 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
 
             <h2 class="mb-4">Seus Personagens</h2>
-            <div class="container">
+
+            <div class="container mt-4">
 
 
                 <?php

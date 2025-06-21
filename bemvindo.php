@@ -5,9 +5,9 @@
     <div class="col-md-6">
       <div class="card shadow">
         <div class="card-body text-primary">
-          <h1 class=" fw-bold mb-4 text-primary text-center">
-            <span class="title-static">Alta</span>
-            <span class="title-dynamic font-script fw-bold" id="fantasiaText">Fantasia</span>
+          <h1 class="display-5 fw-bold mb-4 text-primary text-center">
+            <span class="font-alta">Alta</span>
+            <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia</span>
           </h1>
           <!-- Abas de navegação -->
           <ul class="nav nav-tabs nav-fill mb-4" id="loginTabs" role="tablist">

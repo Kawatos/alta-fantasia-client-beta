@@ -5,12 +5,12 @@
 
     <p class="lead mb-4">
         O <strong>Projeto Alta</strong> não vai se limitar apenas à construção de fichas ou a uma Wiki bacana do sistema, a ideia de uma comunidade não é para ficar apenas no papel!
-        E ela se deve ao feedback de um dos players — então, agradeçam ao <strong>Steizera</strong>!
+        E ela se deve ao feedback de um dos players — então, agradeçam ao <strong>Stei</strong>!
     </p>
 
     <p class="mb-4">
         Mas tudo isso leva tempo. Alta possui apenas um programador, que apesar de apaixonado, tem só 24 horas no dia... 
-        e infelizmente, não é herdeiro!
+        E infelizmente, não é herdeiro!
     </p>
 
     <img src="css/imagens/trabalhando_cuted.png"

@@ -14,7 +14,7 @@
                 </p>
                 <div class="d-flex align-items-center">
                     <span class="badge bg-warning text-dark px-3 py-2 fs-6">
-                        <i class="fas fa-code-branch me-1"></i>Versão V 1.4 Beta
+                        <i class="fas fa-code-branch me-1"></i>Versão V 1.5 Beta
                     </span>
                 </div>
             </div>
@@ -31,11 +31,11 @@
                     <a href="mailto:kauasilavamattos0000@gmail.com" class="text-white text-decoration-none d-flex align-items-center">
                         <i class="fas fa-envelope me-2"></i>kauasilavamattos0000@gmail.com
                     </a>
-                    <!-- <a href="https://discord.gg/altafantasia" class="text-white text-decoration-none d-flex align-items-center">
+                    <a href="https://discord.gg/5dUCkfHspN" class="text-white text-decoration-none d-flex align-items-center">
                         <i class="fab fa-discord me-2"></i>Discord - Alta Fantasia
-                    </a> -->
+                    </a>
                     <a href="https://www.instagram.com/kawatoslife/" class="text-white text-decoration-none d-flex align-items-center">
-                        <i class="fab fa-instagram me-2"></i>@kawatos
+                        <i class="fab fa-instagram me-2"></i>@kawatoslife
                     </a>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                         <p class="mb-1"><i class="fas fa-user me-1"></i>Gui <span class="text-muted">(Guilherme A. Paes)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gado <span class="text-muted">(Gabriel Padilha)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gãgs <span class="text-muted">(Gadiel Vargas)</span></p>
-                        <p class="mb-0"><i class="fas fa-user me-1"></i>Steizera <span class="text-muted">(João Artur Endres)</span></p>
+                        <p class="mb-0"><i class="fas fa-user me-1"></i>Stei <span class="text-muted">(Artur Endres)</span></p>
                     </div>
                 </div>
             </div>
@@ -84,6 +84,9 @@
                 <p class="mb-0">
                     <i class="fas fa-copyright me-1"></i>
                     2025 Alta Fantasia RPG. Criado por <strong>Kauã Mattos</strong>
+                </p>
+                <p class="my-2 ">
+                    Ad Astra Per Aspera - "Para as estrelas através das dificuldades"
                 </p>
             </div>
             <div class="col-md-6 text-center text-md-end">
@@ -104,15 +107,6 @@
         <br>
         <br>
 
-
-        <!-- Mensagem Final -->
-        <div class="text-center mt-4">
-            <p class="mb-0 text-muted">
-                <i class="fas fa-dice-d20 me-1"></i>
-                <em>"Que suas aventuras sejam épicas e seus dados sempre favoráveis!"</em>
-                <i class="fas fa-dice-d20 ms-1"></i>
-            </p>
-        </div>
     </div>
 </footer>
 
@@ -142,6 +136,8 @@
             });
         });
     });
+
+    
 </script>
 
 

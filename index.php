@@ -18,8 +18,8 @@
 <?php
 session_start();
 if (isset($_SESSION['usuario_id'])) {
-    header("Location: editor.php");
+    header("Location: alta.php");
 } else {
-    header("Location: bemvindo.php");
+    header("Location: alta.php");
 }
 exit;
