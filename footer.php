@@ -6,8 +6,8 @@
             <!-- Informações do Projeto -->
             <div class="col-lg-4 mb-4">
                 <h1 class="h5 fw-bold text-">
-                    <span class="">Alta</span>
-                    <span class="font-script fw-bold" id="">Fantasia</span>
+                    <span class="font-alta">Alta</span>
+                    <span class="font-fantasia fw-bold" id="">Fantasia</span>
                 </h1>
                 <p class="mb-3">
                     Um sistema de RPG de mesa épico e ambicioso, criado com paixão para aventuras inesquecíveis.

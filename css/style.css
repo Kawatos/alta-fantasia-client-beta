@@ -360,46 +360,55 @@ body {
 
 
 /* Fontes variadas com cursivas */
+
 .font-serif {
-  font-family: Georgia, serif;
+  font-family: 'Merriweather', serif;
+}
+
+.font-alta {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.font-fantasia {
+  font-family: 'Great Vibes', cursive;
 }
 
 .font-times {
-  font-family: 'Times New Roman', serif;
-  font-style: italic;
+  font-family: 'Libre Baskerville', serif;
 }
 
 .font-palatino {
-  font-family: Palatino, serif;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .font-garamond {
-  font-family: Garamond, serif;
-  font-style: italic;
+  font-family: 'EB Garamond', serif;
 }
 
 .font-cursive {
-  font-family: 'Brush Script MT', cursive;
+  font-family: 'Dancing Script', cursive;
 }
 
 .font-script {
-  font-family: 'Lucida Handwriting', cursive;
+  font-family: 'Satisfy', cursive;
 }
 
 .font-book {
-  font-family: 'Book Antiqua', serif;
-  font-style: italic;
+  font-family: 'Lora', serif;
 }
 
 .font-century {
-  font-family: Century, serif;
+  font-family: 'Spectral', serif;
 }
 
 .font-elegant {
-  font-family: 'Edwardian Script ITC', cursive;
+  font-family: 'Great Vibes', cursive;
 }
 
 .font-royal {
-  font-family: 'Old English Text MT', serif;
+  font-family: 'UnifrakturCook', serif;
 }
+
 

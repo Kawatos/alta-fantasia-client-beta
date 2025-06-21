@@ -62,10 +62,12 @@
 
   <div class="container position-relative" style="z-index: 4;">
     <div class="text-center">
-      <h1 class="display-2 fw-bold mb-4">
-        <span class="title-static">Alta</span>
-        <span class="title-dynamic fw-bold" id="fantasiaText">Fantasia</span>
-      </h1>
+      <div class="mb-4" style="height: 70px;">
+        <h1 class="display-2 fw-bold mb-4">
+          <span class="title-static font-alta">Alta</span>
+          <span class="title-dynamic fw-bold" id="fantasiaText">Fantasia</span>
+        </h1>
+      </div>
       <p class="lead fs-3 mb-4">Um RPG de Mesa Épico e Ambicioso</p>
       <p class="fs-5 mb-5">Mergulhe em um mundo virtual onde a fantasia encontra a realidade</p>
 
@@ -334,29 +336,25 @@
     if (!element) return;
 
     const fonts = [
-      'font-serif', 'font-cursive', 'font-times', 'font-script',
+      'font-alta', 'font-cursive', 'font-times', 'font-script',
       'font-palatino', 'font-elegant', 'font-garamond', 'font-royal',
       'font-book', 'font-century'
     ];
     let currentFont = '';
+    let fontIndex = 0;
 
     setInterval(() => {
-      console.log('Executando troca de fonte');
-
       if (currentFont) {
         element.classList.remove(currentFont);
       }
 
-      let nextFont;
-      do {
-        const randomIndex = Math.floor(Math.random() * fonts.length);
-        nextFont = fonts[randomIndex];
-      } while (nextFont === currentFont && fonts.length > 1);
-
+      const nextFont = fonts[fontIndex];
       element.classList.add(nextFont);
       currentFont = nextFont;
+
+      fontIndex = (fontIndex + 1) % fonts.length; // Avança para a próxima fonte, volta ao início se chegar ao fim
     }, 500);
-  }
+}
 
   document.addEventListener('DOMContentLoaded', iniciarFonteDinamicaOnce);
 

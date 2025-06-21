@@ -17,8 +17,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&family=Great+Vibes&family=Lora:ital@1&family=Merriweather&family=Libre+Baskerville:ital@1&family=Satisfy&family=Spectral&family=Cormorant+Garamond&family=UnifrakturCook&family=Dancing+Script&display=swap" rel="stylesheet"> -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=WDXL+Lubrifont+JP+N&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&family=Great+Vibes&family=Lora:ital@1&family=Merriweather&family=Libre+Baskerville:ital@1&family=Satisfy&family=Spectral&family=Cormorant+Garamond&family=UnifrakturCook&family=Dancing+Script&display=swap" rel="stylesheet">
 
   <!-- Scripts jQuery e Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -38,8 +42,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="container-fluid">
       <a class="navbar-brand" href="alta.php">
         <h1 class="h3 fw-bold text-primary">
-          <span class="">Alta</span>
-          <span class="font-script fw-bold" id="">Fantasia</span>
+          <span class="font-alta">Alta</span>
+          <span class="font-fantasia fw-bold" id="">Fantasia</span>
         </h1>
       </a>
 
