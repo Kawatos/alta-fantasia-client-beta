@@ -31,10 +31,6 @@ if (!$id_ficha) {
 try {
     switch ($acao) {
         case 'criar':
-            if (!$nome || $rank === null || !$descricao || $peso === null || !$volume) {
-                echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos para criar']);
-                exit;
-            }
 
             $stmt = $conn->prepare("
                 INSERT INTO itens (id_ficha, nome, rank, descricao, peso, volume, equipado, inventario_interno, quantidade)

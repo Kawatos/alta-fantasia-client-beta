@@ -565,7 +565,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('alcance', alcance);
                 formData.append('duracao', duracao);
                 formData.append('descritor', descritor);
-                formData.append('descricao', descricao);
+                formData.append('descricao-magia', descricao);
                 formData.append('acao', 'editar');
 
                 fetch('backend/magias/controle_magias.php', {
@@ -661,7 +661,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('alcance', magiaAlcance);
         formData.append('duracao', magiaDuracao);
         formData.append('descritor', magiaDescritor);
-        formData.append('descricao', magiaDescricao);
+        formData.append('descricao-magia', magiaDescricao);
         formData.append('acao', acao);
 
         fetch('backend/magias/controle_magias.php', {
@@ -825,7 +825,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('inventario_interno', inventario_interno);
                 formData.append('quantidade', quantidade);
 
-                formData.append('descricao', descricao);
+                formData.append('descricao-item-novo', descricao);
 
                 fetch('backend/itens/controle_itens.php', {
                     method: 'POST',
@@ -917,7 +917,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('id_ficha', fichaId);
         formData.append('nome', itemNome);
         formData.append('rank', itemRank);
-        formData.append('descricao', itemDescricao);
+        formData.append('descricao-item-novo', itemDescricao);
         formData.append('peso', itemPeso);
         formData.append('volume', itemVolume);
         formData.append('equipado', itemEquipado);

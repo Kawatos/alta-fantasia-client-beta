@@ -21,7 +21,7 @@ $custo_pm = $_POST['custo_pm'] ?? '';
 $alcance = $_POST['alcance'] ?? '';
 $duracao = $_POST['duracao'] ?? '';
 $descritor = $_POST['descritor'] ?? '';
-$descricao = $_POST['descricao'] ?? '';
+$descricao = $_POST['descricao-magia'] ?? '';
 
 if (!$ficha_id) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'ID da ficha é obrigatório']);
@@ -31,10 +31,6 @@ if (!$ficha_id) {
 try {
     switch ($acao) {
         case 'criar':
-            if (!$nome_magia || !$tipo_magia || is_null($nivel) || !$custo_pm || !$alcance || !$duracao || !$descritor || !$descricao) {
-                echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos para criar']);
-                exit;
-            }
 
             $stmt = $conn->prepare("
                 INSERT INTO magias (

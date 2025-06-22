@@ -26,10 +26,6 @@ if (!$id_ficha) {
 try {
     switch ($acao) {
         case 'criar':
-            if (!$nome || !$requisitos || !$descricao) {
-                echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos para criar']);
-                exit;
-            }
 
             $stmt = $conn->prepare("
                 INSERT INTO habilidades (id_ficha, nome, requisitos, descricao)

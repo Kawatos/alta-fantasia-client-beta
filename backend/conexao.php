@@ -1,7 +1,5 @@
 <?php
 
-
-
 try {
     $conn = new PDO("mysql:host=localhost;dbname=altafantasia;charset=utf8", "root", "");
     // Configura o PDO para lançar exceções em caso de erro
