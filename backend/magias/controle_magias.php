@@ -54,7 +54,7 @@ try {
             break;
 
         case 'editar':
-            if (!$id_magia || !$nome_magia || !$tipo_magia || is_null($nivel) || !$custo_pm || !$alcance || !$duracao || !$descritor || !$descricao) {
+            if (!$id_magia) {
                 echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos para editar']);
                 exit;
             }

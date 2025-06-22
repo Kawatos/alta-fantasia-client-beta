@@ -40,7 +40,7 @@ try {
             break;
 
         case 'editar':
-            if (!$id_habilidade || !$nome || !$requisitos || !$descricao) {
+            if (!$id_habilidade) {
                 echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos para editar']);
                 exit;
             }
