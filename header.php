@@ -37,7 +37,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 
 
-<body class="" style="height: 100vh;">
+<body class="h-100" style="height: 100vh;">
   <nav class="navbar navbar-expand-lg navbar-white bg-white">
     <div class="container-fluid">
       <a class="navbar-brand" href="alta.php">

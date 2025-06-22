@@ -19,10 +19,11 @@ if (!isset($_SESSION['usuario_id'])) {
                 <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia</span>
             </h1>
             <div class="text-center mt-2 mb-4">
+                <i class="fas fa-dice-d20 me-1"></i>
+                <i class="fas fa-dice-d20 ms-1"></i>
                 <p id="mensagem" class="mb-0 text-muted fade">
-                    <i class="fas fa-dice-d20 me-1"></i>
-                    <em>"Que suas aventuras sejam épicas e seus dados sempre favoráveis!"</em>
-                    <i class="fas fa-dice-d20 ms-1"></i>
+
+                    <em></em>
                 </p>
             </div>
             <h3 class="text-center mb-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?></h3>
@@ -121,7 +122,10 @@ if (!isset($_SESSION['usuario_id'])) {
                 <input type="hidden" name="id" id="ficha-id">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="titulo-modal">Editar Personagem: <span class="nome-personagem-exibicao"></span></h5>
+                    <h5 class="modal-title" id="titulo-modal">Editar Personagem: <span class="nome-personagem-exibicao"></span><br>
+                    Nível: <span class="nivel-personagem-span"></span> 
+                    (Rank: <span class="rank-personagem-span"></span>)<br>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
 
@@ -535,7 +539,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <button class="nav-link" id="tab-mentais-tab" data-bs-toggle="tab" data-bs-target="#tab-mentais" type="button" role="tab">Mentais</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="tab-tecnicas-tab" data-bs-toggle="tab" data-bs-target="#tab-tecnicas" type="button" role="tab">Tecnicas</button>
+                                        <button class="nav-link" id="tab-tecnicas-tab" data-bs-toggle="tab" data-bs-target="#tab-tecnicas" type="button" role="tab">Técnicas</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="tab-conhecimentos-tab" data-bs-toggle="tab" data-bs-target="#tab-conhecimentos" type="button" role="tab">Conhecimentos</button>
@@ -557,6 +561,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Vigor]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-tenacidade">
+                                                <div class="row">
+                                                    <p>Descrição: Resistência física prolongada em esforços contínuos, como marchas longas ou nadar contra a correnteza.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -574,6 +581,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <label class="form-label mb-1">Atributo</label>
                                                         <input type="number" class="form-control form-control-sm atributo-valor" readonly />
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -588,6 +596,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Vigor]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-fortitude">
+                                                <div class="row">
+                                                    <p>Descrição: Suportar danos, venenos, doenças e ambientes hostis, mantendo-se funcional mesmo sob condições adversas.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -619,6 +630,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Força]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-atletismo">
+                                                <div class="row">
+                                                    <p>Descrição: Aplicar força explosiva em ações rápidas, como saltar, empurrar ou erguer grandes pesos momentaneamente.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -650,6 +664,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Força]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-corpoacorpo">
+                                                <div class="row">
+                                                    <p>Descrição: Domínio físico em lutas, agarrões e imobilizações, usado tanto para resistir quanto para executar manobras de combate.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -681,6 +698,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-reflexo">
+                                                <div class="row">
+                                                    <p>Descrição: Reagir rapidamente a perigos ou eventos súbitos, como desviar de ataques ou pegar algo que cai.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -712,6 +732,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-controle">
+                                                <div class="row">
+                                                    <p>Descrição: Manter equilíbrio, precisão e furtividade em movimentos sob pressão, como escalar, esgueirar-se ou se equilibrar.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -746,6 +769,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Espírito]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-autocontrole">
+                                                <div class="row">
+                                                    <p>Descrição: Resistência instantânea contra medo, pânico, impulsos ou coerção mental súbita.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -777,6 +803,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Espírito]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-resiliencia">
+                                                <div class="row">
+                                                    <p>Descrição: Recuperação emocional após traumas, choques ou sofrimento prolongado, mantendo a sanidade.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -808,6 +837,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-intuicao">
+                                                <div class="row">
+                                                    <p>Descrição: Perceber mentiras, perigos ou obter palpites certeiros baseados em experiência e sensibilidade inconsciente.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -839,6 +871,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-percepcao">
+                                                <div class="row">
+                                                    <p>Descrição: Atenção aos sentidos e detalhes, identificando pistas, sons, cheiros, movimentos ou anomalias no ambiente.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -870,6 +905,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Carísma]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-influencia">
+                                                <div class="row">
+                                                    <p>Descrição: Habilidade social para persuadir, inspirar, provocar ou comover pessoas através de presença e discurso.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -901,6 +939,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Carísma]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-atuacao">
+                                                <div class="row">
+                                                    <p>Descrição: Fingir emoções, disfarçar intenções ou imitar comportamentos para enganar, encantar ou despistar.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -934,6 +975,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-esgrima">
+                                                <div class="row">
+                                                    <p>Descrição: Habilidade com armas de corte e precisão (espadas, adagas).</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -964,6 +1008,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-pontaria">
+                                                <div class="row">
+                                                    <p>Descrição: Uso de armas à distância (arcos, bestas, armas de fogo).</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -994,6 +1041,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-marcial">
+                                                <div class="row">
+                                                    <p>Descrição: Uso de armas brutas ou improvisadas (machados, clavas, porretes).</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1024,6 +1074,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-metalurgia">
+                                                <div class="row">
+                                                    <p>Descrição: Manipulação prática de metais (forjar, moldar, fundir).</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1054,6 +1107,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-artesanato">
+                                                <div class="row">
+                                                    <p>Descrição: Criação de objetos manuais: entalhes, costura, escultura, culinária.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1084,6 +1140,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-ladinagem">
+                                                <div class="row">
+                                                    <p>Descrição: Abertura de fechaduras, desarme/criação de armadilhas, truques manuais.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1114,6 +1173,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-instrumentos">
+                                                <div class="row">
+                                                    <p>Descrição: Operação precisa de instrumentos musicais ou mecânicos, como pequenas máquinas.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1144,6 +1206,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Destreza]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-pilotagem">
+                                                <div class="row">
+                                                    <p>Descrição: Controle de montarias, veículos ou máquinas complexas.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1177,6 +1242,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-arcano">
+                                                <div class="row">
+                                                    <p>Descrição: Entendimento de magia arcana, criaturas arcanas, artefatos e inscrições mágicas.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1207,6 +1275,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-religioso">
+                                                <div class="row">
+                                                    <p>Descrição: Saberes sobre magia divina, divindades, cultos, dogmas e magia divina.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1237,6 +1308,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-historico">
+                                                <div class="row">
+                                                    <p>Descrição: Compreensão de fatos antigos, eventos marcantes e tradições.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1267,6 +1341,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-natureza">
+                                                <div class="row">
+                                                    <p>Descrição: Saber lidar com plantas, animais, sobrevivência clima e ambiente natural.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1297,6 +1374,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-engenharia">
+                                                <div class="row">
+                                                    <p>Descrição: Projetos de armas, estruturas e mecanismos.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1327,6 +1407,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-alquimia">
+                                                <div class="row">
+                                                    <p>Descrição: Conhecimento sobre substâncias, poções, efeitos químicos, Física, Matemática.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1357,6 +1440,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-navegacao">
+                                                <div class="row">
+                                                    <p>Descrição: Cartografia, rotas terrestres e marítimas, geografia, clima.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>
@@ -1387,6 +1473,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     A: <span class="atributotxt-valor">0</span> [Intelecto]) </h5>
                                             </div>
                                             <div class="collapse" id="pericia-linguistico">
+                                                <div class="row">
+                                                    <p>Descrição: Conhecimento sobre Idiomas, dialetos e girias de outras regiões.</p>
+                                                </div>
                                                 <div class="row g-2 align-items-end">
                                                     <div class="col-6 col-md-3">
                                                         <label class="form-label mb-1">Treinamentos</label>

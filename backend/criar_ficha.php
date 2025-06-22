@@ -8,17 +8,22 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 /* ficha */
 $usuario_id = $_SESSION['usuario_id'];
+$nome_personagem = isset($_POST['nome_personagem']) ? trim($_POST['nome_personagem']) : '';
+
 
 
 $stmtFicha = $conn->prepare("
     INSERT INTO fichas (
-        usuario_id
+        usuario_id,
+        nome_personagem
     ) VALUES (
-        :usuario_id
+        :usuario_id,
+        :nome_personagem
     )
 ");
 
 $stmtFicha->bindParam(':usuario_id',         $usuario_id, PDO::PARAM_INT);
+$stmtFicha->bindParam(':nome_personagem',   $nome_personagem, PDO::PARAM_STR);
 
 
 if ($stmtFicha->execute()) {

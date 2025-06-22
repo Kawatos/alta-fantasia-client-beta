@@ -228,9 +228,9 @@
                   presos em um mundo de Fantasia Online super realista. Uma réplica perfeita
                   do mundo real, construída no ano de <strong>2079</strong>.
                 </p>
-                <h4 class="text-secondary mb-3">GhostMachines</h4>
+                <h4 class="text-secondary mb-3">Progressive Technologies</h4>
                 <p>
-                  O Projeto Alta, foi criado pela empresa GhostMachines com suporte financeiro de governos,
+                  O Projeto Alta, foi criado pela empresa Progressive Technologies com suporte financeiro de governos,
                   instituições e pessoas ao redor do mundo. Um projeto verdadeiramente global.
                 </p>
               </div>

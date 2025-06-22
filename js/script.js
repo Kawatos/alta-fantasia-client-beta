@@ -9,42 +9,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Botão para abrir em modo CRIAÇÃO
     document.querySelector('#botaoCriarFicha').addEventListener('click', function () {
-        fetch('backend/criar_ficha.php', {
-            method: 'POST', // ou 'GET' se você quiser, mas POST é melhor por segurança.
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(resp => resp.json())
-            .then(data => {
-                if (data.status === 'sucesso') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Ficha criada com sucesso!',
-                        showConfirmButton: false,
-                        timer: 700
-                    }).then(() => {
-                        location.reload(); // recarrega a página após o alerta
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: data.mensagem || 'Erro ao criar ficha.',
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-                }
-            })
-            .catch(erro => {
+        Swal.fire({
+            title: 'Criar nova ficha?',
+            text: 'Deseja realmente criar uma nova ficha de personagem?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, criar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Erro na requisição: ' + erro,
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-            });
+                    title: 'Nome do personagem',
+                    input: 'text',
+                    inputLabel: 'Digite o nome do seu personagem',
+                    inputPlaceholder: 'Ex: Arthanor, o Mago',
+                    showCancelButton: true,
+                    confirmButtonText: 'Criar ficha',
+                    cancelButtonText: 'Cancelar',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Você precisa digitar um nome!';
+                        }
+                    }
+                }).then((inputResult) => {
+                    if (inputResult.isConfirmed) {
+                        const nomePersonagem = inputResult.value;
 
+                        fetch('backend/criar_ficha.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                nome_personagem: nomePersonagem
+                            })
+                        })
+                            .then(resp => resp.json())
+                            .then(data => {
+                                if (data.status === 'sucesso') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Ficha criada com sucesso!',
+                                        showConfirmButton: false,
+                                        timer: 700
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.mensagem || 'Erro ao criar ficha.',
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    });
+                                }
+                            })
+                            .catch(erro => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro na requisição: ' + erro,
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                });
+                            });
+                    }
+                });
+            }
+        });
     });
+
+
 
     function getDadosFicha(fichaId) {
         $.ajax({
@@ -1115,12 +1149,15 @@ function atualizarNivelEBarra() {
     const inputXp = document.getElementById("ficha-xp");
     const spanNivel = document.getElementById("nivel-atual");
     const barraXp = document.getElementById("barra-xp");
+    const spanRank = document.querySelector(".rank-personagem-span");
+    const spanNivelClass = document.querySelector(".nivel-personagem-span");
 
     const barraProgressoTotal = document.getElementById("barra-progresso-total");
     const textoProgressoTotal = document.getElementById("progresso-total-texto");
 
     const xp = parseInt(inputXp.value) || 0;
     const nivel = Math.floor(xp / 100);
+    const rank = (Math.floor(nivel / 10) + 1);
     const progresso = xp % 100;
 
     // Atualiza nível e barra do nível atual
@@ -1134,6 +1171,11 @@ function atualizarNivelEBarra() {
     barraProgressoTotal.style.width = `${progressoTotal}%`;
     barraProgressoTotal.textContent = `${progressoTotal}%`;
     textoProgressoTotal.textContent = `${progressoTotal}%`;
+
+    spanNivelClass.textContent = nivel;
+    spanRank.textContent = rank;
+
+
 
     getValorMaxInventarioInterno()
 }
@@ -1535,7 +1577,7 @@ const mensagens = [
     '"Em Alta Fantasia, cada personagem é uma peça fundamental na tapeçaria da aventura."',
     '"O caminho fácil nem sempre é o mais divertido."',
     '"Nem sempre o inimigo do seu inimigo é seu amigo."',
-    '"A GhostMachines é uma empresa que surgiu do nada, mas que se tornou um dos maiores conglomerados de tecnologia do mundo."',
+    '"A Progressive Technologies é uma empresa que surgiu do nada, mas que se tornou um dos maiores conglomerados de tecnologia do mundo."',
     '"A única diferença entre Alta e o mundo real, é que no mundo real não existem goblins, mas existem pessoas que agem como tais."',
     '"Em Alta existem magos que destroem cidades e guerreiros que partem montanhas ao meio."',
     '"Antes de Alta ascender, ela era uma criança como qualquer outra."',
@@ -1557,9 +1599,9 @@ let index = 0;
 
 // Mostra a primeira mensagem imediatamente
 mensagemEl.innerHTML = `
-    <i class="fas fa-dice-d20 me-1"></i>
+    
     <em>${mensagens[index]}</em>
-    <i class="fas fa-dice-d20 ms-1"></i>
+    
 `;
 mensagemEl.style.opacity = 1;
 
@@ -1569,9 +1611,9 @@ setInterval(() => {
     setTimeout(() => {
         index = (index + 1) % mensagens.length;
         mensagemEl.innerHTML = `
-            <i class="fas fa-dice-d20 me-1"></i>
+            
             <em>${mensagens[index]}</em>
-            <i class="fas fa-dice-d20 ms-1"></i>
+            
         `;
         mensagemEl.style.opacity = 1;
     }, 500);
