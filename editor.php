@@ -36,8 +36,8 @@ if (!isset($_SESSION['usuario_id'])) {
 
             <div class="container mt-4">
 
-
                 <?php
+                
                 require 'backend/conexao.php';
 
                 $usuario_id = $_SESSION['usuario_id'];

@@ -351,7 +351,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('id_habilidade', id);
                 formData.append('nome', nome);
                 formData.append('requisitos', requisitos);
-                formData.append('descricao', descricao);
+                formData.append('descricao-habilidade', descricao);
                 formData.append('id_ficha', fichaId);
 
                 fetch('backend/habilidades/controle_habilidades.php', {
@@ -440,7 +440,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('id_ficha', fichaId);
         formData.append('nome', habilidadeNome);
         formData.append('requisitos', habilidadeRequisitos);
-        formData.append('descricao', habilidadeDescricao);
+        formData.append('descricao-habilidade', habilidadeDescricao);
         formData.append('acao', acao);
 
         fetch('backend/habilidades/controle_habilidades.php', {
