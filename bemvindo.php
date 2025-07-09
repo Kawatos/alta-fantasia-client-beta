@@ -27,7 +27,7 @@
           <div class="tab-content" id="loginTabsContent">
             <!-- Aba de Login -->
             <div class="tab-pane fade show active text-primary" id="login" role="tabpanel">
-              <h3 class="text-center mb-4">Bem-vindo(a) ao Editor de Fichas</h3>
+              <h3 class="text-center mb-4">Olá novamente! A aventura nos espera!</h3>
               <form id="loginForm">
                 <div class="mb-3">
                   <div class="input-group">
@@ -55,7 +55,7 @@
 
             <!-- Aba de Registro -->
             <div class="tab-pane fade" id="registro" role="tabpanel">
-              <h3 class="text-center mb-4 text-primary">Criar Nova Conta</h3>
+              <h3 class="text-center mb-4 text-primary">Você é novo(a) por aqui? Vamos jogar juntos!</h3>
               <form id="registroForm">
                 <div class="mb-3">
                   <div class="input-group">

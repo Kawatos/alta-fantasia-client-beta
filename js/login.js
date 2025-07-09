@@ -20,7 +20,7 @@ $(document).ready(function() {
                 if (response.success) {
                     showMessage('Login realizado com sucesso! Redirecionando...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'editor.php';
+                        window.location.href = 'alta.php';
                     }, 1500);
                 } else {
                     showMessage(response.message || 'Erro ao fazer login. Tente novamente.', 'danger');

@@ -2,6 +2,111 @@
 let modoEdicao = false;
 
 document.addEventListener("DOMContentLoaded", function () {
+    carregarFichas()
+
+    function carregarFichas() {
+        $.ajax({
+            url: 'backend/buscar_fichas.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function (fichas) {
+                const container = $('#lista-fichas');
+                container.empty();
+
+                if (fichas.length === 0) {
+                    container.append('<p class="text-center">Você ainda não criou nenhum personagem.</p>');
+                    return;
+                }
+
+                fichas.forEach(ficha => {
+                    console.log(ficha);
+                    console.log(ficha.id
+                        , ficha.nome_personagem, ficha.classe, ficha.nivel, ficha.status_personagem, ficha.personagem_imagem
+                    )
+                    const imagem = ficha.personagem_imagem
+                        ? ficha.personagem_imagem
+                        : 'uploads/perfil-vazio.png';
+
+                    const imagemEstilo = ficha.personagem_imagem
+                        ? ''
+                        : 'opacity: 0.5;';
+
+                    const card = `
+                <div class="col col-6 mb-4 mx-2" style="width: 240px">
+                    <div class="card h-100 text-center py-4 mx-auto btn-editar" style="width: 240px" data-id="${ficha.id}">
+                        <img src="${imagem}" alt="Imagem do Personagem"
+                             class="rounded mx-auto d-block mb-2"
+                             style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
+
+                        <div class="card-body p-2">
+                            <h5 class="card-title mb-1">${ficha.nome_personagem}</h5>
+                            <h6 class="card-subtitle text-muted mb-1">
+                                ${ficha.classe} - Nível: ${Math.floor(ficha.nivel / 100)}
+                            </h6>
+                            <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem}</h6>
+
+                            <div class="d-flex justify-content-center gap-2">
+                                <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}">Editar</button>
+                                <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}">
+                                    <i class="fas fa-trash-alt me-1"></i>Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                    container.append(card);
+                });
+
+                document.querySelectorAll('.btn-editar').forEach(button => {
+                    button.addEventListener('click', function () {
+                        modoEdicao = true;
+
+                        fichaId = this.dataset.id;
+
+                        getDadosFicha(fichaId);
+
+                    });
+
+
+
+                });
+
+                document.querySelectorAll(".excluir-ficha").forEach(function (btn) {
+                    btn.addEventListener("click", function () {
+                        const id = this.getAttribute("data-id");
+                        if (confirm("Tem certeza que deseja excluir esta ficha?")) {
+                            fetch("backend/excluir_ficha.php", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: "id=" + encodeURIComponent(id)
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.sucesso) {
+                                        this.closest(".col").remove();
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: data.erro || "Erro ao excluir a ficha.",
+                                            showConfirmButton: false,
+                                            timer: 1000,
+
+                                        });
+                                    }
+                                });
+                        }
+                    });
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Erro ao carregar fichas:', error);
+            }
+        });
+    }
     const modalFicha = new bootstrap.Modal(document.getElementById('modalFicha'));
     const form = document.getElementById('formFicha');
     const botaoSalvar = document.getElementById('botao-salvar');
@@ -53,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         showConfirmButton: false,
                                         timer: 700
                                     }).then(() => {
-                                        location.reload();
+                                        carregarFichas()
                                     });
                                 } else {
                                     Swal.fire({
@@ -1068,36 +1173,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".excluir-ficha").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            const id = this.getAttribute("data-id");
-            if (confirm("Tem certeza que deseja excluir esta ficha?")) {
-                fetch("backend/excluir_ficha.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "id=" + encodeURIComponent(id)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.sucesso) {
-                            this.closest(".col").remove();
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: data.erro || "Erro ao excluir a ficha.",
-                                showConfirmButton: false,
-                                timer: 1000,
-
-                            });
-                        }
-                    });
-            }
-        });
-    });
-});
 
 // Quando o modal for fechado, salva automaticamente se estiver no modo de edição
 const modalFicha = document.getElementById('modalFicha');
@@ -1127,7 +1202,7 @@ modalFicha.addEventListener('hidden.bs.modal', function () {
 
         .then(data => {
             if (data.status === 'sucesso') {
-                location.reload();
+                carregarFichas()
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -1140,9 +1215,6 @@ modalFicha.addEventListener('hidden.bs.modal', function () {
 
         });
 });
-
-
-
 
 
 function atualizarNivelEBarra() {
@@ -1183,7 +1255,7 @@ function atualizarNivelEBarra() {
 function atualizarAtributos() {
     const atributos = ["vigor", "forca", "destreza", "espirito", "carisma", "intelecto"];
     let totalModNivel = 0;
-    const nivelAtual = parseInt(document.getElementById("nivel-atual").textContent) || 1;
+    const nivelAtual = (parseInt(document.getElementById("nivel-atual").textContent) || 1) + 6;
 
     atributos.forEach(attr => {
         const modBase = parseInt(document.querySelector(`.${attr}_mod`)?.value) || 0;
@@ -1211,7 +1283,6 @@ function atualizarAtributos() {
         calcularPericias();
         verificarLimiteDeCarga()
     });
-
     // Atualiza total de pontos gastos e nível
     document.getElementById("total-mod-nivel").textContent = totalModNivel;
     document.getElementById("pontos-por-nivel").textContent = nivelAtual;
@@ -1364,10 +1435,11 @@ function verificarLimiteDeCarga() {
 }
 
 
-function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, tipo = "vida", exibirAlerta = false }) {
+function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, spanId, bgBarraId, tipo = "vida", exibirAlerta = false }) {
     const inputMax = document.getElementById(inputMaxId);
     const inputAtual = document.getElementById(inputAtualId);
     const barra = document.getElementById(barraId);
+    const span = document.getElementById(spanId);
     const bgBarra = document.getElementById(bgBarraId);
 
     const max = parseInt(inputMax?.value) || 1;
@@ -1376,8 +1448,10 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
     // Agora exibe o valor real, sem limitar entre 0 e 100
     const percentual = Math.round((atual / max) * 100);
 
-    barra.style.width = `${percentual}%`;
-    barra.textContent = `${percentual}%`;
+    let novoPercentual = Math.max(0, percentual); // garante que nunca será menor que 0
+    barra.style.width = `${novoPercentual}%`;
+
+    span.textContent = `${percentual}%`;
 
     // Remove estilos anteriores
     barra.classList.remove('bg-success', 'bg-warning', 'bg-danger', 'bg-dark');
@@ -1397,35 +1471,24 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, bgBarraId, 
         /* const cor = interpolarCor((100 - percentual) / 100, '#4b0082', '#00e0ff'); */
         if (atual > max) {
             barra.style.backgroundColor = '#b8860b';
-        } else {
+        } else if (atual > 0) {
             const cor = interpolarMultiplasCores((100 - percentual) / 100, [
                 '#4b0082',
                 '#00e0ff'
             ]);
             barra.style.backgroundColor = cor;
 
+        } else {
+            span.style.color = 'red';
         }
+
     } else if (atual <= 0) {
         barra.classList.add('bg-dark');
-        if (bgBarra) bgBarra.classList.add('bg-dark');
+        span.style.color = 'red';
 
         if (exibirAlerta && !barra.dataset.alertShown) {
-            Swal.fire({
-                title: '[ALERTA DO SISTEMA]',
-                html: `
-                <b>Seus Pontos de Vida chegaram a 0.</b><br><br>
-                Morte permanente será aplicada conforme as regras deste mundo, se não houverem contramedidas.<br><br>
-                ⚠️ <i>Continue por sua conta e risco.</i>
-            `,
-                background: '#1a1a1a',
-                color: '#00ccff',
-                confirmButtonText: 'Entendido',
-                confirmButtonColor: '#000000',
-                customClass: {
-                    popup: 'swal2-border-radius'
-                }
-            });
-            barra.dataset.alertShown = "true";
+
+
         }
     } else {
         if (atual > max) {
@@ -1487,6 +1550,7 @@ function atualizarBarraDeVida(exibirAlerta = true) {
         inputMaxId: "ficha-pontos_de_vida",
         inputAtualId: "ficha-pvs_atuais",
         barraId: "barra-pv",
+        spanId: "barra-vida-span",
         bgBarraId: "barra-vida",
         tipo: "vida",
         exibirAlerta: exibirAlerta
@@ -1498,6 +1562,7 @@ function atualizarBarraDeMana() {
         inputMaxId: "ficha-pontos_de_mana",
         inputAtualId: "ficha-pms_atuais",
         barraId: "barra-pm",
+        spanId: "barra-mana-span",
         bgBarraId: "barra-mana",
         tipo: "mana",
         exibirAlerta: false
