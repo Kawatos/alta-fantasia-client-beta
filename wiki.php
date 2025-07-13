@@ -1,77 +1,370 @@
 <?php include('header.php'); ?>
 <style>
-  .wiki-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem 0;
-  }
+.wiki-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 0;
+}
 
-  .search-container {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .content-section {
-    display: none;
-  }
+.content-section {
+  display: none;
+}
 
-  .content-section.active {
-    display: block;
-  }
+.content-section.active {
+  display: block;
+}
 
+.nav-tabs .nav-link {
+  color: #495057;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  background: none;
+  border-bottom: 3px solid #667eea;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.race-card,
+.class-card {
+  transition: transform 0.2s;
+  border: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.race-card:hover,
+.class-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.highlight {
+  background-color: yellow;
+  padding: 1px 2px;
+}
+
+.table-responsive {
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.badge-custom {
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+}
+
+.timeline-item {
+  border-left: 3px solid #667eea;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.magic-spell {
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Melhorias de Tipografia e Layout */
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #667eea;
+  margin: 3rem 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+  position: relative;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: #667eea;
+}
+
+.subsection-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #495057;
+  margin: 2rem 0 1rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid #667eea;
+  background: #f8f9fa;
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.sub-subsection-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin: 1.5rem 0 0.75rem 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.content-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.content-card-body {
+  padding: 2rem;
+}
+
+.text-content {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 1.5rem;
+}
+
+.text-content p {
+  margin-bottom: 1rem;
+}
+
+.text-content ul, .text-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.text-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #667eea;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.info-item {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.info-item h6 {
+  color: #667eea;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin: 2rem 0;
+}
+
+.table-title {
+  background: #667eea;
+  color: white;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.custom-table {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.custom-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  border-top: none;
+  padding: 1rem 0.75rem;
+}
+
+.custom-table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.image-container {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 0 1rem;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+  }
+  
+  .subsection-title {
+    font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .content-card-body {
+    padding: 1.5rem;
+  }
+  
+  .nav-tabs {
+    flex-wrap: wrap;
+  }
+  
   .nav-tabs .nav-link {
-    color: #495057;
-    border: none;
-    border-bottom: 3px solid transparent;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
   }
-
-  .nav-tabs .nav-link.active {
-    background: none;
-    border-bottom: 3px solid #667eea;
-    color: #667eea;
-    font-weight: bold;
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
-
-  .race-card,
-  .class-card {
-    transition: transform 0.2s;
-    border: 1px solid #dee2e6;
-    margin-bottom: 1rem;
-  }
-
-  .race-card:hover,
-  .class-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .highlight {
-    background-color: yellow;
-    padding: 1px 2px;
-  }
-
-  .table-responsive {
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .badge-custom {
-    font-size: 0.8em;
-    padding: 0.4em 0.8em;
-  }
-
-  .timeline-item {
-    border-left: 3px solid #667eea;
-    padding-left: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .magic-spell {
-    background: #f8f9fa;
-    border-left: 4px solid #667eea;
+  
+  .info-item {
     padding: 1rem;
-    margin-bottom: 1rem;
   }
+  
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .example-section {
+    padding: 1rem;
+  }
+  
+  .highlight-box {
+    padding: 1rem;
+  }
+  
+  .text-content {
+    font-size: 0.95rem;
+  }
+  
+  .text-content ul, .text-content ol {
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-title {
+    font-size: 1.75rem;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+  }
+  
+  .subsection-title {
+    font-size: 1.1rem;
+  }
+  
+  .content-card-body {
+    padding: 1rem;
+  }
+  
+  .nav-tabs .nav-link {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .table-title {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .custom-table {
+    font-size: 0.8rem;
+  }
+  
+  .text-content {
+    font-size: 0.9rem;
+  }
+}
+
+/* Melhorias de Acessibilidade */
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-bottom-color: #667eea;
+  color: #667eea;
+}
+
+.content-card:focus-within {
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+}
+
+/* Animações suaves */
+.content-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 
 <div class="wiki-header">
@@ -125,257 +418,616 @@
       </ul>
 
       <!-- Sistema Section -->
-      <div id="sistema" class="content-section active">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header bg-primary text-white">
-                <h4><i class="fas fa-level-up-alt me-2"></i>Sistema de Níveis</h4>
-              </div>
-              <div class="card-body">
-                <p>Em Alta Fantasia, a progressão dos personagens é feita por <strong>Níveis</strong>, que determinam o poder, habilidade e capacidades gerais dos heróis.</p>
-                <ul>
-                  <li>Nível inicial: <strong>1</strong></li>
-                  <li>Nível final: <strong>100</strong></li>
-                  <li>Ranks são definidos a cada <strong>10 níveis</strong></li>
-                  <li>Existem <strong>10 Ranks</strong> no total</li>
-                </ul>
-
-                <div class="table-responsive mt-3">
-                  <table class="table table-striped">
-                    <thead class="table-dark">
-                      <tr>
-                        <th>Nível/Rank</th>
-                        <th>Bônus Base</th>
-                        <th>Bônus Atributo</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1-10 (Rank 1)</td>
-                        <td>1d10</td>
-                        <td>1 a 10</td>
-                      </tr>
-                      <tr>
-                        <td>11-20 (Rank 2)</td>
-                        <td>2d10</td>
-                        <td>11 a 20</td>
-                      </tr>
-                      <tr>
-                        <td>21-30 (Rank 3)</td>
-                        <td>3d10</td>
-                        <td>21 a 30</td>
-                      </tr>
-                      <tr>
-                        <td>31-40 (Rank 4)</td>
-                        <td>4d10</td>
-                        <td>31 a 40</td>
-                      </tr>
-                      <tr>
-                        <td>41-50 (Rank 5)</td>
-                        <td>5d10</td>
-                        <td>41 a 50</td>
-                      </tr>
-                      <tr>
-                        <td>51-60 (Rank 6)</td>
-                        <td>6d10</td>
-                        <td>51 a 60</td>
-                      </tr>
-                      <tr>
-                        <td>61-70 (Rank 7)</td>
-                        <td>7d10</td>
-                        <td>61 a 70</td>
-                      </tr>
-                      <tr>
-                        <td>71-80 (Rank 8)</td>
-                        <td>8d10</td>
-                        <td>71 a 80</td>
-                      </tr>
-                      <tr>
-                        <td>81-90 (Rank 9)</td>
-                        <td>9d10</td>
-                        <td>81 a 90</td>
-                      </tr>
-                      <tr>
-                        <td>91-100 (Rank 10)</td>
-                        <td>10d10</td>
-                        <td>91 a 100</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+<div id="sistema" class="content-section active">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="main-title">
+          <i class="fas fa-cogs me-3"></i>Sistema de Alta Fantasia Online
+        </h2>
+        
+        <!-- Sistema de Níveis -->
+        <div class="content-card">
+          <div class="content-card-body">
+            <h3 class="section-title">Sistema de Níveis</h3>
+            
+            <div class="text-content">
+              <p>Em Alta Fantasia, a progressão dos personagens é feita por <strong>Níveis</strong>, que determinam o poder, habilidade e capacidades gerais dos heróis. E, também em Alta Fantasia Online:</p>
+            </div>
+            
+            <div class="highlight-box">
+              <ul class="mb-0">
+                <li>O Nível inicial é <strong>1</strong>, e o final é <strong>100</strong></li>
+                <li>Ranks são definidos a cada <strong>10 níveis</strong>, existem <strong>10 Ranks</strong></li>
+                <li>Ranks são medidas de poder</li>
+                <li>O seu nível define inicialmente os dados que você rolará</li>
+                <li>Sendo seu nível também quem define inicialmente os pontos que você terá nos seus Atributos</li>
+                <li>Já os Atributos servirão como base para as Perícias</li>
+                <li>Perícias e Atributos podem receber adições e subtrações externas, momentâneas ou permanentes</li>
+                <li>Todos os testes que os heróis e os vilões realizam são testes de perícia</li>
+              </ul>
+            </div>
+            
+            <div class="text-content">
+              <p>A cada intervalo de 10 níveis ou se preferir, a cada novo Rank, os personagens recebem um Bônus de Perícia crescente, representado por dados (d10), e os atributos associados ao nível evoluem em paralelo.</p>
+            </div>
+            
+            <div class="table-container">
+              <h4 class="table-title">Bônus de Perícia por Nível - Sistema de Ranks Beta 2</h4>
+              <div class="table-responsive">
+                <table class="table custom-table table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th>Nível (N) / Rank (R)</th>
+                      <th>Bônus Base do Dado</th>
+                      <th>Bônus Atributo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1 - 10 = Rank 1</td><td>1d10</td><td>1 a 10</td></tr>
+                    <tr><td>11 - 20 = Rank 2</td><td>2d10</td><td>11 a 20</td></tr>
+                    <tr><td>21 - 30 = Rank 3</td><td>3d10</td><td>21 a 30</td></tr>
+                    <tr><td>31 - 40 = Rank 4</td><td>4d10</td><td>31 a 40</td></tr>
+                    <tr><td>41 - 50 = Rank 5</td><td>5d10</td><td>41 a 50</td></tr>
+                    <tr><td>51 - 60 = Rank 6</td><td>6d10</td><td>51 a 60</td></tr>
+                    <tr><td>61 - 70 = Rank 7</td><td>7d10</td><td>61 a 70</td></tr>
+                    <tr><td>71 - 80 = Rank 8</td><td>8d10</td><td>71 a 80</td></tr>
+                    <tr><td>81 - 90 = Rank 9</td><td>9d10</td><td>81 a 90</td></tr>
+                    <tr><td>91 - 100 = Rank 10</td><td>10d10</td><td>91 a 100</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header bg-success text-white">
-                <h4><i class="fas fa-dumbbell me-2"></i>Atributos</h4>
+        <!-- Atributos -->
+        <div class="content-card">
+          <div class="content-card-body">
+            <h3 class="section-title">Atributos</h3>
+            
+            <div class="text-content">
+              <p>Os atributos são divididos em dois grupos principais:</p>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <h4 class="subsection-title text-danger mb-3">Corporais</h4>
+                <div class="info-item">
+                  <h6><i class="fas fa-heart me-2 text-danger"></i>Vigor</h6>
+                  <p class="mb-3">Resistência física, saúde e energia vital</p>
+                </div>
+                <div class="info-item">
+                  <h6><i class="fas fa-running me-2 text-danger"></i>Destreza</h6>
+                  <p class="mb-3">Agilidade, reflexos e precisão</p>
+                </div>
+                <div class="info-item">
+                  <h6><i class="fas fa-dumbbell me-2 text-danger"></i>Força</h6>
+                  <p class="mb-0">Capacidade de levantar, arremessar e causar dano físico</p>
+                </div>
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h5 class="text-danger">Corporais</h5>
-                    <ul class="list-unstyled">
-                      <li><strong>Vigor:</strong> Resistência física, saúde e energia vital</li>
-                      <li><strong>Destreza:</strong> Agilidade, reflexos e precisão</li>
-                      <li><strong>Força:</strong> Capacidade de levantar, arremessar e causar dano físico</li>
-                    </ul>
-                  </div>
-                  <div class="col-md-6">
-                    <h5 class="text-info">Mentais</h5>
-                    <ul class="list-unstyled">
-                      <li><strong>Espírito:</strong> Autocontrole, resiliência emocional e presença</li>
-                      <li><strong>Intelecto:</strong> Inteligência, lógica e conhecimento</li>
-                      <li><strong>Carisma:</strong> Desempenho social, persuasão e estética</li>
-                    </ul>
-                  </div>
+              
+              <div class="info-item">
+                <h4 class="subsection-title text-info mb-3">Mentais</h4>
+                <div class="info-item">
+                  <h6><i class="fas fa-brain me-2 text-info"></i>Espírito</h6>
+                  <p class="mb-3">Autocontrole, resiliência emocional, e presença</p>
+                </div>
+                <div class="info-item">
+                  <h6><i class="fas fa-lightbulb me-2 text-info"></i>Intelecto</h6>
+                  <p class="mb-3">Inteligência, lógica e conhecimento</p>
+                </div>
+                <div class="info-item">
+                  <h6><i class="fas fa-comments me-2 text-info"></i>Carisma</h6>
+                  <p class="mb-0">Desempenho social, persuasão e estética</p>
                 </div>
               </div>
             </div>
-
-            <div class="card mt-3">
-              <div class="card-header bg-warning text-dark">
-                <h4><i class="fas fa-heart me-2"></i>Pontos de Vida e Mana</h4>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h6><strong>Pontos de Vida (PVs)</strong></h6>
-                    <p>Representam a força vital das criaturas. Quando chegam a 0, o personagem é destruído.</p>
-                    <p><em>Base: Definido pela classe + Vigor</em></p>
-                  </div>
-                  <div class="col-md-6">
-                    <h6><strong>Pontos de Mana (PMs)</strong></h6>
-                    <p>Usados para habilidades especiais e magia. Quando chegam a 0, o personagem fica Exausto.</p>
-                    <p><em>Base: Definido pela classe + atributo chave</em></p>
-                  </div>
-                </div>
-                <div class="alert alert-info">
-                  <strong>Descanso:</strong> 4 horas recuperam metade dos PVs e PMs
-                </div>
-              </div>
+            
+            <div class="highlight-box">
+              <p class="mb-0">A evolução dos atributos acompanha os níveis do personagem. Por exemplo, um personagem de nível 12 poderá ter um atributo na faixa de 11 a 20, conforme a tabela. E não, não existem limites máximos aplicáveis em um único atributo.</p>
             </div>
           </div>
         </div>
 
         <!-- Perícias -->
-        <div class="card mt-4">
-          <div class="card-header bg-secondary text-white">
-            <h4><i class="fas fa-tools me-2"></i>Perícias</h4>
-          </div>
-          <div class="card-body">
-            <p>Por padrão, todos os personagens ganham <strong>1 perícia</strong> de qualquer tipo a cada <strong>20 níveis</strong>.</p>
-
-            <div class="row">
-              <div class="col-lg-6">
-                <h5 class="text-danger">Perícias Corporais</h5>
-                <div class="accordion" id="periciasCorporais">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#vigor">
-                        Baseadas em Vigor
-                      </button>
-                    </h2>
-                    <div id="vigor" class="accordion-collapse collapse" data-bs-parent="#periciasCorporais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Tenacidade:</strong> Resistência muscular prolongada</li>
-                          <li><strong>Fortitude:</strong> Resistência a danos e agentes nocivos</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#destreza">
-                        Baseadas em Destreza
-                      </button>
-                    </h2>
-                    <div id="destreza" class="accordion-collapse collapse" data-bs-parent="#periciasCorporais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Técnica:</strong> Habilidade motora especializada (possui variantes)</li>
-                          <li><strong>Reflexo:</strong> Reação imediata a estímulos repentinos</li>
-                          <li><strong>Controle:</strong> Equilíbrio e precisão corporal sob estresse</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#forca">
-                        Baseadas em Força
-                      </button>
-                    </h2>
-                    <div id="forca" class="accordion-collapse collapse" data-bs-parent="#periciasCorporais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Atletismo:</strong> Explosão de força em curtos esforços</li>
-                          <li><strong>Corpo-a-corpo:</strong> Combate e grappling físico</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <h5 class="text-info">Perícias Mentais</h5>
-                <div class="accordion" id="periciasMentais">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#espirito">
-                        Baseadas em Espírito
-                      </button>
-                    </h2>
-                    <div id="espirito" class="accordion-collapse collapse" data-bs-parent="#periciasMentais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Autocontrole:</strong> Resistência a influências externas</li>
-                          <li><strong>Resiliência:</strong> Recuperação emocional após traumas</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#intelecto">
-                        Baseadas em Intelecto
-                      </button>
-                    </h2>
-                    <div id="intelecto" class="accordion-collapse collapse" data-bs-parent="#periciasMentais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Conhecimento:</strong> Análise e domínio técnico (possui variantes)</li>
-                          <li><strong>Intuição:</strong> Pressentimentos e experiência inconsciente</li>
-                          <li><strong>Percepção:</strong> Atenção aos cinco sentidos</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#carisma">
-                        Baseadas em Carisma
-                      </button>
-                    </h2>
-                    <div id="carisma" class="accordion-collapse collapse" data-bs-parent="#periciasMentais">
-                      <div class="accordion-body">
-                        <ul>
-                          <li><strong>Influência:</strong> Influência social através do carisma</li>
-                          <li><strong>Atuação:</strong> Performance e fingimento emocional</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="content-card">
+          <div class="content-card-body">
+  <h3 class="section-title">Perícias</h3>
+  
+  <div class="highlight-box">
+    <p class="mb-0">Por padrão, todos os personagens ganham <strong>1 perícia</strong> de qualquer tipo, tanto corporal quanto mental, a cada <strong>20 níveis</strong>, o que se soma com as definidas por suas classes.</p>
+  </div>
+  
+  <!-- Perícias Corporais -->
+  <div class="content-card">
+    <div class="content-card-body">
+      <h4 class="subsection-title text-danger">Perícias Corporais</h4>
+      
+      <!-- Baseadas em Vigor -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Vigor</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-shield-alt me-2 text-danger"></i><strong>Tenacidade</strong></h6>
+              <p><strong>Descrição:</strong> Teste de resistência muscular prolongada.</p>
+              <p><strong>Quando usar:</strong> manter esforço físico contínuo por longos períodos.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Caminhar dias seguidos sem descanso</li>
+                <li>Subir lentamente um penhasco íngreme</li>
+                <li>Manter braçadas constantes ao nadar contra correnteza</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-fist-raised me-2 text-danger"></i><strong>Fortitude</strong></h6>
+              <p><strong>Descrição:</strong> Teste de resistência a danos e agentes nocivos.</p>
+              <p><strong>Quando usar:</strong> suportar ferimentos, venenos, doenças ou elementos hostis.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Resistir ao sangramento e choque após levar uma facada</li>
+                <li>Suportar os efeitos de um gás alucinógeno</li>
+                <li>Aguentar dias em ambiente tóxico (caverna fétida, áreas contaminadas, etc.)</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Baseadas em Destreza -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Destreza</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-crosshairs me-2 text-danger"></i><strong>Técnica (possui variantes)</strong></h6>
+              <p><strong>Descrição:</strong> Teste de habilidade motora especializada.</p>
+              <p><strong>Quando usar:</strong> executar ações que exigem prática e precisão treinada.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Atirar flechas com mira perfeita</li>
+                <li>Lacerar um alvo usando uma espada</li>
+                <li>Tocar um instrumento musical ou montar um mecanismo delicado</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-bolt me-2 text-danger"></i><strong>Reflexo</strong></h6>
+              <p><strong>Descrição:</strong> Teste de reação imediata a estímulos repentinos.</p>
+              <p><strong>Quando usar:</strong> reagir a perigos ou acontecimentos inesperados em frações de segundo.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Desviar de uma lâmina que vem em sua direção</li>
+                <li>Pegar um objeto que está caindo</li>
+                <li>Saltar para o lado ao ver uma pedra gigante rolando na sua direção</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-balance-scale me-2 text-danger"></i><strong>Controle</strong></h6>
+              <p><strong>Descrição:</strong> Teste de equilíbrio e precisão corporal sob estresse.</p>
+              <p><strong>Quando usar:</strong> mover‑se com cuidado e exatidão, especialmente em espaços restritos ou sob pressão.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Esgueirar‑se silenciosamente entre guardas</li>
+                <li>Andar sobre um tronco estreito sem perder o equilíbrio</li>
+                <li>Manter a postura estável ao atravessar uma ponte estreita e oscilante</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Baseadas em Força -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Força</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-running me-2 text-danger"></i><strong>Atletismo</strong></h6>
+              <p><strong>Descrição:</strong> Teste de explosão de força em curtos esforços.</p>
+              <p><strong>Quando usar:</strong> aplicar grande potência muscular rapidamente.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Empurrar um carro atolado</li>
+                <li>Fazer um salto poderoso para alcançar um beiral</li>
+                <li>Carregar um objeto muito pesado por alguns metros</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-fist-raised me-2 text-danger"></i><strong>Corpo-a-corpo</strong></h6>
+              <p><strong>Descrição:</strong> Teste de combate e grappling físico.</p>
+              <p><strong>Quando usar:</strong> dominar ou resistir a agarrões, imobilizações e golpes corpo a corpo.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Agarrar o braço de um inimigo para imobilizá‑lo</li>
+                <li>Romper uma chave de braço</li>
+                <li>Acertar ataques marciais certeiros em um adversário</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Perícias Mentais -->
+  <div class="content-card">
+    <div class="content-card-body">
+      <h4 class="subsection-title text-info">Perícias Mentais</h4>
+      
+      <!-- Baseadas em Espírito -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Espírito</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-brain me-2 text-info"></i><strong>Autocontrole</strong></h6>
+              <p><strong>Descrição:</strong> Teste de resistência instantâneo a influências externas e a surtos de emoção.</p>
+              <p><strong>Quando usar:</strong> refrear impulsos, ignorar pânico ou medo súbito, suportar coerção mental ou compulsões.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Dizer "não" a um manipulador que tenta forçá-lo a trair um amigo</li>
+                <li>Manter a calma mesmo sofrendo uma humilhação pública</li>
+                <li>Suportar uma ilusão que tenta despertar o terror</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-heart me-2 text-info"></i><strong>Resiliência</strong></h6>
+              <p><strong>Descrição:</strong> Teste de recuperação emocional após choques prolongados ou traumas.</p>
+              <p><strong>Quando usar:</strong> recompor-se após perdas, choques ou traumas severos; manter a sanidade em cenários de sofrimento contínuo.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Voltar ao equilíbrio mental após assistir à destruição de seu grupo</li>
+                <li>Superar o luto por um ente querido sem entrar em depressão profunda</li>
+                <li>Manter-se funcional após dias sendo torturado física ou psicologicamente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Baseadas em Intelecto -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Intelecto</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-book me-2 text-info"></i><strong>Conhecimento</strong></h6>
+              <p><strong>Descrição:</strong> Teste de análise e domínio técnico em um campo específico.</p>
+              <p><strong>Quando usar:</strong> criação, construção, e pesquisa de magias, além da resolução de problemas complexos que exigem estudo prévio.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Decifrar um manuscrito mágico</li>
+                <li>Reconstituir um motor antigo para fazer ele funcionar</li>
+                <li>Elaborar uma estratégia de batalha baseada em táticas militares</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-eye me-2 text-info"></i><strong>Intuição</strong></h6>
+              <p><strong>Descrição:</strong> Teste de pressentimentos e experiência inconsciente.</p>
+              <p><strong>Quando usar:</strong> perceber perigo antes que ele aconteça, captar mentiras sutis ou ter "um palpite" certeiro.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Sentir que um aliado está mentindo mesmo sem provas objetivas</li>
+                <li>Perceber que uma ponte aparentemente segura vai desabar</li>
+                <li>Conseguir ter um pressentimento a respeito do resultado de uma negociação</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-search me-2 text-info"></i><strong>Percepção</strong></h6>
+              <p><strong>Descrição:</strong> Teste de atenção aos cinco sentidos e detalhes do ambiente.</p>
+              <p><strong>Quando usar:</strong> notar pistas físicas, sons, cheiros, cores, texturas ou pessoas escondidas que possam passar despercebidas.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Ouvir passos leves atrás de você numa sala silenciosa</li>
+                <li>Notar um filete de fumaça saindo por debaixo da porta</li>
+                <li>Perceber uma mão procurando algo nos bolsos da usa mochila</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Baseadas em Carisma -->
+      <div class="content-card">
+        <div class="content-card-body">
+          <h5 class="sub-subsection-title">Baseadas em Carisma</h5>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <h6><i class="fas fa-comments me-2 text-info"></i><strong>Influência</strong></h6>
+              <p><strong>Descrição:</strong> Teste influencia social, através do carisma e eloquência e experiencia em lidar com pessoas e situações sociais.</p>
+              <p><strong>Quando usar:</strong> convencer, provocar sentimentos ou movimentar plateias pelo poder de sua presença e palavras.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Inspirar uma tropa a lutar contra probabilidades impossíveis</li>
+                <li>Enfurecer um inimigo para que ele aja impetuosamente</li>
+                <li>Convencer um mercador relutante a dar desconto usando charme e argumentos</li>
+              </ul>
+            </div>
+            
+            <div class="info-item">
+              <h6><i class="fas fa-theater-masks me-2 text-info"></i><strong>Atuação</strong></h6>
+              <p><strong>Descrição:</strong> Teste de performance, fingimento ou disfarce emocional para enganar observadores.</p>
+              <p><strong>Quando usar:</strong> simular estados de espírito, ocultar intenções verdadeiras ou imitar comportamentos alheios.</p>
+              <p><strong>Exemplos:</strong></p>
+              <ul class="mb-0">
+                <li>Fingir estar gravemente ferido para distrair guardas</li>
+                <li>Imitar o sotaque de um nobre para entrar disfarçado numa festa</li>
+                <li>Chorar de forma convincente para ganhar a simpatia de alguém</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Variações de Conhecimentos e Técnicas -->
+        <div class="content-card">
+          <div class="content-card-body">
+            <h3 class="section-title">Variações de Conhecimentos e Técnicas</h3>
+            
+            <div class="text-content">
+              <p>Veja abaixo as variações de Conhecimentos e Técnicas. Repare que quando um teste de uma dessas duas perícias é realizado, ele sempre terá sua variação especificada. Por isso quando o jogador pode escolher uma ou mais Técnicas ou Conhecimentos, o mesmo pega uma ou mais variações de cada tipo dessas Perícias.</p>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <h4 class="subsection-title">Conhecimentos</h4>
+                <ul>
+                  <li><strong>Arcano</strong> – Entendimento de magia arcana, criaturas arcanas, artefatos e inscrições mágicas</li>
+                  <li><strong>Religioso</strong> – Saberes sobre magia divina, divindades, cultos, dogmas e magia divina</li>
+                  <li><strong>Histórico</strong> – Compreensão de fatos antigos, eventos marcantes e tradições</li>
+                  <li><strong>Natureza</strong> – Saber lidar com plantas, animais, sobrevivência clima e ambiente natural</li>
+                  <li><strong>Engenharia</strong> – Projetos de armas, estruturas e mecanismos</li>
+                  <li><strong>Alquimia</strong> – Conhecimento sobre substâncias, poções, efeitos químicos, Física, Matemática</li>
+                  <li><strong>Navegação</strong> – Cartografia, rotas terrestres e marítimas, geografia, clima</li>
+                  
+<li><strong>Linguístico</strong> – Conhecimento sobre Idiomas, dialetos e girias de outras regiões</li>
+                </ul>
+              </div>
+              
+              <div class="info-item">
+                <h4 class="subsection-title">Técnicas</h4>
+                <ul>
+                  <li><strong>Esgrima</strong> – Habilidade com armas de corte e precisão (espadas, adagas)</li>
+                  <li><strong>Pontaria</strong> – Uso de armas à distância (arcos, bestas, armas de fogo)</li>
+                  <li><strong>Marcial</strong> – Uso de armas brutas ou improvisadas (machados, clavas, porretes)</li>
+                  <li><strong>Metalurgia</strong> – Manipulação prática de metais (forjar, moldar, fundir)</li>
+                  <li><strong>Artesanato</strong> – Criação de objetos manuais: entalhes, costura, escultura, culinária</li>
+                  <li><strong>Ladinagem</strong> – Abertura de fechaduras, desarme/criação de armadilhas, truques manuais</li>
+                  <li><strong>Instrumentos</strong> – Operação precisa de instrumentos musicais ou mecânicos, como pequenas máquinas</li>
+                  <li><strong>Pilotagem</strong> – Controle de montarias, veículos ou máquinas complexas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Utilizando as Perícias -->
+        <div class="content-card">
+          <div class="content-card-body">
+  <h3 class="section-title">Utilizando as Perícias</h3>
+  
+  <div class="text-content">
+    <p>As perícias podem ser utilizadas de infinitas maneiras, em infinitos cenários e ocasiões, isto fica a caráter da criatividade do jogador, e claro, da paciência do mestre.</p>
+  </div>
+  
+  <!-- Exemplos Corporais -->
+  <div class="content-card">
+    <div class="content-card-body">
+      <h4 class="subsection-title text-danger">Exemplos de Uso - Perícias Corporais</h4>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <h6><strong>Ataque de espada</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Técnica Esgrima</p>
+          <p><strong>Quem defende usa:</strong> Reflexo (tentar desviar ou bloquear o golpe no último instante)</p>
+          <p><strong>Uso típico:</strong> o jogador rola Técnica vs o monstro rola Reflexo; quem obtiver maior resultado realiza a ação.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Disparo de arma leve</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Técnica Pontaria</p>
+          <p><strong>Quem defende usa:</strong> Reflexos (impedir ser atingido)</p>
+          <p><strong>Uso típico:</strong> Técnica do atirador contra Controle do alvo — um tiro preciso contra a capacidade de desviar.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Investida corporal</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Corpo-a-corpo (Utilizar a habilidade marcial e força para derrubar)</p>
+          <p><strong>Quem defende usa:</strong> Corpo‑a‑corpo (resistir ao agarrão e imobilização)</p>
+          <p><strong>Uso típico:</strong> quem tenta derrubar rola Atletismo; quem está sendo derrubado rola Corpo‑a‑corpo para evitar ser imobilizado.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Manobra em terreno instável</strong></h6>
+          <p><strong>Quem ataca (O MUNDO) usa:</strong> CD (Classe de Dificuldade)</p>
+          <p><strong>Quem defende usa:</strong> Atletismo (manter equilíbrio e vigor ao se mover exaustivamente)</p>
+          <p><strong>Uso típico:</strong> O mestre impõe uma CD para o desafio, quem tenta vencer o desafio usa Atletismo para vencer ele.</p>
+        </div>
+      </div>
+      
+      <div class="info-item">
+        <h6><strong>Resistir a dano de armadilha</strong></h6>
+        <p><strong>Quem ataca usa (a armadilha):</strong> Técnica Ladinagem</p>
+        <p><strong>Quem defende usa:</strong> Fortitude (suportar perfurações, venenos ou contusões)</p>
+        <p><strong>Uso típico:</strong> Iniciador automático de armadilha rola Técnica; personagem rola Fortitude para minimizar ou ignorar os efeitos nocivos. Note que, existe a possibilidade de ser realizada também a perícia Reflexos para evitar ser acertado pela armadilha, contudo quem realiza o teste em determinadas situações pode escolher não realizar o teste, contudo nestes cenários geralmente outro teste, que seria a consequência, é obrigatório, como a consequência de aceitar tomar os cortes das lâminas, seria, tentar resistir ao ferimento usando Fortitude.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Exemplos Mentais -->
+  <div class="content-card">
+    <div class="content-card-body">
+      <h4 class="subsection-title text-info">Exemplos de Uso - Perícias Mentais</h4>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <h6><strong>Disputa de Ideias (Debate ou Conversão de Opinião)</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Influência (usar argumentos, carisma e lógica para convencer ou manipular)</p>
+          <p><strong>Quem defende usa:</strong> Autocontrole (manter-se firme em suas crenças ou princípios)</p>
+          <p><strong>Uso típico:</strong> Personagem rola Influência para tentar alterar a decisão ou visão de outro personagem; o alvo rola Autocontrole para resistir à persuasão.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Interrogatório ou Blefe Emocional</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Atuação (finge emoções, mente de forma convincente)</p>
+          <p><strong>Quem defende usa:</strong> Intuição (percebe sinais sutis de mentira, desconfia do tom ou do olhar)</p>
+          <p><strong>Uso típico:</strong> Atuação é usada para tentar enganar ou simular emoção; intuição do outro lado tenta perceber incongruências.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Manipulação Inspiradora ou Intimidadora</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Influência (inspirar, motivar, amedrontar ou acalmar com palavras)</p>
+          <p><strong>Quem defende usa:</strong> Resiliência (manter o estado emocional, não se deixar afetar por intimidação ou comoção)</p>
+          <p><strong>Uso típico:</strong> Influência é usada para tentar gerar reação emocional; resiliência é testada para manter o controle emocional.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Análise Lógica vs. Instinto</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Conhecimento Alquimia</p>
+          <p><strong>Quem defende usa:</strong> Intuição (perceber padrões não óbvios, seguir o "sentimento")</p>
+          <p><strong>Uso típico:</strong> Um jogador pode sugerir uma solução teórica com Conhecimento, enquanto outra tenta chegar a um palpite confiável com Intuição — o mestre pode permitir ambos e premiar o mais eficaz.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Detecção de Armadilhas Mentais ou Truques Visuais</strong></h6>
+          <p><strong>Quem ataca usa:</strong> Atuação (simular uma situação convincente)</p>
+          <p><strong>Quem defende usa:</strong> Percepção (para notar algo estranho nos detalhes sensoriais)</p>
+          <p><strong>Uso típico:</strong> Um personagem tenta simular um cenário, enquanto outro precisa notar inconsistências perceptivas para escapar do truque.</p>
+        </div>
+        
+        <div class="info-item">
+          <h6><strong>Vencer a Exaustão Emocional</strong></h6>
+          <p><strong>Quem ataca (o mundo) usa:</strong> CD (Classe de Dificuldade imposta por circunstâncias traumáticas)</p>
+          <p><strong>Quem defende usa:</strong> Resiliência (manter-se emocionalmente funcional mesmo após eventos intensos)</p>
+          <p><strong>Uso típico:</strong> O mestre determina uma CD emocional após uma perda ou evento estressante; os jogadores rolam Resiliência para seguir em frente sem penalidades.</p>
+        </div>
+      </div>
+      
+      <div class="info-item">
+        <h6><strong>Persistência em Meio à Adversidade</strong></h6>
+        <p><strong>Quem ataca (o mundo) usa:</strong> CD (desafio constante e cumulativo)</p>
+        <p><strong>Quem defende usa:</strong> Autocontrole (levantar todos os dias para seguir uma missão, suportar pressão constante)</p>
+        <p><strong>Uso típico:</strong> Testes contínuos de Autocontrole para manter o foco, rotina e compromisso frente ao desgaste mental.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Pontos de Vida, Mana, Descanso -->
+        <div class="content-card">
+          <div class="content-card-body">
+            <h3 class="section-title">Pontos de Vida, Mana, Descanso e o Combate e Testes</h3>
+            
+            <div class="text-content">
+              <p>De maneira extremamente simplificada, o combate pode ser interpretado como qualquer tipo de confrontação de forças que possa causar dano a personagens, sejam eles os heróis ou os vilões.</p>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <h4 class="subsection-title text-danger">Os Pontos de Vida (PVs)</h4>
+                <p>Resumidamente, os pontos de vida ou PVs são um atributo presente em todos os personagens, eles representam a força vital das criaturas e a integridade dos objetos inanimados, com no caso e de maneira a não haver exceções, sempre que o valor de PVs do personagem ou objeto chegar a 0, o mesmo será destruído.</p>
+                <p>Os PVs são calculados de maneira diferente dos atributos convencionais, com eles utilizando como base de seu cálculo os pontos presentes nos próprios atributos, geralmente tendo como base o Vigor, sendo estes configurados inicialmente pela Classe do herói.</p>
+                <p><em>Veremos mais adiante sobre Classes.</em></p>
+              </div>
+              
+              <div class="info-item">
+                <h4 class="subsection-title text-primary">Os Pontos de Mana (PMs)</h4>
+                <p>Em Alta Fantasia Online, todas as habilidades especiais dos personagens que manipulam a magia, normalmente usam PMs, sendo estes a semelhança dos PVs definidos pela classe e utilizando atributos como base para seu cálculo.</p>
+                <p>Diferentemente dos PVs, quando os PMs chegam a 0, o personagem não morrerá ou o objeto será destruído, contudo, no caso dos personagens, eles ficarão com a condição <strong>Exausto</strong>.</p>
+                <p><em>Veremos mais sobre Condições futuramente.</em></p>
+              </div>
+            </div>
+            
+            <div class="highlight-box">
+              <h4 class="subsection-title text-success">O Descanso</h4>
+              <p>Um dos mais importantes recursos de Alta Fantasia Online e da realidade, é descansar, de maneira simples e direta, naturalmente são necessárias <strong>4 horas de descanso</strong> para se recuperar <strong>metade dos PVs e dos PMs</strong>, com o Descanso definido por um período onde o personagem não entrou em combate ou gastou PMs.</p>
+              <p class="mb-0"><em>Lugares e efeitos podem impedir o Descanso de ocorrer normalmente.</em></p>
+            </div>
+            
+            <h4 class="subsection-title">O Combate e os Testes</h4>
+            <div class="text-content">
+              <p>Estar em combate ou realizar um Teste (de perícia) são um dos momentos mais importantes do RPG, pois é aqui onde os heróis impõem a sua vontade por meio das regras no mundo, ou o mundo impõe a sua vontade também usando as regras sobre os heróis.</p>
+              <p>Basicamente, Combater um adversário é rolar testes contra ele, da maneira como vimos nos exemplos das perícias, mas note que o mundo nem sempre dará aos heróis alguém para apanhar, mas às vezes dará um castelo a ser escalado, ou um rio a ser vencido, e é por isso que existe a <strong>Classe de Dificuldade</strong>.</p>
+              <p>Vencer um combate é causar um efeito em um oponente, seja um corte que reduzirá os PVs do mesmo, ou aplicar uma condição nele, como deixar ele <strong>Agarrado</strong>.</p>
+              <p>Já vencer uma CD de um desafio significa vencer o desafio, contudo às vezes o desafio é longo e múltiplos testes são realizados, sendo necessário vencer a maioria deles para vencer o desafio.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Classes de Dificuldade -->
+        <div class="content-card">
+          <div class="content-card-body">
+            <h3 class="section-title">Classes de Dificuldade (CD)</h3>
+            
+            <div class="text-content">
+              <p>Aqui vemos os valores-base das CDs dos desafios:</p>
+            </div>
+            
+            <div class="table-container">
+              <h4 class="table-title">Valores das Classes de Dificuldade por Rank</h4>
+              <div class="table-responsive">
+                <table class="table custom-table table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Fácil</th>
+                      <th>Normal</th>
+                      <th>Difícil</th>
+                      <th>Muito Difícil</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>R1</td><td>10</td><td>13</td><td>17</td><td>21+</td></tr>
+                    <tr><td>R2</td><td>14</td><td>18</td><td>23</td><td>28+</td></tr>
+                    <tr><td>R3</td><td>18</td><td>23</td><td>29</td><td>35+</td></tr>
+                    <tr><td>R4</td><td>22</td><td>28</td><td>35</td><td>42+</td></tr>
+                    <tr><td>R5</td><td>26</td><td>33</td><td>41</td><td>49+</td></tr>
+                    <tr><td>R6</td><td>30</td><td>38</td><td>47</td><td>56+</td></tr>
+                    <tr><td>R7</td><td>34</td><td>43</td><td>53</td><td>63+</td></tr>
+                    <tr><td>R8</td><td>38</td><td>48</td><td>59</td><td>70+</td></tr>
+                    <tr><td>R9</td><td>42</td><td>53</td><td>65</td><td>77+</td></tr>
+                    <tr><td>R10</td><td>46</td><td>58</td><td>71</td><td>84+</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div class="image-container">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grafico-dD6xb0P3m96pW3sQp3Q4SNRiEO2qgM.png" alt="Gráfico de Classe de Dificuldade por Rank" class="img-fluid">
+              <p class="text-muted mt-3 mb-0"><small>Dados revisados utilizando Machine Learning.</small></p>
+            </div>
+            
+            <div class="text-content">
+              <p>Deixando de lado o gráfico para o desgraçado que criou o sistema, vemos que a escala de dificuldade usando os valores da tabela acima é progressiva, ou seja, ao menos em teoria, a percepção de dificuldade dos desafios de determinado Rank, por exemplo, o R1 para o R10, deve ser idêntica ao jogador.</p>
+            </div>
+            
+            <div class="highlight-box text-center">
+              <h5 class="text-success mb-3"><i class="fas fa-smile me-2"></i>Divirta-se!</h5>
+              <p class="mb-0">Isso tudo será válido, exceto se algo disser o contrário.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
       <!-- Raças Section -->
       <div id="racas" class="content-section">

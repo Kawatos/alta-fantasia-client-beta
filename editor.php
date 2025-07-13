@@ -1698,6 +1698,16 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <option value="nao">Não</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Estado:</label>
+                                                    <select class="form-control item-estado">
+                                                        <option value="">Selecione</option>
+                                                        <option value="intacto">Intacto</option>
+                                                        <option value="pouco-danificado">Pouco danificado</option>
+                                                        <option value="danificado">Danificado</option>
+                                                        <option value="inutilizavel">Inutilizável</option>
+                                                    </select>
+                                                </div>
                                                 <div class="col-12">
                                                     <label for="item-descricao" class="form-label">Descrição</label>
                                                     <textarea class="form-control" id="item-descricao" name="descricao-item-novo" rows="5"></textarea>

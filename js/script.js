@@ -84,20 +84,20 @@ document.addEventListener("DOMContentLoaded", function () {
                                 },
                                 body: "id=" + encodeURIComponent(id)
                             })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.sucesso) {
-                                        this.closest(".col").remove();
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: data.erro || "Erro ao excluir a ficha.",
-                                            showConfirmButton: false,
-                                            timer: 1000,
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.sucesso) {
+                                    this.closest(".col").remove();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.erro || "Erro ao excluir a ficha.",
+                                        showConfirmButton: false,
+                                        timer: 1000,
 
-                                        });
-                                    }
-                                });
+                                    });
+                                }
+                            });
                         }
                     });
                 });
@@ -915,6 +915,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const inventario_interno = card.querySelector('.item-inventario_interno').value;
                 const descricao = card.querySelector('.item-descricao').value;
                 const quantidade = card.querySelector('.item-quantidade').value
+                const estado = card.querySelector('.item-estado').value;
 
                 console.log(nome, rank, peso, volume, equipado, inventario_interno, descricao, quantidade)
 
@@ -929,6 +930,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('equipado', equipado);
                 formData.append('inventario_interno', inventario_interno);
                 formData.append('quantidade', quantidade);
+                formData.append('estado', estado);
 
                 formData.append('descricao-item-novo', descricao);
 
@@ -1014,6 +1016,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemVolume = document.getElementById('item-volume').value;
         const itemEquipado = document.getElementById('item-equipado').value;
         const itemInventarioInterno = document.getElementById('item-inventario-interno').value;
+        const itemEstado = document.getElementById('item-estado').value;
 
         console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
         console.log(fichaId, "dentro de criar item");
@@ -1027,6 +1030,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('volume', itemVolume);
         formData.append('equipado', itemEquipado);
         formData.append('inventario_interno', itemInventarioInterno);
+        formData.append('estado', itemEstado);
 
         formData.append('acao', acao);
 
@@ -1131,6 +1135,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     <option value="nao" ${item.inventario_interno === 'nao' ? 'selected' : ''}>Não</option>
                                                 </select>
                                             </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Estado:</label>
+                                                <select class="form-control item-estado" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="intacto" ${item.estado === 'intacto' ? 'selected' : ''}>Intacto</option>
+                                                    <option value="pouco-danificado" ${item.estado === 'pouco-danificado' ? 'selected' : ''}>Pouco danificado</option>
+                                                    <option value="danificado" ${item.estado === 'danificado' ? 'selected' : ''}>Danificado</option>
+                                                    <option value="inutilizavel" ${item.estado === 'inutilizavel' ? 'selected' : ''}>Inutilizável</option>
+                                                </select>
+                                            </div>
                                             <div class="col-12">
                                                 <label class="form-label">Descrição:</label>
                                                 <textarea class="form-control item-descricao" rows="5" data-id="${item.id_item}">${item.descricao}</textarea>
@@ -1144,7 +1158,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                             `;
 
-
+                            console.log('renderizando itens 24')
                             itensContainer.appendChild(card);
                         });
 

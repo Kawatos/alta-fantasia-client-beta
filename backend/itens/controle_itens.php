@@ -22,6 +22,7 @@ $volume = $_POST['volume'] ?? '';
 $equipado = $_POST['equipado'] ?? null;
 $inventario_interno = $_POST['inventario_interno'] ?? '';
 $quantidade = $_POST['quantidade'] ?? '0';
+$estado = $_POST['estado'] ?? 'intacto'; // Novo campo para o estado do item
 
 if (!$id_ficha) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'ID da ficha é obrigatório']);
@@ -33,8 +34,8 @@ try {
         case 'criar':
 
             $stmt = $conn->prepare("
-                INSERT INTO itens (id_ficha, nome, rank, descricao, peso, volume, equipado, inventario_interno, quantidade)
-                VALUES (:id_ficha, :nome, :rank, :descricao, :peso, :volume, :equipado, :inventario_interno, :quantidade)
+                INSERT INTO itens (id_ficha, nome, rank, descricao, peso, volume, equipado, inventario_interno, quantidade, estado)
+                VALUES (:id_ficha, :nome, :rank, :descricao, :peso, :volume, :equipado, :inventario_interno, :quantidade, :estado)
             ");
             $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
             $stmt->bindParam(':nome', $nome);
@@ -45,6 +46,7 @@ try {
             $stmt->bindParam(':equipado', $equipado);
             $stmt->bindParam(':inventario_interno', $inventario_interno);
             $stmt->bindParam(':quantidade', $quantidade);
+            $stmt->bindParam(':estado', $estado);
             $stmt->execute();
             echo json_encode(['status' => 'sucesso', 'mensagem' => 'Item criado']);
             break;
@@ -58,7 +60,7 @@ try {
             $stmt = $conn->prepare("
                 UPDATE itens 
                 SET nome = :nome, rank = :rank, descricao = :descricao, peso = :peso, volume = :volume, equipado = :equipado, 
-                    inventario_interno = :inventario_interno, quantidade = :quantidade
+                    inventario_interno = :inventario_interno, quantidade = :quantidade, estado = :estado
                 WHERE id_item = :id_item AND id_ficha = :id_ficha
             ");
             $stmt->bindParam(':nome', $nome);
@@ -69,6 +71,7 @@ try {
             $stmt->bindParam(':equipado', $equipado);
             $stmt->bindParam(':inventario_interno', $inventario_interno);
             $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+            $stmt->bindParam(':estado', $estado);
             $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
             $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
             $stmt->execute();
