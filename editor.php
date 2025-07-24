@@ -1700,7 +1700,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Estado:</label>
-                                                    <select class="form-control item-estado">
+                                                    <select class="form-control item-estado" id="item-estado">
                                                         <option value="">Selecione</option>
                                                         <option value="intacto">Intacto</option>
                                                         <option value="pouco-danificado">Pouco danificado</option>
@@ -1745,24 +1745,39 @@ if (!isset($_SESSION['usuario_id'])) {
                         </div>
 
                         <div class="tab-pane fade" id="jogador" role="tabpanel">
-                            <h4 class="mt-1 mb-1">Jogador</h4>
-
-                            <div class="text-muted" role="alert">
-                                Jogador, este espaço é reservado exclusivamente para você. Registre estratégias, fraquezas de inimigos, rotas ocultas ou segredos que não devem ser esquecidos.<br>
-                            </div>
-                            <br>
-                            <span class="text-danger"><em>O Sistema não se responsabiliza por memórias perdidas.</em></span>
-
+                    
                             <div class="row g-3">
-                                <div class="col-12">
+                                
+                                <div class="col-12 mb-2">
                                     <br>
-                                    <label for="ficha-observacoes_jogador" class="form-label">Observações do Jogador</label>
+                                    <h4>Espaço do Jogador, no caso você <?php echo htmlspecialchars($_SESSION['username']); ?></h4>
+                                    <div class="text-muted" role="alert">
+                                        Jogador, use este espaço para contar quem você é no mundo real: sua história, seus caminhos, o que faz, onde vive, com quem compartilha a jornada. Aqui também é o lugar para registrar descobertas importantes, estratégias, fraquezas de inimigos, rotas secretas e segredos que não podem ser esquecidos. Tudo aquilo que faz de você mais do que um avatar: um verdadeiro explorador entre mundos.<br>
+                                    </div>
+                                    <br>
+                                    <span class="text-danger"><em>O Sistema não se responsabiliza por memórias perdidas.</em></span>
+                                    <br>
+                                    <label for="ficha-observacoes_jogador" class="form-label mt-3">Observações do Jogador</label>
                                     <textarea
                                         name="observacoes_jogador"
                                         id="ficha-observacoes_jogador"
                                         class="form-control observacoes_jogador-personagem"
                                         placeholder="Digite aqui suas anotações estratégicas ou pessoais..."
-                                        rows="20"></textarea>
+                                        rows="10"></textarea>
+                                </div>
+                                <h4 class="mt-1 my-1">Personagem</h4>
+                                <div class="col-md-6 mb-1">
+                                    <label for="ficha-nome_jogador" class="form-label">Nome do Personagem</label>
+                                    <input type="text" name="nome_jogador" id="ficha-nome_jogador" class="form-control nome_jogador-personagem" placeholder="Nome do Personagem">
+
+                                </div>
+                                <div class="col-md-6 mb-1">
+                                    <label for="ficha-profissao_jogador" class="form-label">Profissão do Personagem</label>
+                                    <input type="text" name="profissao_jogador" id="ficha-profissao_jogador" class="form-control profissao_jogador-personagem" placeholder="Profissão do Personagem">
+                                </div>
+                                <div class="col-md-12 mb-1">
+                                    <label for="ficha-descricao_jogador">Descrição e Origem do Personagem</label>
+                                    <textarea name="descricao_jogador" id="ficha-descricao_jogador" class="form-control descricao_jogador-personagem" placeholder="Descrição do Personagem" rows="5"></textarea>
                                 </div>
                             </div>
                         </div>

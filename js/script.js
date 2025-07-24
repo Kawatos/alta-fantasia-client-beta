@@ -236,6 +236,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     ficha.idade != null && (document.querySelector('.idade-personagem').value = ficha.idade);
                     ficha.sexo != null && (document.querySelector('.sexo-personagem').value = ficha.sexo);
                     ficha.tendencia != null && (document.querySelector('.tendencia-personagem').value = ficha.tendencia);
+                    ficha.nome_jogador != null && (document.querySelector('.nome_jogador-personagem').value = ficha.nome_jogador);
+                    ficha.profissao_jogador != null && (document.querySelector('.profissao_jogador-personagem').value = ficha.profissao_jogador);
+                    ficha.descricao_jogador != null && (document.querySelector('.descricao_jogador-personagem').value = ficha.descricao_jogador);
                     // Imagem com fallback
                     document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
 
