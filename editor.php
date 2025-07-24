@@ -110,8 +110,8 @@ if (!isset($_SESSION['usuario_id'])) {
                             <div class="row g-3">
                                 <!-- Linha 1: Nome e Raça -->
                                 <div class="col-md-6">
-                                    <label for="ficha-nome" class="form-label">Nome do Personagem</label>
-                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem my-1" placeholder="Nome do Personagem">
+                                    <label for="ficha-nome" class="form-label">Nome do Avatar</label>
+                                    <input type="text" name="nome" id="ficha-nome" class="form-control nome-personagem my-1" placeholder="Nome do Avatar">
 
                                 </div>
                                 <div class="col-md-6">
@@ -1749,7 +1749,6 @@ if (!isset($_SESSION['usuario_id'])) {
                             <div class="row g-3">
                                 
                                 <div class="col-12 mb-2">
-                                    <br>
                                     <h4>Espaço do Jogador, no caso você <?php echo htmlspecialchars($_SESSION['username']); ?></h4>
                                     <div class="text-muted" role="alert">
                                         Jogador, use este espaço para contar quem você é no mundo real: sua história, seus caminhos, o que faz, onde vive, com quem compartilha a jornada. Aqui também é o lugar para registrar descobertas importantes, estratégias, fraquezas de inimigos, rotas secretas e segredos que não podem ser esquecidos. Tudo aquilo que faz de você mais do que um avatar: um verdadeiro explorador entre mundos.<br>
