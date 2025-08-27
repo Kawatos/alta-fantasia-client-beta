@@ -14,7 +14,7 @@
                 </p>
                 <div class="d-flex align-items-center">
                     <span class="badge bg-warning text-dark px-3 py-2 fs-6">
-                        <i class="fas fa-code-branch me-1"></i>Versão V 1.8 Beta
+                        <i class="fas fa-code-branch me-1"></i>Versão V 1.0 Alfa
                     </span>
                 </div>
             </div>
@@ -70,6 +70,7 @@
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gado <span class="text-muted">(Gabriel Padilha)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Gãgs <span class="text-muted">(Gadiel Vargas)</span></p>
                         <p class="mb-0"><i class="fas fa-user me-1"></i>Stei <span class="text-muted">(Artur Endres)</span></p>
+                        <p class="mb-0"><i class="fas fa-user me-1"></i>Joaobachi <span class="text-muted">(João Bachi)</span></p>
                     </div>
                 </div>
             </div>

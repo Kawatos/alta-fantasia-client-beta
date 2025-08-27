@@ -18,11 +18,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
+                fichas.sort((a, b) => b.id - a.id);
+
                 fichas.forEach(ficha => {
                     console.log(ficha);
                     console.log(ficha.id
                         , ficha.nome_personagem, ficha.classe, ficha.nivel, ficha.status_personagem, ficha.personagem_imagem
                     )
+
+                    const nomeExibicao = ficha.nome_personagem
+                        ? (ficha.nome_personagem.length > 20
+                            ? ficha.nome_personagem.slice(0, 20) + '…'
+                            : ficha.nome_personagem)
+                        : 'Sem nome';
+
                     const imagem = ficha.personagem_imagem
                         ? ficha.personagem_imagem
                         : 'uploads/perfil-vazio.png';
@@ -32,28 +41,40 @@ document.addEventListener("DOMContentLoaded", function () {
                         : 'opacity: 0.5;';
 
                     const card = `
-                <div class="col col-6 mb-4 mx-2" style="width: 240px">
-                    <div class="card h-100 text-center py-4 mx-auto btn-editar" style="width: 240px" data-id="${ficha.id}">
-                        <img src="${imagem}" alt="Imagem do Personagem"
-                             class="rounded mx-auto d-block mb-2"
-                             style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
-
-                        <div class="card-body p-2">
-                            <h5 class="card-title mb-1">${ficha.nome_personagem}</h5>
+                <div class=" mb-3" style="
+                        width: 400px;
+                    ">
+                    <div class="card h-100 d-flex flex-row align-items-center btn-editar p-2" data-id="${ficha.id}" style="min-height: 120px;">
+                        <!-- Imagem -->
+                        <img src="${imagem || 'caminho/padrao.png'}" alt="Imagem do Personagem"
+                            class="rounded"
+                            style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
+                        <!-- Conteúdo textual -->
+                        <div class="flex-grow-1 mx-3" style="
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            align-content: center;
+                                                            align-items: center;
+                                                        ">
+                            <h5 class="card-title mb-1">${nomeExibicao}</h5>
                             <h6 class="card-subtitle text-muted mb-1">
-                                ${ficha.classe} - Nível: ${Math.floor(ficha.nivel / 100)}
+                                ${(ficha.classe || 'Sem classe')} - Nível: ${ficha.nivel != null ? Math.floor(ficha.nivel / 100) : 0}
                             </h6>
-                            <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem}</h6>
+                            <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem || 'Sem status'}</h6>
 
-                            <div class="d-flex justify-content-center gap-2">
+                            <div class="d-flex gap-2 flex-wrap">
                                 <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}">Editar</button>
                                 <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}">
                                     <i class="fas fa-trash-alt me-1"></i>Excluir
                                 </button>
                             </div>
                         </div>
+
+                        
                     </div>
                 </div>
+
+
                 `;
 
                     container.append(card);
@@ -84,20 +105,20 @@ document.addEventListener("DOMContentLoaded", function () {
                                 },
                                 body: "id=" + encodeURIComponent(id)
                             })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.sucesso) {
-                                    this.closest(".col").remove();
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: data.erro || "Erro ao excluir a ficha.",
-                                        showConfirmButton: false,
-                                        timer: 1000,
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.sucesso) {
+                                        this.closest(".col").remove();
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: data.erro || "Erro ao excluir a ficha.",
+                                            showConfirmButton: false,
+                                            timer: 1000,
 
-                                    });
-                                }
-                            });
+                                        });
+                                    }
+                                });
                         }
                     });
                 });
@@ -203,6 +224,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(ficha);
                     console.log(atributos);
 
+                    /* Limpando text areas */
+
+                    document.querySelector('.descricao-personagem').value = '';
+                    document.querySelector('.descricao_jogador-personagem').value = '';
+                    document.querySelector('.observacoes_atributos-personagem').value = '';
+                    document.querySelector('.observacoes_pericias-personagem').value = '';
+                    document.querySelector('.observacoes_habilidades-personagem').value = '';
+                    document.querySelector('.observacoes_magias_arcanas-personagem').value = '';
+                    document.querySelector('.observacoes_magias_divinas-personagem').value = '';
+                    document.querySelector('.observacoes_itens-personagem').value = '';
+                    document.querySelector('.observacoes_jogador-personagem').value = '';
+
+
+
+
+
 
                     ficha.id != null && (document.querySelector('#ficha-id').value = ficha.id);
                     ficha.nome_personagem != null && (document.querySelector('.nome-personagem').value = ficha.nome_personagem);
@@ -211,6 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ficha.nivel != null && (document.querySelector('.nivel-personagem').value = ficha.nivel);
                     ficha.raca != null && (document.querySelector('.raca-personagem').value = ficha.raca);
                     ficha.descricao != null && (document.querySelector('.descricao-personagem').value = ficha.descricao);
+
 
                     ficha.pontos_de_vida != null && (document.querySelector('.pontos-de-vida-personagem').value = ficha.pontos_de_vida);
                     ficha.pontos_de_mana != null && (document.querySelector('.pontos-de-mana-personagem').value = ficha.pontos_de_mana);
@@ -1182,57 +1220,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Executa ao carregar
 
+    const modalFicha2 = document.getElementById('modalFicha');
 
+    modalFicha2.addEventListener('hidden.bs.modal', function () {
+        const form = document.getElementById('formFicha');
+
+        // Garante que o formulário existe
+        if (!form) return;
+
+        const formData = new FormData(form);
+        const url = 'backend/editar_ficha_ajax.php';
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+
+            .then(data => {
+                console.log(data.status, "data status no fechar do modal");
+                if (data.status === 200) {
+                    console.log('Ficha salva no fechar do modal');
+                    carregarFichas()
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.mensagem || 'Erro ao salvar',
+                        showConfirmButton: false,
+                        timer: 1000,
+
+                    });
+                }
+
+            });
+    });
 
 
 
 
 
 });
-
-
-// Quando o modal for fechado, salva automaticamente se estiver no modo de edição
-const modalFicha = document.getElementById('modalFicha');
-
-modalFicha.addEventListener('hidden.bs.modal', function () {
-    const form = document.getElementById('formFicha');
-
-    // Garante que o formulário existe
-    if (!form) return;
-
-    const formData = new FormData(form);
-    const url = 'backend/editar_ficha_ajax.php';
-
-    fetch(url, {
-        method: 'POST',
-        body: formData
-    })
-        .then(resp => resp.json())
-        /* .then(data => {
-            if (data.status === 'sucesso') {
-                alert('Ficha atualizada com sucesso!');
-                location.reload();
-            } else {
-                alert(data.mensagem || 'Erro ao salvar');
-            }
-        }); */
-
-        .then(data => {
-            if (data.status === 'sucesso') {
-                carregarFichas()
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: data.mensagem || 'Erro ao salvar',
-                    showConfirmButton: false,
-                    timer: 1000,
-
-                });
-            }
-
-        });
-});
-
 
 function atualizarNivelEBarra() {
     const inputXp = document.getElementById("ficha-xp");

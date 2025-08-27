@@ -228,7 +228,8 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
                                     <label for="ficha-descricao" class="form-label">Descrição</label>
-                                    <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="10"></textarea>
+                                    <textarea name="descricao" id="ficha-descricao" class="form-control descricao-personagem" placeholder="Descrição" rows="10" autocomplete="off"></textarea>
+
                                 </div>
 
                             </div>
@@ -1501,20 +1502,21 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div id="barra-pm" class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="row mt-4 mb-4">
-                                    <div class="col-md-4 ">
+                                <div class="row mt-4 mb-4 justify-content-center">
+                                    <div class="col-md-3">
                                         <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
                                         <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="ficha-pms_atuais" class="form-label">PMs Atuais</label>
                                         <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="ficha-regen_pm" class="form-label">Regeneração de PMs</label>
                                         <input type="text" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de PMs">
                                     </div>
                                 </div>
+
 
                                 <div class="col-12 mt-1 ">
                                     <div class="w-100" style="display: flex; align-items: flex-end; justify-content: center;">
@@ -1745,9 +1747,9 @@ if (!isset($_SESSION['usuario_id'])) {
                         </div>
 
                         <div class="tab-pane fade" id="jogador" role="tabpanel">
-                    
+
                             <div class="row g-3">
-                                
+
                                 <div class="col-12 mb-2">
                                     <h4>Espaço do Jogador, no caso você <?php echo htmlspecialchars($_SESSION['username']); ?></h4>
                                     <div class="text-muted" role="alert">
