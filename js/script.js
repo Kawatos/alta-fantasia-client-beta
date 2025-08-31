@@ -969,6 +969,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const descricao = card.querySelector('.item-descricao').value;
                 const quantidade = card.querySelector('.item-quantidade').value
                 const estado = card.querySelector('.item-estado').value;
+                const conjunto = card.querySelector('.item-conjunto').value;
 
                 console.log(nome, rank, peso, volume, equipado, inventario_interno, descricao, quantidade)
 
@@ -984,6 +985,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('inventario_interno', inventario_interno);
                 formData.append('quantidade', quantidade);
                 formData.append('estado', estado);
+                formData.append('conjunto', conjunto);
 
                 formData.append('descricao-item-novo', descricao);
 
@@ -1069,8 +1071,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemVolume = document.getElementById('item-volume').value;
         const itemEquipado = document.getElementById('item-equipado').value;
         const itemInventarioInterno = document.getElementById('item-inventario-interno').value;
-        const itemQuantidade = document.getElementById('item-quantidade').value;
         const itemEstado = document.getElementById('item-estado').value;
+        const itemQuantidade = document.getElementById('item-quantidade').value;
+        const itemConjunto = document.getElementById('item-conjunto').value;
 
         console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
         console.log(fichaId, "dentro de criar item");
@@ -1084,8 +1087,9 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('volume', itemVolume);
         formData.append('equipado', itemEquipado);
         formData.append('inventario_interno', itemInventarioInterno);
-        formData.append('quantidade', itemQuantidade);
         formData.append('estado', itemEstado);
+        formData.append('quantidade', itemQuantidade);
+        formData.append('conjunto', itemConjunto);
 
         formData.append('acao', acao);
 
@@ -1109,8 +1113,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById('item-volume').value = '';
                         document.getElementById('item-equipado').value = '';
                         document.getElementById('item-inventario-interno').value = '';
-                        document.getElementById('item-quantidade').value = '';
                         document.getElementById('item-estado').value = '';
+                        document.getElementById('item-quantidade').value = '';
+                        document.getElementById('item-conjunto').value = 'nao';
 
                         getItens(); // Recarrega os itens após o alerta sumir
                     });
@@ -1150,7 +1155,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 try {
-
+                    console.log('renderizando itens 23')
                     itensContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
                         data.itens.slice().reverse().forEach((item) => {
@@ -1172,19 +1177,36 @@ document.addEventListener("DOMContentLoaded", function () {
                                                 <label class="form-label">Rank:</label>
                                                 <input type="number" class="form-control item-rank" value="${item.rank}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
                                                 <label class="form-label">Quantidade:</label>
                                                 <input type="number" class="form-control item-quantidade" value="${item.quantidade}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
                                                 <label class="form-label">Peso (kg):</label>
                                                 <input type="number" class="form-control item-peso" value="${item.peso}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-6 col-md-6">
-                                                <label class="form-label">Volume:</label>
-                                                <input type="text" class="form-control item-volume" value="${item.volume}" data-id="${item.id_item}">
+                                            <div class="col-4 col-md-4">
+                                                <label for="item-conjunto" class="form-label">Conjunto:</label>
+                                                <select class="form-control item-conjunto" id="item-conjunto" name="conjunto" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="sim" ${item.conjunto === 'sim' ? 'selected' : ''}>Sim</option>
+                                                    <option value="nao" ${item.conjunto === 'nao' ? 'selected' : ''}>Não</option>
+                                                </select>
                                             </div>
-                                            <div class="ccol-6 col-md-6">
+                                            <div class="col-6 col-md-6">
+                                               <label for="item-volume" class="form-label">Volume:</label>
+                                                <select class="form-control item-volume" id="item-volume" name="volume" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="minimo" ${item.volume === 'minimo' ? 'selected' : ''}>Mínimo</option>
+                                                    <option value="infimo" ${item.volume === 'infimo' ? 'selected' : ''}>Ínfimo</option>
+                                                    <option value="pequeno" ${item.volume === 'pequeno' ? 'selected' : ''}>Pequeno</option>
+                                                    <option value="medio" ${item.volume === 'medio' ? 'selected' : ''}>Médio</option>
+                                                    <option value="grande" ${item.volume === 'grande' ? 'selected' : ''}>Grande</option>
+                                                    <option value="enorme" ${item.volume === 'enorme' ? 'selected' : ''}>Enorme</option>
+                                                    <option value="colossal" ${item.volume === 'colossal' ? 'selected' : ''}>Colossal</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Equipado:</label>
                                                 <select class="form-control item-equipado" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1427,6 +1449,7 @@ function atualizarPesoTotal() {
 
         const inputPeso = details.querySelector('.item-peso');
         const inputQuantidade = details.querySelector('.item-quantidade')
+        const itemConjunto = details.querySelector('.item-conjunto').value || "nao";
 
         const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value))) || 0;
 
@@ -1438,8 +1461,12 @@ function atualizarPesoTotal() {
             totalPeso += peso;
         }
 
-        if (inventarioInterno == 'sim') {
+        if (inventarioInterno == 'sim' && itemConjunto == 'sim') {
+
             itensInventarioInterno += 1;
+        } else if (inventarioInterno == 'sim' && itemConjunto == 'nao') {
+
+            itensInventarioInterno += parseInt(inputQuantidade.value) || 0;
         }
     });
 
@@ -1480,7 +1507,10 @@ function configurarListenersDeItens() {
 
 function verificarLimiteDeCarga() {
     const pesoAtual = parseFloat(document.getElementById('peso-total-carregado').textContent) || 0;
+    const itensInventarioInternoAtual = parseInt(document.getElementById('inventario-interno-atual-span').textContent) || 0;
+    const itensInventarioInternoMaximo = parseInt(document.getElementById('inventario-interno-total-span').textContent) || 0;
     const pesoTotalH5 = document.getElementById('peso-total-h5');
+    const itensTotaisH5 = document.getElementById('itens-totais-h5');
     const inputForca = document.querySelector('.forca');
     const inputCargaMod = document.getElementById('ficha-carga_suportada_mod');
     const pesoMaximoSpan = document.getElementById('peso-maximo-carregavel');
@@ -1488,16 +1518,26 @@ function verificarLimiteDeCarga() {
     const forca = parseInt(inputForca?.value) || 0;
     const cargaMod = parseFloat(inputCargaMod?.value) || 0;
 
-    const limite = ((forca * 3) + cargaMod) + 10;
+    const limite = (forca * 3) + cargaMod;
+    console.log(itensInventarioInternoAtual, itensInventarioInternoMaximo, "itens inventario interno atual e maximo");
 
     pesoMaximoSpan.textContent = limite.toFixed(2);
 
     const spanPeso = document.getElementById('peso-total-carregado');
 
+    if (itensInventarioInternoAtual > itensInventarioInternoMaximo) {
+        
+        itensTotaisH5.style.color = 'red';
+    } else {
+        itensTotaisH5.style.color = ''; // Cor padrão
+    }
+
     if (pesoAtual > limite) {
         pesoTotalH5.style.color = 'red';
+        
     } else {
         pesoTotalH5.style.color = ''; // Cor padrão
+        
     }
 }
 
