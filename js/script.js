@@ -602,6 +602,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         showConfirmButton: false,
                         timer: 700
                     }).then(() => {
+                        document.getElementById('habilidade-nome').value = '';
+                        document.getElementById('habilidade-requisitos').value = '';
+                        document.getElementById('habilidade-descricao').value = '';
                         getHabilidades(); // Recarrega a lista de habilidades após o alerta
                     });
                 } else {
@@ -641,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
                     habilidadesContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
-                        data.habilidades.forEach((hab, index) => {
+                        data.habilidades.slice().reverse().forEach((hab, index) => {
                             const card = document.createElement('div');
                             card.className = 'card mb-2';
 
@@ -823,6 +826,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         showConfirmButton: false,
                         timer: 700
                     }).then(() => {
+                        document.getElementById('magia-nome').value = '';
+                        document.getElementById('magia-tipo').value = 'arcana';
+                        document.getElementById('magia-nivel').value = '';
+                        document.getElementById('magia-custo').value = '';
+                        document.getElementById('magia-alcance').value = '';
+                        document.getElementById('magia-duracao').value = '';
+                        document.getElementById('magia-descritor').value = '';
+                        document.getElementById('magia-descricao').value = '';
+
                         getMagias(); // Recarrega a lista de magias após o alerta
                     });
                 } else {
@@ -864,7 +876,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.status === 'sucesso') {
                     containerArcana.innerHTML = '';
                     containerDivina.innerHTML = '';
-                    data.magias.forEach(magia => {
+                    data.magias.slice().reverse().forEach(magia => {
                         const card = document.createElement('div');
                         card.className = 'card mb-2';
 
@@ -875,34 +887,34 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="collapse" id="magia${magia.id_magias}">
                                 <div class="card-body p-3">
                                     <div class="row g-3">
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Nome:</label>
                                             <input type="text" class="form-control nome-magia" value="${magia.nome_magia}" data-id="${magia.id_magias}">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Tipo:</label>
                                             <select class="form-select tipo-magia" data-id="${magia.id_magias}">
                                                 <option value="arcana" ${magia.tipo_magia === 'arcana' ? 'selected' : ''}>Arcana</option>
                                                 <option value="divina" ${magia.tipo_magia === 'divina' ? 'selected' : ''}>Divina</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Nível:</label>
                                             <input type="number" class="form-control nivel-magia" value="${magia.nivel}" data-id="${magia.id_magias}">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Custo (PM):</label>
                                             <input type="number" class="form-control custo-magia" value="${magia.custo_pm}" data-id="${magia.id_magias}">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Alcance:</label>
                                             <input type="text" class="form-control alcance-magia" value="${magia.alcance}" data-id="${magia.id_magias}">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Duração:</label>
                                             <input type="text" class="form-control duracao-magia" value="${magia.duracao}" data-id="${magia.id_magias}">
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-6 col-md-6">
                                             <label class="form-label">Descritor:</label>
                                             <input type="text" class="form-control descritor-magia" value="${magia.descritor}" data-id="${magia.id_magias}">
                                         </div>
@@ -1057,6 +1069,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemVolume = document.getElementById('item-volume').value;
         const itemEquipado = document.getElementById('item-equipado').value;
         const itemInventarioInterno = document.getElementById('item-inventario-interno').value;
+        const itemQuantidade = document.getElementById('item-quantidade').value;
         const itemEstado = document.getElementById('item-estado').value;
 
         console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
@@ -1071,6 +1084,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('volume', itemVolume);
         formData.append('equipado', itemEquipado);
         formData.append('inventario_interno', itemInventarioInterno);
+        formData.append('quantidade', itemQuantidade);
         formData.append('estado', itemEstado);
 
         formData.append('acao', acao);
@@ -1088,6 +1102,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         showConfirmButton: false,
                         timer: 700
                     }).then(() => {
+                        document.getElementById('item-nome').value = '';
+                        document.getElementById('item-rank').value = '';
+                        document.getElementById('item-descricao').value = '';
+                        document.getElementById('item-peso').value = '';
+                        document.getElementById('item-volume').value = '';
+                        document.getElementById('item-equipado').value = '';
+                        document.getElementById('item-inventario-interno').value = '';
+                        document.getElementById('item-quantidade').value = '';
+                        document.getElementById('item-estado').value = '';
+
                         getItens(); // Recarrega os itens após o alerta sumir
                     });
                 } else {
@@ -1126,10 +1150,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(data => {
                 try {
-                    console.log('renderizando itens 23')
+
                     itensContainer.innerHTML = '';
                     if (data.status === 'sucesso') {
-                        data.itens.forEach((item) => {
+                        data.itens.slice().reverse().forEach((item) => {
                             const card = document.createElement('div');
                             card.className = 'card mb-2';
 
@@ -1140,27 +1164,27 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div class="collapse" id="item${item.id_item}">
                                     <div class="card-body p-3">
                                         <div class="row g-3 item-details">
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Nome:</label>
                                                 <input type="text" class="form-control item-nome" value="${item.nome}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Rank:</label>
                                                 <input type="number" class="form-control item-rank" value="${item.rank}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Quantidade:</label>
                                                 <input type="number" class="form-control item-quantidade" value="${item.quantidade}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Peso (kg):</label>
                                                 <input type="number" class="form-control item-peso" value="${item.peso}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Volume:</label>
                                                 <input type="text" class="form-control item-volume" value="${item.volume}" data-id="${item.id_item}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="ccol-6 col-md-6">
                                                 <label class="form-label">Equipado:</label>
                                                 <select class="form-control item-equipado" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1168,7 +1192,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     <option value="nao" ${item.equipado === 'nao' ? 'selected' : ''}>Não</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Interno:</label>
                                                 <select class="form-control item-inventario_interno" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1176,7 +1200,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     <option value="nao" ${item.inventario_interno === 'nao' ? 'selected' : ''}>Não</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-6 col-md-6">
                                                 <label class="form-label">Estado:</label>
                                                 <select class="form-control item-estado" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1464,7 +1488,7 @@ function verificarLimiteDeCarga() {
     const forca = parseInt(inputForca?.value) || 0;
     const cargaMod = parseFloat(inputCargaMod?.value) || 0;
 
-    const limite = (forca * 3) + cargaMod;
+    const limite = ((forca * 3) + cargaMod) + 10;
 
     pesoMaximoSpan.textContent = limite.toFixed(2);
 

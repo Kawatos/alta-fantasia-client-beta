@@ -251,15 +251,15 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="ficha-pontos_de_vida" class="form-label">Pontos de Vida Totais</label>
+                                    <div class="col-6 col-md-6">
+                                        <label for="ficha-pontos_de_vida" class="form-label">PVs Totais</label>
                                         <input type="number" name="pontos_de_vida" id="ficha-pontos_de_vida" class="form-control pontos-de-vida-personagem" placeholder="Pontos de Vida Totais" value="100">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="ficha-pvs_atuais" class="form-label">Pontos de Vida Atuais</label>
+                                    <div class="col-6 col-md-6">
+                                        <label for="ficha-pvs_atuais" class="form-label">PVs Atuais</label>
                                         <input type="number" name="pvs_atuais" id="ficha-pvs_atuais" class="form-control pvs_atuais-personagem" placeholder="Pontos de Vida Atuais" value="100">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6 col-md-6">
                                         <label for="ficha-status" class="form-label">Status</label>
                                         <select name="status_personagem" id="ficha-status" class="form-control status-personagem" required>
                                             <option value="">Selecione um Status</option>
@@ -267,7 +267,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                             <option value="Morto">Morto</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6 col-md-6">
                                         <label for="ficha-regen_pv" class="form-label">Regeneração de PVs</label>
                                         <input type="number" name="regen_pv" id="ficha-regen_pv" class="form-control regen_pv-personagem" placeholder="Regeneração de PVs">
                                     </div>
@@ -1443,18 +1443,18 @@ if (!isset($_SESSION['usuario_id'])) {
                         <div class="tab-pane fade" id="habilidades" role="tabpanel">
 
                             <h4 class="mt-2 mb-4">Habilidades</h4>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-primary criar-habilidade" id="criar-habilidade" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade">Criar Nova Habilidade</button>
-                                    <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade" aria-label="Fechar"></button>
-                                    <div class="collapse mt-3" id="collapseHabilidade">
-                                        <div class="card card-body">
 
-                                            <div class="col-md-6">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary criar-habilidade" id="criar-habilidade" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade">Criar Nova Habilidade</button>
+                                <button type="button" class="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collapseHabilidade" aria-label="Fechar"></button>
+                                <div class="collapse mt-3" id="collapseHabilidade">
+                                    <div class="card card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12 col-md-12">
                                                 <label for="habilidade-nome" class="form-label">Nome</label>
                                                 <input type="text" class="form-control" id="habilidade-nome" name="nome-habilidade">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-md-12">
                                                 <label for="habilidade-requisitos" class="form-label">Requisitos</label>
                                                 <input type="text" class="form-control" id="habilidade-requisitos" name="requisitos">
                                             </div>
@@ -1468,14 +1468,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <script>
-                                    // Fecha o collapse ao clicar fora dele
-                                    $(document).on('click', function(e) {
-                                        if (!$(e.target).closest('#collapseHabilidade, #criar-habilidade').length) {
-                                            $('#collapseHabilidade').collapse('hide');
-                                        }
-                                    });
-                                </script>
+
 
                             </div>
 
@@ -1503,15 +1496,15 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
                                 <div class="row mt-4 mb-4 justify-content-center">
-                                    <div class="col-md-3">
+                                    <div class="col-6 col-md-6">
                                         <label for="ficha-pontos_de_mana" class="form-label">Pontos de Mana</label>
                                         <input type="number" name="pontos_de_mana" id="ficha-pontos_de_mana" class="form-control pontos-de-mana-personagem" placeholder="Pontos de Mana">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-6 col-md-6">
                                         <label for="ficha-pms_atuais" class="form-label">PMs Atuais</label>
                                         <input type="number" name="pms_atuais" id="ficha-pms_atuais" class="form-control pms_atuais-personagem" placeholder="Pontos de Mana">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-12 col-md-12 mt-2">
                                         <label for="ficha-regen_pm" class="form-label">Regeneração de PMs</label>
                                         <input type="text" name="regen_pm" id="ficha-regen_pm" class="form-control regen_pm-personagem" placeholder="Regeneração de PMs">
                                     </div>
@@ -1540,34 +1533,34 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <div class="collapse mt-3" id="collapseMagia">
                                         <div class="card card-body">
                                             <div class="row g-3">
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-nome" class="form-label">Nome</label>
                                                     <input type="text" class="form-control" id="magia-nome">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-tipo" class="form-label">Tipo</label>
                                                     <select class="form-control" id="magia-tipo">
                                                         <option value="arcana">Arcana</option>
                                                         <option value="divina">Divina</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-nivel" class="form-label">Nível</label>
                                                     <input type="number" class="form-control" id="magia-nivel">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-custo" class="form-label">Custo (PM)</label>
                                                     <input type="number" class="form-control" id="magia-custo">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-alcance" class="form-label">Alcance</label>
                                                     <input type="text" class="form-control" id="magia-alcance">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-duracao" class="form-label">Duração</label>
                                                     <input type="text" class="form-control" id="magia-duracao">
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-6 col-md-6">
                                                     <label for="magia-descritor" class="form-label">Descritor</label>
                                                     <input type="text" class="form-control" id="magia-descritor">
                                                 </div>
@@ -1579,18 +1572,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     <button type="button" class="btn btn-success" id="salvar-magia-nova">Salvar Magia</button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Fecha o collapse ao clicar fora -->
-                                <script>
-                                    $(document).on('click', function(e) {
-                                        if (!$(e.target).closest('#collapseMagia, #criar-magia').length) {
-                                            $('#collapseMagia').collapse('hide');
-                                        }
-                                    });
-                                </script>
+
 
                                 <!-- Tabs de Navegação -->
                                 <div class="col-12 mt-4">
@@ -1650,7 +1637,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                                         <div class="col-md-6">
                                             <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
-                                            <p class="text-muted">Máximo Base (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
+                                            <p class="text-muted">Máximo = 10 + (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
                                         </div>
                                         <div class="col-md-6">
                                             <h5 class="mt-3" id="peso-total-h5">Itens no Espaço Interno: <span id="inventario-interno-atual-span">0</span></h5>
@@ -1664,27 +1651,27 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <div class="collapse mt-3" id="collapseItem">
                                         <div class="card card-body">
                                             <div class="row g-3">
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-nome" class="form-label">Nome</label>
                                                     <input type="text" class="form-control" id="item-nome" name="nome-item">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-rank" class="form-label">Rank</label>
                                                     <input type="number" class="form-control" id="item-rank" name="rank">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-quantidade" class="form-label">Quantidade:</label>
                                                     <input type="number" class="form-control" id="item-quantidade" name="quantidade">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-peso" class="form-label">Peso (kg):</label>
                                                     <input type="number" class="form-control" id="item-peso" name="peso">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-volume" class="form-label">Volume</label>
                                                     <input type="text" class="form-control" id="item-volume" name="volume">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-equipado" class="form-label">Equipado</label>
                                                     <select class="form-control" id="item-equipado" name="equipado">
                                                         <option value="">Selecione</option>
@@ -1692,7 +1679,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <option value="nao">Não</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label for="item-inventario-interno" class="form-label">Interno</label>
                                                     <select class="form-control" id="item-inventario-interno" name="inventario_interno">
                                                         <option value="">Selecione</option>
@@ -1700,7 +1687,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <option value="nao">Não</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-6 col-md-6">
                                                     <label class="form-label">Estado:</label>
                                                     <select class="form-control item-estado" id="item-estado">
                                                         <option value="">Selecione</option>
@@ -1723,14 +1710,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
 
 
-                                <script>
-                                    // Fecha o collapse ao clicar fora dele
-                                    $(document).on('click', function(e) {
-                                        if (!$(e.target).closest('#collapseItem, #criar-item').length) {
-                                            $('#collapseItem').collapse('hide');
-                                        }
-                                    });
-                                </script>
+
                             </div>
 
                             <div class="col-12 mt-3">
