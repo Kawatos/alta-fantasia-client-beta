@@ -27,7 +27,7 @@
           <div class="tab-content" id="loginTabsContent">
             <!-- Aba de Login -->
             <div class="tab-pane fade show active text-primary" id="login" role="tabpanel">
-              <h3 class="text-center mb-4">Olá novamente! A aventura nos espera!</h3>
+              <h3 class="text-center mb-4">Olá novamente!</h3>
               <form id="loginForm">
                 <div class="mb-3">
                   <div class="input-group">
@@ -49,9 +49,40 @@
                   <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt me-2"></i>Entrar
                   </button>
+                  <div class="text-center mt-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecuperarSenha">Esqueci minha senha</a>
+                  </div>
                 </div>
               </form>
             </div>
+
+
+            <!-- Modal para recuperação -->
+            <div class="modal fade" id="modalRecuperarSenha" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Recuperar Acesso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="recuperarForm">
+                      <div class="mb-3">
+                        <label for="recuperar_email" class="form-label">Digite seu Usuário</label>
+                        <input type="name" class="form-control" id="recuperar_usuario" name="recuperar_usuario" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="recuperar_email" class="form-label">Digite seu e-mail</label>
+                        <input type="email" class="form-control" id="recuperar_email" name="recuperar_email" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100">Recuperar</button>
+                    </form>
+                    <div id="recuperar-feedback" class="mt-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <!-- Aba de Registro -->
             <div class="tab-pane fade" id="registro" role="tabpanel">
@@ -163,6 +194,34 @@
         }
       });
     });
+
+    $('#recuperarForm').on('submit', function(e) {
+      e.preventDefault();
+
+      const email = $('#recuperar_email').val();
+      const usuario = $('#recuperar_usuario').val();
+      const feedback = $('#recuperar-feedback');
+
+      $.ajax({
+        url: 'backend/recuperar_senha.php',
+        type: 'POST',
+        data: {
+          usuario: usuario,
+          email: email
+        },
+        success: function(response) {
+          if (response.success) {
+            feedback.html('<div class="text-success">Nova senha gerada: <b>' + response.nova_senha + '</b></div>');
+          } else {
+            feedback.html('<div class="text-danger">' + (response.message || 'Erro ao recuperar senha') + '</div>');
+          }
+        },
+        error: function() {
+          feedback.html('<div class="text-danger">Erro na conexão com o servidor.</div>');
+        }
+      });
+    });
+
   });
 </script>
 

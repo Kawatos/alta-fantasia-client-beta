@@ -10,16 +10,18 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $data = json_decode(file_get_contents('php://input'), true);
 $novoUsername = $data['novo_username'] ?? '';
+$novoEmail = $data['novo_email'] ?? '';
 $novaSenha = $data['nova_senha'] ?? '';
 
-if (!$novoUsername || !$novaSenha) {
+if (!$novoUsername || !$novoEmail || !$novaSenha) {
     echo json_encode(['success' => false, 'message' => 'Preencha todos os campos.']);
     exit;
 }
 
 $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-$stmt = $conn->prepare("UPDATE usuarios SET username = :username, senha = :senha WHERE id = :id");
+$stmt = $conn->prepare("UPDATE usuarios SET username = :username, email = :email, senha = :senha WHERE id = :id");
 $stmt->bindParam(':username', $novoUsername);
+$stmt->bindParam(':email', $novoEmail);
 $stmt->bindParam(':senha', $senhaHash);
 $stmt->bindParam(':id', $_SESSION['usuario_id']);
 

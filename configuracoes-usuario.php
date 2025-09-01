@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuario_id'])) {
 require 'backend/conexao.php';
 
 $idUsuario = $_SESSION['usuario_id'];
-$stmt = $conn->prepare("SELECT username FROM usuarios WHERE id = :id");
+$stmt = $conn->prepare("SELECT username, email FROM usuarios WHERE id = :id");
 $stmt->bindParam(':id', $idUsuario);
 $stmt->execute();
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,8 +28,14 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
 
         <div class="mb-3">
+            <label for="novo_email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="novo_email" name="novo_email"
+                   value="<?= htmlspecialchars($usuario['email'] ?? '') ?>">
+        </div>
+
+        <div class="mb-3">
             <label for="nova_senha" class="form-label">Nova Senha</label>
-            <input type="password" class="form-control" id="nova_senha" name="nova_senha" required>
+            <input type="password" class="form-control" id="nova_senha" name="nova_senha">
         </div>
 
         <!-- Mensagem de feedback -->
@@ -45,6 +51,7 @@ document.getElementById('form-configuracoes-usuario').addEventListener('submit',
     e.preventDefault();
 
     const username = document.getElementById('novo_username').value;
+    const email = document.getElementById('novo_email').value;
     const senha = document.getElementById('nova_senha').value;
     const feedback = document.getElementById('mensagem-feedback');
 
@@ -55,6 +62,7 @@ document.getElementById('form-configuracoes-usuario').addEventListener('submit',
         },
         body: JSON.stringify({
             novo_username: username,
+            novo_email: email,
             nova_senha: senha
         })
     })
@@ -76,7 +84,5 @@ document.getElementById('form-configuracoes-usuario').addEventListener('submit',
     });
 });
 </script>
-
-
 
 <?php include 'footer.php'; ?>
