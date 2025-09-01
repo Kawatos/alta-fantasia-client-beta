@@ -15,14 +15,16 @@
     inset: 0;
     width: 120%;
     height: 120%;
-    background: url('css/imagens/banner.jpg') center/cover no-repeat;
+    background: url('css/imagens/templo.jpg') center/cover no-repeat;
     will-change: transform;
   }
 
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(26, 27, 58, 0.8) 0%, rgba(184, 134, 11, 0.6) 100%);
+    background: rgba(182, 182, 182, 0.38)
+      /* linear-gradient(135deg, rgba(26, 27, 58, 0.8) 0%, rgba(184, 134, 11, 0.6) 100%) */
+    ;
   }
 
   .title-dynamic {
@@ -47,6 +49,12 @@
     color: white;
   }
 
+
+  .tituloInicial {
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.25);
+  }
+
+
   @media (max-width: 767px) {
     .creator-photo {
       width: 100px;
@@ -64,12 +72,12 @@
     <div class="text-center">
       <div class="mb-4" style="height: 70px;">
         <h1 class="display-2 fw-bold mb-4">
-          <span class="title-static font-alta">Alta</span>
-          <span class="title-dynamic fw-bold" id="fantasiaText">Fantasia</span>
+          <span class="title-static font-alta tituloInicial">Alta</span>
+          <span class="title-dynamic fw-bold tituloInicial" id="fantasiaText">Fantasia</span>
         </h1>
       </div>
-      <p class="lead fs-3 mb-4">Um RPG de Mesa Épico e Ambicioso</p>
-      <p class="fs-5 mb-5">Mergulhe em um mundo virtual onde a fantasia encontra a realidade</p>
+      <p class="lead fs-3 mb-4 tituloInicial">Um RPG de Mesa Épico e Ambicioso</p>
+      <p class="fs-5 mb-5 tituloInicial">Mergulhe em um mundo virtual onde a fantasia encontra a realidade</p>
 
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
         <a href="#sobre-projeto" class="btn btn-secondary btn-lg">
@@ -89,19 +97,19 @@
   <div class="container">
     <div class="row text-center g-4">
       <div class="col-6 col-md-3">
-        <h2 class="display-4 fw-bold text-warning">100</h2>
+        <h2 class="display-4 fw-bold text-warning">+100</h2>
         <h3 class="text-muted">Níveis Máximos</h3>
       </div>
       <div class="col-6 col-md-3">
-        <h2 class="display-4 fw-bold text-warning">18</h2>
+        <h2 class="display-4 fw-bold text-warning">+18</h2>
         <h3 class="text-muted">Classes Jogáveis</h3>
       </div>
       <div class="col-6 col-md-3">
-        <h2 class="display-4 fw-bold text-warning">12</h2>
+        <h2 class="display-4 fw-bold text-warning">+12</h2>
         <h3 class="text-muted">Raças Disponíveis</h3>
       </div>
       <div class="col-6 col-md-3">
-        <h2 class="display-6 fw-bold text-warning">Editor</h2>
+        <h2 class="display-4 fw-bold text-warning">+Editor</h2>
         <h3 class="text-muted">Online de Fichas</h3>
       </div>
     </div>
@@ -354,7 +362,7 @@
 
       fontIndex = (fontIndex + 1) % fonts.length; // Avança para a próxima fonte, volta ao início se chegar ao fim
     }, 500);
-}
+  }
 
   document.addEventListener('DOMContentLoaded', iniciarFonteDinamicaOnce);
 
