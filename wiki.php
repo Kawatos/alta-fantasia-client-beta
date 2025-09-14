@@ -62,6 +62,29 @@
     display: inline-block;
   }
 
+  .tabs-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tab-btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: #eee;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+  }
+  .tab-btn:hover {
+    background: #ddd;
+  }
+  .tab-btn.active {
+    background: #4a148c;
+    color: white;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .wiki-header {
@@ -91,11 +114,38 @@
   </div>
 </div>
 
+<!-- Abas -->
+<div class="tabs-container text-center my-3">
+  <button class="tab-btn active" data-link="https://docs.google.com/document/d/1VfikbHosH2ZQfpM6VVptKxSCgZJWn1qUYE3Rmc8vAvg/edit?usp=sharing">📜 Regras</button>
+  <button class="tab-btn" data-link="https://docs.google.com/document/d/1NvIGwegRqcm4HZvZ3F7pEE1o1ozc7VG-llKL5NsK4wA/edit?usp=sharing">🧝 Raças</button>
+  <button class="tab-btn" data-link="https://docs.google.com/document/d/1GN7evCieqB1Bqb36zfCsXodKEpGiQIHjCAs1QwDoXKQ/edit?usp=sharing">⚔️ Classes</button>
+  <button class="tab-btn" data-link="https://docs.google.com/document/d/1KIMu0ewx-tBzjHgdOa5sGeDYM8_cxK8xMnGoNJW9dBU/edit?usp=sharing">✨ Habilidades</button>
+  <button class="tab-btn" data-link="https://docs.google.com/document/d/1oXr3MXfNyUMsMSMJRI316bW0gxTb3TFeK8jHmxjmS50/edit?usp=sharing">🔮 Magias</button>
+  <button class="tab-btn" data-link="https://docs.google.com/document/d/1Nswbcigr1Mr8NYiQkLoF1lWHjqrhaD-E1l3RO-yrRgU/edit?usp=sharing">💎 Itens</button>
+</div>
+
+<!-- Conteúdo -->
 <div class="container-fluid">
-  <iframe
-    class="wiki-frame"
-    src="https://docs.google.com/document/d/1Up7cIngHCp_gsipfyryFB47hs_Uv7KNru0Lyk0XQ5Wo/edit?usp=sharing">
+  <iframe class="wiki-frame" id="wikiFrame"
+    src="https://docs.google.com/document/d/1VfikbHosH2ZQfpM6VVptKxSCgZJWn1qUYE3Rmc8vAvg/edit?usp=sharing">
   </iframe>
 </div>
+
+
+<script>
+  const buttons = document.querySelectorAll(".tab-btn");
+  const iframe = document.getElementById("wikiFrame");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Muda link
+      iframe.src = btn.dataset.link;
+
+      // Troca aba ativa
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+</script>
 
 <?php include('footer.php'); ?>
