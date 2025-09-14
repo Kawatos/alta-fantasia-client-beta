@@ -81,7 +81,7 @@
     background: #ddd;
   }
   .tab-btn.active {
-    background: #4a148c;
+    background: var(--cor-primaria);
     color: white;
   }
 
