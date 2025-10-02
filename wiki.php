@@ -55,7 +55,7 @@
   .info {
     background-color: #ffffffe0;
     color: var(--cor-primaria);
-    
+
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 1rem;
@@ -68,6 +68,7 @@
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
   .tab-btn {
     border: none;
     padding: 10px 15px;
@@ -77,9 +78,11 @@
     font-weight: bold;
     transition: 0.2s;
   }
+
   .tab-btn:hover {
     background: #ddd;
   }
+
   .tab-btn.active {
     background: var(--cor-primaria);
     color: white;
@@ -116,21 +119,21 @@
 
 <!-- Abas -->
 <div class="tabs-container text-center my-3">
-  <button class="tab-btn active" data-link="https://docs.google.com/document/d/1VfikbHosH2ZQfpM6VVptKxSCgZJWn1qUYE3Rmc8vAvg/edit?usp=sharing">📜 Regras</button>
-  <button class="tab-btn" data-link="https://docs.google.com/document/d/1NvIGwegRqcm4HZvZ3F7pEE1o1ozc7VG-llKL5NsK4wA/edit?usp=sharing">🧝 Raças</button>
-  <button class="tab-btn" data-link="https://docs.google.com/document/d/1GN7evCieqB1Bqb36zfCsXodKEpGiQIHjCAs1QwDoXKQ/edit?usp=sharing">⚔️ Classes</button>
-  <button class="tab-btn" data-link="https://docs.google.com/document/d/1KIMu0ewx-tBzjHgdOa5sGeDYM8_cxK8xMnGoNJW9dBU/edit?usp=sharing">✨ Habilidades</button>
-  <button class="tab-btn" data-link="https://docs.google.com/document/d/1oXr3MXfNyUMsMSMJRI316bW0gxTb3TFeK8jHmxjmS50/edit?usp=sharing">🔮 Magias</button>
-  <button class="tab-btn" data-link="https://docs.google.com/document/d/1Nswbcigr1Mr8NYiQkLoF1lWHjqrhaD-E1l3RO-yrRgU/edit?usp=sharing">💎 Itens</button>
+  <button class="tab-btn active" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e">📜 Regras</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c804cad81f75d2a59a945">🧝 Raças</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8042b281fc61d9daac54">⚔️ Classes</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c80b681cade32f421170c">✨ Habilidades</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c806490eed63ec1a9ac7b">🔮 Magias</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8029a696f0f7ae196a45">💎 Itens</button>
 </div>
 
 <!-- Conteúdo -->
 <div class="container-fluid">
   <iframe class="wiki-frame" id="wikiFrame"
-    src="https://docs.google.com/document/d/1VfikbHosH2ZQfpM6VVptKxSCgZJWn1qUYE3Rmc8vAvg/edit?usp=sharing">
+    src="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e"
+    width="100%" height="600" frameborder="0" allowfullscreen>
   </iframe>
 </div>
-
 
 <script>
   const buttons = document.querySelectorAll(".tab-btn");
@@ -147,5 +150,6 @@
     });
   });
 </script>
+
 
 <?php include('footer.php'); ?>

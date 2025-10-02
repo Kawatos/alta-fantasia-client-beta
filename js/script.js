@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class=" mb-3" style="
                         width: 400px;
                     ">
-                    <div class="card h-100 d-flex flex-row align-items-center btn-editar p-2" data-id="${ficha.id}" style="min-height: 120px;">
+                    <div class="card h-100 d-flex flex-row align-items-center cardPersonagem p-2" data-id="${ficha.id}" style="min-height: 120px;">
                         <!-- Imagem -->
                         <img src="${imagem || 'caminho/padrao.png'}" alt="Imagem do Personagem"
                             class="rounded"
@@ -80,48 +80,76 @@ document.addEventListener("DOMContentLoaded", function () {
                     container.append(card);
                 });
 
+                // Botão editar
                 document.querySelectorAll('.btn-editar').forEach(button => {
-                    button.addEventListener('click', function () {
+                    button.addEventListener('click', function (e) {
+                        e.stopPropagation(); // impede o card de também receber o clique
                         modoEdicao = true;
-
                         fichaId = this.dataset.id;
-
                         getDadosFicha(fichaId);
-
                     });
-
-
-
                 });
 
+                // Card do personagem (abre em modo edição)
+                document.querySelectorAll('.cardPersonagem').forEach(card => {
+                    card.addEventListener('click', function () {
+                        modoEdicao = true;
+                        fichaId = this.dataset.id;
+                        getDadosFicha(fichaId);
+                    });
+                });
+
+                // Botão excluir
                 document.querySelectorAll(".excluir-ficha").forEach(function (btn) {
-                    btn.addEventListener("click", function () {
+                    btn.addEventListener("click", function (e) {
+                        e.stopPropagation(); // impede abrir edição ao excluir
                         const id = this.getAttribute("data-id");
-                        if (confirm("Tem certeza que deseja excluir esta ficha?")) {
-                            fetch("backend/excluir_ficha.php", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/x-www-form-urlencoded"
-                                },
-                                body: "id=" + encodeURIComponent(id)
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.sucesso) {
-                                        this.closest(".col").remove();
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: data.erro || "Erro ao excluir a ficha.",
-                                            showConfirmButton: false,
-                                            timer: 1000,
 
-                                        });
-                                    }
-                                });
-                        }
+                        Swal.fire({
+                            title: "Tem certeza?",
+                            text: "Deseja realmente excluir esta ficha?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#3085d6",
+                            confirmButtonText: "Sim, excluir",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                fetch("backend/excluir_ficha.php", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    },
+                                    body: "id=" + encodeURIComponent(id)
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.sucesso) {
+                                            /* this.closest(".col").remove(); */
+                                            Swal.fire({
+                                                icon: "success",
+                                                title: "Ficha excluída!",
+                                                showConfirmButton: false,
+                                                timer: 1000
+                                            });
+                                            carregarFichas()
+                                        } else {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: data.erro || "Erro ao excluir a ficha.",
+                                                showConfirmButton: false,
+                                                timer: 1000
+                                            });
+                                            carregarFichas()
+                                        }
+                                    });
+                            }
+                        });
                     });
                 });
+
+
             },
             error: function (xhr, status, error) {
                 console.error('Erro ao carregar fichas:', error);
@@ -424,19 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    document.querySelectorAll('.btn-editar').forEach(button => {
-        button.addEventListener('click', function () {
-            modoEdicao = true;
 
-            fichaId = this.dataset.id;
-
-            getDadosFicha(fichaId);
-
-        });
-
-
-
-    });
 
 
 
@@ -961,7 +977,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const card = botao.closest('.card-body');
 
                 const nome = card.querySelector('.item-nome').value;
-                const rank = card.querySelector('.item-nome').value;
+                const rank = card.querySelector('.item-rank').value;
                 const peso = card.querySelector('.item-peso').value;
                 const volume = card.querySelector('.item-volume').value;
                 const equipado = card.querySelector('.item-equipado').value;
@@ -1318,7 +1334,7 @@ function atualizarNivelEBarra() {
 
     const xp = parseInt(inputXp.value) || 0;
     const nivel = Math.floor(xp / 100);
-    const rank = (Math.floor(nivel / 10) + 1);
+    const rank = Math.ceil(nivel / 10);
     const progresso = xp % 100;
 
     // Atualiza nível e barra do nível atual
@@ -1418,6 +1434,7 @@ function calcularPericias() {
         const atributo = pericia.dataset.atributo;
         const valorAtributo = getAtributoValor(atributo);
 
+        
         const bonusTreinamento = 2 * escalaNivel * valorTreinamento;
         const bonusProeficiencia = 1 * escalaNivel * valorProeficiencia;
 
@@ -1526,7 +1543,7 @@ function verificarLimiteDeCarga() {
     const spanPeso = document.getElementById('peso-total-carregado');
 
     if (itensInventarioInternoAtual > itensInventarioInternoMaximo) {
-        
+
         itensTotaisH5.style.color = 'red';
     } else {
         itensTotaisH5.style.color = ''; // Cor padrão
@@ -1534,10 +1551,10 @@ function verificarLimiteDeCarga() {
 
     if (pesoAtual > limite) {
         pesoTotalH5.style.color = 'red';
-        
+
     } else {
         pesoTotalH5.style.color = ''; // Cor padrão
-        
+
     }
 }
 
