@@ -58,8 +58,36 @@ document.addEventListener("DOMContentLoaded", function () {
                                                         ">
                             <h5 class="card-title mb-1">${nomeExibicao}</h5>
                             <h6 class="card-subtitle text-muted mb-1">
-                                ${(ficha.classe || 'Sem classe')} - Nível: ${ficha.nivel != null ? Math.floor(ficha.nivel / 100) : 0}
+                                ${
+                                (() => {
+                                    // Garante que sempre teremos algo para trabalhar
+                                    if (!ficha.classe) return 'Sem classe';
+
+                                    let classesArray;
+
+                                    try {
+                                    // Se já for array, usa direto, se for string tenta parse
+                                    classesArray = Array.isArray(ficha.classe) 
+                                        ? ficha.classe 
+                                        : JSON.parse(ficha.classe);
+                                    } catch (e) {
+                                    // Se der erro no parse, assume que é string simples
+                                    classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== '' 
+                                        ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }] 
+                                        : [];
+                                    }
+
+                                    // Se ainda assim não tiver nada, exibe "Sem classe"
+                                    if (!classesArray || classesArray.length === 0) return 'Sem classe';
+
+                                    // Mapeia e exibe
+                                    return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
+                                })()
+                                }
                             </h6>
+
+
+
                             <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem || 'Sem status'}</h6>
 
                             <div class="d-flex gap-2 flex-wrap">
@@ -272,7 +300,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     ficha.id != null && (document.querySelector('#ficha-id').value = ficha.id);
                     ficha.nome_personagem != null && (document.querySelector('.nome-personagem').value = ficha.nome_personagem);
                     ficha.nome_personagem != null && (document.querySelector('.nome-personagem-exibicao').textContent = ficha.nome_personagem);
-                    ficha.classe != null && (document.querySelector('.classe-personagem').value = ficha.classe);
+                    if (ficha.classe) {
+                        console.log("classes renderizando", ficha.classe);
+
+                        let classes = [];
+
+                        try {
+                            // Caso 1: já seja um array (PHP decodificou automaticamente)
+                            if (Array.isArray(ficha.classe)) {
+                                classes = ficha.classe;
+                            }
+                            // Caso 2: string JSON pura
+                            else if (typeof ficha.classe === 'string') {
+                                classes = JSON.parse(ficha.classe);
+                            }
+                        } catch (e) {
+                            console.warn("Erro ao parsear classes:", e);
+                        }
+
+                        console.log("Renderizando classes:", classes);
+                        renderClasses(classes);
+                    } else {
+                        console.log('Nenhuma classe encontrada');
+                        renderClasses([]);
+                    }
+
+
+
                     ficha.nivel != null && (document.querySelector('.nivel-personagem').value = ficha.nivel);
                     ficha.raca != null && (document.querySelector('.raca-personagem').value = ficha.raca);
                     ficha.descricao != null && (document.querySelector('.descricao-personagem').value = ficha.descricao);
@@ -449,10 +503,241 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         });
+
+
+
+        // Adiciona uma nova classe vazia
+        $('#add-classe-btn').on('click', function () {
+            const currentClasses = getClassesFromForm();
+            currentClasses.push({ nome: '', nivel: 1 });
+            renderClasses(currentClasses);
+        });
+
+
+
+    }
+
+    // Função para coletar os dados dos campos de classes
+    function collectClassesData() {
+        const classes = [];
+        let hasDuplicate = false;
+        let duplicateClassName = '';
+
+        $('.classe-item').each(function () {
+            const nome = $(this).find('.classe-nome').val();
+            const nivel = parseInt($(this).find('.classe-nivel').val()) || 1;
+
+            if (nome) {
+                // Verifica se a classe já existe no array
+                if (classes.some(classe => classe.nome === nome)) {
+                    hasDuplicate = true;
+                    duplicateClassName = nome;
+                } else {
+                    classes.push({ nome, nivel });
+                }
+            }
+        });
+
+        // Se houver duplicata, exibe mensagem de erro
+        if (hasDuplicate) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Classe duplicada!',
+                text: `A classe "${duplicateClassName}" já foi adicionada. Escolha uma classe diferente.`,
+                confirmButtonText: 'Entendido'
+            });
+            return null; // Retorna null para indicar erro
+        }
+
+        return classes;
+    }
+
+    // Função para salvar o array classes no JSON (exemplo)
+    function saveClassesToJson(classes) {
+        // Aqui você pode salvar o array classes onde precisar (ex.: localStorage, campo hidden, ou envio ao servidor)
+        console.log('Salvando classes no JSON:', JSON.stringify(classes));
+        // Exemplo: localStorage.setItem('classes', JSON.stringify(classes));
+        Swal.fire({
+            icon: 'success',
+            title: 'Classes salvas!',
+            text: 'As classes foram salvas com sucesso.',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    // Função para renderizar o campo de classes dinâmicas
+    function renderClasses(classes = []) {
+        const nivelPersonagem = getNivel();
+        const container = $('#classes-container');
+        container.empty();
+
+        // Cálculos principais
+        const totalNiveisClasse = classes.reduce((soma, c) => soma + (parseInt(c.nivel) || 0), 0);
+        const totalRanks = Math.ceil(nivelPersonagem / 10); // 1 rank a cada 10 níveis
+        const maxClassesPermitidas = totalRanks;
+        const proximaClasseNivel = (totalRanks * 10) + 1;
+        const ultrapassouLimite = totalNiveisClasse > nivelPersonagem;
+
+        // Cabeçalho informativo e visual limpo
+        const statusHtml = `
+        <div class="row mb-3">
+            <div class="col-12 col-md-4 mb-2 mb-md-0">
+                <small class="${ultrapassouLimite ? 'text-danger' : 'text-muted'}">
+                    <strong>Total de níveis de classe:</strong> ${totalNiveisClasse} / ${nivelPersonagem}
+                </small>
+            </div>
+            <div class="col-12 col-md-4 mb-2 mb-md-0 text-md-center">
+                <small class="text-muted">
+                    <strong>Ranks de classe:</strong> ${totalRanks}
+                </small>
+            </div>
+            <div class="col-12 col-md-4 text-md-end">
+                <small class="text-muted">
+                    <strong>Próxima classe disponível:</strong> Nível ${proximaClasseNivel > 100 ? '—' : proximaClasseNivel}
+                </small>
+            </div>
+        </div>
+    `;
+        container.append(statusHtml);
+
+        // Renderiza cada classe existente
+        classes.forEach((classeObj, index) => {
+            const html = `
+            <div class="row align-items-center mb-2 classe-item" data-index="${index}">
+                <div class="col-5 col-md-5">
+                    <label class="form-label mb-1">Classe</label>
+                    <select class="form-control classe-nome" required>
+                        <option value="">Selecione uma Classe</option>
+                        <option value="Guerreiro" ${classeObj.nome === 'Guerreiro' ? 'selected' : ''}>Guerreiro</option>
+                        <option value="Bárbaro" ${classeObj.nome === 'Bárbaro' ? 'selected' : ''}>Bárbaro</option>
+                        <option value="Samurai" ${classeObj.nome === 'Samurai' ? 'selected' : ''}>Samurai</option>
+                        <option value="Cavaleiro" ${classeObj.nome === 'Cavaleiro' ? 'selected' : ''}>Cavaleiro</option>
+                        <option value="Ranger" ${classeObj.nome === 'Ranger' ? 'selected' : ''}>Ranger</option>
+                        <option value="Monge" ${classeObj.nome === 'Monge' ? 'selected' : ''}>Monge</option>
+                        <option value="Swashbuckler" ${classeObj.nome === 'Swashbuckler' ? 'selected' : ''}>Swashbuckler</option>
+                        <option value="Ninja" ${classeObj.nome === 'Ninja' ? 'selected' : ''}>Ninja</option>
+                        <option value="Caçador" ${classeObj.nome === 'Caçador' ? 'selected' : ''}>Caçador</option>
+                        <option value="Inventor" ${classeObj.nome === 'Inventor' ? 'selected' : ''}>Inventor</option>
+                        <option value="Nobre" ${classeObj.nome === 'Nobre' ? 'selected' : ''}>Nobre</option>
+                        <option value="Ladino" ${classeObj.nome === 'Ladino' ? 'selected' : ''}>Ladino</option>
+                        <option value="Mago" ${classeObj.nome === 'Mago' ? 'selected' : ''}>Mago</option>
+                        <option value="Feiticeiro" ${classeObj.nome === 'Feiticeiro' ? 'selected' : ''}>Feiticeiro</option>
+                        <option value="Bruxo" ${classeObj.nome === 'Bruxo' ? 'selected' : ''}>Bruxo</option>
+                        <option value="Clérigo" ${classeObj.nome === 'Clérigo' ? 'selected' : ''}>Clérigo</option>
+                        <option value="Bardo" ${classeObj.nome === 'Bardo' ? 'selected' : ''}>Bardo</option>
+                        <option value="Druida" ${classeObj.nome === 'Druida' ? 'selected' : ''}>Druida</option>
+                    </select>
+                </div>
+
+                <div class="col-3 col-md-5">
+                    <label class="form-label mb-1">Níveis</label>
+                    <input type="number" min="1" max="100" class="form-control classe-nivel"
+                        value="${classeObj.nivel || 1}" placeholder="Nível">
+                </div>
+
+                <div class="col-4 col-md-2 text-center">
+                    <label class="form-label mb-1 d-block">&nbsp;</label>
+                    <button type="button" class="btn btn-danger btn-sm remove-classe-btn">
+                        <i class="bi bi-trash"></i> Remover
+                    </button>
+                </div>
+            </div>`;
+            container.append(html);
+        });
+
+        // Lógica de permissão para adicionar classe
+        const podeAdicionar = classes.length < maxClassesPermitidas;
+
+        // Adiciona botões "Adicionar Classe" e "Salvar Classes"
+        const buttonsHtml = `
+            <div class="row">${!podeAdicionar ? '<small class="text-muted ms-2">(Você atingiu o limite de classes para este rank)</small>' : ''}</div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <button type="button" id="add-classe-btn" class="btn btn-primary btn-sm" ${podeAdicionar ? '' : 'disabled'}>
+                        <i class="bi bi-plus-circle"></i> Adicionar Classe
+                    </button>
+                    <button type="button" id="save-classe-btn" class="btn btn-success btn-sm ms-2">
+                        <i class="bi bi-save"></i> Salvar Classes
+                    </button>
+                    
+                </div>
+            </div>
+        `;
+        container.append(buttonsHtml);
+
+        // Eventos de remoção
+        $('.remove-classe-btn').click(function () {
+            // Coletar os dados atuais antes de remover
+            const updatedClasses = collectClassesData();
+            if (updatedClasses === null) return; // Sai se houver duplicata
+            const index = $(this).closest('.classe-item').data('index');
+            updatedClasses.splice(index, 1); // Remove a classe correspondente
+            saveClassesToJson(updatedClasses); // Salva no JSON
+            renderClasses(updatedClasses); // Re-renderiza com os dados atualizados
+        });
+
+        // Evento de adicionar classe
+        $('#add-classe-btn').click(function () {
+            if (!podeAdicionar) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Limite de classes atingido!',
+                    text: `Você só pode adicionar uma nova classe ao atingir o nível ${proximaClasseNivel}.`,
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+
+            // Coletar os dados atuais antes de adicionar
+            const updatedClasses = collectClassesData();
+            if (updatedClasses === null) return; // Sai se houver duplicata
+            updatedClasses.push({ nome: '', nivel: 1 }); // Adiciona nova classe
+            saveClassesToJson(updatedClasses); // Salva no JSON
+            renderClasses(updatedClasses); // Re-renderiza com os dados atualizados
+        });
+
+        // Evento do botão "Salvar Classes"
+        $('#save-classe-btn').click(function () {
+            const updatedClasses = collectClassesData();
+            if (updatedClasses === null) return; // Sai se houver duplicata
+            saveClassesToJson(updatedClasses); // Salva no JSON
+            renderClasses(updatedClasses);
+
+        });
+
+        // Evento para verificar duplicatas em tempo real ao alterar o nome da classe
+        $('.classe-nome').on('change', function () {
+            const updatedClasses = collectClassesData();
+            if (updatedClasses === null) {
+                // Reverte a seleção para evitar duplicata
+                $(this).val('');
+                return;
+            }
+            saveClassesToJson(updatedClasses); // Salva no JSON
+            renderClasses(updatedClasses); // Re-renderiza para manter consistência
+        });
+
+        /* // Evento para salvar alterações no nível (opcional)
+        $('.classe-nivel').on('change', function () {
+            const updatedClasses = collectClassesData();
+            if (updatedClasses === null) return; // Sai se houver duplicata
+            saveClassesToJson(updatedClasses); // Salva no JSON
+        }); */
     }
 
 
 
+    // Coleta as classes do formulário
+    function getClassesFromForm() {
+        const classes = [];
+        $('#classes-container .classe-item').each(function () {
+            const nome = $(this).find('.classe-nome').val();
+            const nivel = parseInt($(this).find('.classe-nivel').val()) || 1;
+            if (nome) classes.push({ nome, nivel });
+        });
+        console.log('get classes', classes)
+        return classes;
+    }
 
 
 
@@ -464,8 +749,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Enviar formulário
     this.querySelector('#botao-salvar').addEventListener('click', function (e) {
         e.preventDefault();
+
         const formData = new FormData(form);
         const url = 'backend/editar_ficha_ajax.php';
+
+        // ✅ Captura as classes dinâmicas e adiciona no FormData
+        const classesData = JSON.stringify(getClassesFromForm());
+        console.log('_________formulario enviado', classesData)
+        formData.append('classe', classesData);
 
         fetch(url, {
             method: 'POST',
@@ -478,8 +769,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         icon: 'success',
                         title: 'Ficha atualizada com sucesso!',
                         showConfirmButton: false,
-                        timer: 700, // 1 segundos
+                        timer: 700,
                     });
+
+                    // ✅ Atualiza a ficha renderizada após salvar
                     getDadosFicha(fichaId);
                 } else {
                     Swal.fire({
@@ -489,9 +782,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         timer: 1000,
                     });
                 }
+            })
+            .catch(err => {
+                console.error('Erro na requisição:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de conexão',
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
             });
-
     });
+
 
     document.getElementById("salvar-habilidade-nova").addEventListener("click", () => controleHabilidade('criar'));
     document.getElementById("salvar-magia-nova").addEventListener("click", () => controleMagia('criar'));
@@ -1291,6 +1593,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!form) return;
 
         const formData = new FormData(form);
+        const classesData = JSON.stringify(getClassesFromForm());
+
+        formData.append('classe', classesData);
         const url = 'backend/editar_ficha_ajax.php';
 
         fetch(url, {
@@ -1318,9 +1623,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
+    document.addEventListener("nivelProgressao", function (e) {
+        const { nivel } = e.detail;
+        const classes = getClassesFromForm(); // Função que pega o estado atual das classes do jogador
+        renderClasses(classes, nivel);
+    });
 
 });
+
+
+
 
 function atualizarNivelEBarra() {
     const inputXp = document.getElementById("ficha-xp");
@@ -1352,7 +1664,10 @@ function atualizarNivelEBarra() {
     spanNivelClass.textContent = nivel;
     spanRank.textContent = rank;
 
-
+    const event = new CustomEvent("nivelProgressao", {
+        detail: { nivel, rank, xp }
+    });
+    document.dispatchEvent(event);
 
     getValorMaxInventarioInterno()
 }
@@ -1434,7 +1749,7 @@ function calcularPericias() {
         const atributo = pericia.dataset.atributo;
         const valorAtributo = getAtributoValor(atributo);
 
-        
+
         const bonusTreinamento = 2 * escalaNivel * valorTreinamento;
         const bonusProeficiencia = 1 * escalaNivel * valorProeficiencia;
 
@@ -1633,6 +1948,8 @@ function atualizarBarraDeStatus({ inputMaxId, inputAtualId, barraId, spanId, bgB
 
 
 }
+
+
 
 function interpolarMultiplasCores(percentual, coresHex) {
     // Converte HEX para RGB
@@ -1844,6 +2161,7 @@ modalFicha.addEventListener('shown.bs.modal', () => {
     atualizarBarraDeMana();
 
 });
+
 
 
 document.getElementById('ficha-inventario_interno_mod')?.addEventListener('input', getValorMaxInventarioInterno);

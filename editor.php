@@ -132,29 +132,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <option value="Humano">Humano</option>
                                     </select>
                                 </div>
-                                <div class="col-6 col-md-6">
-                                    <label for="ficha-classe" class="form-label">Classe</label>
-                                    <select name="classe" id="ficha-classe" class="form-control classe-personagem" value="Selecione uma Classe">
-                                        <option value="Sem Classe" selected>Selecione uma Classe</option>
-                                        <option value="Guerreiro">Guerreiro</option>
-                                        <option value="Bárbaro">Bárbaro</option>
-                                        <option value="Samurai">Samurai</option>
-                                        <option value="Cavaleiro">Cavaleiro</option>
-                                        <option value="Ranger">Ranger</option>
-                                        <option value="Monge">Monge</option>
-                                        <option value="Swashbuckler">Swashbuckler</option>
-                                        <option value="Ninja">Ninja</option>
-                                        <option value="Caçador">Caçador</option>
-                                        <option value="Inventor">Inventor</option>
-                                        <option value="Nobre">Nobre</option>
-                                        <option value="Ladino">Ladino</option>
-                                        <option value="Mago">Mago</option>
-                                        <option value="Feiticeiro">Feiticeiro</option>
-                                        <option value="Bruxo">Bruxo</option>
-                                        <option value="Clérigo">Clérigo</option>
-                                        <option value="Bardo">Bardo</option>
-                                        <option value="Druida">Druida</option>
-                                    </select>
+                                <div class="col-12">
+                                    <label class="form-label">Classes</label>
+
+                                    <div id="classes-container"></div>
+
+                                   
                                 </div>
 
 
@@ -1663,7 +1646,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     <label for="item-quantidade" class="form-label">Quantidade:</label>
                                                     <input type="number" class="form-control" id="item-quantidade" name="quantidade">
                                                 </div>
-                                                
+
                                                 <div class="col-4 col-md-4">
                                                     <label for="item-peso" class="form-label">Peso (kg):</label>
                                                     <input type="number" class="form-control" id="item-peso" name="peso">
@@ -1676,7 +1659,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <option value="nao" selected>Não</option>
                                                     </select>
                                                 </div>
-                                                
+
                                                 <div class="col-md-6">
                                                     <label for="item-volume" class="form-label">Volume:</label>
                                                     <select class="form-control" id="item-volume" name="volume">
