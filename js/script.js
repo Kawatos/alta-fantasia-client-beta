@@ -58,32 +58,31 @@ document.addEventListener("DOMContentLoaded", function () {
                                                         ">
                             <h5 class="card-title mb-1">${nomeExibicao}</h5>
                             <h6 class="card-subtitle text-muted mb-1">
-                                ${
-                                (() => {
-                                    // Garante que sempre teremos algo para trabalhar
-                                    if (!ficha.classe) return 'Sem classe';
+                                ${(() => {
+                            // Garante que sempre teremos algo para trabalhar
+                            if (!ficha.classe) return 'Sem classe';
 
-                                    let classesArray;
+                            let classesArray;
 
-                                    try {
-                                    // Se já for array, usa direto, se for string tenta parse
-                                    classesArray = Array.isArray(ficha.classe) 
-                                        ? ficha.classe 
-                                        : JSON.parse(ficha.classe);
-                                    } catch (e) {
-                                    // Se der erro no parse, assume que é string simples
-                                    classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== '' 
-                                        ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }] 
-                                        : [];
-                                    }
+                            try {
+                                // Se já for array, usa direto, se for string tenta parse
+                                classesArray = Array.isArray(ficha.classe)
+                                    ? ficha.classe
+                                    : JSON.parse(ficha.classe);
+                            } catch (e) {
+                                // Se der erro no parse, assume que é string simples
+                                classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== ''
+                                    ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }]
+                                    : [];
+                            }
 
-                                    // Se ainda assim não tiver nada, exibe "Sem classe"
-                                    if (!classesArray || classesArray.length === 0) return 'Sem classe';
+                            // Se ainda assim não tiver nada, exibe "Sem classe"
+                            if (!classesArray || classesArray.length === 0) return 'Sem classe';
 
-                                    // Mapeia e exibe
-                                    return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
-                                })()
-                                }
+                            // Mapeia e exibe
+                            return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
+                        })()
+                        }
                             </h6>
 
 
@@ -1786,11 +1785,16 @@ function atualizarPesoTotal() {
         const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value))) || 0;
 
         const selectInventarioInterno = details.querySelector('.item-inventario_interno');
+        const equipado = details.querySelector('.item-equipado').value || "nao";
         const inventarioInterno = selectInventarioInterno.value || "nao";
 
         // Soma somente se inventário interno for diferente de "sim"
         if (inventarioInterno !== 'sim') {
-            totalPeso += peso;
+            if (equipado === 'sim') {
+                totalPeso += peso * 0.5;
+            } else {
+                totalPeso += peso;
+            }
         }
 
         if (inventarioInterno == 'sim' && itemConjunto == 'sim') {
@@ -1850,7 +1854,8 @@ function verificarLimiteDeCarga() {
     const forca = parseInt(inputForca?.value) || 0;
     const cargaMod = parseFloat(inputCargaMod?.value) || 0;
 
-    const limite = (forca * 3) + cargaMod;
+    const limite = (forca * 3) + cargaMod + 15;
+    console.log(pesoAtual, limite, "peso atual e limite");
     console.log(itensInventarioInternoAtual, itensInventarioInternoMaximo, "itens inventario interno atual e maximo");
 
     pesoMaximoSpan.textContent = limite.toFixed(2);
@@ -2088,6 +2093,20 @@ const mensagens = [
     '"Em Alta existem magos que destroem cidades e guerreiros que partem montanhas ao meio."',
     '"Antes de Alta ascender, ela era uma criança como qualquer outra."',
     '"Resolver um problema com diplomacia também dá XP, e às vezes até mais do que na base da violência."',
+    '"Porque será que tem uma mancha de sangue na frente desse baú?"',
+    '"Alta Fantasia é balanceado através da força."',
+    '"Uma noite tão calminha no mar, o que poderia dar errado?"',
+    '"Uma vez teve um infeliz que tentou domar um dragão com uma cenoura."',
+    '"Vocês ouviram? Um forasteiro vestido de preto foi grosseiro com a Capitã Irina! Precisamos fazer algo a respeito!"',
+    '"As lendas contam que, no topo da montanha mais alta do mundo, Sagarmāthā, reside a Espada do Herói, sobre a sombra de uma Gegenteil...',
+    '"A magia é a linguagem do universo, e o universo não fala com ignorantes. Agora, tentem não se explodirem desta vez." — Hayla, a Arquimaga Eterna"',
+    '"O primeiro personagem de Alta Fantasia foi um Bardo, que o jogador era Gaúcho! Assim como o Gado, seu criador!"',
+    '"O primeiro mago de Alta Fantasia se chamava Taskir, o gnomo, e sua banda de rock favorita era o Nirvana. Ele foi criado pelo Gui!"',
+    '"O primeiro clérigo de Alta Fantasia era chamado Cassian De Montverre Bastratti, e ele era um tanto, digamos... excêntrico."',
+    '"O primeiro ninja de Alta Fantasia era um humano, de 2m+ de altura, chamado Tekomo (kkkk), sim, ele era Japonês! Ele foi criado pelo Joaobachi!"',
+    '"O primeiro samurai de Alta Fantasia e segundo personagem criado foi o Jeff, o Herói de Sagarmāthā... Ele foi criado pelo Ike!"',
+    '"Existiam, na Era das Cinzas, 3 poderosas bruxas, uma delas era Sagarmāthā, a Bruxa do Destino, que criou a profecia da Espada do Herói."',
+    
 ];
 
 // Embaralha o array usando o algoritmo de Fisher-Yates
@@ -2123,7 +2142,7 @@ setInterval(() => {
         `;
         mensagemEl.style.opacity = 1;
     }, 500);
-}, 4000);
+}, 5000);
 
 
 // Quando o usuário clicar na imagem, simula o clique no input

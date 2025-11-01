@@ -137,7 +137,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                                     <div id="classes-container"></div>
 
-                                   
+
                                 </div>
 
 
@@ -1620,12 +1620,31 @@ if (!isset($_SESSION['usuario_id'])) {
 
                                         <div class="col-md-6">
                                             <h5 class="mt-3" id="peso-total-h5">Peso Carregado: <span id="peso-total-carregado">0</span> kg</h5>
-                                            <p class="text-muted">Máximo = 10 + (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
+                                            <p class="text-muted">Máximo = 15 + (3x Força): <span id="peso-maximo-carregavel"></span> kg</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <h5 class="mt-3" id="itens-totais-h5">Itens no Espaço Interno: <span id="inventario-interno-atual-span">0</span></h5>
-                                            <p class="text-muted">Espaço Interno Total: <span id="inventario-interno-total-span"></span></p>
+                                            <h5 class="mt-3" id="itens-totais-h5">
+                                                Itens no Espaço Interno:
+                                                <span id="inventario-interno-atual-span">0</span>
+                                            </h5>
+
+                                            <p class="text-muted mb-1">
+                                                Espaço Interno Total:
+                                                <span id="inventario-interno-total-span"></span>
+                                                <!-- Botão de info -->
+                                                <button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#infoNT" aria-expanded="false" aria-controls="infoNT" title="Ver mais sobre N/T">
+                                                    <i class="bi bi-info-circle text-primary"></i>
+                                                </button>
+                                            </p>
+
+                                            <!-- Texto colapsável -->
+                                            <div class="collapse" id="infoNT">
+                                                <div class="card card-body bg-light border-0 p-2 mb-2 ">
+                                                    <strong>N/T:</strong> Um item só pode ser colocado no espaço interno se ele não pesar mais que o peso máximo suportado pelo usuário, e se o mesmo não for uma criatura viva dotada de consciência.
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
 
                                     <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseItem">Criar Novo Item</button>
