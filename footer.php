@@ -14,7 +14,7 @@
                 </p>
                 <div class="d-flex align-items-center">
                     <span class="badge bg-warning text-dark px-3 py-2 fs-6">
-                        <i class="fas fa-code-branch me-1"></i>Versão V 1.2 Alfa
+                        <i class="fas fa-code-branch me-1"></i>Versão V 1.3 Alfa
                     </span>
                 </div>
             </div>

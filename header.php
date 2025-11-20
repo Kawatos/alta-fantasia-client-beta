@@ -12,6 +12,8 @@ if (session_status() === PHP_SESSION_NONE) {
   <meta charset="UTF-8">
   <title>Alta Fantasia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="AltaFantasiaIconRounded.png" type="image/png">
+
 
   <!-- Estilos e bibliotecas compartilhadas -->
 
@@ -36,6 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {
   <link rel="stylesheet" href="css/style.css">
   <!-- Scripts personalizados -->
   <script src="js/script.js" defer></script>
+  
 </head>
 
 

@@ -30,9 +30,46 @@ $update = $conn->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
 $update->bindParam(':senha', $senhaHash);
 $update->bindParam(':id', $dadosUsuario['id']);
 
-if ($update->execute()) {
-    // TODO: futuramente enviar a senha por e-mail
-    echo json_encode(['success' => true, 'nova_senha' => $novaSenha]);
-} else {
+if (!$update->execute()) {
     echo json_encode(['success' => false, 'message' => 'Erro ao atualizar senha.']);
+    exit;
+}
+
+require '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+try {
+    $mail = new PHPMailer(true);
+
+    // Configuração SMTP
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com'; 
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'altafantasiaprojectsup@gmail.com';
+    $mail->Password   = '';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port       = 587;
+
+    // Remetente e destinatário
+    $mail->setFrom('altafantasiaprojectsup@gmail.com', 'Suporte - Alta Fantasia');
+    $mail->addAddress($email);
+
+    // Conteúdo
+    $mail->Subject = 'Recuperacao de Senha - Alta Fantasia';
+    $mail->Body    = "Uma nova senha foi gerada para sua conta.\n\nSenha temporária: {$novaSenha}\n\nRecomendamos alterar ao fazer login.";
+
+    $mail->send();
+
+    echo json_encode([
+        'success' => true,
+        'nova_senha' => "Sua nova senha foi enviada para seu E-mail!" 
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Sucesso! Senha atualizada, mas falha ao enviar e-mail: ' . $mail->ErrorInfo
+    ]);
 }

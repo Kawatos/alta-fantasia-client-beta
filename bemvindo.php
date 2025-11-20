@@ -54,6 +54,32 @@
                   </div>
                 </div>
               </form>
+              <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+              <div class="mt-3" style="
+                                          display: flex;
+                                          flex-direction: column;
+                                          align-content: center;
+                                          align-items: center;
+                                          justify-content: center;
+                                          flex-wrap: nowrap;
+                                      ">
+
+                <span class="me-3 text-muted">ou</span>
+
+                <div>
+                  <div id="g_id_onload"
+                    data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
+                    data-callback="handleGoogleLogin">
+                  </div>
+
+                  <div class="g_id_signin" data-type="standard"></div>
+
+                </div>
+
+              </div> -->
+
+
             </div>
 
 
@@ -119,6 +145,8 @@
                 </div>
               </form>
             </div>
+
+
           </div>
 
           <!-- Mensagem de feedback -->
@@ -137,6 +165,33 @@
 
 
 <script>
+  function handleGoogleLogin(response) {
+    const token = response.credential;
+
+    $.ajax({
+        url: 'backend/google-login.php',
+        method: 'POST',
+        data: {
+          credential: token
+        },
+        dataType: 'json'
+      })
+      .done((res) => {
+        console.log("RESPOSTA DO PHP:", res);
+        if (res.success) {
+          window.location.href = res.redirect;
+        } else {
+          alert(res.message);
+        }
+      })
+      .fail((err) => {
+        console.log("ERRO AJAX:", err);
+        alert("Erro ao conectar ao servidor.");
+      });
+
+  }
+
+
   $(document).ready(function() {
     $('#loginForm, #registroForm').on('submit', function(e) {
       e.preventDefault();
@@ -211,7 +266,7 @@
         },
         success: function(response) {
           if (response.success) {
-            feedback.html('<div class="text-success">Nova senha gerada: <b>' + response.nova_senha + '</b></div>');
+            feedback.html('<div class="text-success">' + response.nova_senha + '</div>');
           } else {
             feedback.html('<div class="text-danger">' + (response.message || 'Erro ao recuperar senha') + '</div>');
           }
