@@ -21,7 +21,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 <div class="container mt-5">
     <h2 class="mb-4">Configurações da Conta</h2>
 
-    <form id="form-configuracoes-usuario">
+    <form id="form-configuracoes-usuario" enctype="multipart/form-data">
         <div class="row">
             <!-- Campos do usuário (esquerda) -->
             <div class="col-md-8">
@@ -53,7 +53,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <label class="form-label">Imagem de Perfil</label>
                 <div class="text-center mb-2">
                     <img id="preview_imagem_usuario"
-                        src="uploads_usuario/<?= !empty($usuario['imagem']) ? $usuario['imagem'] : 'perfil-vazio.png' ?>"
+                        src="backend/uploads_usuario/<?= !empty($_SESSION['imagem']) ? $_SESSION['imagem'] : 'perfil-vazio.png' ?>"
                         alt="Preview da Imagem"
                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer;">
 
@@ -86,7 +86,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         if (file.size > 2 * 1024 * 1024) { // 2 MB
             alert('A imagem deve ter no máximo 2 MB.');
             this.value = ''; // limpa o input
-            previewImagem.src = 'uploads/perfil-vazio.png';
+            /* previewImagem.src = 'uploads/perfil-vazio.png'; */
             return;
         }
 
@@ -131,6 +131,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         formData.append('nova_senha', document.getElementById('nova_senha').value);
 
         const imagemFile = document.getElementById('imagem_usuario').files[0];
+        console.log('imagemFile', imagemFile)
         if (imagemFile) {
             formData.append('imagem_usuario', imagemFile);
         }

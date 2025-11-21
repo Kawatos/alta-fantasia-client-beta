@@ -12,7 +12,7 @@ if (!$id_ficha) {
 }
 
 // Busca as magias da ficha
-$stmtMagias = $conn->prepare("SELECT * FROM magias WHERE ficha_id = :id_ficha");
+$stmtMagias = $conn->prepare("SELECT * FROM magias WHERE id_ficha = :id_ficha");
 $stmtMagias->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
 $stmtMagias->execute();
 

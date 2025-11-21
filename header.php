@@ -2,6 +2,16 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+
+$imgUsuario = null;
+
+// Supondo que você já tenha o nome do arquivo na sessão
+if (!empty($_SESSION['imagem'])) {
+  $caminhoImagem = 'backend/uploads_usuario/' . $_SESSION['imagem'];
+  if (file_exists($caminhoImagem)) {
+    $imgUsuario = $caminhoImagem;
+  }
+}
 ?>
 
 
@@ -38,7 +48,7 @@ if (session_status() === PHP_SESSION_NONE) {
   <link rel="stylesheet" href="css/style.css">
   <!-- Scripts personalizados -->
   <script src="js/script.js" defer></script>
-  
+
 </head>
 
 
@@ -75,9 +85,14 @@ if (session_status() === PHP_SESSION_NONE) {
             </li>
             <li class="nav-item">
               <a class="nav-link mx-2" href="configuracoes-usuario.php" title="Configurações">
-                <span><i class="fas fa-user"></i></span>
+                <span>
+                  <?php if ($imgUsuario): ?>
+                    <img src="<?= $imgUsuario ?>" alt="Avatar" class="rounded-circle" style="width:30px; height:30px; object-fit:cover;">
+                  <?php else: ?>
+                    <i class="fas fa-user"></i>
+                  <?php endif; ?>
+                </span>
               </a>
-
             </li>
             <li class="nav-item">
               <a class="nav-link text-danger" href="#" onclick="document.getElementById('logout-form').submit();" title="Sair">

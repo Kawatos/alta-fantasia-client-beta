@@ -13,7 +13,7 @@ $username = $data['username'] ?? '';
 $password = $data['password'] ?? '';
 
 // Prepara a consulta com PDO
-$stmt = $conn->prepare("SELECT id, senha FROM usuarios WHERE username = :username");
+$stmt = $conn->prepare("SELECT id, senha, imagem FROM usuarios WHERE username = :username");
 $stmt->bindParam(':username', $username);
 $stmt->execute();
 
@@ -23,6 +23,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($user && password_verify($password, $user['senha'])) {
     $_SESSION['usuario_id'] = $user['id'];
     $_SESSION['username'] = $username;
+    $_SESSION['imagem'] = $user['imagem'];
+
     session_write_close();
     echo json_encode(['success' => true]);
     exit;

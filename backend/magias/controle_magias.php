@@ -13,7 +13,7 @@ $usuario_id = $_SESSION['usuario_id'];
 // Dados enviados via POST
 $acao = $_POST['acao'] ?? '';
 $id_magia = $_POST['id_magia'] ?? null;
-$ficha_id = $_POST['id_ficha'] ?? null;
+$id_ficha = $_POST['id_ficha'] ?? null;
 $nome_magia = $_POST['nome_magia'] ?? '';
 $tipo_magia = $_POST['tipo_magia'] ?? '';
 $nivel = $_POST['nivel'] ?? null;
@@ -23,7 +23,7 @@ $duracao = $_POST['duracao'] ?? '';
 $descritor = $_POST['descritor'] ?? '';
 $descricao = $_POST['descricao-magia'] ?? '';
 
-if (!$ficha_id) {
+if (!$id_ficha) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'ID da ficha é obrigatório']);
     exit;
 }
@@ -34,9 +34,9 @@ try {
 
             $stmt = $conn->prepare("
                 INSERT INTO magias (
-                    nome_magia, tipo_magia, nivel, custo_pm, alcance, duracao, descritor, descricao, ficha_id
+                    nome_magia, tipo_magia, nivel, custo_pm, alcance, duracao, descritor, descricao, id_ficha
                 ) VALUES (
-                    :nome_magia, :tipo_magia, :nivel, :custo_pm, :alcance, :duracao, :descritor, :descricao, :ficha_id
+                    :nome_magia, :tipo_magia, :nivel, :custo_pm, :alcance, :duracao, :descritor, :descricao, :id_ficha
                 )
             ");
             $stmt->bindParam(':nome_magia', $nome_magia);
@@ -47,7 +47,7 @@ try {
             $stmt->bindParam(':duracao', $duracao);
             $stmt->bindParam(':descritor', $descritor);
             $stmt->bindParam(':descricao', $descricao);
-            $stmt->bindParam(':ficha_id', $ficha_id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
             $stmt->execute();
 
             echo json_encode(['status' => 'sucesso', 'mensagem' => 'Magia criada']);
@@ -64,7 +64,7 @@ try {
                 SET nome_magia = :nome_magia, tipo_magia = :tipo_magia, nivel = :nivel,
                     custo_pm = :custo_pm, alcance = :alcance, duracao = :duracao,
                     descritor = :descritor, descricao = :descricao
-                WHERE id_magias = :id_magia AND ficha_id = :ficha_id
+                WHERE id_magias = :id_magia AND id_ficha = :id_ficha
             ");
             $stmt->bindParam(':nome_magia', $nome_magia);
             $stmt->bindParam(':tipo_magia', $tipo_magia);
@@ -75,7 +75,7 @@ try {
             $stmt->bindParam(':descritor', $descritor);
             $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':id_magia', $id_magia, PDO::PARAM_INT);
-            $stmt->bindParam(':ficha_id', $ficha_id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
             $stmt->execute();
 
 
@@ -91,10 +91,10 @@ try {
 
             $stmt = $conn->prepare("
                 DELETE FROM magias 
-                WHERE id_magias = :id_magia AND ficha_id = :ficha_id
+                WHERE id_magias = :id_magia AND id_ficha = :id_ficha
             ");
             $stmt->bindParam(':id_magia', $id_magia, PDO::PARAM_INT);
-            $stmt->bindParam(':ficha_id', $ficha_id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
             $stmt->execute();
 
             echo json_encode(['status' => 'sucesso', 'mensagem' => 'Magia excluída']);
