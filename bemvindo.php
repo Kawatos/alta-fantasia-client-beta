@@ -54,7 +54,7 @@
                   </div>
                 </div>
               </form>
-              <script src="https://accounts.google.com/gsi/client" async defer></script>
+              <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
 
               <div class="mt-3" style="
                                           display: flex;
@@ -76,7 +76,7 @@
 
                 </div>
 
-              </div>
+              </div> -->
 
 
             </div>

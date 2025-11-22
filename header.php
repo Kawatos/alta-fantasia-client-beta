@@ -76,6 +76,9 @@ if (!empty($_SESSION['imagem'])) {
             <a class="nav-link" href="wiki.php">Wiki</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="campanhas.php">Campanhas Oficiais</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="comunidade.php">Comunidade</a>
           </li>
 

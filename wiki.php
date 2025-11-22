@@ -88,6 +88,15 @@
     color: white;
   }
 
+  @media (min-width: 769px) {
+    .wiki-header {
+      /* Define uma altura mínima mais proeminente para telas grandes */
+      min-height: 25vh;
+      /* Adicione um pouco mais de padding para um visual mais aberto, se desejar */
+      
+    }
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .wiki-header {
@@ -117,21 +126,21 @@
   </div>
 </div>
 
-<!-- Abas -->
 <div class="tabs-container text-center my-3">
+
   <button class="tab-btn active" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e">📜 Regras</button>
   <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c804cad81f75d2a59a945">🧝 Raças</button>
   <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8042b281fc61d9daac54">⚔️ Classes</button>
   <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c80b681cade32f421170c">✨ Habilidades</button>
   <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c806490eed63ec1a9ac7b">🔮 Magias</button>
   <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8029a696f0f7ae196a45">💎 Itens</button>
+  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/2b3821efea8c8051be37c10a25c5ea79">🌍 Cenário</button>
 </div>
 
-<!-- Conteúdo -->
 <div class="container-fluid">
   <iframe class="wiki-frame" id="wikiFrame"
     src="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e"
-    width="100%" height="600" frameborder="0" allowfullscreen>
+    width="100%" height="50vh" frameborder="0" allowfullscreen>
   </iframe>
 </div>
 
