@@ -54,7 +54,7 @@
                   </div>
                 </div>
               </form>
-              <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
+              <script src="https://accounts.google.com/gsi/client" async defer></script>
 
               <div class="mt-3" style="
                                           display: flex;
@@ -72,12 +72,11 @@
                     data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
                     data-callback="handleGoogleLogin">
                   </div>
-
                   <div class="g_id_signin" data-type="standard"></div>
 
                 </div>
 
-              </div> -->
+              </div>
 
 
             </div>
@@ -169,7 +168,7 @@
     const token = response.credential;
 
     $.ajax({
-        url: 'backend/google-login.php',
+        url: 'backend/google-login.php', // Verifique este caminho
         method: 'POST',
         data: {
           credential: token
@@ -181,15 +180,15 @@
         if (res.success) {
           window.location.href = res.redirect;
         } else {
-          alert(res.message);
+          alert("Login falhou: " + res.message);
         }
       })
       .fail((err) => {
         console.log("ERRO AJAX:", err);
         alert("Erro ao conectar ao servidor.");
       });
-
   }
+
 
 
   $(document).ready(function() {
@@ -213,12 +212,12 @@
         url: url,
         type: 'POST',
         data: formData,
+        dataType: 'json',
         success: function(response) {
           if (response.success) {
             if (isLogin) {
               window.location.href = 'editor.php';
             } else {
-              // Limpa o formulário e mostra mensagem de sucesso
               $('#registroForm')[0].reset();
               window.location.href = 'editor.php';
             }
@@ -226,10 +225,12 @@
             alert(response.message || 'Ocorreu um erro. Tente novamente.');
           }
         },
-        error: function() {
+        error: function(xhr) {
+          console.log("ERRO AJAX:", xhr.responseText);
           alert('Erro na conexão. Tente novamente mais tarde.');
         }
       });
+
     });
 
     document.querySelectorAll('.toggle-password').forEach(button => {
