@@ -1747,10 +1747,14 @@ function calcularPericias() {
         const valorProeficiencia = parseInt(pericia.querySelector(".proeficiente")?.value) || 0;
         const atributo = pericia.dataset.atributo;
         const valorAtributo = getAtributoValor(atributo);
+        var bonusTreinamento = 0;
 
-
-        const bonusTreinamento = 2 * escalaNivel * valorTreinamento;
-        const bonusProeficiencia = 1 * escalaNivel * valorProeficiencia;
+        if (valorTreinamento > 0) {
+            bonusTreinamento = (2 * escalaNivel) + valorTreinamento;
+        } else {
+            bonusTreinamento = 0;
+        }
+        const bonusProeficiencia = 2 * valorProeficiencia;
 
         const resultado = modBase + bonusTreinamento + bonusProeficiencia + valorAtributo;
 
