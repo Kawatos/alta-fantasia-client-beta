@@ -4,32 +4,26 @@
 
 <style>
   .wiki-header {
-    position: relative;
+    position: -webkit-sticky;
+    /* Suporte Safari */
+    position: sticky;
+    /* IMPORTANTE: Esse valor deve ser a altura do seu header principal */
+    /* Se o header principal mudar muito, podemos usar uma variável CSS */
+    top: 70px;
+    z-index: 999;
+    /* Um pouco menor que o do header principal (1000) */
+
     background: url('css/imagens/biblioteca.jpg') center/cover no-repeat;
     padding: 1rem;
-    border-radius: 0 0 20px 20px;
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-left: 3vw;
-    margin-right: 3vw;
+
     margin-bottom: 2rem;
     overflow: hidden;
-    /* garante que a camada respeite o border-radius */
     min-height: fit-content;
-    /* altura mínima pra não ficar muito apertado */
   }
 
-  .wiki-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* ocupa toda a altura da .wiki-header */
-    background: rgba(212, 212, 212, 0.36);
-    /* branco semi-transparente */
-    z-index: 1;
-  }
+
 
   .wiki-header h1,
   .wiki-header .search-container {
@@ -93,7 +87,7 @@
       /* Define uma altura mínima mais proeminente para telas grandes */
       min-height: 25vh;
       /* Adicione um pouco mais de padding para um visual mais aberto, se desejar */
-      
+
     }
   }
 
@@ -108,7 +102,8 @@
     }
 
     .wiki-frame {
-      height: 70vh;
+      height: 100vh;
+      width: 100vw;
       /* menos altura no celular */
     }
   }
@@ -119,45 +114,150 @@
     <span class="font-alta">Alta</span>
     <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia: Wiki</span>
   </h1>
-  <div class="search-container mt-2">
-    <div class="alert info">
-      🔍 Use <strong>CTRL+F</strong> (ou no celular: menu ⋮ → "Localizar na página")
+  <div class="search-container mt-2 d-flex align-items-center justify-content-center">
+    <input type="text" id="wikiSearch" class="form-control w-50" placeholder="🔍 Pesquisar nesta página...">
+
+    <div id="searchNav" class="ms-2" style="display: none;">
+      <span id="searchCount" class="badge bg-secondary me-2">0/0</span>
+      <button id="prevSearch" class="btn btn-sm btn-primary">▲</button>
+      <button id="nextSearch" class="btn btn-sm btn-primary">▼</button>
     </div>
+  </div>
+  <div class="tabs-container text-center my-3" style="z-index: 999;">
+
+    <button class="tab-btn active" data-link="wiki_pages/AltaFantasiaRegras.html">📜 Regras</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaRacas.html">🧝 Raças</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaClasses.html">⚔️ Classes</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaHabilidades.html">✨ Habilidades</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaMagias.html">🔮 Magias</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaItens.html">💎 Itens</button>
+    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaCenario.html">🌍 Cenário</button>
+
   </div>
 </div>
 
-<div class="tabs-container text-center my-3">
-
-  <button class="tab-btn active" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e">📜 Regras</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c804cad81f75d2a59a945">🧝 Raças</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8042b281fc61d9daac54">⚔️ Classes</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c80b681cade32f421170c">✨ Habilidades</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c806490eed63ec1a9ac7b">🔮 Magias</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/270821efea8c8029a696f0f7ae196a45">💎 Itens</button>
-  <button class="tab-btn" data-link="https://ordinary-marimba-72e.notion.site/ebd/2b3821efea8c8051be37c10a25c5ea79">🌍 Cenário</button>
-</div>
 
 <div class="container-fluid">
   <iframe class="wiki-frame" id="wikiFrame"
-    src="https://ordinary-marimba-72e.notion.site/ebd/26f821efea8c80859b3de404ce7e289e"
+    src="wiki_pages/AltaFantasiaRegras.html"
     width="100%" height="50vh" frameborder="0" allowfullscreen>
   </iframe>
 </div>
 
 <script>
   const buttons = document.querySelectorAll(".tab-btn");
+  const searchInput = document.getElementById("wikiSearch");
   const iframe = document.getElementById("wikiFrame");
+  const searchNav = document.getElementById("searchNav");
+  const searchCount = document.getElementById("searchCount");
 
+  let currentMatchIndex = -1;
+  let matches = [];
+
+
+
+  function performSearch() {
+    const searchTerm = searchInput.value.trim();
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const body = iframeDoc.body;
+
+    // 1. Limpeza e Reset
+    const markers = body.querySelectorAll('mark');
+    markers.forEach(m => {
+      const parent = m.parentNode;
+      m.replaceWith(...m.childNodes);
+      parent.normalize();
+    });
+
+    if (searchTerm.length < 2) {
+      searchNav.style.display = "none";
+      return;
+    }
+
+    // 2. Busca e Destaque
+    const walk = iframeDoc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    const nodesToReplace = [];
+    let node;
+    while (node = walk.nextNode()) {
+      if (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE') continue;
+      if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+        nodesToReplace.push(node);
+      }
+    }
+
+    const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedTerm})`, 'gi');
+
+    nodesToReplace.forEach(node => {
+      const span = iframeDoc.createElement('span');
+      span.innerHTML = node.textContent.replace(regex, '<mark class="wiki-highlight">$1</mark>');
+      node.replaceWith(...span.childNodes);
+    });
+
+    // 3. Atualizar Navegação
+    matches = Array.from(body.querySelectorAll('.wiki-highlight'));
+
+    if (matches.length > 0) {
+      currentMatchIndex = 0;
+      searchNav.style.display = "inline-block";
+      updateMatchUI();
+    } else {
+      searchNav.style.display = "none";
+    }
+  }
+
+  function updateMatchUI() {
+    // Remove destaque de "foco" anterior
+    matches.forEach(m => m.style.backgroundColor = "#ffcf33"); // Cor padrão
+
+    // Destaca o atual
+    const current = matches[currentMatchIndex];
+    current.style.backgroundColor = "#ff9900"; // Cor de foco (Laranja)
+    current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    searchCount.textContent = `${currentMatchIndex + 1}/${matches.length}`;
+  }
+
+  
+  document.getElementById("nextSearch").addEventListener("click", () => {
+    if (matches.length === 0) return;
+    currentMatchIndex = (currentMatchIndex + 1) % matches.length;
+    updateMatchUI();
+  });
+
+  document.getElementById("prevSearch").addEventListener("click", () => {
+    if (matches.length === 0) return;
+    currentMatchIndex = (currentMatchIndex - 1 + matches.length) % matches.length;
+    updateMatchUI();
+  });
+
+  searchInput.addEventListener("input", performSearch);
+  
+
+  function resetSearch() {
+    searchInput.value = "";
+    matches = [];
+    currentMatchIndex = -1;
+    searchNav.style.display = "none";
+    searchCount.textContent = "0/0";
+  }
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      // Muda link
+      resetSearch(); 
       iframe.src = btn.dataset.link;
 
-      // Troca aba ativa
       buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
     });
   });
+
+  
+  iframe.onload = () => {
+    resetSearch();
+  };
 </script>
 
 

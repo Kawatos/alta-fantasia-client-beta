@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Alta Fantasia: Habilidades</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="270821ef-ea8c-80b6-81ca-de32f421170c" class="page sans"><header><h1 class="page-title" dir="auto">Alta Fantasia: Habilidades</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h2 id="270821ef-ea8c-81b2-8c50-ea1ffa82abc5" class="">Habilidades</h2></div><div style="display:contents" dir="auto"><p id="270821ef-ea8c-8190-8c7e-cd2c6c0b0dc8" class="">As habilidades em Alta Fantasia são uma das mecânicas que constroem e definem o jogador, tudo em Alta que o personagem possua que não seja uma magia, pode ser descrito como uma Habilidade. As Habilidades podem ser pegas conforme a classe do seu personagem dite, ou podem ser pegas durante o jogo, narrativamente, conforme o que o mestre ache justo.</p></div><div style="display:contents" dir="auto"><p id="270821ef-ea8c-81f2-a11d-e74ccbfb23bf" class="">As Habilidades podem ser pegas conforme a lista abaixo, ou criadas pelo próprio jogador, de acordo claro, com o que o mestre ache justo.</p></div><div style="display:contents" dir="auto"><h2 id="29b821ef-ea8c-80db-92aa-c759a74f38a5" class="">Lista de Habilidades: Básicas</h2></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-813e-8ead-e20dc3f7cfdd" class="">Treinamento com Armas Corpo-a-corpo Pequenas</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c2-8d46-f417b9270fd7" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c4-9e2e-ffddfd4711c6" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas Corpo-a-corpo Pequenas Simples. Sem essa habilidade você recebe −4/Rank da Arma em testes de Ataque Corpo-a-corpo e Defesa usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8178-9f12-cb8699ba537f" class="">Treinamento com Armas de Alcance Pequenas</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-812c-98da-f4ffc0b499fc" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8161-a0c8-f8603763aafb" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas de Alcance Pequenas Simples. Sem essa habilidade você recebe −4/Rank da Arma em testes de Técnica, Pontaria e Defesa, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8147-8d7e-d4a4412ca7ef" class="">Treinamento com Armas Corpo-a-corpo Médias</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-814d-a904-fbde8aba0dad" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8174-8699-c0f4a4ca89ea" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas Corpo-a-corpo Médias Simples. Sem essa habilidade você recebe −4/Rank da Arma em testes de Ataque Corpo-a-corpo e Defesa, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8145-8fb8-c16ec07b33d8" class="">Treinamento com Armas de Alcance Médias</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ef-81bb-c35c3fafb27e" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81d1-b8f5-d5a92b30c308" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas de Alcance Médias Simples. Sem essa habilidade você recebe -4/Rank da Arma em testes de Técnica Pontaria e Defesa, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-812e-9361-df6e45759ca8" class="">Treinamento com Armas Corpo-a-corpo Grandes</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ac-836c-d7c329d7fe48" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811d-8783-df46466a47c5" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas Corpo-a-corpo Grandes Simples. Sem essa habilidade você recebe -4/Rank da Arma em testes de Ataque Corpo-a-corpo e Defesa, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81cb-831b-e53cf0f8948d" class="">Treinamento com Armas de Alcance Grandes</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c4-89ff-ccad8c15a744" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f9-af3e-dd54335eab94" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armas de Alcance Grandes Simples. Sem essa habilidade você recebe -4/Rank da Arma em testes de Técnica Pontaria e Defesa, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8120-bfa9-caf13daf5645" class="">Treinamento com Armaduras Pequenas</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-818c-81f9-d1c6c8c9fd3d" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81e3-9f25-ebc4867e69df" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armaduras Pequenas Simples. Sem essa habilidade você recebe -4/Rank da Armadura em testes de Reflexo, Controle e Técnicas, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8119-9f38-d72f9fc4ab2f" class="">Treinamento com Armaduras Médias</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8119-8602-da26c0b8562b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81b2-b98b-d5e91b30635a" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armaduras Médias Simples. Sem essa habilidade você recebe -4/Rank da Armadura em testes de Reflexo, Controle e Técnicas, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81be-9145-de3bd4162afc" class="">Treinamento com Armaduras Grandes</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81aa-9318-ca37e3c8f945" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8161-a62d-c54c423790df" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todas as Armaduras Grandes Simples. Sem essa habilidade você recebe -4/Rank da Armadura em testes de Reflexo, Controle e Técnicas, usando a mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80f0-8b51-f59e334ce0db" class="">Treinamento com Escudos Pequenos</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8007-8134-e558628a9454" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80cc-86f5-f94abcf6ea0b" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todos os Escudos Pequenos Simples. Sem essa habilidade você recebe -4/Rank do Escudo em testes de Reflexo, Controle e Técnicas, usando o mesmo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-8034-88c4-ce22dc817229" class="">Treinamento com Escudos Médios</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80b2-9ac5-ce2e61941a22" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8090-828a-d83e4186de95" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todos os Escudos Médios Simples. Sem essa habilidade você recebe -4/Rank do Escudo em testes de Reflexo, Controle e Técnicas, usando o mesmo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80d1-8d98-f2431ca100bc" class="">Treinamento com Escudos Grandes</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-807c-ae52-ea45618b3569" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80ae-aee0-de0844e32b1e" class="bulleted-list"><li style="list-style-type:disc">Descrição: você sabe usar todos os Escudos Grandes Simples. Sem essa habilidade você recebe -4/Rank do Escudo em testes de Reflexo, Controle e Técnicas, usando o mesmo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-819d-808a-cd4263ca099b" class="">Treinamento com Armas Especiais</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8187-87da-d287630abadf" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir o treinamento de tamanho correspondente ao da arma.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8122-b783-f23bcf2405e7" class="bulleted-list"><li style="list-style-type:disc">Descrição: você se dedica ao ponto de conseguir utilizar uma arma dita como complexa de maneira funcional. Escolha um tipo de arma Especial, como, Armas de Fogo, Armas de Ninja, Armas Samurais, Armas Runicas e etc. que já possa usar pelo tamanho. Essa Habilidade pode ser pega mútiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8188-a0fe-d2bf7bff93f6" class="">Treinamento com Armadura Especial</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8194-8fcc-c0ba8aa06fc1" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir o treinamento de tamanho correspondente ao da armadura.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-812d-b2af-c10d7c798e51" class="bulleted-list"><li style="list-style-type:disc">Descrição: você se dedica ao ponto de conseguir utilizar uma armadura dita como complexa de maneira funcional. Escolha um tipo de armadura Especial que possa usar pelo tamanho, você poderá a usar, assim como é feito na Habilidade Treinamento com Arma Especial. Essa Habilidade pode ser pega múltiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-808a-a939-e3329a2eb8d6" class="">Treinamento com Escudo Especial</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80b6-ab51-e03519021d5a" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir o treinamento de tamanho correspondente ao do escudo.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-806b-b5e0-e467d1e3a9d7" class="bulleted-list"><li style="list-style-type:disc">Descrição: você se dedica ao ponto de conseguir utilizar um escudo dito como complexo de maneira funcional. Escolha um tipo de escudo Especial que possa usar pelo tamanho, você poderá a usar, assim como é feito na Habilidade Treinamento com Arma Especial. Essa Habilidade pode ser pega múltiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-8076-891b-d3d0e00bd93b" class="">Dedicação</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80a3-82e9-cb9276f68bbc" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80fd-8702-c4764c4110a3" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adquire um Treinamento adicional em alguma perícia a sua escolha.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-807b-a538-ce43dc1eb4fc" class="">Foco</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80dd-bfdc-fccbfde313b3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80e9-86a7-fdb9a795ec8e" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adquire três Proeficiencias adicionais em alguma perícia a sua escolha.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80b4-9b72-f95e056981af" class="">Foco Avançado</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8041-a517-e68976441778" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8035-ad7c-c7f583689b09" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adquire uma Proeficiencia adicional em Atributo a sua escolha.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80f5-b65c-cc3cafdd6ca3" class="">Execução Rápida</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80f3-a93d-e1999ad450be" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a habilidade escolhida, de qualquer fonte ou natureza, que seja de uma Ação de Movimento.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80f1-b88d-ce0c274fa36a" class="bulleted-list"><li style="list-style-type:disc">Descrição: você transforma esta habilidade em uma Ação Livre, conseguindo executar ela rapidamente, contudo pode fazer isto apenas uma vez por rodada.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-8035-8130-e787e53518b9" class="">Espirito Indomável</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80fd-a415-edb07285078d" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Possuir ao menos um nível em três classes diferentes.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8011-8523-c1a4e43f7e0f" class="bulleted-list"><li style="list-style-type:disc">Descrição: você ignora pré-requisitos de tentência na escolha de Habilidades.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-8014-b1c3-cca73a661bcf" class="">Sexy</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80ff-b857-e5da6bcf4f7b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 treinamentos na perícia Influência.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-801a-82e7-e8d4b8acb858" class="bulleted-list"><li style="list-style-type:disc">Descrição: você pode escolher 3 em todos os dados em testes de Influência ou Atuação contra criaturas que possam sentir libido por você.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-807c-8c31-cd7dd094e906" class="">Seguidores</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-8032-8df1-c37dd27a61ac" class="bulleted-list"><li style="list-style-type:disc">Requisitos: personagem de Rank 5 ou superior, não possuir a Habilidade Seguidor.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-808a-8ee6-e76fcb8c6889" class="bulleted-list"><li style="list-style-type:disc">Descrição: seu personagem é capaz de influenciar as massas com seu carisma. Você ganha um número de níveis de seguidores ao seu Nível x (Carisma / 5). Veja os detalhes abaixo:<div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8084-aecf-d182611f970a" class="bulleted-list"><li style="list-style-type:circle">Os seguidores são pessoas de tendência igual a sua ou uma categoria de diferença, por exemplo, se você for Bondoso, seus seguidores devem ser pelo menos Bondosos com o mesmo valaendo para se forem Malignos, ou Neutros. </li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-801d-9031-c51403d22343" class="bulleted-list"><li style="list-style-type:circle">Os seguidores podem lutar por você, mas se perderem metade da vida eles deixarão o combate, mas continuarão sendo seus seguidores. Se um seguidor seu morrer em combate ou por suas mãos, ou ainda se você os maltratar severamente a caráter do mestre, você perderá 5 outros seguidores de nível mais baixo para cada seguidor morto ou maltratado. Estes níveis de seguidores voltarão assim que você receber mais níveis de seguidores.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-803e-925f-e9ec665281aa" class="bulleted-list"><li style="list-style-type:circle">Você receberá ou perderá seguidores sempre a cada novo dia (se possível ainda) se seu atributo ou nível mudar, sendo sua responsabilidade distribuir os níveis entre seguidores, com você podendo upar até metade do seu nível um ou vários seguidores.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80d9-adeb-f985d29db7b3" class="bulleted-list"><li style="list-style-type:circle">Os seguidores que você cria são narrados pelo mestre, com você sendo responsável por descrever nitidamente a personalidade deles e o que espera deles para o mesmo, tal como contruir e atualizar as fichas dos mesmos.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80a5-9ebb-c4f34d3328b9" class="">Seguidor</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-805b-900d-da36a59fd569" class="bulleted-list"><li style="list-style-type:disc">Requisitos: personagem de Rank 5 ou superior, não possuir a Habilidade Seguidores.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80ef-a90a-cee080bc9fb1" class="bulleted-list"><li style="list-style-type:disc">Descrição: você conseguiu cativar uma pessoa específica ao invés de uma multidão (de tendência igual a sua ou uma categoria de diferença, assim como na Habilidade Seguidores) , esta pessoa pode ter no máximo 10 níveis a menos do que você, e sobe de nível sempre que você subir de nível. Este seu seguidor pode abandonar você se você o maltratar de maneira extrema, mas ele poderá morrer por você se você ordenar ou se o mesmo ver isto ser necessário. Se o mesmo morrer ou sumir, você receberá um novo Seguidor após um mês. Você é totalmente responsável pela construção da ficha e atualização da ficha do seguidor, e ele seguirá fielmente as suas ordens.</li></ul></div><div style="display:contents" dir="auto"><h2 id="270821ef-ea8c-819b-a9be-c9f2f2732fee" class="">Lista de Habilidades: Gerais</h2></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-813a-8c18-c75c3b695575" class="">Treinamento de Corrida Intenso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813d-8144-cd955d2138d3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81cf-859e-f470322d1083" class="bulleted-list"><li style="list-style-type:disc">Descrição: seu deslocamento aumenta em 10m. Essa Habilidade pode ser pega múltiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-818b-9bf8-ef3b7abd2934" class="">Determinação</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8164-87b2-e2a9521dcdba" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81db-a22d-de9bf8649d4c" class="bulleted-list"><li style="list-style-type:disc">Descrição: 1 vez por descanso longo, você não fica inconsciente se seus PVs chegarem a 15% ou menos (você morrerá se seus PVs chegarem a zero, ainda sim). Essa habilidade pode ser pega múltiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81fb-82ed-f1efc90677d8" class="">Parkour</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8168-ae3f-ddfa95825a28" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ae-ba2b-f0ebc70b9c37" class="bulleted-list"><li style="list-style-type:disc">Descrição: você ignora as condições impostas por Terreno Difícil.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81de-a60d-cb12cdf049bd" class="">Honesto</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8125-ad50-e2faa920d3fb" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 Treinamentos em Autocontrole.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-814b-8854-ed08a7d684e9" class="bulleted-list"><li style="list-style-type:disc">Descrição: Você recebe Vantagem em testes sociais se estiver dizendo a verdade, e Desvantagem se estiver mentindo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81a2-8504-d6d07df5ffc5" class="">Mentiroso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81b9-a30d-e2f3c46c6fbc" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 Treinamentos em Atuação.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81bf-b743-fc31f5c10c00" class="bulleted-list"><li style="list-style-type:disc">Descrição: Você recebe Vantagem em testes sociais se estiver Mentindo, e Desvantagem se estiver dizendo a verdade.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8160-9bff-d716bef3b013" class="">Gênio Social</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8131-8b1c-c744f8f1d99b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a Habilidade Mentiroso, Honesto e ser um personagem de Rank 5 ou maior.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-814e-9e6a-c72d6b33bc10" class="bulleted-list"><li style="list-style-type:disc">Descrição: você possuí Vantagem em testes sociais.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-805d-99a6-edc4aafac57a" class="">Projeção de Força</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-80db-809e-fab21c49af6b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Rank 5.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8066-92f1-f00f6db60f05" class="bulleted-list"><li style="list-style-type:disc">Descrição: você consegue utilizar o Atributo Força como base em testes de Influência para Amedrontar, coagir ou impressionar outros personagens e criaturas.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81cf-86db-cb0d99f088a4" class="">Criar Poções, Venenos e Culinários</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81aa-8bf7-f7f50f82cfe0" class="bulleted-list"><li style="list-style-type:disc">Requisitos: 2 treinamentos no Conhecimento Alquimia</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8167-bd36-e34fc6604613" class="bulleted-list"><li style="list-style-type:disc">Descrição: você consegue produzir poções, venenos e receitas culinárias, desde que tenha os ingredientes, estações de trabalho e saiba lançar as magias requeridas pelos mesmos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-816a-b958-f8f28e64aeeb" class="">Criar Armas, Armaduras e Artesanatos</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813c-9c77-e4a1d1e9d025" class="bulleted-list"><li style="list-style-type:disc">Requisitos: 2 treinamentos na Técnica Metalurgia</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f9-b292-d1310ef5ba24" class="bulleted-list"><li style="list-style-type:disc">Descrição: você consegue produzir armas, armaduras, e itens artesanais, desde que tenha os materiais, estações de trabalho e saiba lançar as magias requeridas pelos mesmos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-816a-94ca-d8a2c0cb3109" class="">Montar e Desarmar Armadilhas</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811f-a9e8-c2121346447f" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ter ao menos 2 Treinamentos na Perícia Conhecimento Engenharia.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8151-9f7a-e8192d300687" class="bulleted-list"><li style="list-style-type:disc">Descrição: Você consegue montar ou desarmar armadilhas realizando testes de</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8197-8d3f-ddba3c130e84" class="">Vitalidade Aprimorada</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8106-a0c8-f16665c6f231" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81af-8b18-d4184138ab24" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe 40 PVs adicionais por nível.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80db-9744-de1b71337ba9" class="">Habilidade</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-801c-b759-ca15403a8c22" class="bulleted-list"><li style="list-style-type:disc">Requisitos:</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80d7-b69c-d5339be2cebb" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h2 id="270821ef-ea8c-81f4-a87e-c53f18cf11a4" class="">Lista de Habilidades: Combate</h2></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8112-89e2-f771635b830e" class="">Benção da Morte</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81d0-8ec5-f68e2768ff7e" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ter chegado a uma situação de quase morte real, menos de 15% dos PVs.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8156-8edc-cafc5f525b4b" class="bulleted-list"><li style="list-style-type:disc">Descrição: se você iria receber um Ataque inimigo, Condição, Situação (como cair de um lugar muito alto), ou similar, que iria reduzir seus Pontos de Vida a 0 ou menos, você evita isso completamente, o golpe não o atinge, e você não recebe nenhum efeito do mesmo. Você pode usar essa habilidade 1 vez a cada Descanso Longo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8110-81f1-e1e238893fe5" class="">Benção da Violência</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8135-b440-feb97519d321" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8167-8bdb-e9208f9dbb63" class="bulleted-list"><li style="list-style-type:disc">Descrição: O primeiro ataque quer iria te acertar em um combate é completamente ignorado.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8198-b86e-f91894b74811" class="">Ataque Brutal</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8192-8d71-d35230e1eb46" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 Treinamentos em Corpo-a-corpo.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811b-a77b-cea3c88234bf" class="bulleted-list"><li style="list-style-type:disc">Descrição: para fins de Ataques somente, seu atributo de cálculo base de Técnica Marcial é Força.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81d5-85f1-ccc1e67cd9b5" class="">Ataque Calculado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f2-987b-f80fcddff91d" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 treinamentos em Conhecimentos.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81e3-9135-c7aa2c43fd90" class="bulleted-list"><li style="list-style-type:disc">Descrição: para fins de Ataques somente, seu atributo de cálculo base de Técnica Marcial é Intelecto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-810b-9c91-e6ea47bc93ea" class="">Ataque Encenado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8157-85c4-cb2d33763b1a" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 Treinamentos em Atuação.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8149-8942-ca15eda6e3a2" class="bulleted-list"><li style="list-style-type:disc">Descrição: para fins de Ataques somente, seu atributo de cálculo base de Técnica Marcial é Carisma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81b9-a35e-e91661e3a8dc" class="">Acerto Ardiloso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8137-bf69-d028f6b29584" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 treinamentos em Conhecimentos.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81a3-aa90-c984e53f9929" class="bulleted-list"><li style="list-style-type:disc">Descrição: todas as armas/itens que utilizam Força para calcular dano, utilizam Intelecto nas suas mãos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8160-a810-dc21d213314e" class="">Acerto Preciso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8189-bced-eeda4ae2efcd" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 treinamentos em Técnicas.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8174-8eb6-f78c14473b43" class="bulleted-list"><li style="list-style-type:disc">Descrição: todas as armas/itens que utilizam Força para calcular dano, utilizam Destreza nas suas mãos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8166-9721-edbc5b082d48" class="">Acerto Fintado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8141-a44b-fe43ed3e9d95" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir ao menos 2 treinamentos em Atuação.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c8-88a7-d42f2ed0cd3b" class="bulleted-list"><li style="list-style-type:disc">Descrição: todas as armas/itens que utilizam Força para calcular dano, utilizam Carisma nas suas mãos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8130-aa03-df63196d6d89" class="">Ataque Extra Improvisado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-810f-ba71-df0b105904ac" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8160-966c-d3b00daae37d" class="bulleted-list"><li style="list-style-type:disc">Descrição: você pode realizar um segundo ataque depois do seu primeiro, declare antes de realizar o primeiro, pois tanto este quanto o segundo serão realizados com Desvantagem.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81cc-8a19-f0fa9ae35a2e" class="">Ataque Extra Melhorado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ed-a9a3-d421822c307e" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a Habilidade Ataque Extra Improvisado.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81e6-b538-caa590784640" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como Ataque Extra Improvisado, mas você não precisa declarar ao início do seu primeiro ataque, e, apenas o seu segundo ataque possui Desvantagem.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8152-b659-c16ab5fe743a" class="">Ataque Extra Perfeito</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813c-b6c4-f36f242520c4" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a Habilidade Ataque Melhorado.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f4-8bbc-de5567b9d6be" class="bulleted-list"><li style="list-style-type:disc">Descrição: você possui um segundo ataque, sem as desvantagens de Ataque Extra Melhorado.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8158-92b4-d4eacf76530f" class="">Ataque Furtivo Aprimorado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8162-bf19-f2b5f830ca23" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813b-91aa-cae32a47be12" class="bulleted-list"><li style="list-style-type:disc">Descrição: você não revela a sua posição ao realizar ataques à distância enquanto estiver Furtivo, os inimigos tem o direito de refazer o teste de Percepção com Vantagem após isso.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-810c-bbd5-c07e0df9a71d" class="">Ataque Furtivo Avançado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8123-94d4-ed2f87fdfbb5" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a habilidade Ataque Furtivo Aprimorado, Personagem Rank: 5 ou superior.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811b-97de-f6ce1a317350" class="bulleted-list"><li style="list-style-type:disc">Descrição: você não revela a sua posição ao realizar ataques à distância, e em ataques corpo-a-corpo, contudo, seus inimigos tem direito a realizar um teste de Perceção com Vantagem para ataques corpo-a-corpo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8161-8614-d24d59f5b6ff" class="">Ataque Furtivo Perfeito</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-818e-838f-e660f712b9ee" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Ataque Furtivo Avançado, Personagem de Rank: 8 ou superior</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c8-87b6-fbdcfbbad574" class="bulleted-list"><li style="list-style-type:disc">Descrição: você não revela a sua posição ao atacar se estiver furtivo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-819d-9431-c1b9d891b6e9" class="">Reflexos Superiores</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8178-b660-d77426af273c" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81a6-89fe-d98189a6c954" class="bulleted-list"><li style="list-style-type:disc">Descrição: testes de Reflexos que são feitos para reduzir o dano à metade, reduzem totalmente o dano.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-812e-b861-cc27f327535a" class="">Ataque Destruidor</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-816f-92ce-e0a0147bbf9a" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8120-89f6-eadbe56d54af" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adiciona dois dados a mais de dano do tipo do ataque que você está realizando, em compensação você recebe -4/Rank do seu personagem no acerto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8102-bff7-def8c385875d" class="">Ataque Destruidor Aprimorado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81e5-86ea-f9aef043a155" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Ataque Destruidor.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c5-b368-f2f4687ed4df" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adiciona dois dados a mais de dano do tipo do ataque que você está realizando, em compensação você recebe -2/Rank do seu personagem no acerto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81b6-a8b4-c169f760c456" class="">Ataque Destruidor Perfeito</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c9-8618-c0e70363a77d" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Ataque Destruidor Perfeito.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8156-baf2-ef973610008b" class="bulleted-list"><li style="list-style-type:disc">Descrição: você adiciona dois dados a mais de dano do tipo do ataque que você está realizando.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-811a-b4e6-c50efcbb2de6" class="">Ataque Preciso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81b7-b033-d885ea3591ae" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-815e-a455-d5b2a315a74c" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe um bônus de +2/Rank em testes de acerto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8132-a970-eda473126dcd" class="">Ataque Preciso Aprimorado</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8176-b499-d908cc634ec3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Ataque Preciso.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81d6-8132-f08e5919115f" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe um bônus de +4/Rank em testes de acerto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8132-b42e-c64262ccfac2" class="">Ataque Preciso Superior</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811e-8a11-c3d5bcc420e7" class="bulleted-list"><li style="list-style-type:disc">Requisitos: Ataque Aprimorado.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811f-b2e6-f04c0191ca28" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe um bônus de +6/Rank em testes de acerto.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8141-a682-efaa02774280" class="">Braço Musculoso</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8109-a6e5-f44a808440f3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ser capaz de utilizar a arma de duas mãos escolhida, possuir 5 ou mais pontos em Força.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81b4-8116-e25ac2f51c82" class="bulleted-list"><li style="list-style-type:disc">Descrição: escolha um tipo de arma de duas mãos, que você saiba utilizar como uma katana, espada colossal, rifle de precisão e etc, você consegue a utilizar com uma mão apenas.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8162-a7f4-dc3a12b8ecd6" class="">Ambidestria Improvisada</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-814a-b9f5-fb4954a9d10e" class="bulleted-list"><li style="list-style-type:disc">Requisitos: conseguir usar as armas que empunha somente com uma mão.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81cf-816e-f1ad05b8eeb8" class="bulleted-list"><li style="list-style-type:disc">Descrição: você pode dar dois ataques, um com cada arma que possui, mas possui Desvantagem em ambos os testes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8195-9ae5-f6340c106716" class="">Ambidestria Melhorada</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8158-b93a-efa61b900dc0" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a Habilidade Ambiedestria Improvisada.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811f-90d1-e57d2cefe107" class="bulleted-list"><li style="list-style-type:disc">Descrição: você pode dar dois ataques, um com cada arma que possui, mas possui Desvantagem somente no segundo teste.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8110-9cc6-d89f109f7850" class="">Ambidestria Perfeita</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81c2-8bd2-f99c1304866b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir a Habilidade Ambidestria Melhorada.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ef-b97e-e2eac8c14dc0" class="bulleted-list"><li style="list-style-type:disc">Descrição: você pode dar dois ataques, um com cada arma que possui, sem as desvantagens das Habilidades anteriores.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81de-b2bb-ee4b8699953a" class="">Osso-duro-de-roer</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8198-bca7-d25873e1235a" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir 10 ou mais pontos em vigor.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81e0-89c0-d8aa072f94c3" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe RD 40 para cada Rank que possui.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-80c8-93ad-ffc98fc5012d" class="">Olho-nas-costas</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-80d5-bf06-c5419e139eeb" class="bulleted-list"><li style="list-style-type:disc">Requisitos: possuir 2 treinamentos em Percepção, Intuição, Técnica Marcial ou Corpo-a-Corpo.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-80e9-9a72-c447af1cb76a" class="bulleted-list"><li style="list-style-type:disc">Descrição: você não pode ser flanqueado.</li></ul></div><div style="display:contents" dir="auto"><h2 id="270821ef-ea8c-8174-9737-d6fc1a95be52" class="">Lista de Habilidades: Magia</h2></div><div style="display:contents" dir="auto"><h3 id="29b821ef-ea8c-80c7-888e-e3259e554ac0" class="">Proeficiência Mágica</h3></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-808b-9841-f3d266e9e336" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ter duas proficiências no Atributo escolhido.</li></ul></div><div style="display:contents" dir="auto"><ul id="29b821ef-ea8c-80dd-89c5-e5c9403279ba" class="bulleted-list"><li style="list-style-type:disc">Descrição: Você soma seu atributo escolhido nos testes para conjurar a sua magia, mas não no dano</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-819d-8956-e754b1cd4a3e" class="">Escrever Pergaminhos</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8161-8ed2-ffc86dc5316c" class="bulleted-list"><li style="list-style-type:disc">Requisitos: pertencer a ao menos uma das classes da lista: Mago, Feiticeiro, Clérigo, Bruxo e Bardo.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-819c-9cd3-c62ce650b6de" class="bulleted-list"><li style="list-style-type:disc">Descrição: Você, consumindo uma folha de Papel para Pergaminho, consegue escrever um pergaminho de uma Magia que conheça, o custo da magia em termos de mana é dobrado e demais componentes materiais que a magia necessite ainda devem ser consumidos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-803e-b1e3-c5c550ce53e6" class="">Magias Sem Palavras</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-807f-9061-fd88e4234dce" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8040-8b3b-ef8e41a2e52c" class="bulleted-list"><li style="list-style-type:disc">Descrição: você é capaz de lançar magias sem pronunciar palavras ou emitir barulhos, com isso você pode lançar magias mesmo se estiver silenciado por alguma fonte externa. Esta habilidade adiciona +2 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80aa-adf5-f8dac07babc3" class="">Magias Sem Gestos</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8096-9d7f-fad100bdc293" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-803e-b663-f875843ec327" class="bulleted-list"><li style="list-style-type:disc">Descrição: você é capaz de lançar magias sem usar as mãos ou fazer movimentos corporais, com isso, você pode lançar magias mesmo estando com a movimentação bloqueada. Esta habilidade adiciona +2 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80c8-95f6-fe2d299082cc" class="">Prolongar Magia</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80bb-9d40-caf4ec5ab2fc" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-802d-b01b-f735b2aa41bc" class="bulleted-list"><li style="list-style-type:disc">Descrição: você aumenta a duração da magia em uma categoria, sendo a máxima 1 ano. Esta habilidade adiciona +4 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-8093-9c65-c0ad8dd9c005" class="">Ampliar Alcance da Magia</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80b9-b1f5-feb05e5b8bf6" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80b0-9eff-ebbb132a127a" class="bulleted-list"><li style="list-style-type:disc">Descrição: você aumenta na metade (arredondado para baixo) o alcance da magia, se ela poderia atingir um alvo a 10 m, agora ela atinge a 15 m, e assim por diante, contudo esta Habilidade não aumenta a área de efeito de uma magia, se a mesma possuir 6m de raio, estes continuarão os mesmos. Esta habilidade adiciona +4 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81f8-9ef5-efadae1986e4" class="">Ampliar Área da Magia</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81dd-9380-d3423bd294b3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-811b-8f01-f51034256d89" class="bulleted-list"><li style="list-style-type:disc">Descrição: você aumenta pela metade (arredondado para baixo) a área de efeito de uma magia, como no caso de uma Bola de Fogo de 10 m de efeito, sua área seria agora de 15 m. Esta habilidade adiciona +4 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80df-8f71-fbec9c97e610" class="">Modelar Magia</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8079-b0ff-c636a3b96759" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8005-bb63-e00618e3aa47" class="bulleted-list"><li style="list-style-type:disc">Descrição: você consegue manipular o formato das suas magias, se ela anteria teria formato de Cone, você poderá fazer ela ter formato de Esfera ou Linha, contudo, a distância da área de efeito e alcance da magia permanecem os mesmos. Esta habilidade adiciona +4 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80c1-bacd-f91bf148ff9f" class="">Substituição Elemental Magica</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80ff-8a24-e2744cbe66e3" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum.</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-801f-a6f8-de7dad131606" class="bulleted-list"><li style="list-style-type:disc">Descrição: você consegue manipular violentamente o descritor elemental das suas magias. podendo alternar entre [Fogo], [Gelo], [Som], [Vácuo], [Ácido] ou [Eletricidade], fazendo por exemplo, uma Bola de Fogo ter a estética e o dano de Gelo. Esta habilidade adiciona +8 PMs no custo da Magia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-80eb-834e-d2533ccb442e" class="">Mago Nato</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80fd-8cd3-fcac1325aea5" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ter nascido na República da Magia, a República Élfica de Elvanor, Império de Mirengard, Império de Deminesh ou </li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-8040-9f55-cd8f43eacbb6" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h3 id="305821ef-ea8c-8044-96f8-ed7a561f1f95" class="">Acelerar Magia</h3></div><div style="display:contents" dir="auto"><ul id="305821ef-ea8c-8020-9e21-fe289bf93aaf" class="bulleted-list"><li style="list-style-type:disc">Requisitos: nenhum</li></ul></div><div style="display:contents" dir="auto"><ul id="305821ef-ea8c-801a-8b4b-d7cdd72d3426" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h3 id="29c821ef-ea8c-804b-ac76-fdc599446b79" class="">Habilidade</h3></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-80f7-a9e9-d9652ada498c" class="bulleted-list"><li style="list-style-type:disc">Requisitos:</li></ul></div><div style="display:contents" dir="auto"><ul id="29c821ef-ea8c-801c-9e47-f356cf7ebd6a" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h2 id="270821ef-ea8c-8153-9d1d-e36593aad550" class="">Lista de Habilidades: Divinas</h2></div><div style="display:contents" dir="auto"><p id="2a5821ef-ea8c-80b1-9a4b-cab30fc1bff9" class="">N/T: Todas as <strong>Habilidades de Devoção</strong> concedidas pelos deuses estão sujeitas à conduta do devoto. Caso qualquer requisito seja descumprido, o personagemse torna um Herege por <strong>1d4 meses</strong> e perde, durante esse tempo, <strong>todas as habilidades, magias e benefícios narrativos</strong> relacionados à sua devoção. Durante esse período, o devoto é considerado um <strong>pária aos olhos de seu patrono</strong> e deve, de forma narrativa, durante o tempo de exclusão, buscar o perdão divino para recuperar suas bênçãos.</p></div><div style="display:contents" dir="auto"><h2 id="2e5821ef-ea8c-80b2-a5e0-dedda77799ef" class=""><strong>A Graça Divina</strong></h2></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8049-aa38-c28101d92513" class=""><strong>Tipo:</strong> Habilidade Passiva Universal</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80b8-8d87-c3ab18100eee" class=""><strong>Pré-requisitos:</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="2e5821ef-ea8c-80b6-81bf-e460b2dd85f5" class="numbered-list" start="1"><li>Ser devoto ativo de uma divindade.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e5821ef-ea8c-80dd-979a-e5185224441a" class="numbered-list" start="2"><li>Não ser Herege da própria divindade.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e5821ef-ea8c-80e4-ad69-ce11b2e88b84" class="numbered-list" start="3"><li>Possuir Vínculo Divino positivo com a entidade.</li></ol></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-802a-8165-fa4889e7abe9" class="">Todo personagem que possui devoção verdadeira a uma divindade desenvolve um <strong>Vínculo Divino</strong>, uma ligação metafísica entre sua alma e a vontade do seu deus. Através desse vínculo, a entidade concede <strong>Graças Divinas</strong>, manifestações diretas de poder, sorte, intervenção ou bênção.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-807a-8816-d51b5032684b" class="">A Graça Divina não é um direito, mas uma <strong>recompensa condicional</strong> baseada em devoção, feitos e alinhamento com os ideais da entidade. </p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80af-ada3-db6902d2ee8f" class="">Já o <strong>Vinculo Divino</strong> também define que, se o personagem se tornar um Herege, mesmo que este tenha relizados feitos a fovor da sua divindade, este não poderá receber as graças divinas da mesma.</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-806a-95e7-f88d5c0d68ae"/></div><div style="display:contents" dir="auto"><h2 id="2e5821ef-ea8c-80ce-9cfe-ce69e723af9f" class=""><strong>Feitos e Pontos de Graça (PG)</strong></h2></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8005-93e2-ee228e8b3c67" class="">Os deuses não recompensam ações banais. Apenas feitos que envolvam <strong>risco real, sacrifício, impacto ou mudança significativa</strong> no mundo concedem Pontos de Graça.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80f4-a9bd-f9945d574a5e" class="">Além disso, <strong>o mesmo tipo de feito só pode conceder PG uma vez por arco narrativo</strong>.</p></div><div style="display:contents" dir="ltr"><table id="2e5821ef-ea8c-8081-bc8a-ff5e4a68ff8c" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2e5821ef-ea8c-8045-8d42-f9f4f8761447"><th id="sz?X" class="simple-table-header-color simple-table-header">Categoria</th><th id="ku{B" class="simple-table-header-color simple-table-header">Exemplo</th><th id="Hydn" class="simple-table-header-color simple-table-header">Pontos de Graça</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2e5821ef-ea8c-8011-a361-f1ab95f28134"><td id="sz?X" class=""><strong>Pequeno Feito</strong></td><td id="ku{B" class="">Ajudar necessitados, profanar inimigos do deus, pequenas vitórias simbólicas</td><td id="Hydn" class=""><strong>1 PG</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2e5821ef-ea8c-80e1-af84-cf6909026f9d"><td id="sz?X" class=""><strong>Médio Feito</strong></td><td id="ku{B" class="">Salvar ou destruir dezenas de pessoas, proteger uma vila, corromper uma comunidade</td><td id="Hydn" class=""><strong>10 PG</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2e5821ef-ea8c-80df-89b5-f51018f43fef"><td id="sz?X" class=""><strong>Grande Feito</strong></td><td id="ku{B" class="">Converter muitos fiéis, fundar templos, liderar cruzadas, salvar ou destruir cidades</td><td id="Hydn" class=""><strong>100 PG</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2e5821ef-ea8c-80c3-b935-c1d06f4b957a"><td id="sz?X" class=""><strong>Máximo Feito</strong></td><td id="ku{B" class="">Cumprir um objetivo pessoal direto da divindade</td><td id="Hydn" class=""><strong>1000 PG</strong></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h2 id="2e5821ef-ea8c-803c-813b-e799b8cc4885" class=""><strong>Graças Divinas</strong></h2></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80ec-899c-d5efa6987a52" class="">Os Pontos de Graça podem ser gastos para solicitar uma intervenção divina. A entidade <strong>nunca é obrigada</strong> a conceder uma Graça, mesmo que o personagem tenha PG suficientes.</p></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-803f-a4c1-df91d76751b2" class=""><strong>1. Proteção Divina — 5 PG</strong></h3></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8065-98a2-d77ce1d56e85" class="">Uma intervenção súbita da divindade.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80e4-8de7-c620f7ca0dda" class=""><strong>Efeito:</strong></p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8049-91cd-f4c07d43f95a" class="">Você pode transformar <strong>um teste recém-falho em sucesso</strong> <strong>OU</strong> ignorar <strong>um efeito negativo</strong> que acabou de lhe atingir.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8056-a995-cea0e8fe06bb" class="">Não pode ser declarada antecipadamente. É sempre reativa.</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-8050-bbdf-fc5b790cfd5b"/></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-8041-91f3-f92b015fe516" class=""><strong>2. Prece Atendida — 10 PG</strong></h3></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8027-9666-f4e3b62e303b" class="">Um fluxo temporário do poder divino.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8074-9351-e1550f2427fb" class=""><strong>Efeito:</strong></p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8018-b6e5-fdb89876dc61" class="">Você recebe <strong>+10 pontos temporários de atributos</strong>, distribuídos livremente, por <strong>1 cena ou combate</strong>.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80a2-8279-ea9af48db009" class="">Não acumula com outras Preces Atendidas.</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-80ef-b6c7-e12e2a77d859"/></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80f6-940d-fb979ea43ad2" class=""><strong>3. Oração Atendida — 50 PG</strong></h3></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8054-b867-f2afe6c816ec" class="">Uma súplica prolongada que afeta o mundo.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8058-a66e-c78703a3e613" class="">Após algumas horas de oração, você pode pedir um efeito indireto, como:</p></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80f8-9cd4-d54ab3d7a89d" class="bulleted-list"><li style="list-style-type:disc">Chuvas, secas, clima favorável</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8018-914f-c049c1ee4ed3" class="bulleted-list"><li style="list-style-type:disc">Cura ou enfermidade</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8093-9e1a-fa403d72faea" class="bulleted-list"><li style="list-style-type:disc">Sorte ou azar</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80a1-8c7c-e6ba8f034dbf" class="bulleted-list"><li style="list-style-type:disc">Proteção ou calamidade local</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80ba-bb2f-f031c19f69b2" class="bulleted-list"><li style="list-style-type:disc">Influência sobre grupos ou ambientes</li></ul></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-809f-a7ed-d3dc2fbaefca" class=""><strong>Restrições:</strong></p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80e5-a970-dd572a8099f3" class="">A Oração nunca pode:</p></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80bc-bde3-d83abe253779" class="bulleted-list"><li style="list-style-type:disc">Alterar fichas de personagens diretamente</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80d5-b18d-d95b0d8b6e88" class="bulleted-list"><li style="list-style-type:disc">Criar ou destruir artefatos</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80b6-abba-cb19e5db4b4f" class="bulleted-list"><li style="list-style-type:disc">Matar alvos nomeados</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80b0-980c-d29c647043cb" class="bulleted-list"><li style="list-style-type:disc">Resolver conflitos centrais da campanha</li></ul></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-808d-88eb-f97baee77a62" class="">Ela altera <strong>condições</strong>, não destinos.</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-8092-9f19-d5f5b2d467a2"/></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-808b-a9b4-f05b1e4512ed" class=""><strong>4. Benção Divina — 100 PG</strong></h3></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8026-8708-c8859c70bec0" class="">Uma recompensa direta da divindade.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-80be-89bd-c63a8ac7e1ca" class="">Você recebe <strong>uma das seguintes opções, escolhida pelo deus</strong>:</p></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80a5-aabb-e7463449b207" class="bulleted-list"><li style="list-style-type:disc">Uma habilidade temática</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-806b-adc8-c1f05ba3515c" class="bulleted-list"><li style="list-style-type:disc">Uma magia alinhada ao domínio da entidade</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80dc-89a7-e4183cbba1af" class="bulleted-list"><li style="list-style-type:disc">Um artefato <strong>menor ou intermediário</strong></li></ul></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-8020-8c46-cced6c5ec9f1" class="">Itens lendários, relíquias absolutas ou poderes únicos jamais são concedidos por esta Graça.</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-808c-92dd-c393fff1ec16"/></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80d7-a234-f74aad4df464" class=""><strong>5. Glória Divina — 1000 PG</strong></h3></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-803a-9598-ece8d0ac5c47" class="">A mais poderosa manifestação da Graça.</p></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-809d-915c-ee202c41d6bb" class="">Após um dia inteiro de rituais, missas ou sacrifícios, você pode solicitar um desejo de grande escala, como:</p></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-809a-bbbe-d6a35d1c1dd7" class="bulleted-list"><li style="list-style-type:disc">Prosperidade de um reino</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8024-b1ab-ff94f4c9d8a1" class="bulleted-list"><li style="list-style-type:disc">Anos de colheitas férteis</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80c9-b111-c44ccee8754b" class="bulleted-list"><li style="list-style-type:disc">Proteção divina sobre uma nação</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80d9-88d6-e7ab2432ff49" class="bulleted-list"><li style="list-style-type:disc">Derrota indireta de um grande inimigo</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-802e-970b-c6f1f32f6928" class="bulleted-list"><li style="list-style-type:disc">Um Item Lendário, Habilidade Lendária ou uma Magia Lendária</li></ul></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-801e-8365-d402cf255378" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="2e5821ef-ea8c-8050-9429-e76829775a63"/></div><div style="display:contents" dir="auto"><p id="2e5821ef-ea8c-809d-95ae-f10ac2f716d6" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="29e821ef-ea8c-8049-ac68-d199e52917f8" class="">Devoção A Licht</h3></div><div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-807a-9fc6-d47147109063" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-80ed-ae00-f220d4f08640" class="numbered-list" start="1"><li>Todos os devotos de <strong>Licht</strong> são estritamente proibidos de praticar ou tolerar qualquer ato de violência extrema, seja física ou psicológica, contra criaturas inocentes. Podem envolver-se em desentendimentos ou disputas, mas jamais ferir seriamente, abusar ou causar sofrimento deliberado a tais criaturas.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-804c-ae04-ee807d7d3ac3" class="numbered-list" start="2"><li>Também lhes é vedado mentir em situações sérias. Pequenas brincadeiras, trotes e peças, contudo, não apenas são permitidos, como vistos com bons olhos por Licht, sendo considerados expressões de leveza e alegria. A omissão de informações é aceitável, desde que não se configure como falsidade direta.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-8032-a0e2-f6e9a11ce8cb" class="numbered-list" start="3"><li>É terminantemente proibido quebrar promessas ou juramentos de qualquer natureza.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-8027-aa92-d80015090906" class="numbered-list" start="4"><li>A única exceção à proibição de violência extrema contra inocentes se aplica aos devotos de <strong>Dunkelheit</strong>: embora devam buscar o autocontrole, os seguidores de Licht não são obrigados — e nem devem — manter convivência social harmoniosa ou amistosa com eles.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-808b-a0d3-fb1047c71041" class="numbered-list" start="5"><li>Por fim, todos os devotos de Licht devem possuir uma tendência naturalmente bondosa e são proibidos de praticar, promover ou incitar a devoção, sob qualquer forma, a <strong>Dunkelheit</strong>.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-80d9-9fec-ef331e43b0ed" class="bulleted-list"><li style="list-style-type:disc">A Benção de Licht: os devotos de Licht recebem 1 ponto a mais de atibuto a cada novo nível ímpar que conquistam. </li></ul></div><div style="display:contents" dir="auto"><h3 id="29e821ef-ea8c-8083-946f-f814699c92a5" class="">Devoção A Dunkelheit</h3></div><div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-8074-9188-e31b997309de" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-805f-9eab-ea4ea6b96fc4" class="numbered-list" start="1"><li>Todos os devotos de <strong>Dunkelheit</strong> são proibidos de demonstrar compaixão genuína, misericórdia ou piedade por qualquer criatura. A bondade é vista como fraqueza, e qualquer ato altruísta é considerado traição aos princípios das Trevas.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-8070-8417-de7df60f2bcc" class="numbered-list" start="2"><li>A mentira é não apenas permitida, mas celebrada. A manipulação, o engano e a falsidade são ferramentas sagradas, vistas como demonstrações de inteligência e poder. Devotos de Dunkelheit só devem dizer a verdade diante de outros seguidores mais fortes — e apenas por medo das consequências.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-808a-982f-c247c9fecbd3" class="numbered-list" start="3"><li>A violência é a linguagem natural das Trevas. Devotos podem — e devem — matar, ferir, subjugar ou destruir sempre que isso servir aos próprios interesses ou aos desígnios de Dunkelheit. Nenhuma vida deve ser poupada se houver escolha.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-80c2-9f49-ffd3f850142f" class="numbered-list" start="4"><li>A convivência pacífica só é tolerada quando houver vantagem em mantê-la. Devotos de Dunkelheit podem agir de forma contida apenas perante alguém que desejem enganar, conquistar, manipular ou quando estiverem sob ordens de um devoto superior.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-808e-9b88-cd1b52ed6e88" class="numbered-list" start="5"><li>A devoção a qualquer divindade que não seja <strong>Dunkelheit</strong> é vista como blasfêmia. Os seguidores das Trevas devem odiar e combater, sem trégua, os devotos de <strong>Licht</strong> e <strong>Alta</strong>, considerados os maiores inimigos de seu deus.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a5821ef-ea8c-8044-b7b7-e854880c452d" class="numbered-list" start="6"><li>A tendência dos devotos de Dunkelheit deve ser, obviamente, Maligna.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-807d-a7bf-e0323afef40f" class="bulleted-list"><li style="list-style-type:disc">A Benção de Dunkelheit: os devotos de Dunkelheit recebem uma vez descanso longo (aumentando uma vez a cada novo Rank), uma Vantagem em qualquer teste que os mesmos executem, desde que sejam atos malignos, odiosos e que beneficiem direta ou indiretamente Dunkelheit.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2a5821ef-ea8c-8027-9c7c-cc71a5ac9d39" class="">Devoção A Myrren</h3></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-8075-a7c8-f4a970f5723b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-804b-86fb-e16219a75c4e" class="numbered-list" start="1"><li>Devotos de Myrren devem obrigatoriamente serem de classes conjuradoras, sejam de magias arcanas ou divinas. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8021-9755-fa3d38ccba14" class="numbered-list" start="2"><li>Os devotos de Myrren não podem negar uma demonstração de magia se pedida para fins didaticos, ou, para fins científicos, mas podem negar se estiverem no maio de combates, em situações que vão de maneira contrária a sua tendência, para ferir aliados ou a sí mesmos.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-8031-83ba-db1bfe4a2a66" class="bulleted-list"><li style="list-style-type:disc">A Benção de Myrren: os devotos de Myrren podem aprender magias divinas ou magias arcanas sempre que receberem por classe uma magia, mesmo que esta especifique ser divina ou arcana. </li></ul></div><div style="display:contents" dir="auto"><h3 id="2a5821ef-ea8c-8009-9d1d-f972b153a810" class="">Devoção A Elaya</h3></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-8008-aeba-fa78eacccd19" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8056-99d9-d7c73a26fd2c" class="numbered-list" start="1"><li>Devotos de Elaya devem obrigatoriamente serem Bondosos, não podem em hipótese alguma, nem mesmo que isso custe a sua vida, matar ou permitir pacíficamente a morte outras criaturas, mesmo que malígnas. A deusa da Vida não aceita a morte.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8043-9c7a-f75a73b28426" class="numbered-list" start="2"><li>Devotos de Elaya devem sempre proteger a floresta, a natureza, o meio ambiente, não podem vestir ou consumir nada de fontes não naturais, ou que tenham sido feitas através da devastação ou abuso da natureza.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8013-8d96-daf85e438c18" class="numbered-list" start="3"><li>Devotos de Elaya podem matar outras criaturas apenas para consumo próprio, de terceiros,  para vestimenta, fins medicinais ou de primeira necessidade, jamais para venda, ostentação ou coisas similares.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-8070-8df8-c5e25564e1e0" class="bulleted-list"><li style="list-style-type:disc">A Benção de Elaya: após a morte, devotos de Elaya podem renascer em alguma floresta, ambiente selvagem, montanha ou similar, em 1d4 dias. Devotos de Elaya podem fazer isso um número de vezes na sua existência igual ao seu Rank.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2a5821ef-ea8c-804c-9a9b-ddb542e54181" class="">Devoção A Arcan</h3></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-8006-99e0-e021a48db181" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8004-957a-f2f25a61c75a" class="numbered-list" start="1"><li>Devotos de Arcan devem ser obrigatoriamente de tendência caótica.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-809b-bf33-fff6e0c0c50e" class="numbered-list" start="2"><li>Devotos de Arcan nunca podem ficar mais de um mês em uma cidade, ou outro tipo de local, também nunca são cafagestes natos, não podendo serem fieis a mais de uma pessoa em um relacionamento.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8067-aaa4-d6961be60ed7" class="numbered-list" start="3"><li>Devotos de Arcan nunca podem ficar um dia inteiro sem contar uma Mentira sobre algo importante, pregar uma peça (que realmente deixe alguém de mal humor), ou tentar roubar alguém, com isso podendo ser com desconhecidos ou com conhecidos.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-80d8-8b28-e365f8e98403" class="numbered-list" start="4"><li>Devotos de Arcan são aventureiros natos, e também destemidos (ou insanos), eles não podem ficar uma semana inteira sem se colocar diante de uma situação de vida ou morte, para eles, quanto mais insano melhor.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-80b9-8042-e7b359025ac1" class="bulleted-list"><li style="list-style-type:disc">A Benção de Arcan: todo abençoado de Arcan pode rolar um 20 natural em um teste de perícia, isso duas vez por dia para cada Rank do personagem, contudo, a cada jogada seguinte ao 20, o jogador terá 50% de chance de sofrer uma falha crítica (ele não pode ativar a habilidade até receber através desse meio a falha crítica), com isso valendo para cada vez no dia em que a habilidade foi usada.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2a5821ef-ea8c-80be-98c6-ee320778debf" class="">Devoção A Vharros</h3></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-805e-886e-e049acb8c826" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-80bf-a952-dedac4f23ecf" class="numbered-list" start="1"><li>Os devotos de Vharros não pode serem de tendência Bondosa.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8091-9dd7-edde39e5d6f7" class="numbered-list" start="2"><li>Os devotos de Vharros devem oferecer ao menos uma vez por mês a vida de um indivídio de Rank igual ou maior ao seu, ou, também, se prefirir, oferecer uma quantia de vidas cujo os niveis correspondam a quantidade de vidas do seu rank (Rank 1 = 10, Rank 4 = 40, Rank 10 = 100…). Para consagrar uma ou mais vidas a Vharros, basta gritar, a sua forma, que está consagrando aquela vida a Vharros. Se ele aceitar, o corpo dela se desmanchará em uma fumaça negra, que se discipará instantâneamente. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8075-a96d-d4e07c0744e2" class="numbered-list" start="3"><li>Devotos de Vharros não podem e não simpartizam ou colaboram com devotos de Elaya, Alta ou mesmo de Licht, eles odeiam estes naturalmente por conta das suas filosofias completamente diferentes.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-80aa-8a7e-ee2371a709e7" class="bulleted-list"><li style="list-style-type:disc">A Benção de Vharros: devotos de Vharros conseguem invocar o dobro de mortos vivos quando utilizam magias de necromancia para tal, provenientes de qualquer fonte, seja arcana ou divina. Além disso, magias de necromancia custam 1 PM a menos para eles, com eles ainda recebendo +1 vantagem em todos os testes de perícia contra Mortos Vivos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2a5821ef-ea8c-809f-9682-d45ef513abf3" class="">Devoção A Alta</h3></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-80ba-b03b-cddf237f83f8" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-80c5-85ca-e36a0570318f" class="numbered-list" start="1"><li>Devotos de Alta devem obrigatoriamente serem de tendência bondosa e não serem caóticos. Os dogmas de Alta não aceitam e não se encaixam nos perfis de personalidades Caóticas ou Malignas.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8018-953a-d721952d80f2" class="numbered-list" start="2"><li>Os devotos de Alta não podem negar ajuda aos necessitados (a excessão de devotos de Dunkelheit e de criaturas Malignas, estes são preferíveis de serem ignorados, mas não obrigatórios), mesmo que isso signifique se prejudicar, mas podem se isto prejudicar terceiros. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a6821ef-ea8c-8020-94c6-de0b358f1857" class="numbered-list" start="3"><li>Devotos de Alta devem ativamente combater o maligno, aquilo vindo de Dunkelheit, ou atitudes consideradas bárbaras, estelionatárias, antiéticas ou similares a isso. O medo é permitido, a covardia jamais.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a5821ef-ea8c-805c-967b-d29dcdfd1f14" class="bulleted-list"><li style="list-style-type:disc">A Benção de Alta: os devotos de Alta precisam comer metade que uma pessoal normal precisa, tal como dormir metade do tempo que uma pessoa normal precisa dormir para se manter descanado completamente. Além disso, todas as magias, ataques, ou efeitos mesmo que globais, vindos de fontes Malignas e que afetem negativamente o devoto de Alta, tem 5% de chance de falha para cada Rank do mesmo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2a8821ef-ea8c-8068-bd52-f1b5abfd024c" class="">Devoção A Sagarmāthā</h3></div><div style="display:contents" dir="auto"><ul id="2a8821ef-ea8c-8020-af59-cee7b4d29e24" class="bulleted-list"><li style="list-style-type:disc">Requisitos: <div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-80bd-afd4-e693935e7988" class="numbered-list" start="1"><li>Devotos de Sagarmāthā devem obrigatoriamente serem contra o reino das trevas, o Império de Deminesh.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-80ba-aefc-cf60fec90e64" class="numbered-list" start="2"><li>Os devotos de Sagarmāthā devem ativamente lutar contra o Império de Deminesh, ou, organizações, individuos, criaturas ou proxies ligados ao Império de Deminesh. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-80ec-9d57-c2ff0bf95a26" class="numbered-list" start="3"><li>Devotos de Sagarmāthā não podem manter relações amistosas e proativas com membros do estado da República Élfica de Elvanor, do Império de Mirengard, ou do Reino de Kharzun’Dol, segundo a filosofia e a história guardada nos antigos registros dos devotos, estes reinos subjulgavam humanos da mesma forma que os membros do império de Deminesh.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-8024-adfd-d13036a9409c" class="numbered-list" start="4"><li>Devotos de Sagarmāthā não podem receber ou tolerar receber ordens de qualquer criatura não humana, não devem tolerar a escravidão de qualquer criatura (especialmente humanos), não devem tolerar e nem praticar o racismo sobre qualquer circunstância.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-80af-9819-c64519e3aa4a" class="numbered-list" start="5"><li>Nenhum devoto de Sagarmāthā diante do dever e da execução do objetivo maior de Sagarmāthā deve abaixar sua espada para o inimigo, rendição e diplomacia não são opções válidas contra as criaturas das trevas.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2a8821ef-ea8c-80af-bce0-d33a5cc3ad30" class="numbered-list" start="6"><li>Você só pode se tornar um devoto de Sagarmāthā se a mesma desejar isto.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2a8821ef-ea8c-8036-ab89-d9c66ce140c2" class="bulleted-list"><li style="list-style-type:disc">A Graça de Sagarmāthā: os devotos de Sagarmāthā as vezes são agraciados com sonhos premonitórios, estes sonhos vêm aleatoriamente, porém em maior intenciadade, clareza e frequência com aqueles mais próximos de Sagarmāthā, eles são desde visões do futuro, passado, ou mesmo do presente. Além disso, todas as magias, ataques, ou efeitos mesmo que globais, feitos pelo devoto de Sagarmāthā contra criaturas, estruturas ou objetos ligados ao Império de Deminesh, e ao próprio Deminesh, tem 5% de chance de sucesso absoluto para cada Rank do mesmo.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-819d-987e-f78dc4085d7f" class="">Mais Uma Chace</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8149-af6f-dac0907b39a2" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-812f-a62c-efa91beebcc1" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe um Ponto de Ação a mais por sessão. Essa Habilidade pode ser pega múltiplas vezes.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81cb-875c-f9fdbe9e5bb1" class="">Presença Inspiradora</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-819d-ba16-fafd414f574d" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ser devoto de Alta, ter pego Mais Uma Chance 5 vezes.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f7-8af1-eea2e34ed152" class="bulleted-list"><li style="list-style-type:disc">Descrição: você dá mais um Ponto de Ação para todos os aliados a 30 m de distância. Funciona uma vez por sessão.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8193-b41d-dfed3dc95f6b" class="">Força dos Generosos</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813c-97d2-ebad76ce3e93" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81f5-bff8-fde23d0527c1" class="bulleted-list"><li style="list-style-type:disc">Descrição: você ganha 1 Ponto de Ação a cada 5 Atos Nobres que realizar e perde todos os Atos Nobres que tiver, se fizer um Ato Deplorável. Atos nobres podem ser coisas simples, como ajudar uma criança, salvar um gato em uma árvore, e similares, Ato Deplorável é o oposto disso. Os Atos Nobres duram 1 dia.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80f9-851c-ec6b2e623c9e" class="">Resiliência Antidemoníaca</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80ff-9bf0-c215c7fb004b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8050-b96b-f19fdda9201d" class="bulleted-list"><li style="list-style-type:disc">Descrição: você ganha uma Vantagem em todos os testes mentais que rolar contra fontes ligadas ao Império de <strong>Deminesh</strong> e ao deus <strong>Dunkelheit</strong>.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-8050-9544-ff503e975796" class="">Resiliência Antidemoníaca Amplificada</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80f2-b3a0-f1f4c7fb2ae6" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, possuir a Habilidade Resiliência Antidemoníaca.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-809b-9b1f-fb99e104606d" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como Resiliência Antidemoníaca, mas você recebe um Bônus de 1 ponto para cada Rank de Classe de devoto no teste.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80bf-ad08-ce083a0f00ad" class="">Resiliência Antidemoníaca Máxima</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8021-ba09-e9d3f4d80fcb" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, possuir a Habilidade Resiliência Antidemoníaca Amplificada, Personagem de Rank 7.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8017-9479-f9fef14e22fc" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como Resiliência Antidemoníaca Amplificada, mas no caso de sucesso, você receberá em todos os testes seguintes 25% de chance de sucesso garantido, por um dia (que se somam a quaisquer porcentagens adicionais.)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80ca-b49c-e0a30515b672" class="">Força Antidemoníaca</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8095-9b35-f2b02363f530" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80dd-9f89-d38fb2bb9b4a" class="bulleted-list"><li style="list-style-type:disc">Descrição: você ganha uma Vantagem em todos os testes corporais que rolar contra fontes ligadas ao Império de <strong>Deminesh</strong> e ao deus <strong>Dunkelheit</strong>.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-802b-bf8e-e37fbc1510e9" class="">Força Antidemoníaca Amplificada</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-807d-ae24-c68fd6c6011a" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, possuir a Habilidade Força Antidemoníaca.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80ee-9ade-fb55a52bef63" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como Força Antidemoníaca, mas você recebe um Bônus de 1 ponto para cada Rank de Classe de devoto no teste.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-807b-9dcc-fedbbfbefe81" class="">Força Antidemoníaca Máxima</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8007-8502-e015e869f035" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, possuir a Habilidade Força Antidemoníaca Amplificada, Personagem de Rank 7.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-805d-88b6-c3ffa8fb3926" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como Força Antidemoníaca Amplificada, mas no caso de sucesso, você receberá em todos os testes seguintes 25% de chance de sucesso garantido, por um dia (que se somam a quaisquer porcentagens adicionais.)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80fa-9eb4-c175a7c4512d" class="">Balanceamento da Luz</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80a6-8aa2-ea7ecb33f4a5" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8057-a334-eea8526b7074" class="bulleted-list"><li style="list-style-type:disc">Descrição: acertos críticos vindos de fontes ligadas ao Império de <strong>Deminesh</strong> e ao deus <strong>Dunkelheit </strong>tem 25% de chance de falha contra você.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-8058-a5ec-d129abae9532" class="">Balanceamento da Luz Amplificado</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-807f-b2a6-c8f327196895" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, Balanceamento da Luz, Personagem de Rank 6.</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8042-a83f-f961da03fbaa" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como na Habilidade Balanceamento da Luz, mas o bônus sobe para 50% de chance de falha contra você.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e5821ef-ea8c-80c4-92c2-d6a966689aba" class="">Balanceamento da Luz Máximo</h3></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-80cf-8afc-fa29c4fcd384" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Alta, Balanceamento da Luz Amplificado, Personagem de Rank 9</li></ul></div><div style="display:contents" dir="auto"><ul id="2e5821ef-ea8c-8074-9c4e-f997a186b70b" class="bulleted-list"><li style="list-style-type:disc">Descrição: assim como na Habilidade Balanceamento da Luz Amplificado, mas o bônus sobe para 100% de chance de falha contra você.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81ea-ae5b-c22fae15578b" class="">Visões da Morte</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-819e-971b-d150fb574964" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Sagarmāthā.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-813e-85d6-c714484bb99a" class="bulleted-list"><li style="list-style-type:disc">Descrição: se você está lutando contra adversários de Sagarmāthā, sejam criaturas das do reino das trevas, do Império de Deminesh, da República Élfica de Elvanor, do Império de Mirengard, ou do Reino de Kharzun’Dol, você recebe visões do futuro mostrando a forma que estes  irão tentar te atacar, seja usando ataques à distância, corpo-a-corpo ou mágicos, o que faz com que, em todos os combates contra estes inimigos, você receba um bônus em todos os testes de resistência, sendo este igual a: X / Rank. Sendo X a quantidade de vezes que você pegar essa Habilidade. </li></ul></div><div style="display:contents" dir="auto"><h3 id="2ec821ef-ea8c-8022-83ed-fb13a11f879c" class="">Visões Mortíferas</h3></div><div style="display:contents" dir="auto"><ul id="2ec821ef-ea8c-80d7-9474-ec8cb07f51c0" class="bulleted-list"><li style="list-style-type:disc">Requisitos: devoto de Sagarmāthā.</li></ul></div><div style="display:contents" dir="auto"><ul id="2ec821ef-ea8c-8097-971b-c50a93033077" class="bulleted-list"><li style="list-style-type:disc">Descrição: se você está lutando contra adversários de Sagarmāthā, sejam criaturas das do reino das trevas, do Império de Deminesh, da República Élfica de Elvanor, do Império de Mirengard, ou do Reino de Kharzun’Dol, você recebe visões do futuro mostrando a posição do inimigo ou a forma que o mesmo tentará se esquivar ou proteger, o que faz com que, em todos os combates contra estes inimigos, você receba um bônus em todos os testes de ataque, sejam à distância, corpo-a-corpo, ou mágicos, sendo este igual a: X / Rank. Sendo X a quantidade de vezes que você pegar essa Habilidade.</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-81fc-9f26-ef5a07e9ddb7" class="">Lista de Habilidades: Regionais</h3></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8187-9cb5-d6b6c3feae6d" class="">Habilidade</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8140-ada5-f6686b63e13d" class="bulleted-list"><li style="list-style-type:disc">Requisitos:</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81ad-89f0-d39115ddedc3" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h3 id="305821ef-ea8c-80ff-aa9b-e9f263a28b14" class="">Habilidade</h3></div><div style="display:contents" dir="auto"><ul id="305821ef-ea8c-8006-bc08-f3ef167b50f2" class="bulleted-list"><li style="list-style-type:disc">Requisitos:</li></ul></div><div style="display:contents" dir="auto"><ul id="305821ef-ea8c-8066-889d-eb461e3c5e82" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8125-a5a7-cc03a027cc2f" class="">Lista de Habilidades: Raciais</h3></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-810e-bd1a-c22aea4ea3e5" class="">Armas Naturais</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8195-ad18-c97f8726152b" class="bulleted-list"><li style="list-style-type:disc">Requisitos: ser da Raça Draquênis ou Ferali, ser da Classe Druida, ou possuir a Habilidade Mutação Genética.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8125-b0bf-d0d73f7b3354" class="bulleted-list"><li style="list-style-type:disc">Descrição: você recebe um ataque dos seguintes da lista:<div style="display:contents" dir="auto"><ul id="270821ef-ea8c-81de-81d3-d85b67ba8178" class="bulleted-list"><li style="list-style-type:circle">Ataque de Garra: você causa (4d4+Força) x (10 x Rank) de dano, a RD e PVs das garras é 100 x Rank.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8183-905e-c1e7a753163f" class="bulleted-list"><li style="list-style-type:circle">Ataque de Mordida: você causa (2d4+Força) x (10 x Rank) de dano, a RD e PVs da mordida é 20 x Rank. Você pode fazer um ataque adicional, sem qualquer debuff, com a mordida.</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-810e-8119-c01661308f0f" class="bulleted-list"><li style="list-style-type:circle">Ataque de Cauda: você causa (2d4+Força) x (10 x Rank) de dano, a RD e PVs da cauda é 20 x Rank. Você pode fazer um ataque adicional, sem qualquer debuff, com a cauda.</li></ul></div><div style="display:contents" dir="auto"><ul id="274821ef-ea8c-80bc-b0fe-cf92db88f783" class="bulleted-list"><li style="list-style-type:circle">Mordida Venenosa: (Requer: Ataque de Mordida) você causa (2d4+Força) x (10 x Rank) de dano. O inimigo deve fazer um teste de Fortitude contra seu teste de Corpo-a-corpo. Em caso de falha sua, o alvo recebe apenas o dano normal da mordida. Em caso de sucesso, você rola novamente o dano da mordida, soma ao dano inicial, e esse dano adicional conta como dano [Ácido]. A RD e PVs da mordida é 20 x Rank. Você pode fazer um ataque adicional com a mordida sem qualquer penalidade.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="270821ef-ea8c-8174-ba80-c2ca5b64737e" class="">N/T: Se você destruir sua Arma Natural, pode recuperar ela apenas com magias de cura ou poções, o Descanso Longo não é o bastante para recuperar elas.</p></div><div style="display:contents" dir="auto"><h3 id="270821ef-ea8c-8122-b37c-d9a823d85846" class="">Habilidade</h3></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8110-8fe9-db180cdcf11f" class="bulleted-list"><li style="list-style-type:disc">Requisitos:</li></ul></div><div style="display:contents" dir="auto"><ul id="270821ef-ea8c-8104-bc0e-d35e5896fd49" class="bulleted-list"><li style="list-style-type:disc">Descrição:</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

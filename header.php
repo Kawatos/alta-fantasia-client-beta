@@ -53,7 +53,7 @@ if (!empty($_SESSION['imagem'])) {
 
 
 <body class="h-100" style="height: 100vh;">
-  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+  <nav class="navbar navbar-expand-lg navbar-white bg-white sticky-top shadow-sm">
     <div class="container-fluid">
       <a class="navbar-brand" href="alta.php">
         <h1 class="h3 fw-bold text-primary">

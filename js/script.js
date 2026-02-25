@@ -2110,6 +2110,8 @@ const mensagens = [
     '"O primeiro ninja de Alta Fantasia era um humano, de 2m+ de altura, chamado Tekomo (kkkk), sim, ele era Japonês! Ele foi criado pelo Joaobachi!"',
     '"O primeiro samurai de Alta Fantasia e segundo personagem criado foi o Jeff, o Herói de Sagarmāthā... Ele foi criado pelo Ike!"',
     '"Existiam, na Era das Cinzas, 3 poderosas bruxas, uma delas era Sagarmāthā, a Bruxa do Destino, que criou a profecia da Espada do Herói."',
+    '"Taskir foi o primeiro avatar a morrer em Alta Fantasia, e, seu controlador Peter que vivia na Terra foi o primeiro a se libertar."',
+    '"Veja mais sobre a campanha oficial de Alta Fantasia em: https://alta-fantasia.ct.ws/campanhas.php!"',
     
 ];
 
