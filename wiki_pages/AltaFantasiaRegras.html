@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Alta Fantasia: Regras</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="26f821ef-ea8c-8085-9b3d-e404ce7e289e" class="page sans"><header><h1 class="page-title" dir="auto">Alta Fantasia: Regras</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-81a0-9029-dad078500770" class="">Sistema de Níveis</h2></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-815a-a4fa-f3ea7e1b8a13" class="">Em <em>Alta Fantasia</em>, a progressão dos personagens é feita por Níveis, que determinam o poder, habilidade e capacidades gerais dos heróis.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-814c-9520-eec18d88329a" class=""><em>E, também em Alta Fantasia,</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-814d-8233-d50c3e26fa99" class=""><em>O Nível inicial é 1, e o final é 100.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81c5-bb39-c8c7c0441ced" class=""><em>Ranks são definidos a cada 10 níveis, existem 10 Ranks.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8128-aad2-c45a89c38fa9" class=""><em>Ranks são medidas de poder.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ca-bfb4-c035f6eed131" class=""><em>O seu nível define inicialmente os dados que você rolará.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8199-b2df-c81af1324aa9" class=""><em>Sendo seu nível também quem define inicialmente os pontos que você terá nos seus Atributos.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-815f-a523-f7831f083df2" class=""><em>Já os Atributos servirão como base para as Perícias.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-812b-9e07-ff85f837cccb" class=""><em>Perícias e Atributos podem receber adições e subtrações externas, momentâneas ou permanentes.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81f4-8a5a-cd684aeb765f" class=""><em>Todos os testes que os heróis e os vilões realizam são testes de perícia.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8159-817f-ef9f46db97e2" class=""><em>Isso tudo será valido, exceto se algo disser o contrário.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8180-9e7a-d178a81648b7" class=""><em>Divirta-se!</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-813e-950e-e3e46b19067b" class="">Sobre o sistema de níveis:</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-815a-bf2d-dcfd7f6dde43" class="">A cada intervalo de 10 níveis ou se preferir, a cada novo Rank, os personagens recebem um Bônus de Perícia crescente, representado por dados (d10), e os atributos associados ao nível evoluem em paralelo.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8130-b106-dc885ecd3ea1" class="">Bônus de Perícia por Nível - Sistema de Ranks Alfa 1</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8177-9300-f242a30e5d48" class="">Inicialmente, os jogadores recebem 6 pontos para distribuir entre os Atributos. E por estarem também no nível 1, ganham mais 1 ponto, totalizando 7 pontos disponíveis.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81fd-a081-e03b19ad2f48" class="">Veja a tabela abaixo:</p></div><div style="display:contents" dir="ltr"><table id="26f821ef-ea8c-8184-ba96-cf5af2e4f33f" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8183-8249-e15ee996eeef"><th id="lO=_" class="simple-table-header-color simple-table-header">Nível (N) / Rank (R)</th><th id="Odld" class="simple-table-header-color simple-table-header">Bônus Base do Dado: +1d10/R</th><th id="t:UB" class="simple-table-header-color simple-table-header">Bônus Atributo: +1/N</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-819a-ac5c-c6210749903b"><th id="lO=_" class="simple-table-header-color simple-table-header">1 - 10 = Rank 1</th><td id="Odld" class="">1d10</td><td id="t:UB" class="">1 a 10</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8155-a029-ca3ad02fd8e7"><th id="lO=_" class="simple-table-header-color simple-table-header">11 - 20 = Rank 2</th><td id="Odld" class="">2d10</td><td id="t:UB" class="">11 a 20</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81aa-b384-d9cc2e296fc2"><th id="lO=_" class="simple-table-header-color simple-table-header">21 - 30 = Rank 3</th><td id="Odld" class="">3d10</td><td id="t:UB" class="">21 a 30</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81c4-8c58-cf549d9089e9"><th id="lO=_" class="simple-table-header-color simple-table-header">31 - 40 = Rank 4</th><td id="Odld" class="">4d10</td><td id="t:UB" class="">31 a 40</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81ab-a1d1-e6059637d7c9"><th id="lO=_" class="simple-table-header-color simple-table-header">41 - 50 = Rank 5</th><td id="Odld" class="">5d10</td><td id="t:UB" class="">41 a 50</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-815d-9dd0-eb1dcca19f06"><th id="lO=_" class="simple-table-header-color simple-table-header">51 - 60 = Rank 6</th><td id="Odld" class="">6d10</td><td id="t:UB" class="">51 a 60</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8149-9435-dc3d9b17ab07"><th id="lO=_" class="simple-table-header-color simple-table-header">61 - 70 = Rank 7</th><td id="Odld" class="">7d10</td><td id="t:UB" class="">61 a 70</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81da-ac2f-deba9db2d48c"><th id="lO=_" class="simple-table-header-color simple-table-header">71 - 80 = Rank 8</th><td id="Odld" class="">8d10</td><td id="t:UB" class="">71 a 80</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81db-8a23-e24183f35713"><th id="lO=_" class="simple-table-header-color simple-table-header">81 - 90 = Rank 9</th><td id="Odld" class="">9d10</td><td id="t:UB" class="">81 a 90</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-816c-84e5-c3be2508805a"><th id="lO=_" class="simple-table-header-color simple-table-header">91 - 100 = Rank 10</th><td id="Odld" class="">10d10</td><td id="t:UB" class="">91 a 100</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81c2-87ff-db85488222c4" class="">Atributos</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ec-85fe-cf0d855be8de" class="">Os atributos são divididos em dois grupos principais:</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81dd-b939-f40e861d3a1a" class="">Corporais</h3></div><div style="display:contents" dir="ltr"><table id="26f821ef-ea8c-81c0-9c1e-dbabdf34938d" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8158-b0c0-f76e0bbfcc64"><th id="wKmB" class="simple-table-header-color simple-table-header">Vigor</th><th id="qb[O" class="simple-table-header-color simple-table-header">Resistência física, saúde e energia vital.</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8175-9109-d619004643eb"><th id="wKmB" class="simple-table-header-color simple-table-header">Destreza</th><td id="qb[O" class="">Agilidade, reflexos e precisão.</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-818e-aabb-d4b9359805ae"><th id="wKmB" class="simple-table-header-color simple-table-header">Força</th><td id="qb[O" class="">Capacidade de levantar, arremessar e causar dano físico.</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8190-ad52-f2e4647578a6" class="">Mentais</h3></div><div style="display:contents" dir="ltr"><table id="26f821ef-ea8c-8146-ba7f-eb0e00e49f67" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8131-b9e4-ed322e7ab754"><th id="}jso" class="simple-table-header-color simple-table-header">Espirito</th><th id="\zQ&gt;" class="simple-table-header-color simple-table-header">Autocontrole, resiliência emocional, e presença</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81d9-8376-f2ed93420046"><th id="}jso" class="simple-table-header-color simple-table-header">Intelecto</th><td id="\zQ&gt;" class="">Inteligência, lógica e conhecimento.</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8166-a46d-cc53f9db1d25"><th id="}jso" class="simple-table-header-color simple-table-header">Carisma</th><td id="\zQ&gt;" class="">Desempenho social, persuasão e estética.</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8145-81d1-e3e5b2d449e6" class="">A evolução dos atributos acompanha os níveis do personagem. Por exemplo, um personagem de nível 12 poderá ter um atributo na faixa de 11 a 20, conforme a tabela.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ee-8423-d668234b6c62" class=""><em>E não, não existem limites máximos aplicáveis em um único atributo.</em></p></div><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-8190-b524-dd391543da3c" class="">Perícias</h2></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8192-8691-f90d24b258a2" class="">Por padrão, todos os personagens ganham 1 Treinamento em Perícia de qualquer tipo, tanto corporal quanto mental, a cada 20 níveis (contando a partir do primeiro), o que se soma com as definidas por suas classes. Descrição: Seu personagem tem para todos os requisitos Treinamento na perícia e um bônus de +2/Rank na mesma, somado ao valor de Treinamento nesta que você já possui. </p></div><div style="display:contents" dir="auto"><p id="2cd821ef-ea8c-80cc-8e64-e663a742d8e6" class="">Por exemplo: Um personagem de Rank 4, que possui Vigor igual a 8, e possui 4 treinamentos em Fortitude, terá um bônus total nessa perícia de 20 pontos.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8160-9588-c82a05bfe33e" class="">Corporais</h3></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81e2-bd0d-e5770b15d8c7" class="">Tenacidade — Vigor</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8199-9d78-d24eff21f63d" class="">Teste de resistência muscular prolongada.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81b2-bf8d-e95f251694e4" class="bulleted-list"><li style="list-style-type:disc">Quando usar: manter esforço físico contínuo por longos períodos.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a8-ba92-c520a46ed022" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8106-b485-e044b62f12b8" class="bulleted-list"><li style="list-style-type:circle">Caminhar dias seguidos sem descanso.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8138-a27c-dec8333d07d2" class="bulleted-list"><li style="list-style-type:circle">Subir lentamente um penhasco íngreme.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8102-baa1-cc57e450c1d1" class="bulleted-list"><li style="list-style-type:circle">Manter braçadas constantes ao nadar contra correnteza</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8126-b528-c4293cde7b79" class="">Fortitude — Vigor</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8105-8cd2-e7b5de487b80" class="">Teste de resistência a danos e agentes nocivos.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81be-bca9-dad507e9cb1a" class="bulleted-list"><li style="list-style-type:disc">Quando usar: suportar ferimentos, venenos, doenças ou elementos hostis.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c2-b76a-f11a61755ae0" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812b-8183-dd998a911418" class="bulleted-list"><li style="list-style-type:circle">Resistir ao sangramento e choque após levar uma facada.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8146-9359-eb14539c5739" class="bulleted-list"><li style="list-style-type:circle">Suportar os efeitos de um gás alucinógeno.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c2-a025-d33b0abb0ea4" class="bulleted-list"><li style="list-style-type:circle">Aguentar dias em ambiente tóxico (caverna fétida, áreas contaminadas, etc.).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81d1-ad37-cf9c91ef8685" class="">Técnica (possuí variantes) — Destreza</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8110-bf23-cd4c8e352cb6" class="">Teste de habilidade motora especializada.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817d-a357-da7d69eec138" class="bulleted-list"><li style="list-style-type:disc">Quando usar: executar ações que exigem prática e precisão treinada.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8125-a056-cbdc764be49d" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c9-bc5f-c00b148dc965" class="bulleted-list"><li style="list-style-type:circle">Atirar flechas com mira perfeita.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e9-b3b0-c7dd0de674b1" class="bulleted-list"><li style="list-style-type:circle">Lacerar um alvo usando uma espada.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8134-a2d1-d98e27d76b88" class="bulleted-list"><li style="list-style-type:circle">Tocar um instrumento musical ou montar um mecanismo delicado</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8159-b3e5-f977c73f85e9" class="">Reflexo — Destreza</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81e1-be19-e552d9d134f2" class="">Teste de reação imediata a estímulos repentinos.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8157-af7d-f1bbc87e9505" class="bulleted-list"><li style="list-style-type:disc">Quando usar: reagir a perigos ou acontecimentos inesperados em frações de segundo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81dc-9d13-eb9d612f89ff" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8171-bbd1-c58d1c939c03" class="bulleted-list"><li style="list-style-type:circle">Desviar de uma lâmina que vem em sua direção.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-814d-be1a-dbbc4a551ce7" class="bulleted-list"><li style="list-style-type:circle">Pegar um objeto que está caindo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ff-a1fa-e8cd07d5e84b" class="bulleted-list"><li style="list-style-type:circle">Saltar para o lado ao ver uma pedra gigante rolando na sua direção.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-816c-badd-f58ebbafdaf6" class="">Controle — Destreza</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81df-aa9b-e15a56643e46" class="">Teste de equilíbrio e precisão corporal sob estresse.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8154-9954-fc7f9c48580f" class="bulleted-list"><li style="list-style-type:disc">Quando usar: mover‑se com cuidado e exatidão, especialmente em espaços restritos ou sob pressão.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8186-9885-e67476563dd8" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8183-a0f0-f709ef4b4f7c" class="bulleted-list"><li style="list-style-type:circle">Esgueirar‑se silenciosamente entre guardas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a8-90af-c40bea952d54" class="bulleted-list"><li style="list-style-type:circle">Andar sobre um tronco estreito sem perder o equilíbrio.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811f-9134-dc4a487c8297" class="bulleted-list"><li style="list-style-type:circle">Manter a postura estável ao atravessar uma ponte estreita e oscilante.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-816f-bc13-c1df81305474" class="">Atletismo — Força</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8174-8587-e81e1f081ff3" class="">Teste de explosão de força em curtos esforços.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812c-ba6b-ef4b7df5edb1" class="bulleted-list"><li style="list-style-type:disc">Quando usar: aplicar grande potência muscular rapidamente.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a5-8ebb-d8a84d79fcb8" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816d-9386-fb444eb582f5" class="bulleted-list"><li style="list-style-type:circle">Empurrar um veículo atolado.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811f-84db-cf1a360f6843" class="bulleted-list"><li style="list-style-type:circle">Fazer um salto poderoso para alcançar um beiral.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8137-91bc-e242a96c05a5" class="bulleted-list"><li style="list-style-type:circle">Carregar um objeto muito pesado por alguns metros.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81b0-b01f-e6f0e80adcd9" class="">Corpo-a-corpo — Força</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8113-986e-faca8d5f2df6" class="">Teste de combate e grappling físico.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8191-9dd3-ff4322f07bab" class="bulleted-list"><li style="list-style-type:disc">Quando usar: dominar ou resistir a agarrões, imobilizações e golpes corpo a corpo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8146-a2af-e9c16cd2a456" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e2-b6e4-e36fe9f78556" class="bulleted-list"><li style="list-style-type:circle">Agarrar o braço de um inimigo para imobilizá‑lo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c5-a0a3-fdec1408e4cf" class="bulleted-list"><li style="list-style-type:circle">Romper uma chave de braço.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8101-bc77-efc75bcc95ed" class="bulleted-list"><li style="list-style-type:circle">Acertar ataques marciais certeiros em um adversário.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8196-a451-de3b1ba79156" class="">Mentais</h3></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8181-a143-d1ae484bdaa6" class="">Autocontrole — Espírito</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8103-ae27-c5a1b048d0e7" class="">Teste de resistência instantâneo a influências externas e a surtos de emoção.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8135-a217-cc82263fed37" class="bulleted-list"><li style="list-style-type:disc">Quando usar: refrear impulsos, suportar coerção mental ou compulsões.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8195-92d1-fb9a3d2c3322" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-810c-bfed-fcc7136662b8" class="bulleted-list"><li style="list-style-type:circle">Dizer “não” a um manipulador que tenta forçá-lo a trair um amigo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8162-b0cc-d36013faabfb" class="bulleted-list"><li style="list-style-type:circle">Suportar uma ilusão que tenta despertar o terror.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81ae-afb8-e43a6adc37df" class="">Resiliência — Espírito</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-816e-89f2-d9ede7eaf47f" class="">Teste de recuperação emocional após choques prolongados ou traumas.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8103-9ae2-eee611d7e912" class="bulleted-list"><li style="list-style-type:disc">Quando usar: recompor-se após perdas, choques ou traumas severos; manter a sanidade em cenários de sofrimento contínuo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-814f-8fd6-d27e62d37e3e" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e1-9067-c14116128a49" class="bulleted-list"><li style="list-style-type:circle">Voltar ao equilíbrio mental após assistir à destruição de seu grupo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a9-8142-e1baf2d9de57" class="bulleted-list"><li style="list-style-type:circle">Superar o luto por um familiar sem entrar em depressão profunda.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e6-b380-c5d9a1867444" class="bulleted-list"><li style="list-style-type:circle">Manter-se funcional após dias sendo torturado física ou psicologicamente.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-819e-8b57-cc083db4b852" class="">Conhecimento (possuí variantes) — Intelecto</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8164-a7d9-e81fe3400011" class="">Teste de análise e domínio técnico em um campo específico.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8188-a4c2-eeb1370010f3" class="bulleted-list"><li style="list-style-type:disc">Quando usar: criação, construção, e pesquisa de magias, além da resolução de problemas complexos que exigem estudo prévio.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8145-879b-c64c38f5a08c" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8191-9150-f8a696e480eb" class="bulleted-list"><li style="list-style-type:circle">Decifrar um manuscrito mágico.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813d-93d0-ffdd7ee66d21" class="bulleted-list"><li style="list-style-type:circle">Reconstituir um motor antigo para fazer ele funcionar.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8144-913e-e1469ca786f1" class="bulleted-list"><li style="list-style-type:circle">Elaborar uma estratégia de batalha baseada em táticas militares.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8121-b7e4-f7ca5b11b16f" class="">Intuição — Intelecto</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81e8-a867-f738028d83aa" class="">Teste de pressentimentos e experiência inconsciente.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f0-a799-ff744116ad98" class="bulleted-list"><li style="list-style-type:disc">Quando usar: perceber perigo antes que ele aconteça, captar mentiras sutis ou ter “um palpite” certeiro.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-819a-8c3b-c7e78c0cc5a9" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ee-9df9-d3c7ec514d3f" class="bulleted-list"><li style="list-style-type:circle">Sentir que um aliado está mentindo mesmo sem provas objetivas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81b1-9e58-f62fe4777977" class="bulleted-list"><li style="list-style-type:circle">Perceber que uma ponte aparentemente segura vai desabar.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813c-b0dd-d62a85eaca74" class="bulleted-list"><li style="list-style-type:circle">Conseguir ter um pressentimento a respeito do resultado de uma negociação.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81a8-801d-d80778fac317" class="">Percepção — Intelecto</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81a3-a480-c7de510256a1" class="">Teste de atenção aos cinco sentidos e detalhes do ambiente.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e4-a764-e18fae9988fe" class="bulleted-list"><li style="list-style-type:disc">Quando usar: notar pistas físicas, sons, cheiros, cores, texturas ou pessoas escondidas que possam passar despercebidas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ac-8cea-cdd580a37b1e" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8192-8207-f8e13e64db12" class="bulleted-list"><li style="list-style-type:circle">Ouvir passos leves atrás de você numa sala silenciosa.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816b-99c9-c425a83d4582" class="bulleted-list"><li style="list-style-type:circle">Notar um filete de fumaça saindo por debaixo da porta.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e8-812a-f04e33db17cd" class="bulleted-list"><li style="list-style-type:circle">Perceber uma mão procurando algo nos bolsos da usa mochila.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81dc-ae9f-c1eaae6ae188" class="">Influência — Carisma</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8148-b86a-ef87b6c9a710" class="">Teste influencia social, através do carisma e eloquência e experiência em lidar com pessoas e situações sociais.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8135-b87a-cd30909ff709" class="bulleted-list"><li style="list-style-type:disc">Quando usar: convencer, provocar sentimentos ou movimentar plateias pelo poder de sua presença e palavras.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e0-ab63-d25cb77cfa29" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-819c-abfe-e9f8b8ee89a5" class="bulleted-list"><li style="list-style-type:circle">Inspirar uma tropa a lutar contra probabilidades impossíveis.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d6-9497-c696e969a687" class="bulleted-list"><li style="list-style-type:circle">Enfurecer um inimigo para que ele aja impetuosamente.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e4-ad6e-ecddb6c5a5b4" class="bulleted-list"><li style="list-style-type:circle">Convencer um mercador relutante a dar desconto usando charme e argumentos.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-819e-a571-cd3bc0f523c9" class="">Atuação — Carisma</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-810c-9c7a-c5f296d6a80c" class="">Teste de performance, fingimento ou disfarce emocional para enganar observadores.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-810c-9327-ebb675cd6676" class="bulleted-list"><li style="list-style-type:disc">Quando usar: simular estados de espírito, ocultar intenções verdadeiras ou imitar comportamentos alheios.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8129-8d9c-eada8ddd68ed" class="bulleted-list"><li style="list-style-type:disc">Exemplos:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-815b-888c-d93446375298" class="bulleted-list"><li style="list-style-type:circle">Fingir estar gravemente ferido para distrair guardas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811d-811d-f58b997184b2" class="bulleted-list"><li style="list-style-type:circle">Imitar o sotaque de um nobre para entrar disfarçado numa festa.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812d-894c-d58b1189d183" class="bulleted-list"><li style="list-style-type:circle">Chorar convincentemente para ganhar a simpatia de alguém.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81e7-86e3-dba2337354e9" class="">Variações</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8154-93dc-ee570f8bc4ae" class="">Confira abaixo as variações de Conhecimentos e Técnicas, duas perícias que se subdividem em especializações. Sempre que um teste envolvendo uma dessas perícias for realizado, sua variação específica será indicada. Por isso, ao escolher uma ou mais Técnicas, ou Conhecimentos, o jogador seleciona diretamente as variações correspondentes de cada uma dessas perícias.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-811d-ae33-e294387b3513" class="">Conhecimentos:</h3></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816a-abaf-db7d95b360fb" class="bulleted-list"><li style="list-style-type:disc"><em>Arcano – Entendimento de magia arcana, criaturas arcanas, artefatos e inscrições mágicas.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8188-84f7-d362b7773735" class="bulleted-list"><li style="list-style-type:disc"><em>Religioso – Saberes sobre magia divina, divindades, cultos, dogmas e magia divina.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ae-a64b-dbb56d8cf4ed" class="bulleted-list"><li style="list-style-type:disc"><em>Histórico – Compreensão de fatos antigos, eventos marcantes e tradições.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-818e-a9bd-d6f706cce846" class="bulleted-list"><li style="list-style-type:disc"><em>Natureza – Saber lidar com plantas, animais, sobrevivência, clima e ambiente natural.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-810b-8454-c34bd29c08ba" class="bulleted-list"><li style="list-style-type:disc"><em>Engenharia – Projetos de armas, estruturas e mecanismos.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81be-885e-ccd904737e79" class="bulleted-list"><li style="list-style-type:disc"><em>Alquimia – Conhecimento sobre substâncias, poções, efeitos químicos, Física, Matemática.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81bc-9bc8-c5bfc428b222" class="bulleted-list"><li style="list-style-type:disc"><em>Navegação – Cartografia, rotas terrestres e marítimas, geografia, clima.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f9-9ca7-cc14918c0616" class="bulleted-list"><li style="list-style-type:disc"><em>Linguístico – Conhecimento sobre Idiomas, dialetos e gírias de outras regiões.</em></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-818c-b88f-c2716189b66b" class="">Técnicas:</h3></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a7-8f7d-c5f4a5f800c5" class="bulleted-list"><li style="list-style-type:disc"><em>Esgrima – Habilidade com armas de corte e precisão (espadas, adagas).</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e1-911d-e51eb88ce816" class="bulleted-list"><li style="list-style-type:disc"><em>Pontaria – Uso de armas à distância (arcos, bestas, armas de fogo).</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81cd-981b-fd3d6c4c1253" class="bulleted-list"><li style="list-style-type:disc"><em>Marcial – Uso de armas brutas ou improvisadas (machados, clavas, porretes).</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c7-a1b0-d134d9d1cd4d" class="bulleted-list"><li style="list-style-type:disc"><em>Metalurgia – Manipulação prática de metais (forjar, moldar, fundir).</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813c-a3e2-e1f1cb3463be" class="bulleted-list"><li style="list-style-type:disc"><em>Artesanato – Criação de objetos manuais: entalhes, costura, escultura, culinária.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c7-b1d6-d4204094eb8c" class="bulleted-list"><li style="list-style-type:disc"><em>Ladinagem – Abertura de fechaduras, desarme/criação de armadilhas, truques manuais.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813f-9234-d766442c0ddf" class="bulleted-list"><li style="list-style-type:disc"><em>Instrumentos – Operação precisa de instrumentos musicais ou mecânicos, como pequenas máquinas.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813e-bd68-ca35c9c2318f" class="bulleted-list"><li style="list-style-type:disc"><em>Pilotagem – Controle de montarias, veículos ou máquinas complexas.</em></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8189-b8b9-c2521cfd2301" class="">Utilizando as Perícias</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ac-adb1-fbe854cc5400" class="">As perícias podem ser utilizadas de infinitas maneiras, em infinitos cenários e ocasiões, isto fica a caráter da criatividade do jogador, e claro, da paciência do mestre.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81a6-b4bd-ef2a2140cb2c" class="">Aqui abaixo vemos alguns casos de uso ilustrativos das perícias corporais:</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81cf-adf0-f9d3bd6c9ce1" class=""><em>Ataque de espada</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e2-84c7-f2d9f1c998a0" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Técnica Esgrima.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c3-85fd-c5a5c56ba4f9" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Reflexo (tentar desviar ou bloquear o golpe no último instante)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8118-9062-e256766fe2d9" class="bulleted-list"><li style="list-style-type:disc">Uso típico: o jogador rola Técnica vs o monstro rola Reflexo; quem obtiver maior resultado realiza a ação.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ac-bc5a-e0a251cd209d" class=""><em>Disparo de arma leve</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8174-9c42-c3d1ad256263" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Técnica Pontaria.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a7-87af-eee162350d17" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Reflexos (impedir ser atingido)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817a-9db1-da959e60473d" class="bulleted-list"><li style="list-style-type:disc">Uso típico: Técnica do atirador contra Controle do alvo — um tiro preciso contra a capacidade de desviar.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b9-b9b9-cfec07b41174" class=""><em>Investida corporal</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-813a-a55c-fff01532597e" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Corpo-a-corpo (Utilizar a habilidade marcial e força para derrubar)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8120-b0da-cc2d81959cd1" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Corpo‑a‑corpo (resistir ao agarrão e imobilização)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ef-b768-cbf5872293d8" class="bulleted-list"><li style="list-style-type:disc">Uso típico: quem tenta derrubar rola Atletismo; quem está sendo derrubado rola Corpo‑a‑corpo para evitar ser imobilizado.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-811e-86c4-d8afba5b17a9" class=""><em>Manobra em terreno instável</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ec-940d-df5301932a4d" class="bulleted-list"><li style="list-style-type:disc">Quem ataca (O MUNDO) usa: CD (Classe de Dificuldade)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8144-b650-fd9297482dac" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Atletismo (manter equilíbrio e vigor ao se mover exaustivamente)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a6-954a-d9223333a287" class="bulleted-list"><li style="list-style-type:disc">Uso típico: o mestre impõe uma CD para o desafio, quem tenta vencer o desafio usa Atletismo para vencer ele.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8122-b8fc-ce10001e2fde" class=""><em>Resistir a dano de armadilha</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81aa-a4ef-c4917009eb51" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa (a armadilha): Técnica Ladinagem.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81cb-a1e9-f8ed48d79c23" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Fortitude (suportar perfurações, venenos ou contusões)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8111-9c8d-f97db7f50963" class="bulleted-list"><li style="list-style-type:disc">Uso típico: a armadilha é disparada, e o Mestre realiza um teste de <em>Ladinagem</em> em nome do mecanismo, ou, outro personagem que criou já impõe a CD na mesma, quem ativa a armadilha escolhe ou Reflexos para evitá-la, ou Fortitude para evitar ficar com as condições impostas da mesma.</li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-816a-9b56-fc8a38b03e43" class="">E da mesma maneira vemos com as perícias mentais:</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8146-9197-f77d631ec216" class=""><em>Disputa de Ideias (Debate ou Conversão de Opinião)</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f1-9cfe-f284c13bda74" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Influência (usar argumentos, carisma e lógica para convencer ou manipular</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8160-b88d-e505fcc37228" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Autocontrole (manter-se firme em suas crenças ou princípios)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8164-8d28-f6c527a564e9" class="bulleted-list"><li style="list-style-type:disc">Uso típico: Personagem rola Influência para tentar alterar a decisão ou visão de outro personagem; o alvo rola Autocontrole para resistir à persuasão.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81eb-bc50-f54fdb3e63e9" class=""><em>Interrogatório ou Blefe Emocional</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8111-a54c-d11b0210faaa" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Atuação (finge emoções, mente convincentemente)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8197-bca8-db7fc8477b66" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Intuição (percebe sinais sutis de mentira, desconfia do tom ou do olhar)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817d-8eb9-ffd12a863b05" class="bulleted-list"><li style="list-style-type:disc">Uso típico: Atuação é usada para tentar enganar ou simular emoção; intuição do outro lado tenta perceber incongruências.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81bb-a77f-ca8623ae69a4" class=""><em>Manipulação Inspiradora ou Intimidadora</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8121-bdd8-fb2d4120ea82" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Influência (inspirar, motivar, amedrontar ou acalmar com palavras)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8187-8c94-cd5c156794c7" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Resiliência (manter o estado emocional, não se deixar afetar por intimidação ou comoção)<div style="display:contents" dir="auto"><p id="26f821ef-ea8c-818d-99bb-de36be08f249" class="">Uso típico: Influência é usada para tentar gerar reação emocional; resiliência é testada para manter o controle emocional.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-811f-91e0-d678703098ce" class=""><em>Análise Lógica vs. Instinto</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8138-b20c-f24633bc9f62" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Conhecimento Alquimia.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8109-a198-e9be6f5a3fc3" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Intuição (perceber padrões não óbvios, seguir o “sentimento”)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81b4-928b-d3b278cd826a" class="bulleted-list"><li style="list-style-type:disc">Uso típico: um jogador pode sugerir uma solução teórica com Conhecimento, enquanto outra tenta chegar a um palpite confiável com Intuição — o mestre pode permitir ambos e premiar o mais eficaz.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-810c-9e80-efb74851b624" class=""><em>Detecção de Armadilhas Mentais ou Truques Visuais</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8127-ac3d-e670bdd1f61f" class="bulleted-list"><li style="list-style-type:disc">Quem ataca usa: Atuação (simular uma situação convincente)<div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8109-b393-dd12fd246543" class="">Quem defende usa: Percepção (para notar algo estranho nos detalhes sensoriais)</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81dc-9f3d-c9c193fd474a" class="bulleted-list"><li style="list-style-type:disc">Uso típico: um personagem tenta simular um cenário, enquanto outro precisa notar inconsistências perceptivas para escapar do truque.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81a2-b4c1-d3ab23589b9e" class=""><em>Vencer a Exaustão Emocional</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81fa-8e05-ee26bdf19eeb" class="bulleted-list"><li style="list-style-type:disc">Quem ataca (o mundo) usa: CD (Classe de Dificuldade imposta por circunstâncias traumáticas)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8140-8f73-c54f56d55957" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Resiliência (manter-se emocionalmente funcional mesmo após eventos intensos)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8100-b541-d7e7d3312e38" class="bulleted-list"><li style="list-style-type:disc">Uso típico: O mestre determina uma CD emocional após uma perda ou evento estressante; os jogadores rolam Resiliência para seguir em frente sem penalidades.</li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-814e-820a-c389a311fb89" class=""><em>Persistência em Meio à Adversidade</em></p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c6-bc7b-f037e5f89de3" class="bulleted-list"><li style="list-style-type:disc">Quem ataca (o mundo) usa: CD (desafio constante e cumulativo)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ef-ac33-cf7f9d607f4b" class="bulleted-list"><li style="list-style-type:disc">Quem defende usa: Autocontrole (levantar todos os dias para seguir uma missão, suportar pressão constante)</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a9-9220-fcaaaf86a03b" class="bulleted-list"><li style="list-style-type:disc">Uso típico: testes contínuos de Autocontrole para manter o foco, rotina e compromisso frente ao desgaste mental.</li></ul></div><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-8185-8bad-cbc91270e40a" class="">Pontos de Vida, Mana, Descanso, Combate e Testes</h2></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8113-91ad-c7c31200b9a2" class="">De maneira extremamente simplificada, o combate pode ser interpretado como qualquer tipo de confrontação de forças que possa causar dano a personagens, sejam eles os heróis ou os vilões.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8193-b755-e80fb29429b7" class="">Os Pontos de Vida (PVs)</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8127-bec3-e8acea0c45e5" class="">Resumidamente, os pontos de vida ou PVs são um atributo presente em todos os personagens, eles representam a força vital das criaturas e a integridade dos objetos inanimados.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-811f-ba30-f64ba68a4fc5" class="">Com no caso e de maneira a não haver exceções, sempre que o valor de PVs do personagem ou objeto chegar a 0, o mesmo será destruído.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81fe-94ab-ec09f8966ed1" class="">Os PVs são calculados de maneira diferente dos atributos convencionais, com eles utilizando como base de seu cálculo os pontos presentes nos próprios atributos, geralmente tendo como base o Vigor, sendo estes configurados inicialmente pela Classe do herói.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8160-8355-eba3435ddf01" class="">Veremos mais adiante sobre Classes.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81af-ae94-d84a11195be2" class="">Os Pontos de Mana (PMs)</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8133-9fed-dbd9e9d7fdbb" class="">Em Alta Fantasia, todas as habilidades especiais dos personagens que manipulam a magia, normalmente usam PMs, sendo estes a semelhança dos PVs definidos pela classe e utilizando atributos como base para seu cálculo.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-816a-a98e-cd80259e6cd2" class="">Diferentemente dos PVs, quando os PMs chegam a 0, o personagem não morrerá ou o objeto será destruído, contudo, no caso dos personagens, eles ficarão com a condição Exausto.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8190-9245-de94c37ff8cf" class="">Veremos mais sobre Condições futuramente.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81e4-aa87-f8ba01655649" class="">O Descanso</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-815e-b358-fd6999a5bae9" class="">Um dos mais importantes recursos de Alta Fantasia, é o descanso.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8150-8aa9-c807dc8add47" class="">De maneira simples e direta, é uma forma natural de recuperar pontos de PVs e PMs.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81f1-8649-dbb301e5b65b" class="">São necessárias 4 horas de Descanso Curto para se recuperar metade dos PVs e dos PMs, ou 8 horas ininterruptas de Descanso Longo para recuperar tudo, com o Descanso definido por um período onde o personagem não entrou em combate ou gastou PMs.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-810c-86a4-cf254937496d" class=""><em>Lugares e efeitos podem impedir o Descanso de ocorrer normalmente.</em></p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8177-9b4c-e6c24b137f70" class="">O Combate e os Testes, Tabela de CDs</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8100-8d54-d76a1dc6dca8" class="">Estar em combate ou realizar um Teste (de perícia) são um dos momentos mais importantes do RPG, por ser aqui onde os heróis impõem a sua vontade por meio das regras no mundo, ou o mundo impõe a sua vontade também usando as regras sobre os heróis.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81ae-b45a-e52ded7f9017" class="">Basicamente, Combater um adversário é rolar testes contra ele, da maneira como vimos nos exemplos das perícias, mas note que o mundo nem sempre dará aos heróis alguém para apanhar, mas às vezes será um castelo a ser escalado, ou um rio a ser vencido, e é por isso que existe a Classe de Dificuldade.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b2-a7ef-f196caf72940" class="">Vencer um combate é causar um efeito em um oponente, seja um corte que reduzira os PVs do mesmo, ou aplicar uma condição nele, como deixar ele Agarrado.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8124-b210-d57f21672c59" class="">Já vencer uma CD de um desafio significa vencer o desafio, contudo às vezes o desafio é longo e múltiplos testes são realizados, sendo necessário vencer a maioria deles para vencer o desafio.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-814c-959f-c7ecb520ffb3" class="">Aqui vemos os valores-base das CDs dos desafios:</p></div><div style="display:contents" dir="ltr"><table id="26f821ef-ea8c-8130-b5f1-c40429f9b6bf" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8137-a013-c7afe75e0f0d"><th id="IUNN" class="simple-table-header-color simple-table-header">Rank</th><th id="OiDy" class="simple-table-header-color simple-table-header">Fácil</th><th id="}ZIN" class="simple-table-header-color simple-table-header">Normal</th><th id="hGhy" class="simple-table-header-color simple-table-header">Difícil</th><th id="dFbR" class="simple-table-header-color simple-table-header">Muito Difícil</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8137-af29-ecba7357483d"><th id="IUNN" class="simple-table-header-color simple-table-header">R1</th><td id="OiDy" class="">10</td><td id="}ZIN" class="">13</td><td id="hGhy" class="">17</td><td id="dFbR" class="">21+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81c7-914a-eb4565d06510"><th id="IUNN" class="simple-table-header-color simple-table-header">R2</th><td id="OiDy" class="">14</td><td id="}ZIN" class="">18</td><td id="hGhy" class="">23</td><td id="dFbR" class="">28+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8115-9cd4-e8cfddc6b17d"><th id="IUNN" class="simple-table-header-color simple-table-header">R3</th><td id="OiDy" class="">18</td><td id="}ZIN" class="">23</td><td id="hGhy" class="">29</td><td id="dFbR" class="">35+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8164-a9e3-e89f64126d74"><th id="IUNN" class="simple-table-header-color simple-table-header">R4</th><td id="OiDy" class="">22</td><td id="}ZIN" class="">28</td><td id="hGhy" class="">35</td><td id="dFbR" class="">42+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81cb-926e-f3cbeea49eb3"><th id="IUNN" class="simple-table-header-color simple-table-header">R5</th><td id="OiDy" class="">26</td><td id="}ZIN" class="">33</td><td id="hGhy" class="">41</td><td id="dFbR" class="">49+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8177-a5a4-efd9b115d18d"><th id="IUNN" class="simple-table-header-color simple-table-header">R6</th><td id="OiDy" class="">30</td><td id="}ZIN" class="">38</td><td id="hGhy" class="">47</td><td id="dFbR" class="">56+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81c1-b74a-ff5db5e9c9d7"><th id="IUNN" class="simple-table-header-color simple-table-header">R7</th><td id="OiDy" class="">34</td><td id="}ZIN" class="">43</td><td id="hGhy" class="">53</td><td id="dFbR" class="">63+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-8180-84dc-c1023619c528"><th id="IUNN" class="simple-table-header-color simple-table-header">R8</th><td id="OiDy" class="">38</td><td id="}ZIN" class="">48</td><td id="hGhy" class="">59</td><td id="dFbR" class="">70+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-817c-ac4a-d6dae243974d"><th id="IUNN" class="simple-table-header-color simple-table-header">R9</th><td id="OiDy" class="">42</td><td id="}ZIN" class="">53</td><td id="hGhy" class="">65</td><td id="dFbR" class="">77+</td></tr></div><div style="display:contents" dir="ltr"><tr id="26f821ef-ea8c-81ea-8de7-dd43cca5dd11"><th id="IUNN" class="simple-table-header-color simple-table-header">R10</th><td id="OiDy" class="">46</td><td id="}ZIN" class="">58</td><td id="hGhy" class="">71</td><td id="dFbR" class="">84+</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81f1-9d21-e879c2ce7ded" class="">Para melhor entendimento, veja o gráfico abaixo:</p></div><div style="display:contents" dir="ltr"><figure id="26f821ef-ea8c-811a-9f0f-f082b6989325" class="image"><a href="image1.png"><img style="width:700px" src="image1.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8141-a80e-d60df871360e" class=""><em>Dados revisados utilizando Machine Learning.</em></p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b3-8761-f293d39d6b07" class="">Deixando de lado o gráfico para o desgraçado que criou o sistema, vemos que a escala de dificuldade usando os valores da tabela acima é progressiva, ou seja, ao menos em teoria, a percepção de dificuldade dos desafios é a mesma em todos os Ranks.</p></div><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-81ec-9d07-de00fd8b29b5" class="">Cenário: Um Mundo, Duas Realidades</h2></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-812a-874d-d49c1c92e15b" class="">No ano de 2079, uma empresa chamada Progressive Inc., construiu o que seria um jogo com base em um dos seus projetos de maior sucesso, um sistema de reuniões avançados. O jogo tinha como objetivo primário servir de plataforma chefe da empresa e ser o primeiro jogo de imersão total da história, usando uma tecnologia pioneira criada pela própria Progressive Inc.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81f3-99e5-ef3b410939a3" class="">Contudo, após pouco mais de uma semana após o lançamento do jogo, todos os seus jogadores ficaram presos permanentemente dentro do mesmo, sendo esse mundo em questão, o mundo de Alta Fantasia, conhecido por seus habitantes como Etherra.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b2-bb85-e7f538b4d3cb" class="">A Etherra, é uma réplica em tamanho real da nossa Terra, com os mesmos continentes, oceanos e cordilheiras, havendo pouca diferença geográfica significativa, sendo essa em sua maioria geopolítica. Veja abaixo a lista de nações e regiões da Etherra:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8123-838a-f459310f9699" class="bulleted-list"><li style="list-style-type:disc">Terras de Vharros: nome dado ao continente correspondente a Ásia.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811b-b861-d7c2bffbfcdf" class="bulleted-list"><li style="list-style-type:disc">Terras de Myrren: nome dado ao continente correspondente a Europa.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81af-8280-f1220f3408d4" class="bulleted-list"><li style="list-style-type:disc">Terras de Arcan: nome dado ao continente correspondente a África.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c2-9ac1-f6c807b6f4e8" class="bulleted-list"><li style="list-style-type:disc">Terras de Elaya: nome dado ao continente correspondente a América.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816c-b4b7-d97f8ebd28b5" class="bulleted-list"><li style="list-style-type:disc">Terras de Licht: nome dado ao continente correspondente a Oceania.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8185-893f-f4285650b84d" class="bulleted-list"><li style="list-style-type:disc">Terras de Dunkelheit: nome dado ao continente correspondente a Antártida.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8122-8c34-e8c030c3509d" class="bulleted-list"><li style="list-style-type:disc">Mare Bestiale: oceano correspondente ao Oceano Pacífico.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a3-975d-efe0bc93f39a" class="bulleted-list"><li style="list-style-type:disc">Mare Tranquilitatis: oceano correspondente ao Oceano Atlântico.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a8-86de-f073f78f1dca" class="bulleted-list"><li style="list-style-type:disc">Mare Vehemens: oceano correspondente ao Oceano Índico.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8104-877d-f5eaa83f4cfd" class="bulleted-list"><li style="list-style-type:disc">Reino de Altária: primeiro reino humano, fica ao oeste da Terra de Myrren e possui vastas colônias ultramarinas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817b-9658-c53a2aa02957" class="bulleted-list"><li style="list-style-type:disc">Reino de Priori: segundo reino humano, fica ao norte da Terra de Elaya.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8183-ae5e-c35a65851846" class="bulleted-list"><li style="list-style-type:disc">Reino de Hespéria: terceiro reino humano, fica ao sul da Terra de Myrren.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81db-a565-e98ec3ff02ca" class="bulleted-list"><li style="list-style-type:disc">Reino de Kharzun-Dol: reino dos Anões, fica ao centro da Terra de Vharros.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d1-beef-e0d8874e6086" class="bulleted-list"><li style="list-style-type:disc">Draquênia: primeiro reino dos Draquênis, fica ao sul da Terra de Vharros.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8135-be01-eb1729e4f04b" class="bulleted-list"><li style="list-style-type:disc">Dragonato de Zhu: segundo reino dos Draquênis, fica a sudeste da Terra de Vharros.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-819a-bf79-e757dd989c82" class="bulleted-list"><li style="list-style-type:disc">Shogunato de Ferália: reino dos Feralis, extremo leste da Terra de Vharros.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f5-97f4-e36450a78087" class="bulleted-list"><li style="list-style-type:disc">República Élfica de Elvanor (REE): república dos Elfos, faz fronteira com Altária.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81bb-a6f0-da4c0573cd13" class="bulleted-list"><li style="list-style-type:disc">Ordem da Luz: região de cidades estados dos Lichirus, fica ao oeste da Terra Myrren.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817d-8d3f-d2680e644964" class="bulleted-list"><li style="list-style-type:disc">Khalifado de Noctharim: reino dos Elfos Negros, fica ao nordeste da Terra de Arcan, fazendo fronteira com a REE.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ce-86e0-fe2f2b6c93fc" class="bulleted-list"><li style="list-style-type:disc">Ura’Kar: terras controladas pelos Orcs, vai do centro ao norte da Terra de Arcan.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8100-828b-ca3ac34311fc" class="bulleted-list"><li style="list-style-type:disc">Império de Mirengard: império construído pelos Gnomos, fica ao norte da Terra de Vharros.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-814f-9caf-f527dd0c0072" class="bulleted-list"><li style="list-style-type:disc">Império de Deminesh: império construído pelos Dunkelrius, vai do nordeste da Terra de Vharros, ao noroeste da Terra de Elaya.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811d-abd9-cf9b2007e7fb" class="bulleted-list"><li style="list-style-type:disc">A Grande Babilônia: Uma cidade gigantesca entre o Imperio de Mirengard, o Reino de Kharzun-Dol, Draquênia e a República Élfica de Elvanor.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811d-a698-fff1fff4a460" class="bulleted-list"><li style="list-style-type:disc">Atlântida: uma cidade primordial erguida durante o pacto das Dez Raças, sobre Mare Tranquilitatis.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e1-81ec-d1d6628020bc" class="bulleted-list"><li style="list-style-type:disc">A Grande Floresta de Elávar: uma floresta primordial que existe no sul da Terra de Elaya.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d2-af90-fdd9c3bb6d54" class="bulleted-list"><li style="list-style-type:disc">A Floresta de Lyranelle: região onde vivem a maioria das fadas, fica sobre um local escondido nas vastas florestas da Ordem da Luz.</li></ul></div><div style="display:contents" dir="auto"><h2 id="2b0821ef-ea8c-8059-ba28-cfc96a00bc66" class="">Mapa Mundi</h2></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-80ee-b394-cb32a9f3fc6f" class="">O mapa-múndi nasceu durante a lendária <strong>Expedição da Linha Infinita</strong>, uma jornada que uniu duas almas que jamais deveriam ter dividido o mesmo convés: <strong>Aelwen Lótherya</strong>, cartógrafa élfica de Elvanor, e <strong>Vinícius Crestfall</strong>, explorador irrequieto de Hespéria. A bordo do lendário galeão, o <strong>Ventos da Aurora</strong>, eles navegaram por mares e destinos que não apareciam em nenhum pergaminho existente.</p></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-803e-8d51-feb2393c0aae" class="">Aelwen buscava há séculos alguém capaz de enxergar o mundo com profundidade, não como territórios e fronteiras, mas como um organismo vivo. Vinícius, com sua teimosia quase suicida e coragem imprudente, parecia a antítese perfeita — até que ela percebeu que era justamente esse tipo de fogo que faltava ao rigor élfico.</p></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-801b-a6d8-ebf8dbe8b2f0" class="">Foram <strong>dezesseis anos de viagem</strong>, atravessando florestas onde a luz não alcançava o chão, desertos que engoliam exércitos inteiros e ilhas que surgiam nas marés como memórias antigas. Aelwen registrava cada detalhe com precisão mística. Vinícius avançava onde nenhum elfo ousaria. Juntos, deram nome ao que antes era mito e forma ao que antes era rumor. E, embora muitas terras permanecessem além do horizonte, todos os continentes conhecidos foram enfim unidos num único plano coerente.</p></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-8095-84cc-f87e4efecee0" class="">A última linha do mapa foi traçada sob o brilho de Eclária, em uma noite silenciosa na fronteira de Hespéria. </p></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-80e7-9545-eac99317c4d0" class="">Hoje, sua obra é considerada o registro mais completo já criado. Não é apenas um mapa — é o eco de uma travessia que uniu a precisão élfica e a coragem humana, um testemunho da vontade de olhar o desconhecido e decidir desenhá-lo antes que ele desapareça.</p></div><div style="display:contents" dir="auto"><blockquote id="2b0821ef-ea8c-8031-986a-f87e51c039a2" class="">“Aelwen… depois de dezesseis anos desbravando o mundo… percebi que na verdade <em><strong>o meu mundo</strong></em> estava na minha frente esse tempo todo… Você acei—”<br/>“Sim. Antes que você desmaie tentando terminar a frase.”<br/>San Marin, Hespéria, 893 DA</blockquote></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-80e3-9cf6-dfaf4ef21563" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-805f-9a31-fbb6dbbd3988" class="image"><a href="Etherra-_1_.jpg"><img style="width:672px" src="Etherra-_1_.jpg"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-8171-8074-ec4d24829cc8" class="">Combate</h2></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-812a-b69e-fb2abc2c3e2d" class="">Ações</h3></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81e9-8b1c-df1de7124cc1" class="">Ação Completa</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8138-84f9-e43b69aa30dc" class="">Uma Ação Completa em Alta Fantasia demora em torno de 6 segundos, e, por padrão ela é definida por 1 Ação de Movimento, e 1 Ação Padrão, contudo, o Jogador pode decidir transformar sua Ação Padrão em uma segunda Ação de Movimento, ou transformar qualquer uma das duas Ações em Preparar Ação, podendo ter simultaneamente duas Ações preparadas.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8163-9f49-cf9d45f5e265" class=""><em>NT/: alguns testes, ataques e situações podem demandar uma Ação Completa inteira do jogador.</em></p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8153-badf-ce27e316b6ca" class="">Ação Padrão</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b3-8739-e21bed01560d" class="">A Ação Padrão é onde o seu Personagem brilha, todas as ações em Combate que ele realiza que não sejam de deslocamento são Ações Padrão. Veja abaixo a lista de coisas que podem ser feitas usando sua Ação Padrão.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81e8-9564-ecdf31674eed" class="">Ataque Corpo-a-corpo</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8115-80ae-f418189e8b91" class="">Realizar um Ataque Corpo-a-corpo é uma das coisas mais simples em Alta Fantasia, a única coisa que você precisa é de um alvo e de um Teste de Perícia bem-sucedido.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8105-96a4-f40dcd863f5d" class="">Naturalmente, os testes demandados ou são da Perícia Corpo-a-corpo, ou de alguma das Técnicas como Técnica Esgrima ou Técnica Marcial.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8124-9e3a-dccee910e9f4" class="">Vejamos os tipos Ataque Corpo-a-corpo:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ad-8054-d88dcf3cad2c" class="bulleted-list"><li style="list-style-type:disc">Ataque Desarmado:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812d-905e-d5ce61ae31a5" class="bulleted-list"><li style="list-style-type:circle">Teste: Técnica Marcial.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812d-8072-d636e4dc1689" class="bulleted-list"><li style="list-style-type:circle">Dano: (1d4 + Força) x 10, Crítico x2, 20. Ou se o personagem possuir, pode usar Armas Naturais.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a8-b359-f5d8da47e6d2" class="bulleted-list"><li style="list-style-type:disc">Ataque Armado:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8139-a96c-f060e0de1741" class="bulleted-list"><li style="list-style-type:circle">Teste: Técnica Marcial ou Técnica Esgrima.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-815b-a64e-cc355e16b1ef" class="bulleted-list"><li style="list-style-type:circle">Dano: Definido pela arma.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81b3-ac81-eef27c0b1f52" class="bulleted-list"><li style="list-style-type:disc">Ataque Finalizador:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8151-84f7-f3caf317a93a" class="bulleted-list"><li style="list-style-type:circle">Teste: Técnica Marcial ou Técnica Esgrima.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8170-8619-e7f3bdffa8de" class="bulleted-list"><li style="list-style-type:circle">Dano: Definido pela arma ou desarmado, Acerto Crítico Instantâneo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816e-85c5-feb40c734df9" class="bulleted-list"><li style="list-style-type:circle">Condições: Alvo com menos de 5% da vida e Nocauteado, requer uma Ação Completa para ser executado.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-815d-9933-c071ff3ccbaa" class="bulleted-list"><li style="list-style-type:disc">Manobra de Combate:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8177-8a00-c9542baefedc" class="bulleted-list"><li style="list-style-type:circle">Teste: Corpo-a-corpo</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8191-96bf-fc49f1502dc5" class="bulleted-list"><li style="list-style-type:circle">Manobras Realizáveis: Imobilizar, Silenciar, Derrubar, Empurrar, Desarmar e Nocautear.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-80f6-b93c-c4de270864aa" class="bulleted-list"><li style="list-style-type:disc">Finta:<div style="display:contents" dir="auto"><ul id="29e821ef-ea8c-80f1-a08d-cd8b81f13947" class="bulleted-list"><li style="list-style-type:circle">Você pode fintar um ataque (ou qualquer outra Manobra de Combate, Habilidade ou mesmo magia) usando uma Ação de Movimento, você rola um teste de Atuação contra um teste de Intuição do adversário, e em caso de sucesso você faz o mesmo ter uma Desvantagem na sua próxima rolagem.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8199-804a-f3add9b8741c" class="">Manobras:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8149-86e0-d1325de327aa" class="bulleted-list"><li style="list-style-type:disc">Imobilizar: Você aplica a Condição: Imobilizado.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ed-a840-fdf05108e375" class="bulleted-list"><li style="list-style-type:disc">Silenciar: Você aplica a Condição: Silenciado.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811b-9508-fcfee848e427" class="bulleted-list"><li style="list-style-type:disc">Derrubar: Você aplica a Condição: Derrubado</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d2-953a-fb8db2908f1a" class="bulleted-list"><li style="list-style-type:disc">Empurrar: Você empurra o alvo em questão, um número de metros igual a sua Força, na direção que seria a sua frente.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c0-86b7-daa121e01a90" class="bulleted-list"><li style="list-style-type:disc">Desarmar: Você derruba ao chão, a 1 m de distância do alvo, a arma, ou objeto que o mesmo segura.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8105-891b-ec6ee23e2074" class="bulleted-list"><li style="list-style-type:disc">Nocautear: Após conseguir Imobilizar a mesma, e realizar 3 testes consecutivos com sucesso de Corpo-a-corpo, 1 a cada rodada, você aplica a Condição: Inconsciente na criatura.</li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8149-b1f7-eaa288e96b4f" class="">Ataque à Distância</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8113-b981-e76787aea4e4" class="">Para aqueles que preferem ficar na retaguarda, o Ataque a Distância é uma opção muito interessante, e este pode ser feito tanto usando armas convencionais, como arcos, flechas e pistolas, quanto usando magias.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8161-838a-d29b81a0cbd6" class="">Eles seguem o mesmo estilo do Ataque Armado:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81be-970e-f5de40774e40" class="bulleted-list"><li style="list-style-type:disc">Ataque à Distância:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8159-90ea-dcb73606df02" class="bulleted-list"><li style="list-style-type:circle">Teste: Técnica Pontaria.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81fd-9c34-d3c5d11fd726" class="bulleted-list"><li style="list-style-type:circle">Dano: Definido pela arma ou magia.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8177-b8e3-ff28ee8a5ae6" class="bulleted-list"><li style="list-style-type:circle">Alcance: Definido pela arma ou magia.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8186-8989-fd30996c8ee1" class="">Conjurar Magia</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8105-8a6a-d80202240240" class="">Conjurar magias é algo que quase todo mundo, quase todo mundo mesmo, fez uma vez na vida no mundo de Alta, e isso é porque é algo não muito difícil de ser feito quando se cresce em sociedades que giram em torno disso a milênios. Mas a magia em alta é uma habilidade desenvolvida, ou com os dotes naturais, conhecimento e estudo, ou por pura devoção.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8191-b086-e61186e6d39a" class="">O tempo de duração da magia, efeito, dano, alvos, custo, etc., sempre será definido pela própria magia.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81c2-86cf-d1c9fdf7219e" class="">Usar Itens</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81c3-93c7-ce9a7270bbc6" class="">Itens são um dos pilares que sustentam o sistema e o mundo de Alta Fantasia, para usar um item, basicamente é preciso tê-lo em mãos, na grande maioria dos casos, e também na grande maioria dos casos, uma Ação Padrão, como conjurar uma magia de um Pergaminho, Abrir um Baú, ativar um Artefato Mágico ou similares.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81ad-8f2c-c1380563d771" class="">Testes de Perícia</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8175-9edf-c1b418cfa07a" class="">Testes de Perícias podem ser tanto usados em Reações, Ações Padrão, Ações de Movimento e Ações Narrativas fora de combate. A ideia é simples, você quer encontrar durante o combate um inimigo escondido? Você gasta sua ação padrão para realizar o teste de Perícia Percepção.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81dd-a974-e3fa4eecd59b" class="">Ficar Furtivo</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8147-b168-caa08ef7d6a5" class="">Você deve realizar um teste de Controle, e aqueles que poderiam ver você devem realizar um teste de Percepção, se você passar no teste, essas pessoas que não podem ver você, recebem a condição Vulnerável quando você as atacar, e você, recebe a condição Furtivo.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-816b-a5c2-eb0e3344e7bb" class="">Roubar ou Furtar</h3></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8167-9ac0-e534c385aa62" class="bulleted-list"><li style="list-style-type:disc">Roubar: Roubar é tomar um objeto de outra pessoa à força, durante uma ação padrão. Para isso, o personagem deve fazer um teste de Corpo-a-corpo contra um teste de Corpo-a-corpo do alvo.<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-814b-9fcf-e3ebe9ef2e03" class="bulleted-list"><li style="list-style-type:circle">Sucesso: você toma o objeto.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f4-a264-d7bfa9b6f25e" class="bulleted-list"><li style="list-style-type:circle">Falha: não consegue pegá-lo, simples assim.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ed-a986-e7f89d2cf0ea" class="bulleted-list"><li style="list-style-type:disc">Furtar: Furtar é roubar discretamente. Para isso, é necessário estar sob a condição Furtivo. Em seguida, você faz um teste de Ladinagem contra um teste de Percepção do alvo.<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8117-8504-d8c440ff5be7" class="bulleted-list"><li style="list-style-type:circle">Sucesso: você pega o objeto sem ser notado.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8163-858e-c3c582375e7b" class="bulleted-list"><li style="list-style-type:circle">Falha: o alvo percebe sua ação (você perde a condição Furtivo) e não obtém o objeto.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="26f821ef-ea8c-8165-bffd-e76bdcbdbea0" class="">N/T: Importante: se o objeto estiver equipado pelo alvo (como roupas, mochila, arma empunhada ou embainhada), o alvo terá Vantagem no teste de Percepção.<div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8193-9760-c019243ce5df" class="">Em caso de dúvida, consulte a condição Equipado.</p></div></blockquote></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81ca-8baf-fc576478b215" class="">Ação de Movimento</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8114-a8d1-c055e5ce1672" class="">Ao contrário do que se pode pensar, você não somente pode usar seu movimento para correr, você pode usar ela para as seguintes coisas:</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8166-8ddb-e64cf19bcda1" class="">Ações de Deslocamento:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-814d-bf05-ee1dd44162f3" class="bulleted-list"><li style="list-style-type:disc">Correr ou Andar: Você pode usar todo ou parte do seu Descolamento para chegar em qualquer lugar ao seu acesso. Se você usar parte do seu deslocamento, poderá realizar outras ações com o que restar.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f5-8948-f0bad5845f36" class="bulleted-list"><li style="list-style-type:disc">Saltar: Você pode usar todo ou parte do seu deslocamento para saltar sobre obstáculos ou buracos, contudo, o deslocamento que você possui disponível será reduzido pela metade, se o salto for horizontal, e será reduzido em 1/4 se o salto for na vertical.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ae-925a-f710b990b397" class="bulleted-list"><li style="list-style-type:disc">Aumentar Deslocamento: Durante o início do deslocamento, você pode realizar um Teste de Atletismo, somando o resultado do teste com o seu deslocamento. Após o Teste você deve realizar um Teste de Tenacidade, CD, Rank igual ao seu, Difícil, em caso de falha, você fica Fatigado por 2 turnos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-819b-a766-c41e38f046e0" class="">Ação Livre e Ações Narrativas</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81f3-89bf-f467287a8667" class="">Basicamente, as Ações Livres são tudo que seja rápido o bastante, ou simples o suficiente para ser desprezível em termos de tempo ou dificuldade para seu personagem, como falar durante o combate, pegar uma poção do seu Cinto de Poções, ou em casos mais impressiones, realizar ataques extras, mas isso depende do nível e habilidade do mesmo, contudo é algo que pode ser feito.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8107-b644-fad555863ef2" class="">Já as Ações Narrativas, ocorrem fora de combate, elas são ilimitadas, e vai dos jogadores e do mestre a ordem em que elas se resolvem.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81c4-8578-cba37464bead" class="">Reações</h3></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8125-ad99-f25c81359e43" class="">Iniciativa</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8172-ac0a-e94e534ccfd1" class="">Todo combate começa, tradicionalmente, com a frase: “Rolem Iniciativas!” — e isso não é por acaso. A iniciativa representa o reflexo e a prontidão dos personagens diante de uma situação de combate, sendo uma reação obrigatória para todos os envolvidos.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8152-8baa-ff7e6659ec49" class="">O Teste de Iniciativa é realizado com base em um Teste de Reflexos, definido pelo mestre. Os participantes são organizados em ordem decrescente de resultado, ou seja, quem obtiver o maior valor age primeiro. Caso um jogador não realize o teste, seu personagem será automaticamente o último a agir na rodada.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8181-8840-dce5d45c1f0b" class="">Ataques antes da Iniciativa</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-817f-a056-ceb63cce6d33" class="">É possível atacar antes de rolar a iniciativa? Sim, é possível.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-819e-9cde-cf45c21e2e31" class="">Se um personagem realizar um ataque surpresa antes do início formal do combate, o dano é aplicado normalmente se o mesmo acertar. Em seguida, todos os envolvidos devem imediatamente rolar a iniciativa.</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8158-a4bb-caba778730fa" class="">Quando a vez do atacante chegar na ordem de combate, ele não poderá reutilizar as Ações que já gastou durante o ataque inicial — como a Ação de Movimento e/ou a Ação Padrão. A partir da próxima rodada, o combate prossegue normalmente, com todas as ações disponíveis.</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8188-8cc6-d1f202a6211a" class="">Defesa em Combate: Esquiva, Escudo e Armadura</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81b1-827f-dd6c4c1bc012" class="">Quando um personagem é alvo de um ataque, ele pode reagir de três maneiras: tentar esquivar, bloquear com um escudo, item/arma, ou simplesmente absorver o golpe com a armadura. </p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81dc-8575-db19ffe06d54" class="">Esquiva:</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-81c0-b3c4-ed656e762edf" class="">Ao tentar se esquivar, o personagem realiza um teste de esquiva contra o ataque.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8156-9b7c-f2c531ecea99" class="bulleted-list"><li style="list-style-type:disc">Sucesso: O personagem evita completamente o golpe. Nenhum dano é recebido, e nem o escudo, nem a armadura são acionados.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d8-9f55-c531f006cc01" class="bulleted-list"><li style="list-style-type:disc">Falha: O atacante encontrou uma brecha na movimentação do defensor. Nesse caso, a eficácia da armadura é reduzida em 40%, pois o movimento de esquiva comprometeu a postura defensiva. NT/: para fins de durabilidade da armadura somente, a RD permanece intacta nestes casos.</li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-81b3-9ee2-c4e81615136b" class="">Defesa com Escudo, Item ou Arma:</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8177-a8d9-c46225c6ecf8" class="">O escudo (ou outro objeto utilizado na defesa que estiver ao alcance) é considerado uma arma ativa de defesa, exigindo um teste de acerto (como em um ataque) para interceptar o golpe inimigo.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8162-a771-db4e8988f71f" class="bulleted-list"><li style="list-style-type:disc">Sucesso: O escudo intercepta o golpe com precisão. Sua Redução de Dano (RD) se aplica totalmente, somando-se à RD da armadura, se houver. O ataque é considerado absorvido pelo escudo, e pela armadura, não pelo corpo do personagem. Vale destacar, que todo dano que ultrapassar a RD do Escudo e da Armadura, é contabilizado no PV do Escudo, e depois no PV da armadura.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8195-ab02-cd05a939bd2b" class="bulleted-list"><li style="list-style-type:disc">Falha: O defensor falha na tentativa de bloqueio, abrindo uma pequena brecha. Nesse caso, o escudo não oferece nenhuma RD, e a armadura sofre uma penalidade de −20% em sua eficácia, refletindo a abertura momentânea na defesa.</li></ul></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8101-95ed-ffeab46ceea0" class="">Absorver o Golpe (Sem Reação):</h3></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-819d-bd4d-c12bcb5b93b2" class="">Se o personagem optar por não reagir ou estiver impossibilitado, ele simplesmente recebe o ataque com sua armadura.</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8142-bf39-fc8ddcf72e80" class="bulleted-list"><li style="list-style-type:disc">A Redução de Dano (RD) da armadura se aplica normalmente, sem penalidades ou bônus.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a9-9161-e112a74badf5" class="bulleted-list"><li style="list-style-type:disc">Essa é a escolha padrão caso o personagem esteja Vulnerável, imobilizado ou em desvantagem tática.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2b0821ef-ea8c-80c8-8019-fb31021f5414" class="">Alcance, Tempo e Formatos de Área</h3></div><div style="display:contents" dir="auto"><h3 id="2b0821ef-ea8c-80df-aca0-cd988f6c2ee4" class="">Categorias de Alcance</h3></div><div style="display:contents" dir="ltr"><table id="2b0821ef-ea8c-80e6-8f93-d7c35592a6d1" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-809b-9402-f9f510252dc8"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Categoria</th><th id="FP?{" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Descrição</th><th id="al[Q" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Alcance em quadrados (1 quadrado = 1 metro)</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80a5-84ed-edaa6e0139d8"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Toque</th><td id="FP?{" class="" style="width:235.66666666666666px">O conjurador precisa estar adjacente ao alvo.</td><td id="al[Q" class="" style="width:235.66666666666666px">1</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80a0-9849-cd71336a4790"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Curto</th><td id="FP?{" class="" style="width:235.66666666666666px">Magias simples, rápidas.</td><td id="al[Q" class="" style="width:235.66666666666666px">Até 6</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-8073-b53f-e98e6d2fe35d"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Médio</th><td id="FP?{" class="" style="width:235.66666666666666px">Domínio confortável do conjurador.</td><td id="al[Q" class="" style="width:235.66666666666666px">7–18</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80c5-8fa6-cac639ec57b7"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Longo</th><td id="FP?{" class="" style="width:235.66666666666666px">Magias que exigem grande projeção.</td><td id="al[Q" class="" style="width:235.66666666666666px">19 e além.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-8052-a9cf-fed4109714ab"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Especial</th><td id="FP?{" class="" style="width:235.66666666666666px">Alcance ilimitado (em condições específicas, como Enfeitiçar Pessoa, onde um alvo pode estar sob o efeito da magia mesmo a milhares de quilômetros do conjurador).</td><td id="al[Q" class="" style="width:235.66666666666666px">Ilimitado sobre condições</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-806b-bc0a-c9e1b3004108"><th id="Zw&lt;H" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Mundial</th><td id="FP?{" class="" style="width:235.66666666666666px">Alcance capaz atingir o mundo inteiro ou, em casos especiais, afetar o universo inteiro.</td><td id="al[Q" class="" style="width:235.66666666666666px">Ilimitado.</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2b0821ef-ea8c-8037-ad21-defe7a17b773" class="">Categorias de Tempo (em escala)</h3></div><div style="display:contents" dir="ltr"><table id="2b0821ef-ea8c-8043-a084-f16fca033110" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-8084-8502-f68d59417437"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">Categoria</th><th id="jIIu" class="simple-table-header-color simple-table-header" style="width:353.5px">Duração</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-805d-8712-fcfa3579c3cd"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">Instantânea</th><td id="jIIu" class="" style="width:353.5px">Uma Ação Completa, 6 segundos.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-801b-9824-cadda5cd5a13"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 Rodada</th><td id="jIIu" class="" style="width:353.5px">Duas Ações Completas, 12 segundos.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80b1-96ca-c0172ffd1f38"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 minuto</th><td id="jIIu" class="" style="width:353.5px">Dez Ações Completas, 60 segundos.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80a1-a0c6-cf741c1f43b3"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">10 minutos</th><td id="jIIu" class="" style="width:353.5px">Cem Ações Completas.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80ca-8ad5-c183ed659574"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 hora</th><td id="jIIu" class="" style="width:353.5px">Sessenta minutos.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80c6-ad37-cea71b24b756"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 dia</th><td id="jIIu" class="" style="width:353.5px">Vinte e quatro horas.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80a2-819b-d3c71b2348e7"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 semana</th><td id="jIIu" class="" style="width:353.5px">Sete dias.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-8053-9ec9-d11e800c4bf7"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 mês</th><td id="jIIu" class="" style="width:353.5px">Quatro semanas.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-80f1-a127-c1f6aa046c96"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">1 ano</th><td id="jIIu" class="" style="width:353.5px">Doze meses.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2b0821ef-ea8c-809d-a784-e2852906588a"><th id="Q&gt;Lq" class="simple-table-header-color simple-table-header" style="width:353.5px">Permanente</th><td id="jIIu" class="" style="width:353.5px">Regras especiais se aplicam aqui, a magia em questão deve ser consultada.</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2b0821ef-ea8c-806a-bdb3-e0383e31195c" class="">Formatos de Área</h3></div><div style="display:contents" dir="auto"><p id="2b0821ef-ea8c-8075-a9ba-f4f19c528544" class="">Para cada magia em área, define-se tipo, parâmetros (alcance, comprimento, raio) e padrão de quadrados que ela afeta. (<em>Laranja representa o conjurador.</em>)</p></div><div style="display:contents" dir="auto"><ul id="2b0821ef-ea8c-804f-b658-e731e0298b6d" class="bulleted-list"><li style="list-style-type:disc">Ponto: Alcance até o centro do efeito</li></ul></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-8019-968c-e6cffad36653" class="image"><a href="image.png"><img style="width:120px" src="image.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="2b0821ef-ea8c-80d0-8c96-c6284d1771bf" class="bulleted-list"><li style="list-style-type:disc">Raio (círculo): Alcance + raio em quadrados</li></ul></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-805c-93c1-d7c02509a19e" class="image"><a href="image%201.png"><img style="width:336px" src="image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="2b0821ef-ea8c-80f6-9484-c7c835fa577f" class="bulleted-list"><li style="list-style-type:disc">Cone: Alcance (base) + comprimento</li></ul></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-808a-8331-cb3a062dff98" class="image"><a href="image%202.png"><img style="width:192px" src="image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="2b0821ef-ea8c-8013-9ccb-ece30344bdc8" class="bulleted-list"><li style="list-style-type:disc">Linha: Alcance + comprimento (em linha)</li></ul></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-802a-918d-f2fdf59e4362" class="image"><a href="image%203.png"><img style="width:144px" src="image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="2b0821ef-ea8c-8068-99fa-e2431ccdfb4e" class="bulleted-list"><li style="list-style-type:disc">Cúbica: Alcance + dimensão do cubo</li></ul></div><div style="display:contents" dir="ltr"><figure id="2b0821ef-ea8c-8059-8f8a-e21caf3e44f4" class="image"><a href="image%204.png"><img style="width:288px" src="image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="26f821ef-ea8c-81c5-9b46-f71023a3b2ff" class="">Condições</h2></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-8198-b3b5-d65e0a0efc7e" class="">Existem muitas maneiras de ferir o inimigo sem ser somente através do bom e velho dano, e saber explorar suas fraquezas e reduzir as defesas do seu adversário é frequentemente a chave para vitória. Em Alta Fantasia as criaturas podem sofrer estas seguintes condições (exceto se elas possuam imunidade ou resistência parcial).</p></div><div style="display:contents" dir="auto"><p id="26f821ef-ea8c-818b-986f-ce25732caf74" class="">Condições Básicas:</p></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81fe-906f-d65b8d13dffe" class="bulleted-list"><li style="list-style-type:disc">Vantagem: o personagem rola um dado adicional no teste em questão, e fica com o resultado maior.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8142-82ab-d72353a1be73" class="bulleted-list"><li style="list-style-type:disc">Desvantagem: o personagem rola um dado adicional no teste em questão, e fica com o resultado menor.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8107-9924-fba6a6e10104" class="bulleted-list"><li style="list-style-type:disc">Vivo: a criatura para todos os fins está viva.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8103-9e1a-c4124bf23e7b" class="bulleted-list"><li style="list-style-type:disc">Morto: a criatura para todos os fins está morta.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8183-ad5e-dfed6e8424fc" class="bulleted-list"><li style="list-style-type:disc">Consciente: a criatura está ciente que está vivo, consegue pensar, se possível falar, ver e agir.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d3-bb6b-d340c69d8ffa" class="bulleted-list"><li style="list-style-type:disc">Inconsciente: a criatura é incapaz de agir, falar, andar, atacar, reagir e conjurar.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c9-9d63-def2ac45666a" class="bulleted-list"><li style="list-style-type:disc">Parcialmente Cego: a criatura não consegue discernir cores e possui sua visão máxima reduzida pela metade.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8136-99e4-ce33d6aac278" class="bulleted-list"><li style="list-style-type:disc">Cego: o personagem não consegue ver, não pode realizar testes de Percepção visuais, e todos os testes de perícia corporais possuem seu bônus reduzido pela metade.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ac-9515-fa57b2c0fdf6" class="bulleted-list"><li style="list-style-type:disc">Surdo: o personagem não consegue ouvir e, possui 25% de chance de falha ao falar (ou conjurar se precisar falar para isso). Fica vulnerável.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a9-9cfd-d0a0693fed5b" class="bulleted-list"><li style="list-style-type:disc">Caolho/Deficiente Visual: A criatura possui somente metade do seu bônus em testes de Percepção visuais.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8143-8dcc-c95ee20b023c" class="bulleted-list"><li style="list-style-type:disc">Agarrado: o personagem sofre um −2/Rank da fonte em jogadas de Ataque, nos testes para lançar magias, e somente pode usar armas Pequenas, fica Vulnerável e não pode se deslocar.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81e9-89d2-e11a8e4c0c3f" class="bulleted-list"><li style="list-style-type:disc">Imobilizado: o personagem fica Vulnerável, não consegue atacar, se mover e gesticular (se não possuí a Habilidade Magias Sem Gestos, também não pode conjurar).</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811c-afa3-e8c1809b0ce0" class="bulleted-list"><li style="list-style-type:disc">Vulnerável: o personagem recebe -4/Rank da fonte ou atacante em testes de resistência contra ataques e magias.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81ce-a2ce-ec3f0d89cde6" class="bulleted-list"><li style="list-style-type:disc">Silenciado: o personagem não consegue falar, ou emitir sons usando a boca (se não possuí a Habilidade Magias Sem Palavras, também não pode conjurar).</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a1-853b-c22bc2141606" class="bulleted-list"><li style="list-style-type:disc">Derrubado: O personagem tem Desvantagem em ataques Corpo-a-Corpo, Vantagem em testes de Reflexo ou Técnica para se Defender contra ataques à distância, e metade do seu deslocamento reduzido.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8180-a4fe-f2db16e410ae" class="bulleted-list"><li style="list-style-type:disc">Sangrando: O personagem recebe no início do seu turno, 1d4 x (10 x Rank da Fonte do sangramento), e deve fazer na sequência um teste de Fortitude, Rank igual ao da Fonte, Difícil, para parar o Sangramento.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8104-af12-cb538fcc74eb" class="bulleted-list"><li style="list-style-type:disc">Confuso: o jogador rola 1d10, e conforme o resultado:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8100-8466-dfc305e4e268" class="bulleted-list"><li style="list-style-type:circle">1-2: Foge da fonte que lhe causou confusão.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8163-947a-fd85003bee70" class="bulleted-list"><li style="list-style-type:circle">3-4: Não faz nada absolutamente nada.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-815b-a2e2-e508e8d4bf14" class="bulleted-list"><li style="list-style-type:circle">5-6: Gasta pontos de mana tentando conjurar uma magia que, obviamente, falha.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8198-b7de-e8788f3f1372" class="bulleted-list"><li style="list-style-type:circle">7-8: Ataca a criatura mais próxima.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81b4-a092-c7a71213f966" class="bulleted-list"><li style="list-style-type:circle">9: Ataca a sí mesmo.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8184-b40d-c50f135b951b" class="bulleted-list"><li style="list-style-type:circle">10. Age normalmente.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-819d-818d-d607afd4c1c9" class="bulleted-list"><li style="list-style-type:disc">Enjoado: Possui desvantagem em todos os testes de perícia.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81c7-86d2-f96bbb8167e1" class="bulleted-list"><li style="list-style-type:disc">Cansado: o personagem possui somente 1 ação por turno, ou de Movimento, ou Padrão.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8178-bb65-db269b78aa15" class="bulleted-list"><li style="list-style-type:disc">Exausto: o personagem possui somente uma ação por turno, ou de Movimento, ou Padrão, contudo deve rolar um teste de Tenacidade, (CD Rank igual ao do Personagem, Difícil) em caso de falha, ele não consegue executar essa ação. Em caso de 2 falhas consecutivas, seu personagem fica Inconsciente.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81d3-88de-f2d2b3583a90" class="bulleted-list"><li style="list-style-type:disc">Assustado: o Personagem recebe −2/Rank da fonte em todos os testes, possui o direito de realizar um teste de Autocontrole no início de cada turno, em caso de sucesso, o efeito some, em caso de 3 falhas consecutivas, fica Amedrontado.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-816e-b806-c9d6d45defe8" class="bulleted-list"><li style="list-style-type:disc">Amedrontado: o Personagem recebe −4/Rank da fonte em todos os testes, possui o direito de realizar um teste de Autocontrole no início de cada turno, em caso de sucesso, o efeito some, em caso de 3 falhas consecutivas, fica Aterrorizada.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81a7-a9a7-d8bb59f7a426" class="bulleted-list"><li style="list-style-type:disc">Aterrorizado: o Personagem recebe −6/Rank da fonte em todos os testes, possui o direito de realizar um teste de Autocontrole no início de cada turno, em caso de sucesso, o efeito some, em caso de 3 falhas consecutivas, o personagem recebe -8/Rank da fonte em todos os testes…</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817b-bfb3-ee594d324ed3" class="bulleted-list"><li style="list-style-type:disc">Terreno Difícil: Deslocamento reduzido pela metade.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-811f-998e-f9381c8b5b31" class="bulleted-list"><li style="list-style-type:disc">Área Escorregadia: o mesmo que Terreno Difícil, com um extra de que se de pé na área, deve rolar um teste no início do turno para permanecer de pé, a CD do teste depende do Rank da fonte da Área Escorregadia, sendo a mesma igual ao Rank e Normal.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-812f-b1e5-e589fdc0ee27" class="bulleted-list"><li style="list-style-type:disc">Furtivo: seu personagem fica, assim como o nome sugere, furtivo, e para isso ele precisa ter vencido em um teste de Controle contra um de Percepção de um inimigo. Naturalmente o personagem precisa estar sobre cobertura de um destes elementos para poder realizar o teste:<div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8114-bb8c-e0fee0951b06" class="bulleted-list"><li style="list-style-type:circle">Ambiente Denso: florestas, becos, vielas, um quarto bagunçado e similares.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-81f2-a820-e3dcd3aa447f" class="bulleted-list"><li style="list-style-type:circle">Escuridão: noturna, mágica ou artificial.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-8151-a416-f0f55cc02314" class="bulleted-list"><li style="list-style-type:circle">Multidão: um grande volume de pessoas.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-819f-ae6c-eae7514b4ddf" class="bulleted-list"><li style="list-style-type:circle">Mimetização: usando roupas que se misturem com a vegetação ou ambiente a volta.</li></ul></div><div style="display:contents" dir="auto"><ul id="26f821ef-ea8c-817d-8243-dffca1ef1f61" class="bulleted-list"><li style="list-style-type:circle">Invisibilidade: mágica ou artificial.<div style="display:contents" dir="auto"><p id="2b6821ef-ea8c-802b-8970-de6df9d32562" class="">N/T: se você decide rolar um teste de Controle para ficar Furtivo em um ambiente, todas aqueles que estiverem no ambiente, aliados ou inimigos, tem o direito de fazerem um teste de Percepção contra o seu de furtividade, e, somente aqueles que passarem no teste, saberão onde você está. Os demais recebem a condição Vulnerável.</p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e2821ef-ea8c-8018-8d0e-cddf36a85d3a" class="bulleted-list"><li style="list-style-type:disc">Invisível: seja invisibilidade mágica ou natural, você não pode ser visto por observadores externos. Isso dá a todos que não conseguem ver você a condição Vulnerável. <div style="display:contents" dir="auto"><ul id="2e2821ef-ea8c-80e2-b76c-d5bf10f9f134" class="bulleted-list"><li style="list-style-type:circle">N/T: Clima Ruim: se você está Invisivel e está de baixo de chuva média ou forte, névoa, poeira densa, andando sobre a água, ou similares, aqueles que tentam encontrar você tem direito a gastar uma ação de movimento, por turno, para poder ver você, com as memas recebem uma Vantagem no teste de Percepção.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-80e7-9c74-f3bfd3516f8b" class="bulleted-list"><li style="list-style-type:disc">Sobrepeso: o personagem possui o Deslocamento reduzido pela metade, e recebe +1 desvantagem em testes que utilizem Destreza e Força.</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-8011-913a-ffe419464de4" class="bulleted-list"><li style="list-style-type:disc">Sobrecarregado: o personagem não consegue se deslocar, e recebe +2 Desvantagens em Destreza e Força.</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-80a8-ae0b-cd9a2fd35822" class="bulleted-list"><li style="list-style-type:disc">Prensado: o personagem recebe a cada Rodada ou Cena, -2 pontos em Vigor.</li></ul></div><div style="display:contents" dir="auto"><p id="2b6821ef-ea8c-80cf-97aa-e3d467710c10" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="26f821ef-ea8c-8174-b666-eca7b8a68938" class="">Condições Especiais:</h3></div><div style="display:contents" dir="auto"><p id="2b6821ef-ea8c-80d0-9d63-c415f5064391" class="">As condições especiais abrengem os 6 casos em que o personagem possui um dos seus atributos principais reduzidos a -7 pontos.</p></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-808e-9aa8-f3b2b1f0a23f" class="bulleted-list"><li style="list-style-type:disc">Falência Múltipla dos Orgãos: caso o personagem fique com -7 pontos em Vigor, ele morre instantâneamente.</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-801d-bbb0-c57c5c2bbe41" class="bulleted-list"><li style="list-style-type:disc">Paralisia Muscular Completa: caso o personagem fique com -7 pontos em Destreza ou Força, o mesmo ainda fica consciente mas fica completamente vegetativo corporalmente (podendo conjurar magias se as mesmas não dependerem de fala ou gestos).</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-8015-a7c8-f2d1eb7291bf" class="bulleted-list"><li style="list-style-type:disc">Ruptura Psicológica Completa: caso o personagem fique com -7 pontos em Espírito, o mesmo fica quebrado psicológicamente, sua vida perde completamente o sentido com o mesmo não tendo motivação nem mesmo para se alimentar, ou realizar atividades mundanas como ir ao banheiro, tomar banho ou similares, com o mesmo acatando ordens de qualquer natureza com facilidade e com pesadas tendências suicidas, com no caso do mesmo possuindo os meios para cometer tal ato, comentendo. Em termos práticos, o jogador perde o controle do personagem.</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-80c7-97a2-d94df562eace" class="bulleted-list"><li style="list-style-type:disc">Morte Cerebral: caso o personagem fique com -7 pontos em Intelecto, o mesmo fica com morte cerebral, seu corpo vai funcionar, mas sua consciencia e capacidade cognitiva mesmo que mais básica deixanm de existir, com o mesmo perdendo todas as memorias que possui.</li></ul></div><div style="display:contents" dir="auto"><ul id="2b6821ef-ea8c-8067-a3e6-c2bafb9f374b" class="bulleted-list"><li style="list-style-type:disc">Aniquilação da Personalidade: caso o personagem fique com -7 pontos em Carisma, o mesmo perde completamente sua personalidade, tendo a mesma energia social de uma pedra, sendo completamente indiferente de uma máquina. Em termos práticos, o jogador perde o controle do pesonagem.</li></ul></div><div style="display:contents" dir="auto"><p id="2b6821ef-ea8c-8094-9d76-d9f26b020e0b" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

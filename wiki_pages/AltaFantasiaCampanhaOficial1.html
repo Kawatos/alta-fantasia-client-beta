@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Alta Fantasia: Campanha Oficial 1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2b3821ef-ea8c-80b3-9dd7-efeeb628f671" class="page sans"><header><h1 class="page-title" dir="auto">Alta Fantasia: Campanha Oficial 1</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h3 id="2fa821ef-ea8c-80f6-9f04-edaac4f75952" class="">Sessão 0</h3></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80b1-ac1e-d430afb30b6b" class=""><strong>Data em Eterra:</strong> 15/04 (Avrénne) 3.071 DA</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-807e-a89f-fd1e4b300a93" class=""><strong>Horário:</strong> Final da tarde</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80a7-9a33-c31541296579" class=""><strong>Local:</strong> Escritório corporativo, Terra (15/04 2079)</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80f2-8112-e56c068bd699" class="">Um jovem holandês de 20 anos, Pieter Niennmman, acompanhado de seu colega alemão de 24 anos, Jeff Willians, participou de uma reunião importante com um gerente de alta patente. Pieter, novato na empresa, contou com a ajuda de Jeff para conduzir a reunião, que se mostrou relativamente difícil, mas bem-sucedida. Durante o encontro, Jeff comentou sentir-se deslocado em relação ao mundo ao seu redor, admirando a tecnologia utilizada na condução da entrevista, apesar de ter derramado acidentalmente um pouco de café sobre uma mesa.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8052-9c5c-d60208dbf2e8" class="">Ao final, Jeff convidou Pieter para experimentar um novo jogo chamado <strong>Alta Fantasia</strong>, comprando a cópia para seu amigo.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8021-aacb-dd11abd1f255" class=""><strong>Data em Eterra:</strong> 16/04 (Avrénne) 3.071 DA</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8034-b20a-ee4c9ea5e983" class=""><strong>Horário:</strong> Manhã</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8097-b860-cdfe8dd3fe99" class=""><strong>Local:</strong> Mundo virtual de Alta Fantasia – Praça Central</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80a4-aabc-f0648f5d4c6b" class="">No dia seguinte, os dois ingressaram no mundo virtual. Maravilhados pelos gráficos, exploraram o local e encontraram um homem-gato que passeava pela praça. Em seguida, foram teletransportados para a cidade inicial do jogo, a <strong>Grande Babilônia</strong>, onde, em uma pequena cafeteiria, acabaram incomodando um casal que se encontrava no local.</p></div><div style="display:contents" dir="auto"><h3 id="2fa821ef-ea8c-8051-b9fd-c2f683cedbda" class="">Sessão 1</h3></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80b5-b22c-dd923f4444dc" class=""><strong>Data em Eterra:</strong> 16/04 (Avrénne) 3.071 DA</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8013-8409-f6fa2fbc810c" class=""><strong>Horário:</strong> Meio da manhã</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80d7-965f-ed0c73137a2b" class=""><strong>Local:</strong> Ruas da Grande Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8013-a05a-c7c1e0aa43c9" class="">Pieter, agora identificado no jogo como <strong>Taskir Frennin</strong>, e Jeff, como <strong>Hamura Liebert</strong>, saíram à procura de aventuras e problemas a resolver. No caminho, encontraram um gnomo peculiar, controlado por Bento Gonçalves, chamado <strong>Salis Aiafalam</strong>, que jogava com seu neto. Salis conversava com outro jogador, um homem chamado <strong>Paul Fierce</strong>.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8046-b76e-e7e759111418" class="">Todos sentiam fome e decidiram buscar uma taverna. Durante o trajeto, presenciaram dois guerreiros brigando.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80aa-b066-cdf4849a6c29" class=""><strong>Horário:</strong> Final da manhã</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80cf-bff2-f50673888988" class=""><strong>Local:</strong> Taverna da Grande Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8098-981a-d08a77d080ab" class="">Na taverna, optaram por refeições caras para testar o local e acabaram se alimentando com abundância. No mural da taverna, encontraram missões disponíveis.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-802a-9863-fa7f65cc6786" class="">A primeira missão os levou ao <strong>Grande Jardim da Babilônia</strong>, onde deveriam recolher flores para uma garotinha. Consideraram vender as flores em vez de entregá-las, mas mantiveram a intenção original e cumpriram a tarefa.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80fb-8a07-dbee0bfd7283" class="">A segunda missão os desafiou a enfrentar slimes em uma fazenda. Derrotaram os inimigos, mas Jeff se afastou em determinado momento.</p></div><div style="display:contents" dir="auto"><h3 id="2fa821ef-ea8c-8047-9672-de73a2ad7e7f" class="">Sessão 2</h3></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8014-8747-de76f761c5cb" class=""><strong>Data em Eterra:</strong> 16/04 (Avrénne) 3.071 DA</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80cd-92be-fff5f3c53a15" class=""><strong>Horário:</strong> Meio da tarde</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8044-890d-cc1af304a0a0" class=""><strong>Local:</strong> Floresta nos arredores da Grande Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80f3-b90a-fa14cad791fc" class="">Enquanto exploravam a floresta, Jeff teve o infortúnio de encontrar um esqueleto debaixo de uma árvore, aparentemente guardando algum tesouro. Com sua katana, conseguiu derrotar o inimigo e, após a batalha, foi reencontrado por seus amigos. Por algum motivo, Paul não estava mais com eles — havia decidido retornar para casa e se desconectado do jogo.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8038-bedc-d70f7b981042" class="">O grupo seguiu a trilha dos slimes, encontrando três deles. O combate foi breve, sem grandes dificuldades.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-805f-b054-caf97c9b9f46" class=""><strong>Horário:</strong> Final da tarde</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8031-9b9d-e63a5d6036f3" class=""><strong>Local:</strong> Centro do Grande Jardim da Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-808a-b66a-fd1d7ef8d2d2" class="">Hamura percebeu algo estranho: as folhas permaneciam imóveis e o tempo parecia ter parado. Em questão de instantes, todos piscaram os olhos e se viram diante de uma multidão insana, reunida no centro do Grande Jardim. O espaço, de vários quilômetros de diâmetro, estava completamente lotado de pessoas. No centro, Licht discursava à multidão, e, ao final, sua presença se manifestou diretamente nas mentes dos jogadores.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-809b-a7d2-fdefbe542246" class="">Após o discurso, o grupo decidiu que era momento de se retirar do local.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80bb-8001-e9804e493d72" class=""><strong>Horário:</strong> Início da noite</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-804d-b9de-fd7a7ebf52cf" class=""><strong>Local:</strong> Confeitarias e ruas da Grande Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8010-a030-d36cc4db6530" class="">Cassian De Montverre Bastratti, um clérigo de origens nobres, encontrava-se comprando doces em uma das confeitarias mais prestigiadas da cidade, quando ouviu, pela primeira vez, o apito dos grandes <strong>Navios Voadores</strong>. O estrondo do teletransporte da <strong>Nau Capitânia Élfica, Traqueur D&#x27;horizon</strong>, seguido de outros cruzadores como o <strong>Admiral Martin</strong>, do Reino de Priori, e o imponente <strong>Gora Sagarmatkha</strong>, do Império de Mirengard, chamou sua atenção. Surpreso com a quantidade absurda de pessoas se deslocando pelas avenidas, Cassian optou por se abrigar em um prédio próximo.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-80ab-a2e0-e7a167c17383" class=""><strong>Horário:</strong> Noite</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8074-88d6-f0a579413f02" class=""><strong>Local:</strong> Hotel de luxo na Grande Babilônia</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-807e-aca6-e9b4a342cdc7" class="">Pieter, Jeff e Bento deixaram a cidade em pressa, procurando se proteger antes que o caos se instalasse. Encontraram abrigo em um hotel de luxo, onde coincidentemente se depararam com Cassian. Este ajudou o grupo a se acomodar e foi informado sobre os acontecimentos recentes.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-800a-9568-fa37777a1a9f" class="">Enquanto Pieter tomava banho e Bento tentava bolar estratégias para localizar seu neto desaparecido, o pandemonio se instaurava nas ruas: jogadores desesperados tentavam se desconectar do jogo, e um deles, em meio ao combate com guardas, chegou a lançar uma bola de fogo contra o prédio onde o grupo estava. O grupo precisou evacuar rapidamente; quase deixaram Pieter para trás enquanto ele ainda se banhava.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8065-8c79-e6e16fc6df40" class="">Durante a fuga, encontraram <strong>Tekomo</strong>, um ninja de mais de dois metros de altura, que decidiu unir-se a eles. Cassian guiou todos até a saída das muralhas. Consultando os guardas, descobriram a existência de uma vila próxima, segura, chamada <strong>Vilha Velha</strong>.</p></div><div style="display:contents" dir="auto"><p id="2fa821ef-ea8c-8036-9da6-cf826b7b9e55" class="">Ao deixarem a Babilônia, um estrondo abalou o céu: um dos cruzadores havia disparado um feixe de energia contra a cidade, marcando o início de um evento ainda mais catastrófico.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
