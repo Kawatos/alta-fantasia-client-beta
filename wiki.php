@@ -85,7 +85,7 @@
   @media (min-width: 769px) {
     .wiki-header {
       /* Define uma altura mínima mais proeminente para telas grandes */
-      min-height: 25vh;
+      min-height: fit-content;
       /* Adicione um pouco mais de padding para um visual mais aberto, se desejar */
 
     }
@@ -138,7 +138,7 @@
 
 
 <div class="container-fluid">
-  <iframe class="wiki-frame" id="wikiFrame"
+  <iframe class="wiki-frame mt-3" id="wikiFrame"
     src="wiki_pages/AltaFantasiaRegras.html"
     width="100%" height="50vh" frameborder="0" allowfullscreen>
   </iframe>
@@ -153,8 +153,6 @@
 
   let currentMatchIndex = -1;
   let matches = [];
-
-
 
   function performSearch() {
     const searchTerm = searchInput.value.trim();
@@ -220,7 +218,6 @@
 
     searchCount.textContent = `${currentMatchIndex + 1}/${matches.length}`;
   }
-
   
   document.getElementById("nextSearch").addEventListener("click", () => {
     if (matches.length === 0) return;
@@ -236,7 +233,6 @@
 
   searchInput.addEventListener("input", performSearch);
   
-
   function resetSearch() {
     searchInput.value = "";
     matches = [];
@@ -244,6 +240,7 @@
     searchNav.style.display = "none";
     searchCount.textContent = "0/0";
   }
+
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
       resetSearch(); 
@@ -253,7 +250,6 @@
       btn.classList.add("active");
     });
   });
-
   
   iframe.onload = () => {
     resetSearch();

@@ -48,6 +48,7 @@ $tendencia = $_POST['tendencia'] ?? '';
 $nome_jogador = $_POST['nome_jogador'] ?? '';
 $profissao_jogador = $_POST['profissao_jogador'] ?? '';
 $descricao_jogador = $_POST['descricao_jogador'] ?? '';
+$transformacoes_jogador = $_POST['transformacoes_jogador'] ?? '';
 
 
 /* Atributos */
@@ -241,7 +242,8 @@ $stmtFicha = $conn->prepare("
         tendencia = :tendencia,
         nome_jogador = :nome_jogador,
         profissao_jogador = :profissao_jogador,
-        descricao_jogador = :descricao_jogador
+        descricao_jogador = :descricao_jogador,
+        transformacoes_jogador = :transformacoes_jogador
         $sqlImagem
     WHERE id = :id AND usuario_id = :usuario_id
 ");
@@ -280,6 +282,7 @@ $stmtFicha->bindParam(':tendencia', $tendencia);
 $stmtFicha->bindParam(':nome_jogador', $nome_jogador);
 $stmtFicha->bindParam(':profissao_jogador', $profissao_jogador);
 $stmtFicha->bindParam(':descricao_jogador', $descricao_jogador);
+$stmtFicha->bindParam(':transformacoes_jogador', $transformacoes_jogador);
 if ($caminhoImagem) {
     $stmtFicha->bindParam(':personagem_imagem', $caminhoImagem);
 }

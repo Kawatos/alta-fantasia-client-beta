@@ -283,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     document.querySelector('.descricao-personagem').value = '';
                     document.querySelector('.descricao_jogador-personagem').value = '';
+                    document.querySelector('.transformacoes_jogador-personagem').value = '';
                     document.querySelector('.observacoes_atributos-personagem').value = '';
                     document.querySelector('.observacoes_pericias-personagem').value = '';
                     document.querySelector('.observacoes_habilidades-personagem').value = '';
@@ -358,6 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ficha.nome_jogador != null && (document.querySelector('.nome_jogador-personagem').value = ficha.nome_jogador);
                     ficha.profissao_jogador != null && (document.querySelector('.profissao_jogador-personagem').value = ficha.profissao_jogador);
                     ficha.descricao_jogador != null && (document.querySelector('.descricao_jogador-personagem').value = ficha.descricao_jogador);
+                    ficha.transformacoes_jogador != null && (document.querySelector('.transformacoes_jogador-personagem').value = ficha.transformacoes_jogador);
                     // Imagem com fallback
                     document.querySelector('#preview_imagem_personagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
 
@@ -1287,6 +1289,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const quantidade = card.querySelector('.item-quantidade').value
                 const estado = card.querySelector('.item-estado').value;
                 const conjunto = card.querySelector('.item-conjunto').value;
+                const ignorar_peso = card.querySelector('.item-ignorar-peso').value;
 
                 console.log(nome, rank, peso, volume, equipado, inventario_interno, descricao, quantidade)
 
@@ -1303,7 +1306,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formData.append('quantidade', quantidade);
                 formData.append('estado', estado);
                 formData.append('conjunto', conjunto);
-
+                formData.append('ignorar_peso', ignorar_peso);
                 formData.append('descricao-item-novo', descricao);
 
                 fetch('backend/itens/controle_itens.php', {
@@ -1391,6 +1394,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemEstado = document.getElementById('item-estado').value;
         const itemQuantidade = document.getElementById('item-quantidade').value;
         const itemConjunto = document.getElementById('item-conjunto').value;
+        const itemIgnorarPeso = document.getElementById('item-ignorar-peso').value;
 
         console.log(itemNome, itemRank, itemDescricao, itemPeso, itemVolume, itemEquipado);
         console.log(fichaId, "dentro de criar item");
@@ -1407,7 +1411,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('estado', itemEstado);
         formData.append('quantidade', itemQuantidade);
         formData.append('conjunto', itemConjunto);
-
+        formData.append('ignorar_peso', itemIgnorarPeso);
         formData.append('acao', acao);
 
         fetch('backend/itens/controle_itens.php', {
@@ -1433,7 +1437,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById('item-estado').value = '';
                         document.getElementById('item-quantidade').value = '';
                         document.getElementById('item-conjunto').value = 'nao';
-
+                        document.getElementById('item-ignorar-peso').value = 'nao';
                         getItens(); // Recarrega os itens após o alerta sumir
                     });
                 } else {
@@ -1510,7 +1514,15 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     <option value="nao" ${item.conjunto === 'nao' ? 'selected' : ''}>Não</option>
                                                 </select>
                                             </div>
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
+                                                <label for="item-ignorar-peso" class="form-label">Ignorar Peso:</label>
+                                                <select class="form-control item-ignorar-peso" id="item-ignorar-peso" name="ignorar-peso" data-id="${item.id_item}">
+                                                    <option value="">Selecione</option>
+                                                    <option value="sim" ${item.ignorar_peso === 'sim' ? 'selected' : ''}>Sim</option>
+                                                    <option value="nao" ${item.ignorar_peso === 'nao' ? 'selected' : ''}>Não</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 col-md-4">
                                                <label for="item-volume" class="form-label">Volume:</label>
                                                 <select class="form-control item-volume" id="item-volume" name="volume" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1523,7 +1535,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     <option value="colossal" ${item.volume === 'colossal' ? 'selected' : ''}>Colossal</option>
                                                 </select>
                                             </div>
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
                                                 <label class="form-label">Equipado:</label>
                                                 <select class="form-control item-equipado" data-id="${item.id_item}">
                                                     <option value="">Selecione</option>
@@ -1785,7 +1797,8 @@ function atualizarPesoTotal() {
         const inputPeso = details.querySelector('.item-peso');
         const inputQuantidade = details.querySelector('.item-quantidade')
         const itemConjunto = details.querySelector('.item-conjunto').value || "nao";
-
+        const itemIgnorarPeso = details.querySelector('.item-ignorar-peso').value || "nao";
+        console.log(itemIgnorarPeso, "item ignorar peso");
         const peso = (parseFloat(inputPeso.value) * (parseFloat(inputQuantidade.value))) || 0;
 
         const selectInventarioInterno = details.querySelector('.item-inventario_interno');
@@ -1793,7 +1806,7 @@ function atualizarPesoTotal() {
         const inventarioInterno = selectInventarioInterno.value || "nao";
 
         // Soma somente se inventário interno for diferente de "sim"
-        if (inventarioInterno !== 'sim') {
+        if (inventarioInterno !== 'sim' && itemIgnorarPeso !== 'sim') {
             if (equipado === 'sim') {
                 totalPeso += peso * 0.5;
             } else {

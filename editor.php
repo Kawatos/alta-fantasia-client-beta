@@ -207,6 +207,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="progress-bar bg-info" id="barra-progresso-total" role="progressbar" style="width: 1%;" aria-valuemin="0" aria-valuemax="100">1%</div>
                                     </div>
                                 </div>
+                                <div class="col-md-12 mb-1">
+                                    <label for="ficha-transformacoes_jogador">Transformações do Personagem</label>
+                                    <textarea name="transformacoes_jogador" id="ficha-transformacoes_jogador" class="form-control transformacoes_jogador-personagem" placeholder="Transformações do Personagem" rows="5"></textarea>
+                                </div>
 
                                 <!-- Linha 5: Descrição -->
                                 <div class="col-12">
@@ -1671,15 +1675,23 @@ if (!isset($_SESSION['usuario_id'])) {
                                                     <input type="number" class="form-control" id="item-peso" name="peso">
                                                 </div>
                                                 <div class="col-4 col-md-4">
-                                                    <label for="item-equipado" class="form-label">Conjunto:</label>
+                                                    <label for="item-conjunto" class="form-label">Conjunto:</label>
                                                     <select class="form-control" id="item-conjunto" name="conjunto">
                                                         <option value="">Selecione</option>
                                                         <option value="sim">Sim</option>
                                                         <option value="nao" selected>Não</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-4 col-md-4">
+                                                    <label for="item-ignorar-peso" class="form-label">Ignorar Peso:</label>
+                                                    <select class="form-control" id="item-ignorar-peso" name="ignorar-peso">
+                                                        <option value="">Selecione</option>
+                                                        <option value="sim">Sim</option>
+                                                        <option value="nao" selected>Não</option>
+                                                    </select>
+                                                </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-4 col-md-4">
                                                     <label for="item-volume" class="form-label">Volume:</label>
                                                     <select class="form-control" id="item-volume" name="volume">
                                                         <option value="">Selecione</option>
@@ -1692,7 +1704,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                                         <option value="colossal">Colossal</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-6 col-md-6">
+                                                <div class="col-4 col-md-4">
                                                     <label for="item-equipado" class="form-label">Equipado</label>
                                                     <select class="form-control" id="item-equipado" name="equipado">
                                                         <option value="">Selecione</option>
@@ -1777,6 +1789,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <label for="ficha-profissao_jogador" class="form-label">Profissão do Personagem</label>
                                     <input type="text" name="profissao_jogador" id="ficha-profissao_jogador" class="form-control profissao_jogador-personagem" placeholder="Profissão do Personagem">
                                 </div>
+                                
                                 <div class="col-md-12 mb-1">
                                     <label for="ficha-descricao_jogador">Descrição e Origem do Personagem</label>
                                     <textarea name="descricao_jogador" id="ficha-descricao_jogador" class="form-control descricao_jogador-personagem" placeholder="Descrição do Personagem" rows="5"></textarea>
