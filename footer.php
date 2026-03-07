@@ -1,4 +1,3 @@
-
 <!-- Footer -->
 <footer class="bg-primary text-white py-5 mt-5">
     <div class="container">
@@ -14,9 +13,11 @@
                 </p>
                 <div class="d-flex align-items-center">
                     <span class="badge bg-warning text-dark px-3 py-2 fs-6">
-                        <i class="fas fa-code-branch me-1"></i>Versão: 1.5 Alfa
+                        <i class="fas fa-code-branch me-1"></i>Versão: 1.9 Alfa
                     </span>
+
                 </div>
+                <button id="installApp" style="display:none;">Instalar App Alta Fantasia</button>
             </div>
 
             <!-- Contatos -->
@@ -118,6 +119,32 @@
 </button>
 
 <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installApp');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Impede que o navegador mostre o aviso padrão imediatamente
+        e.preventDefault();
+        // Guarda o evento para ser disparado depois
+        deferredPrompt = e;
+        // Mostra o seu botão personalizado
+        installBtn.style.display = 'block';
+
+        installBtn.addEventListener('click', () => {
+            // Esconde o botão após o clique
+            installBtn.style.display = 'none';
+            // Mostra o prompt de instalação do sistema
+            deferredPrompt.prompt();
+            // Verifica se o usuário aceitou ou cancelou
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Usuário aceitou a instalação');
+                }
+                deferredPrompt = null;
+            });
+        });
+    });
+
     // Botão voltar ao topo
     document.addEventListener('DOMContentLoaded', function() {
         const backToTopBtn = document.getElementById('backToTop');
@@ -137,9 +164,8 @@
             });
         });
     });
-
-    
 </script>
 
 </body>
+
 </html>

@@ -3,15 +3,15 @@
 
 
 <style>
+  #wikiSearch {
+    width: 50%;
+  }
+
   .wiki-header {
     position: -webkit-sticky;
-    /* Suporte Safari */
     position: sticky;
-    /* IMPORTANTE: Esse valor deve ser a altura do seu header principal */
-    /* Se o header principal mudar muito, podemos usar uma variável CSS */
     top: 70px;
     z-index: 999;
-    /* Um pouco menor que o do header principal (1000) */
 
     background: url('css/imagens/biblioteca.jpg') center/cover no-repeat;
     padding: 1rem;
@@ -19,11 +19,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
     margin-bottom: 2rem;
-    overflow: hidden;
-    min-height: fit-content;
+    overflow: visible;
+
+    min-height: auto;
+    height: auto;
+    inline-size: 100%;
+    block-size: auto;
+    /* Safari fix: faz com que a altura se ajuste ao conteúdo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
-
-
 
   .wiki-header h1,
   .wiki-header .search-container {
@@ -33,8 +40,6 @@
     z-index: 2;
     /* garante que o texto fique acima do overlay */
   }
-
-
 
   /* Estilo do iframe */
   .wiki-frame {
@@ -84,17 +89,32 @@
 
   @media (min-width: 769px) {
     .wiki-header {
-      /* Define uma altura mínima mais proeminente para telas grandes */
-      min-height: fit-content;
-      /* Adicione um pouco mais de padding para um visual mais aberto, se desejar */
-
+      min-height: auto !important;
+      height: auto !important;
+      inline-size: 100%;
+      block-size: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
   /* Mobile */
   @media (max-width: 768px) {
+    #wikiFrame {
+      width: 100%;
+    }
+
+
+
     .wiki-header {
       padding: 1.5rem 1rem;
+      min-height: auto !important;
+      height: auto !important;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .wiki-header h1 {
@@ -108,21 +128,31 @@
     }
   }
 </style>
+<!-- Safari Fix JS: força a altura a se ajustar ao conteúdo -->
+<script>
+  // Correção de altura para o Safari caso o flexbox ainda não baste
+  document.addEventListener("DOMContentLoaded", function() {
+    function adjustWikiHeaderHeight() {
+      const el = document.querySelector('.wiki-header');
+      if (el) {
+        el.style.height = 'auto';
+        el.style.minHeight = 'auto';
+        // Ajuda especialmente em caso de sticky + background cover + flex no Safari/iOS
+        const realHeight = el.scrollHeight;
+        el.style.height = realHeight + 'px';
+      }
+    }
+    adjustWikiHeaderHeight();
+    window.addEventListener('resize', adjustWikiHeaderHeight);
+  });
+</script>
 
 <div class="wiki-header text-center">
   <h1 class="display-5 fw-bold">
     <span class="font-alta">Alta</span>
     <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia: Wiki</span>
   </h1>
-  <div class="search-container mt-2 d-flex align-items-center justify-content-center">
-    <input type="text" id="wikiSearch" class="form-control w-50" placeholder="🔍 Pesquisar nesta página...">
 
-    <div id="searchNav" class="ms-2" style="display: none;">
-      <span id="searchCount" class="badge bg-secondary me-2">0/0</span>
-      <button id="prevSearch" class="btn btn-sm btn-primary">▲</button>
-      <button id="nextSearch" class="btn btn-sm btn-primary">▼</button>
-    </div>
-  </div>
   <div class="tabs-container text-center my-3" style="z-index: 999;">
 
     <button class="tab-btn active" data-link="wiki_pages/AltaFantasiaRegras.html">📜 Regras</button>
@@ -134,6 +164,17 @@
     <button class="tab-btn" data-link="wiki_pages/AltaFantasiaCenario.html">🌍 Cenário</button>
 
   </div>
+
+  <div class="search-container mt-2 d-flex align-items-center justify-content-center w-100">
+    <input type="text" id="wikiSearch" class="form-control" placeholder="🔍 Pesquisar nesta página...">
+
+    <div id="searchNav" class="ms-2" style="display: none;">
+      <span id="searchCount" class="badge bg-secondary me-2">0/0</span>
+      <button id="prevSearch" class="btn btn-sm btn-primary">▲</button>
+      <button id="nextSearch" class="btn btn-sm btn-primary">▼</button>
+    </div>
+  </div>
+
 </div>
 
 
@@ -218,7 +259,7 @@
 
     searchCount.textContent = `${currentMatchIndex + 1}/${matches.length}`;
   }
-  
+
   document.getElementById("nextSearch").addEventListener("click", () => {
     if (matches.length === 0) return;
     currentMatchIndex = (currentMatchIndex + 1) % matches.length;
@@ -232,7 +273,7 @@
   });
 
   searchInput.addEventListener("input", performSearch);
-  
+
   function resetSearch() {
     searchInput.value = "";
     matches = [];
@@ -243,14 +284,14 @@
 
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      resetSearch(); 
+      resetSearch();
       iframe.src = btn.dataset.link;
 
       buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
     });
   });
-  
+
   iframe.onload = () => {
     resetSearch();
   };

@@ -1,0 +1,24 @@
+{
+    "name": "Alta Fantasia",
+    "short_name": "AltaFantasia",
+    "description": "Portal de literatura, RPG e cultura fantástica.",
+    "start_url": "/alta.php",
+    "display": "standalone",
+    "background_color": "#1a1b3a",
+    "theme_color": "#1a1b3a",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/icons/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "lang": "pt"
+  }

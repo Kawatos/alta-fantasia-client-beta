@@ -24,6 +24,7 @@ if (!empty($_SESSION['imagem'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="AltaFantasiaIconRounded.png" type="image/png">
 
+  <link rel="manifest" href="/manifest.json">
 
   <!-- Estilos e bibliotecas compartilhadas -->
 
@@ -48,6 +49,11 @@ if (!empty($_SESSION['imagem'])) {
   <link rel="stylesheet" href="css/style.css">
   <!-- Scripts personalizados -->
   <script src="js/script.js" defer></script>
+  <script>
+      if (typeof navigator.serviceWorker !== 'undefined') {
+          navigator.serviceWorker.register('pwabuilder-sw.js')
+      }
+    </script>
 
 </head>
 

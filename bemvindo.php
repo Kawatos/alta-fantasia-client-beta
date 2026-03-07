@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -46,6 +46,11 @@
                   </div>
                 </div>
                 <div class="d-grid">
+                  <div class="d-flex justify-content-center">
+                    <div class="cf-turnstile mb-3"
+                      data-sitekey="">
+                    </div>
+                  </div>
                   <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt me-2"></i>Entrar
                   </button>
@@ -54,29 +59,7 @@
                   </div>
                 </div>
               </form>
-              <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-              <div class="mt-3" style="
-                                          display: flex;
-                                          flex-direction: column;
-                                          align-content: center;
-                                          align-items: center;
-                                          justify-content: center;
-                                          flex-wrap: nowrap;
-                                      ">
-
-                <span class="me-3 text-muted">ou</span>
-
-                <div>
-                  <div id="g_id_onload"
-                    data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
-                    data-callback="handleGoogleLogin">
-                  </div>
-                  <div class="g_id_signin" data-type="standard"></div>
-
-                </div>
-
-              </div> -->
+              <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 
             </div>
@@ -138,6 +121,11 @@
                   </div>
                 </div>
                 <div class="d-grid">
+                  <div class="d-flex justify-content-center">
+                    <div class="cf-turnstile mb-3"
+                      data-sitekey="">
+                    </div>
+                  </div>
                   <button type="submit" class="btn btn-success">
                     <i class="fas fa-user-plus me-2"></i>Cadastrar
                   </button>
@@ -145,7 +133,27 @@
               </form>
             </div>
 
+            <div class="mt-3" style="
+                                          display: flex;
+                                          flex-direction: column;
+                                          align-content: center;
+                                          align-items: center;
+                                          justify-content: center;
+                                          flex-wrap: nowrap;
+                                      ">
 
+              <span class="me-3 text-muted">ou</span>
+
+              <div>
+                <div id="g_id_onload"
+                  data-client_id=""
+                  data-callback="handleGoogleLogin">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
+
+              </div>
+
+            </div>
           </div>
 
           <!-- Mensagem de feedback -->
@@ -200,10 +208,12 @@
 
       const formData = isLogin ? {
         username: $('#username').val(),
-        password: $('#password').val()
+        password: $('#password').val(),
+        cf_token: $('[name="cf-turnstile-response"]').val()
       } : {
         new_username: $('#new_username').val(),
-        new_password: $('#new_password').val()
+        new_password: $('#new_password').val(),
+        cf_token: $('[name="cf-turnstile-response"]').val()
       };
 
 
