@@ -3,29 +3,108 @@
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-  .hero-section {
-    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
-    min-height: 100vh;
+  /* Ajuste para o container pai */
+  /* 1. Ajuste nas Seções: Elas agora servem como janelas */
+  .hero-section,
+  .outra-secao-com-fundo {
     position: relative;
+    min-height: fit-content;
+
     overflow: hidden;
+    /* Cria a "janela" que recorta o fundo fixo */
+    clip-path: inset(0 0 0 0);
   }
 
-  .hero-background {
-    position: absolute;
+  /* 2. Ajuste nos Backgrounds: Eles ficam presos dentro da janela */
+  .heroBackground {
+    position: fixed;
+    /* Trava a imagem na tela */
     inset: 0;
-    width: 120%;
-    height: 120%;
-    background: url('css/imagens/templo.jpg') center/cover no-repeat;
-    will-change: transform;
+    /* Ocupa a tela toda */
+    width: 100%;
+    min-height: fit-content;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    pointer-events: none;
+    /* Importante: a imagem só aparece quando o clip-path do pai permite */
   }
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(182, 182, 182, 0.38)
-      /* linear-gradient(135deg, rgba(26, 27, 58, 0.8) 0%, rgba(184, 134, 11, 0.6) 100%) */
-    ;
+  .card {
+    background-color: rgba(255, 255, 255, 0.8);
   }
+
+  /* IDs específicos para as imagens */
+  #hero-background1 {
+    background-image: url('css/imagens/templo.jpg');
+  }
+
+  #hero-background2 {
+    background-image: url('css/imagens/AFP6.jpg');
+  }
+
+  #hero-background3 {
+    background-image: url('css/imagens/AFP3.jpg');
+  }
+
+  #hero-background4 {
+    background-image: url('css/imagens/AFP4.jpg');
+  }
+
+  /* 3. Seções de transição (Stats, Desenvolvimento) */
+  /* Elas precisam ter fundo sólido e z-index alto para "tampar" as imagens fixas */
+  .bg-light {
+    position: relative;
+    z-index: 2;
+    /* importante para ficar acima do parallax */
+    background-color: #f8f9fa !important;
+    height: 25vh;
+    overflow: visible;
+  }
+
+  /* fade superior */
+  .bg-light::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -10%;
+    width: 100%;
+    height: 10%;
+    pointer-events: none;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba(248, 249, 250, 0) 0%, #f8f9fa 100%);
+  }
+
+  /* fade inferior */
+  .bg-light::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10%;
+    /* aqui está o ponto chave */
+    width: 100%;
+    height: 10%;
+    pointer-events: none;
+    z-index: 3;
+    background: linear-gradient(to top, rgba(248, 249, 250, 0) 0%, #f8f9fa 100%);
+  }
+
+  /* Garante que o conteúdo da hero fique acima do fundo fixo */
+  .hero-section .container {
+    min-height: fit-content;
+    height: 70vh;
+    display: flex;
+    z-index: 4;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    position: relative;
+
+  }
+
 
   .title-dynamic {
     color: var(--cor-fundo-texto-claro) !important;
@@ -65,7 +144,7 @@
 
 <!-- Hero Section -->
 <section class="hero-section d-flex align-items-center text-white">
-  <div class="hero-background" id="heroBackground"></div>
+  <div class=" heroBackground" id="hero-background1"></div>
   <div class="hero-overlay"></div>
 
   <div class="container position-relative" style="z-index: 4;">
@@ -93,7 +172,7 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-5 bg-light">
+<section class="py-5 bg-light" style="height: fit-content;">
   <div class="container">
     <div class="row text-center g-4">
       <div class="col-6 col-md-3">
@@ -116,37 +195,12 @@
   </div>
 </section>
 
-<!-- Sobre o Projeto -->
-<section id="sobre-projeto" class="py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card border-0 shadow-lg rounded-4 p-4">
-          <div class="card-body text-center">
-            <img src="css/imagens/Foto de Perfil Reduzida.png"
-              alt="Foto de Kauã Mattos"
-              class="creator-photo rounded-circle object-fit-cover mx-auto d-block mb-4">
 
-            <h2 class="text-primary mb-4">Sobre mim, o Criador</h2>
-            <p class="lead mb-4">
-              Me chamo <strong>Kauã Mattos</strong>, sou um geek de carteirinha, programador e apaixonado por RPGs de mesa!
-            </p>
-            <p class="text-muted">
-              Também sou fã de Tormenta, D&D e tudo que envolva dados e narração com bons amigos,
-              Alta Fantasia é o meu terceiro RPG criado, desenvolvido com o objetivo de superar
-              meu primeiro projeto - uma versão home-made de Sword Art Online que,
-              infelizmente, nunca teve uma sessão completa com todos os players reunidos.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="hero-section d-flex align-items-center text-white">
+  <div class="heroBackground" id="hero-background2"></div>
+  <div class="hero-overlay"></div>
 
-<!-- Desenvolvimento -->
-<section class="py-5 bg-light">
-  <div class="container">
+  <div class="container position-relative" style="z-index: 1;">
     <div class="row g-4">
       <div class="col-lg-6">
         <div class="card border-0 shadow-lg rounded-4 h-100">
@@ -211,11 +265,43 @@
       </div>
     </div>
   </div>
+
 </section>
 
-<!-- História do Mundo -->
-<section class="py-5">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Stats Section -->
+<section class="py-5 bg-light">
   <div class="container">
+    <div class="row g-4">
+      <div class="col-12 text-center">
+        <h2 class="display-4 fw-bold text-warning">O Mundo de Alta Fantasia</h2>
+        <h3 class="text-muted">Níveis Máximos</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="hero-section d-flex align-items-center text-white">
+  <div class="heroBackground" id="hero-background3"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container position-relative" style="z-index: 4;">
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="card border-0 shadow-lg rounded-4 p-4">
@@ -262,76 +348,115 @@
       </div>
     </div>
   </div>
+
 </section>
 
-<!-- Conteúdo do Jogo -->
+
+
+
+
+
+
+
+<!-- Stats Section -->
 <section class="py-5 bg-light">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card border-0 shadow-lg rounded-4 p-4">
-          <div class="card-body text-center">
-            <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-              style="width: 60px; height: 60px;">
-              <i class="fas fa-book-open text-white fs-4"></i>
-            </div>
-            <h2 class="text-secondary mb-4">Conteúdo Sólido</h2>
-            <p class="lead mb-4">
-              Alta Fantasia possui inicialmente <strong>18 classes jogáveis</strong> e
-              <strong>12 raças</strong> únicas para você explorar.
-            </p>
-            <p class="mb-4">
-              Você poderá descobrir mais na Wiki, aqui mesmo no site, incluindo regras detalhadas,
-              sistema de dano, magias, mecânicas de acerto e tudo mais que um RPG completo precisa para existir.
-            </p>
-            <div class="d-flex flex-wrap justify-content-center gap-2">
-              <span class="badge bg-primary fs-6 px-3 py-2">Classes</span>
-              <span class="badge bg-success fs-6 px-3 py-2">Raças</span>
-              <span class="badge bg-info fs-6 px-3 py-2">Magias</span>
-              <span class="badge bg-warning fs-6 px-3 py-2">Regras</span>
-              <span class="badge bg-danger fs-6 px-3 py-2">Sistema de Combate</span>
-            </div>
-          </div>
-        </div>
+    <div class="row g-4">
+      <div class="col-12 text-center">
+        <h2 class="display-4 fw-bold text-warning">Quem Faz o Alta</h2>
+        <h3 class="text-muted">Eu e meus jogadores</h3>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Open Source -->
-<section class="py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card border-0 shadow-lg rounded-4 p-4">
-          <div class="card-body text-center">
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center text-white">
+  <div class="heroBackground" id="hero-background4"></div>
+  <div class="hero-overlay"></div>
+
+
+  <div class="container position-relative" style="z-index: 4;">
+    <div class="row g-4">
+
+      <!-- Criador -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-lg rounded-4 h-100">
+          <div class="card-body text-center p-4">
+
+            <img src="css/imagens/Foto de Perfil Reduzida.png"
+              alt="Foto de Kauã Mattos"
+              class="rounded-circle object-fit-cover mx-auto d-block mb-3"
+              style="width:120px;height:120px;">
+
+            <h3 class="text-primary mb-3">Sobre o Criador</h3>
+
+            <p class="mb-3">
+              Me chamo <strong>Kauã Mattos</strong>, programador e apaixonado por RPGs de mesa.
+            </p>
+
+            <p class="text-muted small">
+              Sou fã de sistemas como Tormenta e D&D. O <strong>Alta Fantasia</strong> é meu
+              terceiro projeto de RPG, criado com o objetivo de desenvolver um sistema
+              profundo, equilibrado e duradouro para campanhas épicas.
+            </p>
+
+            <p class="text-muted small mb-0">
+              O projeto nasceu da evolução de ideias antigas e da vontade de criar
+              um sistema próprio que realmente pudesse ser jogado por longos períodos.
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Open Source -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-lg rounded-4 h-100 ">
+          <div class="card-body text-center p-4">
+
             <div class="bg-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
               style="width: 60px; height: 60px;">
               <i class="fab fa-github text-white fs-4"></i>
             </div>
-            <h2 class="mb-4">🚀 Projeto Open Source</h2>
-            <p class="lead mb-4">
-              Este site é um projeto <strong>Open Source</strong>! Você pode reutilizar
-              o sistema para criar a ficha do seu próprio RPG também.
+
+            <h3 class="mb-3">Projeto Open Source</h3>
+
+            <p class="mb-3">
+              O sistema do site é <strong>Open Source</strong>. Desenvolvedores e
+              mestres de RPG podem reutilizar o código como base para criar
+              sistemas próprios de fichas ou ferramentas de campanha.
             </p>
-            <p class="mb-4">
-              Explore o código, contribua com melhorias, ou use como base para seus próprios projetos.
-              A comunidade RPG cresce quando compartilhamos conhecimento!
+
+            <p class="text-muted small mb-4">
+              A ideia é incentivar a comunidade a compartilhar ferramentas,
+              melhorar o código e expandir o ecossistema de RPGs independentes.
             </p>
+
             <a href="https://github.com/Kawatos/alta-fantasia-client-beta"
-              class="btn github-btn text-white text-decoration-none rounded-pill px-4 py-2" target="_blank">
-              <i class="fab fa-github me-2"></i>Ver no GitHub<i class="fas fa-star ms-2"></i>
+              class="btn github-btn text-white text-decoration-none rounded-pill px-4 py-2"
+              target="_blank">
+
+              <i class="fab fa-github me-2"></i>
+              Ver no GitHub
+              <i class="fas fa-star ms-2"></i>
+
             </a>
+
             <p class="mt-3 text-muted small">
               <i class="fas fa-heart text-danger"></i>
-              Não esqueça de deixar uma estrelinha se gostar!
+              Se gostar do projeto, deixe uma estrela!
             </p>
+
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
+
 
 <script>
   let fonteDinamicaAtiva = false; // variável persistente fora da função
@@ -370,16 +495,6 @@
     document.removeEventListener('DOMContentLoaded', iniciarFonteDinamicaOnce);
     iniciarFonteDinamica('fantasiaText');
   }
-
-
-  // Parallax simples
-  function updateParallax() {
-    const scrolled = window.pageYOffset;
-    const bg = document.getElementById('heroBackground');
-    if (bg) bg.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
-  }
-
-  window.addEventListener('scroll', updateParallax);
 </script>
 
 
