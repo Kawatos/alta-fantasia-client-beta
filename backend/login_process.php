@@ -2,8 +2,8 @@
 session_start();
 require 'conexao.php';
 header('Content-Type: application/json');
-
-$cf_token = $_POST['cf_token'] ?? '';
+// habilite quando tiver o captcha configurado e seus respectivos valores de sitekey e secret, para evitar ataques de força bruta
+/* $cf_token = $_POST['cf_token'] ?? '';
 
 $secret = "";
 
@@ -26,11 +26,11 @@ $result = json_decode($verify, true);
 
 if (!$result['success']) {
     echo json_encode([
-        'success'=>false,
-        'message'=>'Verificação anti-bot falhou'
+        'success' => false,
+        'message' => 'Verificação anti-bot falhou'
     ]);
     exit;
-}
+} */
 
 // Captura dados do corpo JSON ou POST
 $data = json_decode(file_get_contents('php://input'), true);

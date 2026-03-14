@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 09/03/2026 às 18:11
+-- Tempo de geração: 14/03/2026 às 15:21
 -- Versão do servidor: 11.8.3-MariaDB-log
 -- Versão do PHP: 7.2.34
 
@@ -249,9 +249,9 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `email` text NOT NULL,
-  `google_id` text NOT NULL,
-  `imagem` varchar(255) NOT NULL
+  `email` text NOT NULL DEFAULT '',
+  `google_id` text NOT NULL DEFAULT '',
+  `imagem` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

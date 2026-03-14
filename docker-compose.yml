@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password --sql-mode="NO_ENGINE_SUBSTITUTION"
+    environment:
+      MYSQL_DATABASE: altafantasia
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql # Isso evita que o banco quebre ao reiniciar
+      - ./altafantasia.sql:/docker-entrypoint-initdb.d/init.sql
+
+  php:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+  # --- ADICIONE ESTAS LINHAS ABAIXO ---
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db  # Aqui dizemos ao phpMyAdmin para olhar para o container 'db', USE 8081 PARA ACESSAR O PHPMYADMIN
+      - ARBITRARY_SERVER_CONNECTION_SETTINGS=true
+    depends_on:
+      - db
+
+volumes:
+  db_data:
