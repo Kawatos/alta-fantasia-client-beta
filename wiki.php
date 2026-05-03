@@ -127,6 +127,24 @@
       /* menos altura no celular */
     }
   }
+
+  #wikiMenu {
+    display: none;
+  }
+
+  #wikiMenu.open {
+    display: block;
+  }
+
+  .wiki-frame.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: #000;
+  }
 </style>
 <!-- Safari Fix JS: força a altura a se ajustar ao conteúdo -->
 <script>
@@ -148,31 +166,33 @@
 </script>
 
 <div class="wiki-header text-center">
-  <h1 class="display-5 fw-bold">
-    <span class="font-alta">Alta</span>
-    <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia: Wiki</span>
-  </h1>
 
-  <div class="tabs-container text-center my-3" style="z-index: 999;">
+  <div class="d-flex justify-content-between align-items-center px-3">
 
-    <button class="tab-btn active" data-link="wiki_pages/AltaFantasiaRegras.html">📜 Regras</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaRacas.html">🧝 Raças</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaClasses.html">⚔️ Classes</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaHabilidades.html">✨ Habilidades</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaMagias.html">🔮 Magias</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaItens.html">💎 Itens</button>
-    <button class="tab-btn" data-link="wiki_pages/AltaFantasiaCenario.html">🌍 Cenário</button>
+    <!-- Título -->
+    <h1 class="display-6 fw-bold m-0">
+      <span class="font-alta">Alta</span>
+      <span class="title-dynamic font-fantasia fw-bold">Fantasia: Wiki</span>
+      <button id="menuToggle" class=" ml-2 btn btn-sm btn-primary">☰</button>
+    </h1>
 
   </div>
 
-  <div class="search-container mt-2 d-flex align-items-center justify-content-center w-100">
-    <input type="text" id="wikiSearch" class="form-control" placeholder="🔍 Pesquisar nesta página...">
+  <!-- Menu (colapsável) -->
+  <div id="wikiMenu" class="tabs-container text-center mt-3">
 
-    <div id="searchNav" class="ms-2" style="display: none;">
-      <span id="searchCount" class="badge bg-secondary me-2">0/0</span>
-      <button id="prevSearch" class="btn btn-sm btn-primary">▲</button>
-      <button id="nextSearch" class="btn btn-sm btn-primary">▼</button>
-    </div>
+    <button class="tab-btn active" data-link="https://docs.google.com/document/d/1-dYIwjynW6hpmpf4KKyI0GBvd3GMqbq3KzDQTfTHjd0/preview">📜 Regras</button>
+
+    <button class="tab-btn" data-link="https://docs.google.com/document/d/1LdaIOfIW-4iWjrjTvWAVBEDMNwe7MvNh7hK94zxTr8k/preview">🧝 Raças</button>
+
+    <button class="tab-btn" data-link="https://docs.google.com/document/d/1xnNnLiTzGFw3DPBGknZAd44UDZU0BeY7qclgq7xn1Yg/preview">⚔️ Classes</button>
+
+    <button class="tab-btn" data-link="https://docs.google.com/document/d/1K7STSBAg2L10GbwqkU20yJKU_3W9R8Pwn_cU_wQnlTE/preview">✨ Habilidades</button>
+
+    <button class="tab-btn" data-link="https://docs.google.com/document/d/1hL5SbQ5o-70p795EoLCwkdf7DJgKIexY0SlIkAxZ7ec/preview">🔮 Magias</button>
+
+    <button class="tab-btn" data-link="https://docs.google.com/document/d/1wsE5m0ImTtOV3GyXeEI_8HkFvNI1TaQ_hBhOvziyy4o/preview">💎 Itens</button>
+
   </div>
 
 </div>
@@ -180,121 +200,60 @@
 
 <div class="container-fluid">
   <iframe class="wiki-frame mt-3" id="wikiFrame"
-    src="wiki_pages/AltaFantasiaRegras.html"
+    src="https://docs.google.com/document/d/1-dYIwjynW6hpmpf4KKyI0GBvd3GMqbq3KzDQTfTHjd0/edit?usp=sharing"
     width="100%" height="50vh" frameborder="0" allowfullscreen>
   </iframe>
 </div>
 
 <script>
-  const buttons = document.querySelectorAll(".tab-btn");
-  const searchInput = document.getElementById("wikiSearch");
-  const iframe = document.getElementById("wikiFrame");
-  const searchNav = document.getElementById("searchNav");
-  const searchCount = document.getElementById("searchCount");
+  document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll(".tab-btn");
+    const iframe = document.getElementById("wikiFrame");
+    const menu = document.getElementById("wikiMenu");
+    const toggle = document.getElementById("menuToggle");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-  let currentMatchIndex = -1;
-  let matches = [];
+    // Tabs
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
 
-  function performSearch() {
-    const searchTerm = searchInput.value.trim();
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    const body = iframeDoc.body;
+        iframe.src = btn.getAttribute("data-link");
 
-    // 1. Limpeza e Reset
-    const markers = body.querySelectorAll('mark');
-    markers.forEach(m => {
-      const parent = m.parentNode;
-      m.replaceWith(...m.childNodes);
-      parent.normalize();
+        // fecha menu no mobile
+        menu.classList.remove("open");
+      });
     });
 
-    if (searchTerm.length < 2) {
-      searchNav.style.display = "none";
-      return;
+    // Menu hambúrguer
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("open");
+    });
+    
+
+    function isFullscreen() {
+      return document.fullscreenElement != null;
     }
 
-    // 2. Busca e Destaque
-    const walk = iframeDoc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
-    const nodesToReplace = [];
-    let node;
-    while (node = walk.nextNode()) {
-      if (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE') continue;
-      if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
-        nodesToReplace.push(node);
+    fullscreenBtn.addEventListener("click", async () => {
+      if (!isFullscreen()) {
+        await iframe.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
       }
-    }
-
-    const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapedTerm})`, 'gi');
-
-    nodesToReplace.forEach(node => {
-      const span = iframeDoc.createElement('span');
-      span.innerHTML = node.textContent.replace(regex, '<mark class="wiki-highlight">$1</mark>');
-      node.replaceWith(...span.childNodes);
     });
 
-    // 3. Atualizar Navegação
-    matches = Array.from(body.querySelectorAll('.wiki-highlight'));
-
-    if (matches.length > 0) {
-      currentMatchIndex = 0;
-      searchNav.style.display = "inline-block";
-      updateMatchUI();
-    } else {
-      searchNav.style.display = "none";
-    }
-  }
-
-  function updateMatchUI() {
-    // Remove destaque de "foco" anterior
-    matches.forEach(m => m.style.backgroundColor = "#ffcf33"); // Cor padrão
-
-    // Destaca o atual
-    const current = matches[currentMatchIndex];
-    current.style.backgroundColor = "#ff9900"; // Cor de foco (Laranja)
-    current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
+    // Atualiza botão corretamente (ESC, resize, etc)
+    document.addEventListener("fullscreenchange", () => {
+      if (isFullscreen()) {
+        fullscreenBtn.textContent = "✕";
+      } else {
+        fullscreenBtn.textContent = "⛶";
+      }
     });
 
-    searchCount.textContent = `${currentMatchIndex + 1}/${matches.length}`;
-  }
-
-  document.getElementById("nextSearch").addEventListener("click", () => {
-    if (matches.length === 0) return;
-    currentMatchIndex = (currentMatchIndex + 1) % matches.length;
-    updateMatchUI();
   });
-
-  document.getElementById("prevSearch").addEventListener("click", () => {
-    if (matches.length === 0) return;
-    currentMatchIndex = (currentMatchIndex - 1 + matches.length) % matches.length;
-    updateMatchUI();
-  });
-
-  searchInput.addEventListener("input", performSearch);
-
-  function resetSearch() {
-    searchInput.value = "";
-    matches = [];
-    currentMatchIndex = -1;
-    searchNav.style.display = "none";
-    searchCount.textContent = "0/0";
-  }
-
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      resetSearch();
-      iframe.src = btn.dataset.link;
-
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    });
-  });
-
-  iframe.onload = () => {
-    resetSearch();
-  };
 </script>
 
 

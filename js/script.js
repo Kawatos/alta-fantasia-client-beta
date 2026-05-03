@@ -1,8 +1,17 @@
 
 let modoEdicao = false;
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
     carregarFichas()
+
+    $(document).on('click', '.abrir-ficha, .editar-ficha, .remover-ficha ', function (e) {
+        e.stopPropagation();
+    });
+
+
+
 
     function carregarFichas() {
         $.ajax({
@@ -41,75 +50,79 @@ document.addEventListener("DOMContentLoaded", function () {
                         : 'opacity: 0.5;';
 
                     const card = `
-                <div class=" mb-3" style="
-                        width: 400px;
-                    ">
-                    <div class="card h-100 d-flex flex-row align-items-center cardPersonagem p-2" data-id="${ficha.id}" style="min-height: 120px;">
-                        <!-- Imagem -->
-                        <img src="${imagem || 'caminho/padrao.png'}" alt="Imagem do Personagem"
-                            class="rounded"
-                            style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
-                        <!-- Conteúdo textual -->
-                        <div class="flex-grow-1 mx-3" style="
-                                                            display: flex;
-                                                            flex-direction: column;
-                                                            align-content: center;
-                                                            align-items: center;
-                                                        ">
-                            <h5 class="card-title mb-1">${nomeExibicao}</h5>
-                            <h6 class="card-subtitle text-muted mb-1">
-                                ${(() => {
-                            // Garante que sempre teremos algo para trabalhar
-                            if (!ficha.classe) return 'Sem classe';
+                                    <div class=" mb-3" style="
+                                            width: 400px;
+                                        ">
+                                        <div class="card h-100 d-flex flex-row align-items-center cardPersonagem p-2" data-id="${ficha.id}" style="min-height: 120px;">
+                                            <!-- Imagem -->
+                                            <img src="${imagem || 'caminho/padrao.png'}" alt="Imagem do Personagem"
+                                                class="rounded"
+                                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
+                                            <!-- Conteúdo textual -->
+                                            <div class="flex-grow-1 mx-3" style="
+                                                                                display: flex;
+                                                                                flex-direction: column;
+                                                                                align-content: center;
+                                                                                align-items: center;
+                                                                            ">
+                                                <h5 class="card-title mb-1">${nomeExibicao}</h5>
+                                                <h6 class="card-subtitle text-muted mb-1">
+                                                    ${(() => {
+                                                // Garante que sempre teremos algo para trabalhar
+                                                if (!ficha.classe) return 'Sem classe';
 
-                            let classesArray;
+                                                let classesArray;
 
-                            try {
-                                // Se já for array, usa direto, se for string tenta parse
-                                classesArray = Array.isArray(ficha.classe)
-                                    ? ficha.classe
-                                    : JSON.parse(ficha.classe);
-                            } catch (e) {
-                                // Se der erro no parse, assume que é string simples
-                                classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== ''
-                                    ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }]
-                                    : [];
-                            }
+                                                try {
+                                                    // Se já for array, usa direto, se for string tenta parse
+                                                    classesArray = Array.isArray(ficha.classe)
+                                                        ? ficha.classe
+                                                        : JSON.parse(ficha.classe);
+                                                } catch (e) {
+                                                    // Se der erro no parse, assume que é string simples
+                                                    classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== ''
+                                                        ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }]
+                                                        : [];
+                                                }
 
-                            // Se ainda assim não tiver nada, exibe "Sem classe"
-                            if (!classesArray || classesArray.length === 0) return 'Sem classe';
+                                                // Se ainda assim não tiver nada, exibe "Sem classe"
+                                                if (!classesArray || classesArray.length === 0) return 'Sem classe';
 
-                            // Mapeia e exibe
-                            return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
-                        })()
-                        }
-                            </h6>
-
-
-
-                            <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem || 'Sem status'}</h6>
-
-                            <div class="d-flex gap-2 flex-wrap">
-                                <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}">Editar</button>
-                                <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}">
-                                    <i class="fas fa-trash-alt me-1"></i>Excluir
-                                </button>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
+                                                // Mapeia e exibe
+                                                return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
+                                            })()
+                                            }
+                                                </h6>
 
 
-                `;
+
+                                                <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem || 'Sem status'}</h6>
+
+                                                <div class="d-flex gap-2 flex-wrap">
+                                                    <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}">Editar</button>
+                                                    <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}">
+                                                        <i class="fas fa-trash-alt me-1"></i>Excluir
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+
+
+                                `;
 
                     container.append(card);
                 });
 
+
+
+
                 // Botão editar
                 document.querySelectorAll('.btn-editar').forEach(button => {
                     button.addEventListener('click', function (e) {
+                        console.log('clicado para editar ficha id:', button.dataset.id);
                         e.stopPropagation(); // impede o card de também receber o clique
                         modoEdicao = true;
                         fichaId = this.dataset.id;
@@ -189,79 +202,87 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Botão para abrir em modo CRIAÇÃO
-    document.querySelector('#botaoCriarFicha').addEventListener('click', function () {
-        Swal.fire({
-            title: 'Criar nova ficha?',
-            text: 'Deseja realmente criar uma nova ficha de personagem?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sim, criar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Nome do personagem',
-                    input: 'text',
-                    inputLabel: 'Digite o nome do seu personagem',
-                    inputPlaceholder: 'Ex: Arthanor, o Mago',
-                    showCancelButton: true,
-                    confirmButtonText: 'Criar ficha',
-                    cancelButtonText: 'Cancelar',
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'Você precisa digitar um nome!';
+    if (document.querySelector('#botaoCriarFicha')) {
+        document.querySelector('#botaoCriarFicha').addEventListener('click', function () {
+            console.log('botão clicado de criar ficha');
+            Swal.fire({
+                title: 'Criar nova ficha?',
+                text: 'Deseja realmente criar uma nova ficha de personagem?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, criar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Nome do personagem',
+                        input: 'text',
+                        inputLabel: 'Digite o nome do seu personagem',
+                        inputPlaceholder: 'Ex: Arthanor, o Mago',
+                        showCancelButton: true,
+                        confirmButtonText: 'Criar ficha',
+                        cancelButtonText: 'Cancelar',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Você precisa digitar um nome!';
+                            }
                         }
-                    }
-                }).then((inputResult) => {
-                    if (inputResult.isConfirmed) {
-                        const nomePersonagem = inputResult.value;
+                    }).then((inputResult) => {
+                        if (inputResult.isConfirmed) {
+                            const nomePersonagem = inputResult.value;
 
-                        fetch('backend/criar_ficha.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                nome_personagem: nomePersonagem
+                            fetch('backend/criar_ficha.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: new URLSearchParams({
+                                    nome_personagem: nomePersonagem
+                                })
                             })
-                        })
-                            .then(resp => resp.json())
-                            .then(data => {
-                                if (data.status === 'sucesso') {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Ficha criada com sucesso!',
-                                        showConfirmButton: false,
-                                        timer: 700
-                                    }).then(() => {
-                                        carregarFichas()
-                                    });
-                                } else {
+                                .then(resp => resp.json())
+                                .then(data => {
+                                    if (data.status === 'sucesso') {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Ficha criada com sucesso!',
+                                            showConfirmButton: false,
+                                            timer: 700
+                                        }).then(() => {
+                                            carregarFichas()
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: data.mensagem || 'Erro ao criar ficha.',
+                                            showConfirmButton: false,
+                                            timer: 1000
+                                        });
+                                    }
+                                })
+                                .catch(erro => {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: data.mensagem || 'Erro ao criar ficha.',
+                                        title: 'Erro na requisição: ' + erro,
                                         showConfirmButton: false,
                                         timer: 1000
                                     });
-                                }
-                            })
-                            .catch(erro => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erro na requisição: ' + erro,
-                                    showConfirmButton: false,
-                                    timer: 1000
                                 });
-                            });
-                    }
-                });
-            }
+                        }
+                    });
+                }
+            });
         });
-    });
+    }
+
 
 
 
     function getDadosFicha(fichaId) {
+        if (!fichaId) {
+            return;
+        }
+
         $.ajax({
             url: 'backend/get_dados_ficha.php',
             method: 'POST',
@@ -474,14 +495,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-                    getHabilidades();
-                    getMagias();
-                    getItens();
+                    getHabilidades(fichaId);
+                    getMagias(fichaId);
+                    getItens(fichaId);
 
 
 
 
-
+                    // Quando o usuário clicar na imagem, simula o clique no input
+                    document.getElementById('preview_imagem_personagem').addEventListener('click', function () {
+                        document.getElementById('personagem_imagem_id').click();
+                    });
                     modalFicha.show();
 
                 } else {
@@ -517,6 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     }
+    window.getDadosFicha = getDadosFicha;
 
     // Função para coletar os dados dos campos de classes
     function collectClassesData() {
@@ -772,6 +797,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         showConfirmButton: false,
                         timer: 700,
                     });
+                    document.dispatchEvent(new CustomEvent('fichaAtualizada', {
+                        detail: {
+
+                        }
+                    }));
 
                     // ✅ Atualiza a ficha renderizada após salvar
                     getDadosFicha(fichaId);
@@ -948,7 +978,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    function getHabilidades() {
+    function getHabilidades(fichaId) {
         const habilidadesContainer = document.querySelector('#habilidadesContainer');
 
         const formData = new FormData();
@@ -1178,7 +1208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    function getMagias() {
+    function getMagias(fichaId) {
         const containerArcana = document.querySelector('#magias-arcanas');
         const containerDivina = document.querySelector('#magias-divinas');
 
@@ -1463,7 +1493,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function getItens() {
+    function getItens(fichaId) {
         const itensContainer = document.querySelector('#itensContainer');
 
         const formData = new FormData();
@@ -1618,6 +1648,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(data.status, "data status no fechar do modal");
                 if (data.status === 200) {
                     console.log('Ficha salva no fechar do modal');
+                    document.dispatchEvent(new CustomEvent('fichaAtualizada', {
+                        detail: {
+
+                        }
+                    }));
                     carregarFichas()
                 } else {
                     Swal.fire({
@@ -2124,10 +2159,9 @@ const mensagens = [
     '"O primeiro samurai de Alta Fantasia e segundo personagem criado foi o Jeff, o Herói de Sagarmāthā... Ele foi criado pelo Ike!"',
     '"Existiam, na Era das Cinzas, 3 poderosas bruxas, uma delas era Sagarmāthā, a Bruxa do Destino, que criou a profecia da Espada do Herói."',
     '"Taskir foi o primeiro avatar a morrer em Alta Fantasia, e, seu controlador Peter que vivia na Terra foi o primeiro a se libertar."',
-    '"Veja mais sobre a campanha oficial de Alta Fantasia em: https://alta-fantasia.ct.ws/campanhas.php!"',
-    
-];
+    '"Veja mais sobre a campanha oficial de Alta Fantasia em: https://alta-fantasia.ct.ws/campanhas_oficiais.php!"',
 
+];
 // Embaralha o array usando o algoritmo de Fisher-Yates
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -2136,38 +2170,38 @@ function shuffleArray(array) {
     }
 }
 
-shuffleArray(mensagens); // embaralha uma única vez ao carregar
+// Só por garantia, checa se 'mensagens' existe antes de embaralhar
+if (typeof mensagens !== 'undefined' && mensagens.length > 0) {
+    shuffleArray(mensagens); // embaralha uma única vez ao carregar
+}
 
 const mensagemEl = document.getElementById('mensagem');
-let index = 0;
 
-// Mostra a primeira mensagem imediatamente
-mensagemEl.innerHTML = `
-    
-    <em>${mensagens[index]}</em>
-    
-`;
-mensagemEl.style.opacity = 1;
+// VERIFICAÇÃO DE SEGURANÇA: Só executa se o elemento '#mensagem' existir na tela
+if (mensagemEl) {
+    let index = 0;
 
-setInterval(() => {
-    mensagemEl.style.opacity = 0;
+    // Mostra a primeira mensagem imediatamente
+    mensagemEl.innerHTML = `
+        <em>${mensagens[index]}</em>
+    `;
+    mensagemEl.style.opacity = 1;
 
-    setTimeout(() => {
-        index = (index + 1) % mensagens.length;
-        mensagemEl.innerHTML = `
-            
-            <em>${mensagens[index]}</em>
-            
-        `;
-        mensagemEl.style.opacity = 1;
-    }, 500);
-}, 5000);
+    setInterval(() => {
+        mensagemEl.style.opacity = 0;
+
+        setTimeout(() => {
+            index = (index + 1) % mensagens.length;
+            mensagemEl.innerHTML = `
+                <em>${mensagens[index]}</em>
+            `;
+            mensagemEl.style.opacity = 1;
+        }, 500);
+    }, 5000);
+}
 
 
-// Quando o usuário clicar na imagem, simula o clique no input
-document.getElementById('preview_imagem_personagem').addEventListener('click', function () {
-    document.getElementById('personagem_imagem_id').click();
-});
+
 
 // Quando o usuário selecionar uma imagem, atualiza a prévia
 document.getElementById('personagem_imagem_id').addEventListener('change', function (event) {

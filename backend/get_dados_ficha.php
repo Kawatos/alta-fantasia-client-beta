@@ -17,9 +17,9 @@ if (!$id_ficha) {
     exit;
 }
 
-$stmtFicha = $conn->prepare("SELECT * FROM fichas WHERE id = :id AND usuario_id = :usuario_id");
+$stmtFicha = $conn->prepare("SELECT * FROM fichas WHERE id = :id");
 $stmtFicha->bindParam(':id', $id_ficha, PDO::PARAM_INT);
-$stmtFicha->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+
 $stmtFicha->execute();
 
 $ficha = $stmtFicha->fetch(PDO::FETCH_ASSOC);
