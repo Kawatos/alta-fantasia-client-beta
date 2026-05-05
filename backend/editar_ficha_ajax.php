@@ -245,14 +245,13 @@ $stmtFicha = $conn->prepare("
         descricao_jogador = :descricao_jogador,
         transformacoes_jogador = :transformacoes_jogador
         $sqlImagem
-    WHERE id = :id AND usuario_id = :usuario_id
+    WHERE id = :id
 ");
 
 $stmtFicha->bindParam(':nome_personagem', $nome);
 $stmtFicha->bindParam(':classe', $classe);
 $stmtFicha->bindParam(':nivel', $nivel);
 $stmtFicha->bindParam(':id', $id);
-$stmtFicha->bindParam(':usuario_id', $usuario_id);
 $stmtFicha->bindParam(':descricao', $descricao);
 $stmtFicha->bindParam(':raca', $raca);
 $stmtFicha->bindParam(':pontos_de_vida', $pontos_de_vida);

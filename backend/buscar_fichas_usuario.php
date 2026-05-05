@@ -20,13 +20,14 @@ $stmt->execute();
 
 $papel = $stmt->fetchColumn();
 
-/* fichas do usuário na campanha */
+/* fichas do usuário na campanha (AGORA COM O TIPO DA FICHA) */
 $stmt = $conn->prepare("
     SELECT 
         f.id,
         f.nome_personagem,
         f.usuario_id,
-        f.personagem_imagem
+        f.personagem_imagem,
+        f.tipo_ficha 
     FROM campanha_fichas cf
     JOIN fichas f ON f.id = cf.ficha_id
     WHERE cf.usuario_id = :usuario_id

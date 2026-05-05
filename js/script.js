@@ -49,69 +49,33 @@ document.addEventListener("DOMContentLoaded", function () {
                         ? ''
                         : 'opacity: 0.5;';
 
+                    // Pega o tipo (se for antigo/nulo, assume que é padrão)
+                    const tipoFicha = ficha.tipo_ficha || 'padrao';
+
+                    let badgeEstilo = '';
+                    let badgeTexto = '';
+                    if (tipoFicha === 'bloco') { badgeEstilo = 'bg-warning'; badgeTexto = 'Bloco de Notas'; }
+                    else if (tipoFicha === 'arquivo') { badgeEstilo = 'bg-info'; badgeTexto = 'PDF'; }
+                    else { badgeEstilo = 'bg-primary'; badgeTexto = 'Padrão Alta'; }
+
                     const card = `
-                                    <div class=" mb-3" style="
-                                            width: 400px;
-                                        ">
-                                        <div class="card h-100 d-flex flex-row align-items-center cardPersonagem p-2" data-id="${ficha.id}" style="min-height: 120px;">
-                                            <!-- Imagem -->
-                                            <img src="${imagem || 'caminho/padrao.png'}" alt="Imagem do Personagem"
-                                                class="rounded"
-                                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
-                                            <!-- Conteúdo textual -->
-                                            <div class="flex-grow-1 mx-3" style="
-                                                                                display: flex;
-                                                                                flex-direction: column;
-                                                                                align-content: center;
-                                                                                align-items: center;
-                                                                            ">
-                                                <h5 class="card-title mb-1">${nomeExibicao}</h5>
-                                                <h6 class="card-subtitle text-muted mb-1">
-                                                    ${(() => {
-                                                // Garante que sempre teremos algo para trabalhar
-                                                if (!ficha.classe) return 'Sem classe';
-
-                                                let classesArray;
-
-                                                try {
-                                                    // Se já for array, usa direto, se for string tenta parse
-                                                    classesArray = Array.isArray(ficha.classe)
-                                                        ? ficha.classe
-                                                        : JSON.parse(ficha.classe);
-                                                } catch (e) {
-                                                    // Se der erro no parse, assume que é string simples
-                                                    classesArray = typeof ficha.classe === 'string' && ficha.classe.trim() !== ''
-                                                        ? [{ nome: ficha.classe, nivel: ficha.nivel || 0 }]
-                                                        : [];
-                                                }
-
-                                                // Se ainda assim não tiver nada, exibe "Sem classe"
-                                                if (!classesArray || classesArray.length === 0) return 'Sem classe';
-
-                                                // Mapeia e exibe
-                                                return classesArray.map(c => `${c.nome} (Nível ${c.nivel})`).join(' / ');
-                                            })()
-                                            }
-                                                </h6>
-
-
-
-                                                <h6 class="card-subtitle text-muted mb-2">${ficha.status_personagem || 'Sem status'}</h6>
-
-                                                <div class="d-flex gap-2 flex-wrap">
-                                                    <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}">Editar</button>
-                                                    <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}">
-                                                        <i class="fas fa-trash-alt me-1"></i>Excluir
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            
-                                        </div>
+                        <div class="mb-3" style="width: 400px;">
+                            <div class="card h-100 d-flex flex-row align-items-center cardPersonagem p-2" data-id="${ficha.id}" data-tipo="${tipoFicha}" style="min-height: 120px; cursor:pointer;">
+                                <img src="${imagem}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px; ${imagemEstilo}">
+                                
+                                <div class="flex-grow-1 mx-3 d-flex flex-column justify-content-center align-items-start">
+                                    <span class="badge ${badgeEstilo} mb-1">${badgeTexto}</span>
+                                    
+                                    <h5 class="card-title mb-1">${nomeExibicao}</h5>
+                                    
+                                    <div class="d-flex gap-2 flex-wrap mt-2">
+                                        <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}" data-tipo="${tipoFicha}">Editar</button>
+                                        <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}"><i class="fas fa-trash-alt me-1"></i>Excluir</button>
                                     </div>
-
-
-                                `;
+                                </div>
+                            </div>
+                        </div>
+                    `;
 
                     container.append(card);
                 });
@@ -126,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         e.stopPropagation(); // impede o card de também receber o clique
                         modoEdicao = true;
                         fichaId = this.dataset.id;
-                        getDadosFicha(fichaId);
+                        getDadosFicha(this.dataset.id, this.dataset.tipo);
                     });
                 });
 
@@ -135,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     card.addEventListener('click', function () {
                         modoEdicao = true;
                         fichaId = this.dataset.id;
-                        getDadosFicha(fichaId);
+                        getDadosFicha(this.dataset.id, this.dataset.tipo);
                     });
                 });
 
@@ -204,69 +168,57 @@ document.addEventListener("DOMContentLoaded", function () {
     // Botão para abrir em modo CRIAÇÃO
     if (document.querySelector('#botaoCriarFicha')) {
         document.querySelector('#botaoCriarFicha').addEventListener('click', function () {
-            console.log('botão clicado de criar ficha');
+
+            // 1. Pergunta o tipo de ficha
             Swal.fire({
-                title: 'Criar nova ficha?',
-                text: 'Deseja realmente criar uma nova ficha de personagem?',
-                icon: 'question',
+                title: 'Escolha o formato da ficha',
+                input: 'select',
+                inputOptions: {
+                    'bloco': 'Bloco de Notas',
+                    'arquivo': 'PDF',
+                    'padrao': 'Padrão Alta',
+                },
+                inputPlaceholder: 'Selecione uma opção',
                 showCancelButton: true,
-                confirmButtonText: 'Sim, criar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
+                confirmButtonText: 'Avançar',
+                cancelButtonText: 'Cancelar',
+                inputValidator: (value) => {
+                    if (!value) return 'Você precisa escolher um formato!';
+                }
+            }).then((formatoResult) => {
+                if (formatoResult.isConfirmed) {
+                    const tipoFicha = formatoResult.value;
+
+                    // 2. Pergunta o nome
                     Swal.fire({
                         title: 'Nome do personagem',
                         input: 'text',
-                        inputLabel: 'Digite o nome do seu personagem',
-                        inputPlaceholder: 'Ex: Arthanor, o Mago',
+                        inputPlaceholder: 'Ex: Arthanor',
                         showCancelButton: true,
-                        confirmButtonText: 'Criar ficha',
-                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Criar Ficha',
                         inputValidator: (value) => {
-                            if (!value) {
-                                return 'Você precisa digitar um nome!';
-                            }
+                            if (!value) return 'Você precisa digitar um nome!';
                         }
-                    }).then((inputResult) => {
-                        if (inputResult.isConfirmed) {
-                            const nomePersonagem = inputResult.value;
+                    }).then((nomeResult) => {
+                        if (nomeResult.isConfirmed) {
 
+                            // 3. Envia os dois dados para o backend
                             fetch('backend/criar_ficha.php', {
                                 method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                },
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                                 body: new URLSearchParams({
-                                    nome_personagem: nomePersonagem
+                                    nome_personagem: nomeResult.value,
+                                    tipo_ficha: tipoFicha // NOVO CAMPO ENVIADO!
                                 })
                             })
                                 .then(resp => resp.json())
                                 .then(data => {
                                     if (data.status === 'sucesso') {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Ficha criada com sucesso!',
-                                            showConfirmButton: false,
-                                            timer: 700
-                                        }).then(() => {
-                                            carregarFichas()
-                                        });
+                                        Swal.fire({ icon: 'success', title: 'Ficha criada!', showConfirmButton: false, timer: 1000 })
+                                            .then(() => carregarFichas());
                                     } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: data.mensagem || 'Erro ao criar ficha.',
-                                            showConfirmButton: false,
-                                            timer: 1000
-                                        });
+                                        Swal.fire({ icon: 'error', title: data.mensagem, showConfirmButton: false, timer: 1500 });
                                     }
-                                })
-                                .catch(erro => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Erro na requisição: ' + erro,
-                                        showConfirmButton: false,
-                                        timer: 1000
-                                    });
                                 });
                         }
                     });
@@ -278,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    function getDadosFicha(fichaId) {
+    function getDadosFicha(fichaId, tipoFicha = 'padrao') {
         if (!fichaId) {
             return;
         }
@@ -293,6 +245,39 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (resposta) {
                 if (resposta.status === 'sucesso') {
                     const ficha = resposta.ficha;
+
+                    // ROTEAMENTO DE MODAIS
+                    if (tipoFicha === 'bloco') {
+                        document.querySelector('#bloco-ficha-id').value = ficha.id;
+                        document.querySelector('#bloco-nome').value = ficha.nome_personagem || '';
+                        document.querySelector('#bloco-texto').value = ficha.bloco_notas || '';
+                        document.querySelector('#preview_bloco_imagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
+                        new bootstrap.Modal(document.getElementById('modalFichaBloco')).show();
+                        return; // Para a execução aqui, não carrega abas complexas
+                    }
+
+                    if (tipoFicha === 'arquivo') {
+                        document.querySelector('#arquivo-ficha-id').value = ficha.id;
+                        document.querySelector('#arquivo-nome').value = ficha.nome_personagem || '';
+                        document.querySelector('#preview_arquivo_imagem').src = ficha.personagem_imagem || 'uploads/perfil-vazio.png';
+
+                        // Lida com o iframe do PDF
+                        const containerPdf = document.querySelector('#container-arquivo-atual');
+                        const iframePdf = document.querySelector('#iframe-pdf');
+                        const linkPdf = document.querySelector('#link-arquivo-atual');
+
+                        if (ficha.arquivo_pdf) {
+                            containerPdf.classList.remove('d-none');
+                            iframePdf.src = ficha.arquivo_pdf; // Carrega o PDF na tela!
+                            linkPdf.href = ficha.arquivo_pdf;  // Deixa o botão de tela cheia pronto
+                        } else {
+                            containerPdf.classList.add('d-none');
+                            iframePdf.src = ''; // Limpa o iframe se não houver arquivo
+                        }
+
+                        new bootstrap.Modal(document.getElementById('modalFichaArquivo')).show();
+                        return; // Para a execução aqui
+                    }
                     const atributos = resposta.atributos;
                     const pericias = resposta.pericias;
 
@@ -773,6 +758,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Enviar formulário
+    // Enviar formulário
     this.querySelector('#botao-salvar').addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -781,14 +767,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // ✅ Captura as classes dinâmicas e adiciona no FormData
         const classesData = JSON.stringify(getClassesFromForm());
-        console.log('_________formulario enviado', classesData)
+        console.log('_________formulario enviado', classesData);
         formData.append('classe', classesData);
+
+        // ✅ Pega o ID da ficha de forma segura direto do formulário
+        const idFichaSeguro = formData.get('id');
 
         fetch(url, {
             method: 'POST',
             body: formData
         })
-            .then(resp => resp.json())
+            .then(async resp => {
+                // Tratamento blindado: se o PHP devolver erro HTTP ou sujeira
+                if (!resp.ok) throw new Error('Erro na rede: ' + resp.status);
+
+                const textoPlano = await resp.text(); // Pega como texto primeiro
+                try {
+                    return JSON.parse(textoPlano); // Tenta converter
+                } catch (e) {
+                    console.error("Erro ao converter JSON. O PHP devolveu isso:", textoPlano);
+                    throw new Error('O servidor não devolveu um JSON válido. Veja o console.');
+                }
+            })
             .then(data => {
                 if (data.status === 'sucesso') {
                     Swal.fire({
@@ -797,14 +797,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         showConfirmButton: false,
                         timer: 700,
                     });
-                    document.dispatchEvent(new CustomEvent('fichaAtualizada', {
-                        detail: {
 
-                        }
+                    document.dispatchEvent(new CustomEvent('fichaAtualizada', {
+                        detail: {}
                     }));
 
-                    // ✅ Atualiza a ficha renderizada após salvar
-                    getDadosFicha(fichaId);
+                    // ✅ Atualiza a ficha renderizada usando o ID seguro
+                    if (idFichaSeguro && typeof getDadosFicha === 'function') {
+                        getDadosFicha(idFichaSeguro);
+                    } else {
+                        console.warn("Ficha salva, mas getDadosFicha não pôde ser chamado.");
+                    }
+
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -815,12 +819,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(err => {
-                console.error('Erro na requisição:', err);
+                // ✅ Agora o erro exato vai aparecer no console e no alerta!
+                console.error('Erro detalhado na requisição:', err);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Erro de conexão',
-                    showConfirmButton: false,
-                    timer: 1000,
+                    title: 'Erro no código/conexão',
+                    text: err.message, // Exibe o motivo real
+                    showConfirmButton: true
                 });
             });
     });
@@ -1673,6 +1678,67 @@ document.addEventListener("DOMContentLoaded", function () {
         const { nivel } = e.detail;
         const classes = getClassesFromForm(); // Função que pega o estado atual das classes do jogador
         renderClasses(classes, nivel);
+    });
+
+
+
+
+
+
+
+    // FUNÇÃO GENÉRICA PARA SALVAR FICHAS SIMPLES (Bloco e Arquivo)
+    function salvarFichaSimples(formElement, modalElementId) {
+        const formData = new FormData(formElement);
+        const botaoSubmit = formElement.querySelector('button[type="submit"]');
+        const textoOriginal = botaoSubmit.innerHTML;
+
+        botaoSubmit.innerHTML = 'Salvando...';
+        botaoSubmit.disabled = true;
+
+        fetch('backend/editar_ficha_simples.php', {
+            method: 'POST',
+            body: formData // FormData envia arquivos e textos perfeitamente
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                botaoSubmit.innerHTML = textoOriginal;
+                botaoSubmit.disabled = false;
+
+                if (data.status === 'sucesso') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Salvo!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(() => {
+                        // Fecha o modal e atualiza a lista de fichas
+                        const modal = bootstrap.Modal.getInstance(document.getElementById(modalElementId));
+                        if (modal) modal.hide();
+
+                        if (typeof carregarFichas === 'function') {
+                            carregarFichas();
+                        }
+                    });
+                } else {
+                    Swal.fire({ icon: 'error', title: data.mensagem });
+                }
+            })
+            .catch(erro => {
+                botaoSubmit.innerHTML = textoOriginal;
+                botaoSubmit.disabled = false;
+                Swal.fire({ icon: 'error', title: 'Erro de conexão 3: ' + erro });
+            });
+    }
+
+    // EVENTOS DE SUBMIT DOS MODAIS
+    document.getElementById('formFichaBloco').addEventListener('submit', function (e) {
+        e.preventDefault();
+        salvarFichaSimples(this, 'modalFichaBloco');
+    });
+
+    document.getElementById('formFichaArquivo').addEventListener('submit', function (e) {
+        e.preventDefault();
+        salvarFichaSimples(this, 'modalFichaArquivo');
     });
 
 });

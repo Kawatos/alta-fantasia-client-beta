@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario_id'])) {
     /* VARIÁVEIS E ESTILOS GERAIS */
     body,
     html {
-        overflow: hidden;
+
         /* Evita scroll duplo na página inteira */
     }
 
@@ -301,7 +301,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 modoEdicao = true;
                 console.log("2. Variável modoEdicao setada para true.");
 
-                getDadosFicha(fichaId);
+                getDadosFicha(this.dataset.id, this.dataset.tipo);
                 console.log("3. Função getDadosFicha chamada com sucesso!");
 
             } catch (erro) {
@@ -362,7 +362,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     $('#sidebarCampanhas').html(html);
                 },
                 error: function() {
-                    $('#sidebarCampanhas').html('<div class="text-danger p-3">Erro de conexão</div>');
+                    $('#sidebarCampanhas').html('<div class="text-danger p-3">Erro de conexão 4</div>');
                 }
             });
         }
@@ -642,15 +642,31 @@ if (!isset($_SESSION['usuario_id'])) {
                     const imagem = f.personagem_imagem ? f.personagem_imagem : 'uploads/perfil-vazio.png';
                     const imagemEstilo = f.personagem_imagem ? '' : 'opacity:0.5;';
 
-                    // Lógica para tornar o card inteiro clicável
+                    // Lógica do tipo de ficha
+                    const tipoFicha = f.tipo_ficha || 'padrao';
+                    let badgeEstilo = '';
+                    let badgeTexto = '';
+                    if (tipoFicha === 'bloco') {
+                        badgeEstilo = 'bg-warning';
+                        badgeTexto = 'Bloco de Notas';
+                    } else if (tipoFicha === 'arquivo') {
+                        badgeEstilo = 'bg-info';
+                        badgeTexto = 'PDF';
+                    } else {
+                        badgeEstilo = 'bg-primary';
+                        badgeTexto = 'Padrão Alta';
+                    }
+
                     const classeEditavel = podeEditar ? 'editar-ficha ficha-hover' : '';
                     const cursorStyle = podeEditar ? 'cursor: pointer;' : '';
 
+                    // Injetamos o data-tipo="${tipoFicha}" aqui na div!
                     html += `
-                        <div class="d-flex align-items-center gap-2 mb-2 bg-white p-2 rounded border ${classeEditavel}" data-id="${f.id}" style="${cursorStyle} transition: background-color 0.2s;">
+                        <div class="d-flex align-items-center gap-2 mb-2 bg-white p-2 rounded border ${classeEditavel}" data-id="${f.id}" data-tipo="${tipoFicha}" style="${cursorStyle} transition: background-color 0.2s;">
                             <img src="${imagem}" style="width:36px;height:36px;object-fit:cover;border-radius:6px;${imagemEstilo}">
                             
                             <div class="flex-grow-1 overflow-hidden">
+                                <div class="mb-1"><span class="badge ${badgeEstilo}" style="font-size: 0.65rem;">${badgeTexto}</span></div>
                                 <div class="fw-bold small text-truncate">${f.nome_personagem || 'Sem nome'}</div>
                                 <div class="d-flex gap-1 mt-1">
                                     ${podeEditar ? `<button class="btn btn-light btn-sm py-0" style="font-size:0.8rem; pointer-events: none;">Editar</button>` : ''}
@@ -866,70 +882,66 @@ if (!isset($_SESSION['usuario_id'])) {
             }
 
             Swal.fire({
-                title: 'Criar nova ficha?',
-                text: 'Deseja realmente criar uma nova ficha de personagem?',
-                icon: 'question',
+                title: 'Escolha o formato da ficha',
+                input: 'select',
+                inputOptions: {
+                    'bloco': 'Bloco de Notas',
+                    'arquivo': 'PDF',
+                    'padrao': 'Padrão Alta',
+                },
+                inputPlaceholder: 'Selecione uma opção',
                 showCancelButton: true,
-                confirmButtonText: 'Sim, criar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
+                confirmButtonText: 'Avançar',
+                cancelButtonText: 'Cancelar',
+                inputValidator: (value) => {
+                    if (!value) return 'Você precisa escolher um formato!';
+                }
+            }).then((formatoResult) => {
+                if (formatoResult.isConfirmed) {
+                    const tipoFicha = formatoResult.value;
+
+                    // 2. Pergunta o nome
                     Swal.fire({
                         title: 'Nome do personagem',
                         input: 'text',
-                        inputLabel: 'Digite o nome do seu personagem',
-                        inputPlaceholder: 'Ex: Arthanor, o Mago',
+                        inputPlaceholder: 'Ex: Arthanor',
                         showCancelButton: true,
-                        confirmButtonText: 'Criar ficha',
-                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Criar Ficha',
                         inputValidator: (value) => {
-                            if (!value) {
-                                return 'Você precisa digitar um nome!';
-                            }
+                            if (!value) return 'Você precisa digitar um nome!';
                         }
-                    }).then((inputResult) => {
-                        if (inputResult.isConfirmed) {
-                            const nomePersonagem = inputResult.value;
+                    }).then((nomeResult) => {
+                        if (nomeResult.isConfirmed) {
 
+                            // 3. Envia os dois dados para o backend
                             fetch('backend/criar_ficha.php', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     },
                                     body: new URLSearchParams({
-                                        nome_personagem: nomePersonagem
+                                        nome_personagem: nomeResult.value,
+                                        tipo_ficha: tipoFicha // NOVO CAMPO ENVIADO!
                                     })
                                 })
                                 .then(resp => resp.json())
                                 .then(data => {
                                     if (data.status === 'sucesso') {
                                         Swal.fire({
-                                            icon: 'success',
-                                            title: 'Ficha criada com sucesso!',
-                                            showConfirmButton: false,
-                                            timer: 700
-                                        }).then(() => {
-                                            // SUBSTITUA O carregarCampanha(campanhaAtual); POR ISTO AQUI:
-                                            const container = $('#fichas-user-' + usuarioLogado);
-                                            container.slideDown();
-                                            carregarFichasUsuario(usuarioLogado, container);
-                                        });
+                                                icon: 'success',
+                                                title: 'Ficha criada!',
+                                                showConfirmButton: false,
+                                                timer: 1000
+                                            })
+                                            .then(() => carregarFichas());
                                     } else {
                                         Swal.fire({
                                             icon: 'error',
-                                            title: data.mensagem || 'Erro ao criar ficha.',
+                                            title: data.mensagem,
                                             showConfirmButton: false,
-                                            timer: 1000
+                                            timer: 1500
                                         });
                                     }
-                                })
-                                .catch(erro => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Erro na requisição: ' + erro,
-                                        showConfirmButton: false,
-                                        timer: 1000
-                                    });
                                 });
                         }
                     });
