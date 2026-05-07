@@ -107,7 +107,7 @@ try {
 
     echo json_encode([
         'success' => true,
-        'redirect' => 'editor.php'
+        'redirect' => 'home.php'
     ]);
 
 } catch (PDOException $e) {

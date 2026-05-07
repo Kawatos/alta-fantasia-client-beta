@@ -226,10 +226,10 @@
         success: function(response) {
           if (response.success) {
             if (isLogin) {
-              window.location.href = 'editor.php';
+              window.location.href = 'home.php';
             } else {
               $('#registroForm')[0].reset();
-              window.location.href = 'editor.php';
+              window.location.href = 'home.php';
             }
           } else {
             alert(response.message || 'Ocorreu um erro. Tente novamente.');

@@ -11,6 +11,8 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuario_id = $_SESSION['usuario_id'];
 $campanha_id = isset($_GET['campanha_id']) ? (int)$_GET['campanha_id'] : 0;
+// NOVA VARIÁVEL: Pega o ID da última mensagem que o frontend já tem
+$ultimo_id = isset($_GET['ultimo_id']) ? (int)$_GET['ultimo_id'] : 0;
 
 if ($campanha_id <= 0) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Campanha inválida']);
@@ -43,8 +45,8 @@ $papel_usuario_logado = $user_campanha['papel'];
 /* ================================
    BUSCAR MENSAGENS NO BANCO
 ================================ */
-// Adicionamos o m.usuario_id na busca para saber quem enviou
-$stmt = $conn->prepare("
+// A Query base
+$sql = "
     SELECT 
         m.id,
         m.mensagem,
@@ -54,12 +56,24 @@ $stmt = $conn->prepare("
     FROM mensagens m
     JOIN usuarios u ON u.id = m.usuario_id
     WHERE m.campanha_id = :campanha_id
-    ORDER BY m.id ASC
-");
+";
 
+// Se o frontend informou o último ID, buscamos apenas as MAIORES (mais novas) que ele
+if ($ultimo_id > 0) {
+    $sql .= " AND m.id > :ultimo_id";
+}
+
+$sql .= " ORDER BY m.id ASC";
+
+$stmt = $conn->prepare($sql);
 $stmt->bindParam(':campanha_id', $campanha_id, PDO::PARAM_INT);
-$stmt->execute();
 
+// Faz o bind do ultimo_id se ele existir
+if ($ultimo_id > 0) {
+    $stmt->bindParam(':ultimo_id', $ultimo_id, PDO::PARAM_INT);
+}
+
+$stmt->execute();
 $mensagens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 /* ================================
@@ -69,6 +83,7 @@ $chave_criptografia = "CHAVE_SECRETA_RPG_ALTA_FANTASIA!";
 $metodo = 'aes-256-cbc';
 $iv_tamanho = openssl_cipher_iv_length($metodo);
 
+// ATENÇÃO: Só vai descriptografar as NOVAS, poupando muita CPU do seu servidor!
 foreach ($mensagens as &$m) {
     $dados_brutos = base64_decode($m['mensagem'], true);
     
@@ -84,14 +99,21 @@ foreach ($mensagens as &$m) {
     }
 }
 unset($m);
-
+/* ================================
+   CONTAGEM TOTAL PARA SINCRONIZAÇÃO
+================================ */
+$stmtCount = $conn->prepare("SELECT COUNT(id) as total FROM mensagens WHERE campanha_id = :campanha_id");
+$stmtCount->bindParam(':campanha_id', $campanha_id, PDO::PARAM_INT);
+$stmtCount->execute();
+$rowCount = $stmtCount->fetch(PDO::FETCH_ASSOC);
+$total_bd = (int)$rowCount['total'];
 /* ================================
    RESPOSTA
 ================================ */
-// Retornamos os dados extras para o frontend usar na lógica da Lixeira
 echo json_encode([
     'status' => 'sucesso',
     'mensagens' => $mensagens,
+    'total_mensagens' => $total_bd,
     'usuario_logado' => $usuario_id,
     'papel' => $papel_usuario_logado
 ]);

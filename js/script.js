@@ -1707,7 +1707,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.status === 'sucesso') {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Salvo!',
+                        title: 'Ficha atualizada!',
                         showConfirmButton: false,
                         timer: 1000
                     }).then(() => {
@@ -1782,6 +1782,9 @@ function atualizarNivelEBarra() {
     document.dispatchEvent(event);
 
     getValorMaxInventarioInterno()
+
+
+    
 }
 
 function atualizarAtributos() {

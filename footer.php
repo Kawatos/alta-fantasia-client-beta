@@ -118,6 +118,8 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
+
+
 <script>
     let deferredPrompt;
     const installBtn = document.getElementById('installApp');
