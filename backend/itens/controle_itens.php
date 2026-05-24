@@ -34,9 +34,9 @@ if (!$id_ficha) {
 try {
     switch ($acao) {
         case 'criar':
-
+            // CRASES ADICIONADAS AQUI: `rank`
             $stmt = $conn->prepare("
-                INSERT INTO itens (id_ficha, nome, rank, descricao, peso, volume, equipado, inventario_interno, quantidade, estado, conjunto, ignorar_peso)
+                INSERT INTO itens (id_ficha, nome, `rank`, descricao, peso, volume, equipado, inventario_interno, quantidade, estado, conjunto, ignorar_peso)
                 VALUES (:id_ficha, :nome, :rank, :descricao, :peso, :volume, :equipado, :inventario_interno, :quantidade, :estado, :conjunto, :ignorar_peso)
             ");
             $stmt->bindParam(':id_ficha', $id_ficha, PDO::PARAM_INT);
@@ -61,9 +61,10 @@ try {
                 exit;
             }
 
+            // CRASES ADICIONADAS AQUI: `rank` = :rank
             $stmt = $conn->prepare("
                 UPDATE itens 
-                SET nome = :nome, rank = :rank, descricao = :descricao, peso = :peso, volume = :volume, equipado = :equipado, 
+                SET nome = :nome, `rank` = :rank, descricao = :descricao, peso = :peso, volume = :volume, equipado = :equipado, 
                     inventario_interno = :inventario_interno, quantidade = :quantidade, estado = :estado, conjunto = :conjunto, ignorar_peso = :ignorar_peso
                 WHERE id_item = :id_item AND id_ficha = :id_ficha
             ");

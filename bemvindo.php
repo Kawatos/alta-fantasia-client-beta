@@ -48,7 +48,7 @@
                 <div class="d-grid">
                   <div class="d-flex justify-content-center">
                     <div class="cf-turnstile mb-3"
-                      data-sitekey="">
+                      data-sitekey="0x4AAAAAACnxpQOqdXUI-15g">
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary">
@@ -123,7 +123,7 @@
                 <div class="d-grid">
                   <div class="d-flex justify-content-center">
                     <div class="cf-turnstile mb-3"
-                      data-sitekey="">
+                      data-sitekey="0x4AAAAAACnxpQOqdXUI-15g">
                     </div>
                   </div>
                   <button type="submit" class="btn btn-success">
@@ -146,7 +146,7 @@
 
               <div>
                 <div id="g_id_onload"
-                  data-client_id=""
+                  data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
                   data-callback="handleGoogleLogin">
                 </div>
                 <div class="g_id_signin" data-type="standard"></div>
@@ -226,10 +226,10 @@
         success: function(response) {
           if (response.success) {
             if (isLogin) {
-              window.location.href = 'home.php';
+              window.location.href = 'editor.php';
             } else {
               $('#registroForm')[0].reset();
-              window.location.href = 'home.php';
+              window.location.href = 'editor.php';
             }
           } else {
             alert(response.message || 'Ocorreu um erro. Tente novamente.');

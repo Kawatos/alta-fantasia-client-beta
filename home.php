@@ -188,13 +188,30 @@ if (!isset($_SESSION['usuario_id'])) {
         color: #212529 !important;
         border-color: #e9ecef !important;
     }
-    
+
     .list-group-item.active.bg-light h6 {
-        color: #212529 !important; /* Mantém o título escuro */
+        color: #212529 !important;
+        /* Mantém o título escuro */
     }
-    
+
     .list-group-item.active.bg-light .text-muted {
-        color: #6c757d !important; /* Mantém o subtítulo cinza */
+        color: #6c757d !important;
+        /* Mantém o subtítulo cinza */
+    }
+
+    /* Garante que o conteúdo das abas ocupe apenas o espaço disponível e role */
+    #pills-tabContent {
+        height: 0;
+        /* Truque do Flexbox: força o crescimento controlado */
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    /* Ajuste específico para garantir a rolagem nas listas */
+    #sidebarCampanhas,
+    #sidebarFichas {
+        overflow-y: auto !important;
+        max-height: 100%;
     }
 </style>
 
@@ -277,7 +294,11 @@ if (!isset($_SESSION['usuario_id'])) {
                             <small class="text-muted d-block" style="font-size: 0.7rem; margin-top: -3px;">Ficha de Personagem</small>
                         </div>
                     </div>
-                    <div id="fichaHeaderActions">
+                    <div id="fichaHeaderActions" class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-danger fw-bold" id="btnExcluirFichaInline" title="Excluir Ficha">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
                         <button class="btn btn-sm btn-success d-none d-md-inline-block fw-bold px-3" id="btnSalvarFichaInline">
                             <i class="bi bi-save me-1"></i> Salvar Alterações
                         </button>
