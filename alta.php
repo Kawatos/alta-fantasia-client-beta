@@ -159,8 +159,8 @@
       <p class="fs-5 mb-5 tituloInicial">Mergulhe em um mundo virtual onde a fantasia encontra a realidade</p>
 
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
-        <a href="#sobre-projeto" class="btn btn-secondary btn-lg">
-          <i class="fas fa-scroll me-2"></i>Descobrir Mais
+        <a href="home.php" class="btn btn-secondary btn-lg">
+          <i class="fas fa-scroll me-2"></i>Vamos lá!
         </a>
         <a href="https://github.com/Kawatos/alta-fantasia-client-beta"
           class="btn github-btn text-white text-decoration-none rounded-pill px-4 py-2" target="_blank">

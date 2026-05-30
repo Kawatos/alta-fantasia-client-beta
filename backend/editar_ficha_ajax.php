@@ -17,7 +17,7 @@ if (!$id) {
 
 // Captura os campos da ficha
 $nome = $_POST['nome'] ?? '';
-$classe = $_POST['classe'] ?? '';
+$classes = $_POST['classes'] ?? '';
 $nivel = intval($_POST['nivel'] ?? 1);
 $descricao = $_POST['descricao'] ?? '';
 $raca = $_POST['raca'] ?? '';
@@ -212,7 +212,7 @@ if ($caminhoImagem) {
 $stmtFicha = $conn->prepare("
     UPDATE fichas SET
         nome_personagem = :nome_personagem,
-        classe = :classe,
+        classes = :classes,
         nivel = :nivel,
         descricao = :descricao,
         raca = :raca,
@@ -249,7 +249,7 @@ $stmtFicha = $conn->prepare("
 ");
 
 $stmtFicha->bindParam(':nome_personagem', $nome);
-$stmtFicha->bindParam(':classe', $classe);
+$stmtFicha->bindParam(':classes', $classes);
 $stmtFicha->bindParam(':nivel', $nivel);
 $stmtFicha->bindParam(':id', $id);
 $stmtFicha->bindParam(':descricao', $descricao);

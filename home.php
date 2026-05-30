@@ -226,10 +226,13 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="p-2 border-bottom bg-light">
                 <ul class="nav nav-pills nav-fill gap-1 p-1 bg-white rounded shadow-sm" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active py-1" id="pills-campanhas-tab" data-bs-toggle="pill" data-bs-target="#pills-campanhas" type="button" role="tab">Campanhas</button>
+                        <button class="nav-link py-1" id="pills-fichas-tab" data-bs-toggle="pill" data-bs-target="#pills-fichas" type="button" role="tab">Fichas</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link py-1" id="pills-fichas-tab" data-bs-toggle="pill" data-bs-target="#pills-fichas" type="button" role="tab">Fichas</button>
+                        <button class="nav-link py-1" id="pills-wiki-tab" data-bs-toggle="pill" data-bs-target="#pills-wiki" type="button" role="tab">Wiki</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active py-1" id="pills-campanhas-tab" data-bs-toggle="pill" data-bs-target="#pills-campanhas" type="button" role="tab">Campanhas</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link py-1" id="pills-amigos-tab" data-bs-toggle="pill" data-bs-target="#pills-amigos" type="button" role="tab">Amigos</button>
@@ -262,6 +265,58 @@ if (!isset($_SESSION['usuario_id'])) {
                     <div class="d-flex flex-column align-items-center justify-content-center h-100 text-muted p-4 text-center">
                         <i class="fs-1 mb-2">👥</i>
                         <h6>Sua lista de amigos está vazia.</h6>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade h-100" id="pills-wiki" role="tabpanel">
+                    <div class="d-flex flex-column h-100">
+                        <div class="p-3 border-bottom flex-shrink-0 bg-white text-center shadow-sm z-1">
+                            <h5 class="mb-0">
+                                <span class="font-alta">Alta</span>
+                                <span class="title-dynamic font-fantasia fw-bold">Fantasia: Wiki</span>
+                            </h5>
+                            <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">Documentos Oficiais (Abrem em nova guia)</small>
+                        </div>
+
+                        <div class="list-group list-group-flush flex-grow-1 overflow-auto pb-3">
+
+                            <a href="https://docs.google.com/document/d/1-dYIwjynW6hpmpf4KKyI0GBvd3GMqbq3KzDQTfTHjd0/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-bottom">
+                                <div class="fs-4">📜</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Regras</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                            <a href="https://docs.google.com/document/d/1LdaIOfIW-4iWjrjTvWAVBEDMNwe7MvNh7hK94zxTr8k/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-bottom">
+                                <div class="fs-4">🧝</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Raças</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                            <a href="https://docs.google.com/document/d/1xnNnLiTzGFw3DPBGknZAd44UDZU0BeY7qclgq7xn1Yg/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-bottom">
+                                <div class="fs-4">⚔️</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Classes</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                            <a href="https://docs.google.com/document/d/1K7STSBAg2L10GbwqkU20yJKU_3W9R8Pwn_cU_wQnlTE/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-bottom">
+                                <div class="fs-4">✨</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Habilidades</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                            <a href="https://docs.google.com/document/d/1hL5SbQ5o-70p795EoLCwkdf7DJgKIexY0SlIkAxZ7ec/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-bottom">
+                                <div class="fs-4">🔮</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Magias</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                            <a href="https://docs.google.com/document/d/1wsE5m0ImTtOV3GyXeEI_8HkFvNI1TaQ_hBhOvziyy4o/preview" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
+                                <div class="fs-4">💎</div>
+                                <div class="flex-grow-1 fw-bold text-dark">Itens</div>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.8rem;"></i>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
 
@@ -501,10 +556,11 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <option value="Humano">Humano</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label class="form-label">Classes</label>
 
-                                    <div id="classes-container"></div>
+                                <div class="col-12">
+
+                                    <label for="ficha-nome" class="form-label">Classes</label>
+                                    <textarea class="form-control classes-personagem" name="classes" id="ficha-classes" rows="5" autocomplete="off"></textarea>
 
 
                                 </div>
@@ -2289,19 +2345,19 @@ if (!isset($_SESSION['usuario_id'])) {
 </div>
 
 <script>
-function previewPDFLocal(input) {
-    if (input.files && input.files[0]) {
-        // Cria uma URL temporária para o arquivo recém-selecionado pelo usuário
-        const urlBlob = window.URL.createObjectURL(input.files[0]);
-        
-        // Atualiza o iframe e o link do botão para usar esse blob
-        document.getElementById('iframe-pdf').src = urlBlob;
-        document.getElementById('link-arquivo-atual').href = urlBlob;
-        
-        // Remove o 'd-none' caso o container estivesse escondido antes
-        document.getElementById('container-arquivo-atual').classList.remove('d-none');
+    function previewPDFLocal(input) {
+        if (input.files && input.files[0]) {
+            // Cria uma URL temporária para o arquivo recém-selecionado pelo usuário
+            const urlBlob = window.URL.createObjectURL(input.files[0]);
+
+            // Atualiza o iframe e o link do botão para usar esse blob
+            document.getElementById('iframe-pdf').src = urlBlob;
+            document.getElementById('link-arquivo-atual').href = urlBlob;
+
+            // Remove o 'd-none' caso o container estivesse escondido antes
+            document.getElementById('container-arquivo-atual').classList.remove('d-none');
+        }
     }
-}
 </script>
 <script type="module" src="assets/js/home/main.js"></script>
 <script type="module" src="assets/js/editor/main.js"></script>

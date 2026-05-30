@@ -16,7 +16,7 @@ $stmt = $conn->prepare("
         f.id, 
         f.nome_personagem, 
         f.personagem_imagem, 
-        f.classe, 
+        f.classes, 
         f.nivel, 
         f.status_personagem,
         f.tipo_ficha, 

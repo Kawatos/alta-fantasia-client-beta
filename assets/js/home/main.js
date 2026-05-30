@@ -94,18 +94,20 @@ $(document).ready(function () {
                 }
 
                 return `
-                            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3  border-0 rounded mb-1" data-id="${f.id}" data-tipo="${tipo}">
-                                <div class="btn-editar d-flex align-items-center gap-3 flex-grow-1 p-2" style="cursor: pointer;" data-id="${f.id}" data-tipo="${tipo}">
-        
-                                    <img src="${img}" class="rounded shadow-sm" style="width: 48px; height: 48px; object-fit: cover;">
+                            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3  border-0 rounded mb-1" >
+                                <div class="btn-editar d-flex align-items-center gap-3 flex-grow-1 p-2" style="cursor: pointer; min-width: 0;" data-id="${f.id}" data-tipo="${tipo}">
+    
+                                    <img src="${img}" class="rounded shadow-sm flex-shrink-0" style="width: 48px; height: 48px; object-fit: cover;">
                                     
-                                    <div class="flex-grow-1 overflow-hidden">
+                                    <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
                                         <div class="d-flex align-items-center gap-2">
-                                            <h6 class="mb-0 text-truncate fw-bold">${f.nome_personagem || 'Sem nome'}</h6>
                                             
-                                            <span class="badge ${estiloTipo.cor} d-flex align-items-center gap-1" style="font-size: 0.65rem;">
+                                            <h6 class="mb-0 text-truncate fw-bold flex-grow-1" style="min-width: 0;">${f.nome_personagem || 'Sem nome'}</h6>
+                                            
+                                            <span class="badge ${estiloTipo.cor} d-flex align-items-center gap-1 flex-shrink-0" style="font-size: 0.65rem;">
                                                 ${estiloTipo.nome}
                                             </span>
+                                            
                                         </div>
                                         ${infoProgressao}
                                     </div>

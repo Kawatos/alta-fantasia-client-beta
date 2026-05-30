@@ -128,7 +128,7 @@ $(document).ready(function () {
                 if (modo === 'inline') $('#titulo-modal').addClass('d-none');
                 else $('#titulo-modal').removeClass('d-none');
 
-                TPL.renderizarClasses(ficha.classe);
+                
                 recarregarSubListas(ficha.id);
                 if (modo === 'inline') setTimeout(() => dispararCalculosManualmente(), 100);
             }
@@ -171,6 +171,7 @@ $(document).ready(function () {
         $('.nome-personagem-exibicao').text(ficha.nome_personagem);
         $('.nivel-personagem').val(ficha.nivel);
         $('.raca-personagem').val(ficha.raca);
+        $('.classes-personagem').val(ficha.classes);
         $('.pontos-de-vida-personagem').val(ficha.pontos_de_vida);
         $('.pontos-de-mana-personagem').val(ficha.pontos_de_mana);
         $('.pvs_atuais-personagem').val(ficha.pvs_atuais);
@@ -288,7 +289,7 @@ $(document).ready(function () {
         $(document).off('submit', '#formFicha').on('submit', '#formFicha', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-            formData.append('classe', JSON.stringify(TPL.getClassesFromForm()));
+            
 
             const isSilencioso = $(this).data('silencioso'); // Checa se é o Auto-Save
 
@@ -337,7 +338,7 @@ $(document).ready(function () {
             const form = document.getElementById('formFicha');
             if (!form) return;
             const formData = new FormData(form);
-            formData.append('classe', JSON.stringify(TPL.getClassesFromForm()));
+            
 
             API.salvarFicha(formData).done(data => {
                 if (data.status === 200 || data.status === 'sucesso') {
@@ -553,20 +554,6 @@ $(document).ready(function () {
     // ==========================================
 
     function configurarEventosSubItens() {
-
-        // --- GERENCIAMENTO DE CLASSES ---
-        $(document).on('click', '#add-classe-btn', function () {
-            const classes = TPL.getClassesFromForm();
-            classes.push({ nome: '', nivel: 1 });
-            TPL.renderizarClasses(classes);
-        });
-
-        $(document).on('click', '.remove-classe-btn', function () {
-            const classes = TPL.getClassesFromForm();
-            const index = $(this).closest('.classe-item').data('index');
-            classes.splice(index, 1);
-            TPL.renderizarClasses(classes);
-        });
 
         // Atualizar Peso ao mudar Item Dinamicamente
         $(document).on('change', '.item-peso, .item-quantidade, .item-inventario_interno, .item-equipado, .item-ignorar-peso', function () {

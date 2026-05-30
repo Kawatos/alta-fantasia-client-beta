@@ -9,7 +9,7 @@
             <span class="font-alta">Alta</span>
             <span class="title-dynamic font-fantasia fw-bold" id="fantasiaText">Fantasia</span>
           </h1>
-
+          <!-- Abas de navegação -->
           <ul class="nav nav-tabs nav-fill mb-4" id="loginTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-selected="true">
@@ -23,7 +23,9 @@
             </li>
           </ul>
 
+          <!-- Conteúdo das abas -->
           <div class="tab-content" id="loginTabsContent">
+            <!-- Aba de Login -->
             <div class="tab-pane fade show active text-primary" id="login" role="tabpanel">
               <h3 class="text-center mb-4">Olá novamente!</h3>
               <form id="loginForm">
@@ -40,9 +42,15 @@
                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
                       <i class="fas fa-eye text-primary"></i>
                     </button>
+
                   </div>
                 </div>
                 <div class="d-grid">
+                  <div class="d-flex justify-content-center">
+                    <div class="cf-turnstile mb-3"
+                      data-sitekey="0x4AAAAAACnxpQOqdXUI-15g">
+                    </div>
+                  </div>
                   <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt me-2"></i>Entrar
                   </button>
@@ -51,8 +59,13 @@
                   </div>
                 </div>
               </form>
+              <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
             </div>
 
+
+            <!-- Modal para recuperação -->
             <div class="modal fade" id="modalRecuperarSenha" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -63,7 +76,7 @@
                   <div class="modal-body">
                     <form id="recuperarForm">
                       <div class="mb-3">
-                        <label for="recuperar_usuario" class="form-label">Digite seu Usuário</label>
+                        <label for="recuperar_email" class="form-label">Digite seu Usuário</label>
                         <input type="name" class="form-control" id="recuperar_usuario" name="recuperar_usuario" required>
                       </div>
                       <div class="mb-3">
@@ -78,6 +91,8 @@
               </div>
             </div>
 
+
+            <!-- Aba de Registro -->
             <div class="tab-pane fade" id="registro" role="tabpanel">
               <h3 class="text-center mb-4 text-primary">Você é novo(a) por aqui? Vamos jogar juntos!</h3>
               <form id="registroForm">
@@ -106,33 +121,42 @@
                   </div>
                 </div>
                 <div class="d-grid">
+                  <div class="d-flex justify-content-center">
+                    <div class="cf-turnstile mb-3"
+                      data-sitekey="0x4AAAAAACnxpQOqdXUI-15g">
+                    </div>
+                  </div>
                   <button type="submit" class="btn btn-success">
                     <i class="fas fa-user-plus me-2"></i>Cadastrar
                   </button>
                 </div>
               </form>
             </div>
-          </div>
-          <div class="d-flex flex-column align-items-center mt-4 w-100">
 
-            <div class="d-flex align-items-center w-100 mb-4 px-3">
-              <hr class="flex-grow-1 text-muted border-2 opacity-25">
-              <span class="mx-3 text-muted fw-bold">ou</span>
-              <hr class="flex-grow-1 text-muted border-2 opacity-25">
+            <div class="mt-3" style="
+                                          display: flex;
+                                          flex-direction: column;
+                                          align-content: center;
+                                          align-items: center;
+                                          justify-content: center;
+                                          flex-wrap: nowrap;
+                                      ">
+
+              <span class="me-3 text-muted">ou</span>
+
+              <div>
+                <div id="g_id_onload"
+                  data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
+                  data-callback="handleGoogleLogin">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
+
+              </div>
+
             </div>
-
-            <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-            <div id="g_id_onload"
-              data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
-              data-callback="handleGoogleLogin">
-            </div>
-            <div class="g_id_signin mb-4" data-type="standard"></div>
-
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACnxpQOqdXUI-15g"></div>
-
           </div>
 
+          <!-- Mensagem de feedback -->
           <div id="mensagem" class="alert mt-3 d-none"></div>
         </div>
       </div>
