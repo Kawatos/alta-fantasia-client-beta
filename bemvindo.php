@@ -176,7 +176,7 @@
     const token = response.credential;
 
     $.ajax({
-        url: 'backend/google-login.php', // Verifique este caminho
+        url: 'backend/google-login.php',
         method: 'POST',
         data: {
           credential: token
@@ -186,7 +186,8 @@
       .done((res) => {
         console.log("RESPOSTA DO PHP:", res);
         if (res.success) {
-          window.location.href = res.redirect;
+          // Trocado de 'res.redirect' para 'home.php' fixo
+          window.location.href = 'home.php';
         } else {
           alert("Login falhou: " + res.message);
         }
@@ -226,10 +227,10 @@
         success: function(response) {
           if (response.success) {
             if (isLogin) {
-              window.location.href = 'editor.php';
+              window.location.href = 'home.php';
             } else {
               $('#registroForm')[0].reset();
-              window.location.href = 'editor.php';
+              window.location.href = 'home.php';
             }
           } else {
             alert(response.message || 'Ocorreu um erro. Tente novamente.');

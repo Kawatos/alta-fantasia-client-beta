@@ -111,7 +111,7 @@ export function buscarFichasUsuario(usuarioId, campanhaId) {
             usuario_id: usuarioId,
             campanha_id: campanhaId
         },
-        dataType: 'json' // <--- Agora sim, está configurando o jQuery
+        dataType: 'json' 
     });
 }
 
@@ -161,7 +161,7 @@ export function removerJogadorCampanha(usuarioId, campanhaId) {
         dataType: 'json'
     });
 }
-// Nota: No seu código original você usou fetch puro para criar a ficha. 
+// Nota: No seu código original você usou fetch puro para criar a ficha.
 // Mantive a estrutura com fetch, mas devolvendo ele para o main.js tratar.
 export function criarFicha(nomePersonagem, tipoFicha) {
     return fetch('backend/criar_ficha.php', {
@@ -174,4 +174,13 @@ export function criarFicha(nomePersonagem, tipoFicha) {
             tipo_ficha: tipoFicha
         })
     }).then(resp => resp.json());
+}
+
+export function duplicarFicha(fichaId) {
+    return $.ajax({
+        url: 'backend/duplicar_ficha.php',
+        method: 'POST',
+        data: { id: fichaId },
+        dataType: 'json'
+    });
 }

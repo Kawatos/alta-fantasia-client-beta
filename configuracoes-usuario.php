@@ -68,7 +68,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         <!-- Mensagem de feedback -->
         <div id="mensagem-feedback" class="mb-3" style="display: none;"></div>
 
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 
     <p class="text-muted mt-3">Sim, essa tela não recebeu muito o carinho "artistico" do desenvolvedor, bem, até agora não, pelo menos.</p>

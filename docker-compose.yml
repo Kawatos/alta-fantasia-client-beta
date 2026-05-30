@@ -15,7 +15,7 @@ services:
   php:
     build: .
     ports:
-      - "8080:80"
+      - "14000:80"
     volumes:
       - .:/var/www/html
     depends_on:
@@ -25,7 +25,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - "8081:80"
+      - "14001:80"
     environment:
       - PMA_HOST=db  # Aqui dizemos ao phpMyAdmin para olhar para o container 'db', USE 8081 PARA ACESSAR O PHPMYADMIN
       - ARBITRARY_SERVER_CONNECTION_SETTINGS=true

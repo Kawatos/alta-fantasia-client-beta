@@ -38,6 +38,11 @@ export function cardFicha(ficha) {
                     
                     <div class="d-flex gap-2 flex-wrap mt-2">
                         <button class="btn btn-secondary btn-sm btn-editar" data-id="${ficha.id}" data-tipo="${tipoFicha}">Editar</button>
+                        
+
+                        <button class="btn btn-sm btn-info fw-bold duplicar-ficha" data-id="${ficha.id} title="Duplicar Ficha">
+                            <i class="bi bi-files me-1"></i><span class="d-none d-md-inline">Duplicar</span>
+                        </button>
                         <button class="btn btn-danger btn-sm excluir-ficha" data-id="${ficha.id}"><i class="fas fa-trash-alt me-1"></i>Excluir</button>
                     </div>
                 </div>

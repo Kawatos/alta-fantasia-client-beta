@@ -213,13 +213,13 @@ $(document).ready(function () {
         // --- PREENCHIMENTO DAS PERÍCIAS (Substitui as 100 linhas antigas por 5 linhas) ---
         if (pericias) {
             const listaPericias = [
-                'tenacidade', 'fortitude', 'reflexo', 'controle', 'atletismo', 'corpoacorpo', 'autocontrole', 
-                'resiliencia', 'intuicao', 'percepcao', 'influencia', 'atuacao', 'c_arcano', 'c_religioso', 
-                'c_historico', 'c_natureza', 'c_engenharia', 'c_alquimia', 'c_navegacao', 'c_linguistico', 
-                't_esgrima', 't_pontaria', 't_marcial', 't_metalurgia', 't_artesanato', 't_ladinagem', 
+                'tenacidade', 'fortitude', 'reflexo', 'controle', 'atletismo', 'corpoacorpo', 'autocontrole',
+                'resiliencia', 'intuicao', 'percepcao', 'influencia', 'atuacao', 'c_arcano', 'c_religioso',
+                'c_historico', 'c_natureza', 'c_engenharia', 'c_alquimia', 'c_navegacao', 'c_linguistico',
+                't_esgrima', 't_pontaria', 't_marcial', 't_metalurgia', 't_artesanato', 't_ladinagem',
                 't_instrumentos', 't_pilotagem'
             ];
-            
+
             listaPericias.forEach(p => {
                 $(`.${p}_mod`).val(pericias[`${p}_mod`]);
                 $(`.${p}_treinamentos`).val(pericias[`${p}_treinamentos`]);
@@ -265,6 +265,21 @@ $(document).ready(function () {
                             carregarListaFichasEditor();
                         }
                     });
+                }
+            });
+        });
+
+        // Duplicar Ficha
+        $(document).on('click', '.duplicar-ficha', function (e) {
+            e.stopPropagation();
+            const id = $(this).data('id');
+
+            API.duplicarFicha(id).done(res => {
+                if (res.sucesso) {
+                    Swal.fire({ icon: "success", title: "Ficha duplicada!", showConfirmButton: false, timer: 1000 });
+                    carregarListaFichasEditor();
+                } else {
+                    Swal.fire({ icon: "error", title: res.erro || "Erro ao duplicar", timer: 1000 });
                 }
             });
         });
@@ -351,9 +366,12 @@ $(document).ready(function () {
             $('#fichaInlineFormContainer form:visible').submit();
         });
 
-        // Botão de excluir dentro da ficha aberta (Inline)
-        $(document).on('click', '#btnExcluirFichaInline', function () {
-            const id = estado.fichaIdAtual;
+        // Botão de Excluir Ficha (na Sidebar)
+        $(document).on('click', '.btn-excluir-ficha', function (e) {
+            e.preventDefault();
+            e.stopPropagation(); // Impede que o clique abra a ficha
+
+            const id = $(this).data('id'); // Pega o ID direto do botão clicado na sidebar
             if (!id) return;
 
             Swal.fire({
@@ -370,20 +388,43 @@ $(document).ready(function () {
                         if (res.sucesso) {
                             Swal.fire({ icon: "success", title: "Ficha excluída!", showConfirmButton: false, timer: 1000 });
 
-                            // 1. Limpa o formulário e esconde a área inline
-                            $('#conteudoFichaInline').addClass('d-none');
-                            $('#empty-state').removeClass('d-none').addClass('d-md-block');
+                            // Se a ficha excluída for a que está aberta no momento, limpa a tela
+                            if (estado.fichaIdAtual == id) {
+                                $('#conteudoFichaInline').addClass('d-none');
+                                $('#empty-state').removeClass('d-none').addClass('d-md-block');
+                                estado.fichaIdAtual = null; // Reseta o estado
+                            }
 
-                            // 2. Avisa a Home para atualizar a lista lateral (já que a ficha sumiu)
+                            // Avisa a Home para atualizar a lista lateral (recarregar a sidebar)
                             document.dispatchEvent(new CustomEvent('fichaAtualizada', { detail: {} }));
 
-                            // 3. Volta para a visualização da sidebar no mobile
+                            // Volta para a visualização da sidebar no mobile
                             if (window.innerWidth < 768) {
                                 $('.mobile-view').removeClass('active-view');
                                 $('#view-sidebar').addClass('active-view');
                             }
                         }
                     });
+                }
+            });
+        });
+
+        // Botão de Duplicar Ficha (na Sidebar)
+        $(document).on('click', '.btn-duplicar-ficha', function (e) {
+            e.preventDefault();
+            e.stopPropagation(); // Impede que o clique abra a ficha
+
+            const id = $(this).data('id'); // Pega o ID direto do botão clicado na sidebar
+            if (!id) return;
+
+            API.duplicarFicha(id).done(res => {
+                if (res.sucesso) {
+                    Swal.fire({ icon: "success", title: "Ficha duplicada!", showConfirmButton: false, timer: 1000 });
+
+                    // Dispara o evento para recarregar a sidebar e mostrar a nova ficha
+                    document.dispatchEvent(new CustomEvent('fichaAtualizada', { detail: {} }));
+                } else {
+                    Swal.fire({ icon: "error", title: res.erro || "Erro ao duplicar", timer: 1000 });
                 }
             });
         });
@@ -512,7 +553,7 @@ $(document).ready(function () {
     // ==========================================
 
     function configurarEventosSubItens() {
-        
+
         // --- GERENCIAMENTO DE CLASSES ---
         $(document).on('click', '#add-classe-btn', function () {
             const classes = TPL.getClassesFromForm();
@@ -528,14 +569,14 @@ $(document).ready(function () {
         });
 
         // Atualizar Peso ao mudar Item Dinamicamente
-        $(document).on('change', '.item-peso, .item-quantidade, .item-inventario_interno, .item-equipado, .item-ignorar-peso', function() {
-            if(typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
+        $(document).on('change', '.item-peso, .item-quantidade, .item-inventario_interno, .item-equipado, .item-ignorar-peso', function () {
+            if (typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
         });
 
 
         // --- HABILIDADES ---
-        
-        $(document).on('click', '#salvar-habilidade-nova', function() {
+
+        $(document).on('click', '#salvar-habilidade-nova', function () {
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('acao', 'criar');
@@ -544,14 +585,14 @@ $(document).ready(function () {
             formData.append('descricao-habilidade', $('#habilidade-descricao').val());
 
             API.salvarHabilidade(formData).done(res => {
-                if(res.status === 'sucesso') {
+                if (res.status === 'sucesso') {
                     $('#habilidade-nome, #habilidade-requisitos, #habilidade-descricao').val('');
                     recarregarSubListas(estado.fichaIdAtual);
                 }
             });
         });
 
-        $(document).on('click', '.salvar-habilidade', function() {
+        $(document).on('click', '.salvar-habilidade', function () {
             const id = $(this).data('id');
             const card = $(this).closest('.card-body');
             const formData = new FormData();
@@ -563,26 +604,26 @@ $(document).ready(function () {
             formData.append('descricao-habilidade', card.find('textarea').val());
 
             API.salvarHabilidade(formData).done(res => {
-                if(res.status === 'sucesso') Swal.fire({icon: 'success', title: 'Habilidade Salva!', timer: 700, showConfirmButton: false});
+                if (res.status === 'sucesso') Swal.fire({ icon: 'success', title: 'Habilidade Salva!', timer: 700, showConfirmButton: false });
             });
         });
 
-        $(document).on('click', '.excluir-habilidade', function() {
-            if(!confirm('Deseja excluir esta habilidade?')) return;
+        $(document).on('click', '.excluir-habilidade', function () {
+            if (!confirm('Deseja excluir esta habilidade?')) return;
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('id_habilidade', $(this).data('id'));
             formData.append('acao', 'excluir');
-            
+
             API.salvarHabilidade(formData).done(res => {
-                if(res.status === 'sucesso') recarregarSubListas(estado.fichaIdAtual);
+                if (res.status === 'sucesso') recarregarSubListas(estado.fichaIdAtual);
             });
         });
 
 
         // --- MAGIAS ---
-        
-        $(document).on('click', '#salvar-magia-nova', function() {
+
+        $(document).on('click', '#salvar-magia-nova', function () {
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('acao', 'criar');
@@ -596,14 +637,14 @@ $(document).ready(function () {
             formData.append('descricao-magia', $('#magia-descricao').val());
 
             API.salvarMagia(formData).done(res => {
-                if(res.status === 'sucesso') {
+                if (res.status === 'sucesso') {
                     $('#collapseMagia input, #collapseMagia textarea').val('');
                     recarregarSubListas(estado.fichaIdAtual);
                 }
             });
         });
 
-        $(document).on('click', '.salvar-magia', function() {
+        $(document).on('click', '.salvar-magia', function () {
             const id = $(this).data('id');
             const card = $(this).closest('.card-body');
             const formData = new FormData();
@@ -620,26 +661,26 @@ $(document).ready(function () {
             formData.append('descricao-magia', card.find('.descricao-magia').val());
 
             API.salvarMagia(formData).done(res => {
-                if(res.status === 'sucesso') Swal.fire({icon: 'success', title: 'Magia Salva!', timer: 700, showConfirmButton: false});
+                if (res.status === 'sucesso') Swal.fire({ icon: 'success', title: 'Magia Salva!', timer: 700, showConfirmButton: false });
             });
         });
 
-        $(document).on('click', '.excluir-magia', function() {
-            if(!confirm('Deseja excluir esta magia?')) return;
+        $(document).on('click', '.excluir-magia', function () {
+            if (!confirm('Deseja excluir esta magia?')) return;
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('id_magia', $(this).data('id'));
             formData.append('acao', 'excluir');
-            
+
             API.salvarMagia(formData).done(res => {
-                if(res.status === 'sucesso') recarregarSubListas(estado.fichaIdAtual);
+                if (res.status === 'sucesso') recarregarSubListas(estado.fichaIdAtual);
             });
         });
 
 
         // --- ITENS ---
-        
-        $(document).on('click', '#salvar-item-novo', function() {
+
+        $(document).on('click', '#salvar-item-novo', function () {
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('acao', 'criar');
@@ -656,15 +697,15 @@ $(document).ready(function () {
             formData.append('descricao-item-novo', $('#item-descricao').val());
 
             API.salvarItem(formData).done(res => {
-                if(res.status === 'sucesso') {
+                if (res.status === 'sucesso') {
                     $('#collapseItem input, #collapseItem textarea, #collapseItem select').val('');
                     recarregarSubListas(estado.fichaIdAtual);
-                    if(typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
+                    if (typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
                 }
             });
         });
 
-        $(document).on('click', '.salvar-item', function() {
+        $(document).on('click', '.salvar-item', function () {
             const id = $(this).data('id');
             const card = $(this).closest('.card-body');
             const formData = new FormData();
@@ -684,24 +725,24 @@ $(document).ready(function () {
             formData.append('descricao-item-novo', card.find('.item-descricao').val());
 
             API.salvarItem(formData).done(res => {
-                if(res.status === 'sucesso') {
-                    Swal.fire({icon: 'success', title: 'Item Salvo!', timer: 700, showConfirmButton: false});
-                    if(typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
+                if (res.status === 'sucesso') {
+                    Swal.fire({ icon: 'success', title: 'Item Salvo!', timer: 700, showConfirmButton: false });
+                    if (typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
                 }
             });
         });
 
-        $(document).on('click', '.excluir-item', function() {
-            if(!confirm('Deseja excluir este item?')) return;
+        $(document).on('click', '.excluir-item', function () {
+            if (!confirm('Deseja excluir este item?')) return;
             const formData = new FormData();
             formData.append('id_ficha', estado.fichaIdAtual);
             formData.append('id_item', $(this).data('id'));
             formData.append('acao', 'excluir');
-            
+
             API.salvarItem(formData).done(res => {
-                if(res.status === 'sucesso') {
+                if (res.status === 'sucesso') {
                     recarregarSubListas(estado.fichaIdAtual);
-                    if(typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
+                    if (typeof Calc.atualizarPesoTotal === 'function') Calc.atualizarPesoTotal();
                 }
             });
         });

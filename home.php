@@ -281,28 +281,31 @@ if (!isset($_SESSION['usuario_id'])) {
             <div id="conteudoFichaInline" class="bg-white h-100 w-100 d-none flex-column">
 
                 <div class="bg-white border-bottom p-2 d-flex align-items-center justify-content-between shadow-sm z-1 flex-shrink-0">
+
                     <div class="d-flex align-items-center gap-2 overflow-hidden">
-                        <button class="btn btn-light d-md-none px-2" id="btnVoltarListaFichas">
-                            <span class="fs-5">←</span>
+
+                        <button class="btn btn-sm btn-primary d-md-none px-2 d-flex align-items-center justify-content-center" id="btnVoltarListaFichas" title="Voltar" style="height: 31px;">
+                            <i class="bi bi-arrow-left fs-6"></i>
                         </button>
 
-                        <div id="fichaHeaderAvatar" class="avatar-campanha rounded-circle d-flex justify-content-center align-items-center shadow-sm" style="width:40px; height:40px; font-size:1rem; background: linear-gradient(135deg, #0d6efd, #6610f2);">
+                        <div id="fichaHeaderAvatar" class="avatar-campanha rounded-circle d-flex justify-content-center align-items-center shadow-sm text-white" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #0d6efd, #6610f2);">
                             ?
                         </div>
+
                         <div class="overflow-hidden">
                             <h5 class="mb-0 fw-bold text-truncate text-dark" id="fichaHeaderNome">Carregando...</h5>
-                            <small class="text-muted d-block" style="font-size: 0.7rem; margin-top: -3px;">Ficha de Personagem</small>
+                            <small class="text-muted d-block lh-sm" style="font-size: 0.7rem;">Ficha de Personagem</small>
                         </div>
-                    </div>
-                    <div id="fichaHeaderActions" class="d-flex gap-2">
-                        <button class="btn btn-sm btn-outline-danger fw-bold" id="btnExcluirFichaInline" title="Excluir Ficha">
-                            <i class="bi bi-trash"></i>
-                        </button>
 
-                        <button class="btn btn-sm btn-success d-none d-md-inline-block fw-bold px-3" id="btnSalvarFichaInline">
-                            <i class="bi bi-save me-1"></i> Salvar Alterações
+                    </div>
+
+                    <div id="fichaHeaderActions" class="d-flex gap-2">
+                        <button class="btn btn-sm btn-success fw-bold px-3 d-flex align-items-center justify-content-center gap-1" id="btnSalvarFichaInline" title="Salvar Ficha" style="height: 31px;">
+                            <i class="bi bi-check-square"></i>
+                            <span class="d-none d-md-inline">Salvar</span>
                         </button>
                     </div>
+
                 </div>
 
                 <div id="fichaInlineFormContainer" class="flex-grow-1 overflow-auto p-3 p-md-5 bg-light">
@@ -391,7 +394,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 fw-bold" id="salvarCampanha">Salvar alterações</button>
+                <button class="btn btn-success w-100 mb-2 fw-bold" id="salvarCampanha">Salvar</button>
                 <button class="btn btn-outline-danger w-100 fw-bold" id="excluirCampanha">Excluir campanha</button>
             </div>
         </div>
@@ -414,7 +417,8 @@ if (!isset($_SESSION['usuario_id'])) {
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="formFicha" method="post" enctype="multipart/form-data">
-                <button type="submit" id="botao-salvar" class="d-none"></button>
+                <!-- <button type="submit" id="botao-salvar" class="d-none"></button> -->
+
                 <input type="hidden" name="id" id="ficha-id">
 
                 <div class="modal-header">
@@ -2165,7 +2169,10 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="botao-salvar">Salvar</button>
+
+                    <button class="btn btn-sm btn-success fw-bold px-3" id="botao-salvar">
+                        <i class="bi bi-check-square"></i><span class="d-md-inline"> Salvar</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -2180,27 +2187,42 @@ if (!isset($_SESSION['usuario_id'])) {
                 <input type="hidden" name="id" id="bloco-ficha-id">
                 <input type="hidden" name="tipo_ficha" value="bloco">
 
-                <div class="modal-header">
+                <div class="modal-header mb-2">
                     <h5 class="modal-title">Ficha: Bloco de Notas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <img id="preview_bloco_imagem" src="uploads/perfil-vazio.png" style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px; cursor: pointer;">
-                        <input type="file" class="d-none" id="input_bloco_imagem" name="imagem" accept="image/*" onchange="document.getElementById('preview_bloco_imagem').src = window.URL.createObjectURL(this.files[0])">
-                        <div class="small text-muted mt-1">Clique na imagem para alterar</div>
+
+                    <div class="row align-items-center mb-3">
+                        <div class="col-12 col-md-4 text-center mb-3 mb-md-0">
+                            <img id="preview_bloco_imagem" src="uploads/perfil-vazio.png" style="width: 120px; height: 120px; object-fit: cover; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onclick="document.getElementById('input_bloco_imagem').click()">
+
+                            <label for="input_bloco_imagem" class="form-label d-block mt-2">Imagem do Personagem:</label>
+
+                            <input type="file" class="form-control mt-2" id="input_bloco_imagem" name="imagem" accept="image/*" onchange="document.getElementById('preview_bloco_imagem').src = window.URL.createObjectURL(this.files[0])">
+
+                            <div class="small text-muted mt-2 fw-bold" style="cursor: pointer;" onclick="document.getElementById('input_bloco_imagem').click()">Alterar Imagem</div>
+                        </div>
+
+                        <div class="col-12 col-md-8">
+                            <label class="form-label fw-bold">Nome do Personagem</label>
+                            <input type="text" name="nome" id="bloco-nome" class="form-control" required>
+                        </div>
                     </div>
 
-                    <label class="form-label">Nome do Personagem</label>
-                    <input type="text" name="nome" id="bloco-nome" class="form-control mb-3" required>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr class="text-muted">
+                            <label class="form-label fw-bold text-primary">Ficha do Personagem</label>
+                            <textarea name="bloco_notas" id="bloco-texto" class="form-control" rows="15" placeholder="Cole aqui as informações do seu personagem..."></textarea>
+                        </div>
+                    </div>
 
-                    <label class="form-label">Anotações do Personagem</label>
-                    <textarea name="bloco_notas" id="bloco-texto" class="form-control" rows="15" placeholder="Cole aqui as informações do seu personagem..."></textarea>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success w-100">Salvar Alterações</button>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="submit" class="btn btn-success w-100 fw-bold py-2">Salvar Alterações</button>
                 </div>
             </form>
         </div>
@@ -2214,7 +2236,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <input type="hidden" name="id" id="arquivo-ficha-id">
                 <input type="hidden" name="tipo_ficha" value="arquivo">
 
-                <div class="modal-header">
+                <div class="modal-header mb-2">
                     <h5 class="modal-title">Ficha: Arquivo PDF</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -2224,7 +2246,11 @@ if (!isset($_SESSION['usuario_id'])) {
                     <div class="row align-items-center mb-3">
                         <div class="col-12 col-md-4 text-center mb-3 mb-md-0">
                             <img id="preview_arquivo_imagem" src="uploads/perfil-vazio.png" style="width: 120px; height: 120px; object-fit: cover; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <input type="file" class="d-none" id="input_arquivo_imagem" name="imagem" accept="image/*" onchange="document.getElementById('preview_arquivo_imagem').src = window.URL.createObjectURL(this.files[0])">
+
+                            <label for="personagem_imagem_id" class="form-label d-block mt-2">Imagem do Personagem:</label>
+
+                            <input type="file" class="form-control personagem_imagem mt-2" id="input_arquivo_imagem" name="imagem" accept="image/*" onchange="document.getElementById('preview_arquivo_imagem').src = window.URL.createObjectURL(this.files[0])">
+
                             <div class="small text-muted mt-2 fw-bold" style="cursor: pointer;" onclick="document.getElementById('input_arquivo_imagem').click()">Alterar Imagem</div>
                         </div>
 
@@ -2233,7 +2259,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             <input type="text" name="nome" id="arquivo-nome" class="form-control mb-3" required>
 
                             <label class="form-label fw-bold">Substituir PDF (Opcional)</label>
-                            <input type="file" name="arquivo_pdf" id="arquivo-pdf" class="form-control" accept=".pdf">
+                            <input type="file" name="arquivo_pdf" id="arquivo-pdf" class="form-control" accept=".pdf" onchange="previewPDFLocal(this)">
                         </div>
                     </div>
 
@@ -2245,7 +2271,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
                                 <iframe id="iframe-pdf" src="" width="100%" style="height: 60vh; border: 1px solid #ced4da; border-radius: 8px; background-color: #f8f9fa;"></iframe>
 
-                                <a id="link-arquivo-atual" href="#" target="_blank" class="btn btn-sm btn-outline-primary w-100 mt-2 fw-bold">
+                                <a id="link-arquivo-atual" href="#" target="_blank" class="btn btn-sm btn-primary w-100 mt-2 fw-bold">
                                     📄 Abrir PDF em Tela Cheia (Nova Guia)
                                 </a>
                             </div>
@@ -2261,6 +2287,22 @@ if (!isset($_SESSION['usuario_id'])) {
         </div>
     </div>
 </div>
+
+<script>
+function previewPDFLocal(input) {
+    if (input.files && input.files[0]) {
+        // Cria uma URL temporária para o arquivo recém-selecionado pelo usuário
+        const urlBlob = window.URL.createObjectURL(input.files[0]);
+        
+        // Atualiza o iframe e o link do botão para usar esse blob
+        document.getElementById('iframe-pdf').src = urlBlob;
+        document.getElementById('link-arquivo-atual').href = urlBlob;
+        
+        // Remove o 'd-none' caso o container estivesse escondido antes
+        document.getElementById('container-arquivo-atual').classList.remove('d-none');
+    }
+}
+</script>
 <script type="module" src="assets/js/home/main.js"></script>
 <script type="module" src="assets/js/editor/main.js"></script>
 

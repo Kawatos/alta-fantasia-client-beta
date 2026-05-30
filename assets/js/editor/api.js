@@ -39,6 +39,15 @@ export function excluirFicha(fichaId) {
     });
 }
 
+export function duplicarFicha(fichaId) {
+    return $.ajax({
+        url: 'backend/duplicar_ficha.php',
+        method: 'POST',
+        data: { id: fichaId },
+        dataType: 'json'
+    });
+}
+
 export function salvarFicha(formData) {
     // Como formData pode conter arquivos (imagem), usamos configurações especiais no $.ajax
     return $.ajax({

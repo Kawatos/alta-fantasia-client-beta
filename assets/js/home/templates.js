@@ -5,7 +5,7 @@
 export function templateSidebarCampanha(c) {
     const inicial = c.nome.charAt(0).toUpperCase();
     const descricao = c.descricao ? c.descricao : 'Sem descrição';
-    
+
     return `
         <a href="#" class="campanha-item text-decoration-none text-dark p-2 d-flex align-items-center" data-id="${c.id}">
             <div class="avatar-campanha rounded-circle d-flex justify-content-center align-items-center me-3 flex-shrink-0">
@@ -67,12 +67,12 @@ export function templateEsqueletoCampanha() {
 }
 
 export function templateJogador(j, idLogado, papelCampanha) {
-    const badge = j.papel === 'mestre' 
-        ? '<span class="badge bg-success">Mestre</span>' 
+    const badge = j.papel === 'mestre'
+        ? '<span class="badge bg-success">Mestre</span>'
         : '<span class="badge bg-secondary">Jogador</span>';
 
     let botoes = '';
-    
+
     // Botões para o próprio usuário
     if (j.id == idLogado) {
         botoes += `
@@ -80,7 +80,7 @@ export function templateJogador(j, idLogado, papelCampanha) {
             <button class="btn btn-sm btn-primary btn-criar-ficha-campanha py-0 px-2" style="font-size:0.9rem;">Criar</button>
         `;
     }
-    
+
     // Botão de remover (Apenas mestre pode remover outros que não sejam ele mesmo)
     if (papelCampanha === 'mestre' && j.id != idLogado && j.papel != 'mestre') {
         botoes += `<button class="btn btn-sm btn-outline-danger py-0 px-2 remover-jogador" data-id="${j.id}" title="Remover Jogador">✖</button>`;
@@ -109,14 +109,14 @@ export function templateJogador(j, idLogado, papelCampanha) {
 export function templateFichaUsuario(f, idLogado, papelCampanha) {
     const donoFicha = f.usuario_id;
     const podeEditar = (idLogado == donoFicha || papelCampanha === 'mestre');
-    
+
     const imagem = f.personagem_imagem ? f.personagem_imagem : 'uploads/perfil-vazio.png';
     const imagemEstilo = f.personagem_imagem ? '' : 'opacity:0.5;';
     const tipoFicha = f.tipo_ficha || 'padrao';
-    
+
     let badgeEstilo = '';
     let badgeTexto = '';
-    
+
     if (tipoFicha === 'bloco') {
         badgeEstilo = 'bg-warning';
         badgeTexto = 'Bloco de Notas';
@@ -131,36 +131,64 @@ export function templateFichaUsuario(f, idLogado, papelCampanha) {
     const classeEditavel = podeEditar ? 'editar-ficha ficha-hover' : '';
     const cursorStyle = podeEditar ? 'cursor: pointer;' : '';
     const nomePersonagem = f.nome_personagem || 'Sem nome';
-
+    let dropdownOpcoes = '';
     let botoes = '';
     if (podeEditar) {
-        botoes += `
-            <button class="btn btn-light btn-sm py-0" style="font-size:0.8rem; pointer-events: none;">Editar</button>
-            <button class="btn btn-outline-danger btn-sm py-0 remover-ficha" data-id="${f.id}" style="font-size:0.8rem;">Remover</button>
+        dropdownOpcoes = `
+            <div class="dropdown pe-2">
+                <button class="btn btn-sm btn-link text-muted p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Opções">
+                    <i class="bi bi-three-dots-vertical fs-6"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="z-index:999;">
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center gap-2 editar-ficha" data-id="${f.id}" data-tipo="${tipoFicha}">
+                            <i class="bi bi-pencil text-secondary"></i> Editar Ficha
+                        </button>
+                    </li>
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center gap-2 duplicar-ficha-campanha" data-id="${f.id}">
+                            <i class="bi bi-files text-info"></i> Duplicar Ficha
+                        </button>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center gap-2 text-danger remover-ficha" data-id="${f.id}">
+                            <i class="bi bi-trash"></i> Remover Ficha
+                        </button>
+                    </li>
+                </ul>
+            </div>
         `;
     }
 
     return `
-        <div class="d-flex align-items-center gap-2 mb-2 bg-white p-2 rounded border ${classeEditavel}" data-id="${f.id}" data-tipo="${tipoFicha}" style="${cursorStyle} transition: background-color 0.2s;">
-            <img src="${imagem}" style="width:36px;height:36px;object-fit:cover;border-radius:6px;${imagemEstilo}">
+        <div class="d-flex align-items-center gap-2 mb-2 bg-white p-2 rounded border">
             
-            <div class="flex-grow-1 overflow-hidden">
-                <div class="mb-1">
-                    <span class="badge ${badgeEstilo}" style="font-size: 0.65rem;">${badgeTexto}</span>
-                </div>
-                <div class="fw-bold small text-truncate">${nomePersonagem}</div>
-                <div class="d-flex gap-1 mt-1">
-                    ${botoes}
-                </div>
+    <div class="d-flex align-items-center gap-3 flex-grow-1 overflow-hidden ${classeEditavel}" data-id="${f.id}" data-tipo="${tipoFicha}" style="${cursorStyle} transition: background-color 0.2s;">
+        
+        <img src="${imagem}" style="width:36px; height:36px; object-fit:cover; border-radius:6px; ${imagemEstilo}">    
+        
+        <div class="flex-grow-1 overflow-hidden">
+            <div class="mb-1">
+                <span class="badge ${badgeEstilo}" style="font-size: 0.65rem;">${badgeTexto}</span>
+            </div>
+            <div class="fw-bold small text-truncate text-dark">${nomePersonagem}</div>
+            <div class="d-flex gap-1 mt-1">
+                ${botoes}
             </div>
         </div>
+        
+    </div>
+    
+    ${dropdownOpcoes}
+</div>
     `;
 }
 
 export function templateMensagem(m, dataFormatada, idLogado, papelCampanha) {
     const podeExcluir = (idLogado == m.usuario_id || papelCampanha === 'mestre');
-    const btnExcluir = podeExcluir 
-        ? `<button class="btn-lixeira ms-2" data-id="${m.id}" title="Excluir mensagem">🗑️</button>` 
+    const btnExcluir = podeExcluir
+        ? `<button class="btn-lixeira ms-2" data-id="${m.id}" title="Excluir mensagem">🗑️</button>`
         : '';
 
     return `
@@ -182,8 +210,8 @@ export function templateMensagem(m, dataFormatada, idLogado, papelCampanha) {
 export function templateItemMinhasFichas(f) {
     const checked = f.na_campanha ? 'checked' : '';
     const disabled = f.na_campanha ? 'disabled' : '';
-    const avisoNaCampanha = f.na_campanha 
-        ? '<small class="text-success d-block" style="font-size:0.8rem;">(Já na campanha)</small>' 
+    const avisoNaCampanha = f.na_campanha
+        ? '<small class="text-success d-block" style="font-size:0.8rem;">(Já na campanha)</small>'
         : '';
 
     return `

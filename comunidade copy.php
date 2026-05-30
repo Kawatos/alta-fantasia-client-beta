@@ -168,7 +168,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 </div>
 
                 <button class="btn btn-success w-100 mb-2" id="salvarCampanha">
-                    Salvar alterações
+                    Salvar
                 </button>
 
                 <button class="btn btn-danger w-100" id="excluirCampanha">

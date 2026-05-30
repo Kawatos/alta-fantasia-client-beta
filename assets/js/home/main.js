@@ -71,19 +71,81 @@ $(document).ready(function () {
             const html = fichas.map(f => {
                 const img = f.personagem_imagem || 'uploads/perfil-vazio.png';
                 const tipo = f.tipo_ficha || 'padrao';
+
+                // 🎨 Configuração visual dos tipos de ficha (Cor, Nome amigável e Ícone)
+                const configTipos = {
+                    'padrao': { nome: 'Padrão Alta', cor: 'bg-primary' },
+                    'bloco': { nome: 'Bloco de Notas', cor: 'bg-warning ' },
+                    'arquivo': { nome: 'PDF', cor: 'bg-info' }
+                };
+
+                // Busca a configuração do tipo atual. Se vier algo estranho do banco, usa um cinza escuro de fallback.
+                const estiloTipo = configTipos[tipo] || { nome: tipo, cor: 'bg-dark', icone: 'bi-tag' };
+
+                // Variável para guardar o Nível/Rank (só aparece se for padrão)
+                let infoProgressao = '';
+
+                if (tipo === 'padrao') {
+                    const xp = parseInt(f.nivel) || 0;
+                    const nivelAtual = Math.floor(xp / 100);
+                    const rankAtual = Math.floor((nivelAtual - 1) / 10) + 1;
+
+                    infoProgressao = `<small class="text-muted d-block mt-1">Nível ${nivelAtual} • Rank ${rankAtual}</small>`;
+                }
+
                 return `
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3 sidebar-ficha-item border-0 rounded mb-1" data-id="${f.id}" data-tipo="${tipo}">
-                        <img src="${img}" class="rounded shadow-sm" style="width: 48px; height: 48px; object-fit: cover;">
-                        <div class="flex-grow-1 overflow-hidden">
-                            <h6 class="mb-0 text-truncate fw-bold">${f.nome_personagem || 'Sem nome'}</h6>
-                            <small class="text-muted d-block">Nível ${f.nivel || 1}</small>
-                        </div>
-                    </a>
-                `;
+                            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3  border-0 rounded mb-1" data-id="${f.id}" data-tipo="${tipo}">
+                                <div class="btn-editar d-flex align-items-center gap-3 flex-grow-1 p-2" style="cursor: pointer;" data-id="${f.id}" data-tipo="${tipo}">
+        
+                                    <img src="${img}" class="rounded shadow-sm" style="width: 48px; height: 48px; object-fit: cover;">
+                                    
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <h6 class="mb-0 text-truncate fw-bold">${f.nome_personagem || 'Sem nome'}</h6>
+                                            
+                                            <span class="badge ${estiloTipo.cor} d-flex align-items-center gap-1" style="font-size: 0.65rem;">
+                                                ${estiloTipo.nome}
+                                            </span>
+                                        </div>
+                                        ${infoProgressao}
+                                    </div>
+                                    
+                                </div>
+                                    
+                                <div class="dropdown" >
+                                    <button class="btn btn-sm btn-link text-muted p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Opções">
+                                        <i class="bi bi-three-dots-vertical fs-5"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="z-index:999;">
+                                        <li>
+                                            <button class="dropdown-item d-flex align-items-center gap-2 btn-editar " data-id="${f.id}" data-tipo="${tipo}">
+                                                <i class="bi bi-pencil text-secondary"></i> Editar Ficha
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item d-flex align-items-center gap-2 btn-duplicar-ficha" data-id="${f.id}">
+                                                <i class="bi bi-files text-info"></i> Duplicar Ficha
+                                            </button>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <button class="dropdown-item d-flex align-items-center gap-2 text-danger btn-excluir-ficha" data-id="${f.id}">
+                                                <i class="bi bi-trash"></i> Excluir Ficha
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                        `;
             }).join('');
+
+            $('#sidebarFichas').html(html);
+
             $('#sidebarFichas').html(html);
         }, 'json');
     }
+
+
 
     function carregarCampanha(campanhaId) {
         if (!campanhaId) return;
@@ -136,7 +198,7 @@ $(document).ready(function () {
     // EVENTOS (CLIQUES E SUBMITS)
     // ==========================================
 
-    
+
     // Navegação Mobile
     $(document).on('click', '#btnVoltarLista, #btnVoltarListaFichas', function () {
         // 🚨 AUTO-SAVE: Salva ao voltar pro menu no celular
@@ -184,23 +246,7 @@ $(document).ready(function () {
         });
     });
 
-    // Clicar numa Ficha da Sidebar (Abre Inline na página principal)
-    $(document).on('click', '.sidebar-ficha-item', function (e) {
-        e.preventDefault();
-        $('.sidebar-ficha-item').removeClass('active bg-light');
-        $(this).addClass('active bg-light');
 
-        Chat.parar();
-        estado.campanhaAtual = null;
-
-        // Garante que a área do chat esconda para a Ficha aparecer
-        $('#conteudoCampanha').addClass('d-none');
-        $('#empty-state').addClass('d-none');
-
-        if (typeof window.abrirFicha === 'function') {
-            window.abrirFicha($(this).data('id'), $(this).data('tipo'), 'inline');
-        }
-    });
 
     // Clicar em "Editar" dentro da Campanha (Mantém como Modal)
     $(document).on('click', '.editar-ficha', function (e) {
@@ -305,6 +351,25 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on('click', '.duplicar-ficha-campanha', function (e) {
+        e.stopPropagation();
+        const fichaId = $(this).data('id');
+
+        API.duplicarFicha(fichaId).done(function (res) {
+            if (res.sucesso) {
+                alert('Ficha duplicada com sucesso!');
+                // Recarrega a lista de fichas do usuário
+                const container = $('.fichas-usuario:visible').first();
+                if (container.length) {
+                    const userId = container.attr('id').replace('fichas-user-', '');
+                    carregarFichasUsuario(userId, container);
+                }
+            } else {
+                alert('Erro ao duplicar: ' + (res.erro || 'Erro desconhecido'));
+            }
+        });
+    });
+
     $(document).on('click', '.remover-jogador', function () {
         if (!confirm('Remover este jogador da campanha?')) return;
         API.removerJogadorCampanha($(this).data('id'), estado.campanhaAtual).done(function (res) {
@@ -375,6 +440,7 @@ $(document).ready(function () {
                                         // Atualiza as fichas do usuário visualmente
                                         const container = $('#fichas-user-' + estado.usuarioLogado);
                                         carregarFichasUsuario(estado.usuarioLogado, container);
+                                        carregarSidebarFichas();
                                     });
                             } else {
                                 Swal.fire({ icon: 'error', title: data.mensagem, showConfirmButton: false, timer: 1500 });
@@ -419,26 +485,9 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.sidebar-ficha-item', function (e) {
-        e.preventDefault();
 
-        // 🚨 AUTO-SAVE: Salva a ficha atual ANTES de abrir a nova!
-        if (typeof window.autoSalvarFichaAtual === 'function') window.autoSalvarFichaAtual();
 
-        $('.sidebar-ficha-item').removeClass('active bg-light');
-        $(this).addClass('active bg-light');
 
-        Chat.parar();
-        estado.campanhaAtual = null;
-
-        // ESCONDE TUDO ANTES DE ABRIR A FICHA
-        $('#empty-state').removeClass('d-md-block d-flex').addClass('d-none');
-        $('#conteudoCampanha').addClass('d-none');
-
-        if (typeof window.abrirFicha === 'function') {
-            window.abrirFicha($(this).data('id'), $(this).data('tipo'), 'inline');
-        }
-    });
 
     $(document).on('hidden.bs.modal', function () {
         if ($('.modal.show').length === 0) {
