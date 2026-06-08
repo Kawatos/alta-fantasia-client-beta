@@ -226,13 +226,13 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="p-2 border-bottom bg-light">
                 <ul class="nav nav-pills nav-fill gap-1 p-1 bg-white rounded shadow-sm" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link py-1" id="pills-fichas-tab" data-bs-toggle="pill" data-bs-target="#pills-fichas" type="button" role="tab">Fichas</button>
+                        <button class="nav-link active py-1" id="pills-fichas-tab" data-bs-toggle="pill" data-bs-target="#pills-fichas" type="button" role="tab">Fichas</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link py-1" id="pills-wiki-tab" data-bs-toggle="pill" data-bs-target="#pills-wiki" type="button" role="tab">Wiki</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active py-1" id="pills-campanhas-tab" data-bs-toggle="pill" data-bs-target="#pills-campanhas" type="button" role="tab">Campanhas</button>
+                        <button class="nav-link  py-1" id="pills-campanhas-tab" data-bs-toggle="pill" data-bs-target="#pills-campanhas" type="button" role="tab">Campanhas</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link py-1" id="pills-amigos-tab" data-bs-toggle="pill" data-bs-target="#pills-amigos" type="button" role="tab">Amigos</button>
@@ -242,7 +242,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
             <div class="tab-content flex-grow-1 overflow-hidden d-flex flex-column" id="pills-tabContent">
 
-                <div class="tab-pane fade show active h-100" id="pills-campanhas" role="tabpanel">
+                <div class="tab-pane fade h-100" id="pills-campanhas" role="tabpanel">
                     <div class="d-flex flex-column h-100">
                         <div class="p-2 d-flex gap-2 border-bottom flex-shrink-0">
                             <button class="btn btn-sm btn-success w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#modalCriar">+ Nova</button>
@@ -252,7 +252,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
 
-                <div class="tab-pane fade h-100" id="pills-fichas" role="tabpanel">
+                <div class="tab-pane show active fade h-100" id="pills-fichas" role="tabpanel">
                     <div class="d-flex flex-column h-100">
                         <div class="p-2 border-bottom flex-shrink-0">
                             <button class="btn btn-sm btn-success w-100 fw-bold btn-criar-ficha-campanha">+ Nova Ficha</button>
