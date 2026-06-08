@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary auth-submit-btn" disabled>
                     <i class="fas fa-sign-in-alt me-2"></i>Entrar
                   </button>
                   <div class="text-center mt-3">
@@ -106,7 +106,7 @@
                   </div>
                 </div>
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-success">
+                  <button type="submit" class="btn btn-success auth-submit-btn" disabled>
                     <i class="fas fa-user-plus me-2"></i>Cadastrar
                   </button>
                 </div>
@@ -124,12 +124,17 @@
             <script src="https://accounts.google.com/gsi/client" async defer></script>
 
             <div id="g_id_onload"
-              data-client_id="550263584056-ajf5der4epo9ipld0qofi8b1g7qc4jtq.apps.googleusercontent.com"
+              data-client_id=""
               data-callback="handleGoogleLogin">
             </div>
             <div class="g_id_signin mb-4" data-type="standard"></div>
 
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACnxpQOqdXUI-15g"></div>
+            <div class="cf-turnstile"
+              data-sitekey=""
+              data-callback="turnstileLiberar"
+              data-expired-callback="turnstileBloquear"
+              data-error-callback="turnstileBloquear">
+            </div>
 
           </div>
 
@@ -174,7 +179,16 @@
       });
   }
 
+  
+  function turnstileLiberar(token) {
+    
+    $('.auth-submit-btn').prop('disabled', false);
+  }
 
+  function turnstileBloquear() {
+    
+    $('.auth-submit-btn').prop('disabled', true);
+  }
 
   $(document).ready(function() {
     $('#loginForm, #registroForm').on('submit', function(e) {
