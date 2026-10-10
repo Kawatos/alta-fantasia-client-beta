@@ -13,7 +13,7 @@
                 </p>
                 <div class="d-flex align-items-center">
                     <span class="badge bg-warning text-dark px-3 py-2 fs-6">
-                        <i class="fas fa-code-branch me-1"></i>Versão: 1.9 Alfa
+                        <i class="fas fa-code-branch me-1"></i>Versão: 2.0.0
                     </span>
 
                 </div>
@@ -85,7 +85,7 @@
             <div class="col-md-6 text-center text-md-start">
                 <p class="mb-0">
                     <i class="fas fa-copyright me-1"></i>
-                    2025 Alta Fantasia RPG. Criado por <strong>Kauã Mattos</strong>
+                    2026 Alta Fantasia RPG. Criado por <strong>Kauã Mattos</strong>
                 </p>
                 <p class="my-2 ">
                     Ad Astra Per Aspera - "Para as estrelas através das dificuldades"
