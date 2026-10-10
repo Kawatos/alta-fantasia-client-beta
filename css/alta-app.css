@@ -1,0 +1,666 @@
+/* =========================================================
+   Alta Fantasia — App Dashboard & Unified SPA Styles
+   Estilos específicos do painel RPG (#appLayout) e dos modais,
+   unificados com a estética Dark Glassmorphism do alta.php.
+   ========================================================= */
+
+/* Transições suaves entre as visões do SPA (SEM transform para não quebrar stacking context de modais) */
+.af-view {
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.af-view.af-fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.af-view.af-fade-in {
+  opacity: 1;
+}
+
+/* Quando no Painel RPG ou na Wiki, oculta footer e barra de progresso de scroll da landing */
+body.af-in-app footer,
+body.af-in-wiki footer,
+body.af-in-app #backToTop,
+body.af-in-wiki #backToTop,
+body.af-in-app .af-progress,
+body.af-in-wiki .af-progress {
+  display: none !important;
+}
+
+/* Ocupação total da tela sem barra de rolagem externa da janela no App RPG e na Wiki */
+html.af-no-scroll,
+html:has(body.af-in-app),
+html:has(body.af-in-wiki),
+body.af-in-app,
+body.af-in-wiki {
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
+body.af-in-app,
+body.af-in-wiki {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+body.af-in-app .navbar,
+body.af-in-wiki .navbar {
+  flex-shrink: 0 !important;
+}
+
+body.af-in-app #af-spa-container,
+body.af-in-wiki #af-spa-container {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+/* Container do App RPG */
+.af-app-view {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#appLayout {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 100%;
+  background: rgba(18, 20, 58, 0.55);
+  border: 1px solid var(--af-glass-border);
+  border-radius: var(--af-radius);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+/* Container e Componentes da Wiki */
+.af-wiki-view {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.af-wiki-card {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 20, 52, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--af-glass-border);
+  border-radius: var(--af-radius);
+  overflow: hidden;
+}
+
+.af-wiki-pills {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  gap: 0.5rem;
+  padding: 2px 2px 6px 2px;
+}
+.af-wiki-pills::-webkit-scrollbar {
+  display: none !important;
+}
+.af-wiki-pills .nav-link {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  border-radius: 999px !important;
+  font-size: 0.86rem !important;
+  padding: 0.4rem 0.95rem !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.25s var(--af-ease) !important;
+}
+.af-wiki-pills .nav-link:hover {
+  background: rgba(255, 255, 255, 0.24) !important;
+  color: #ffffff !important;
+  border-color: rgba(240, 199, 94, 0.6) !important;
+  transform: translateY(-1px);
+}
+.af-wiki-pills .nav-link.active {
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep)) !important;
+  color: #101235 !important;
+  border-color: var(--af-gold-soft) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(212, 160, 23, 0.45) !important;
+}
+
+/* Div container onde o iframe fica contido e limitado, com livre movimentação */
+.af-wiki-frame-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  border-radius: 0.75rem;
+  /* Rolagem natural, fluida e touch-friendly sem travar nem recortar o iframe */
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain;
+  border: 1px solid var(--af-glass-border);
+  background: #ffffff;
+}
+
+/* Iframe normal: preenche 100% da div onde está, permitindo movimentação/rolagem normal */
+.af-normal-wiki-iframe,
+#spaWikiFrame {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  border: none !important;
+  display: block;
+  touch-action: auto !important;
+  background: #ffffff;
+}
+
+/* Botão Flutuante de Fechar Tela Cheia da Wiki (Crítico no Mobile) */
+.af-wiki-close-fs-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10002;
+  background: rgba(14, 16, 44, 0.92);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border: 1px solid var(--af-gold-soft);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.25s var(--af-ease);
+}
+.af-wiki-close-fs-btn:hover,
+.af-wiki-close-fs-btn:active {
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep));
+  color: #101235;
+  transform: scale(1.05);
+}
+
+.af-wiki-frame-container.af-fullscreen-fallback {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  z-index: 9999 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* Scrollbars customizadas elegantes */
+#appLayout ::-webkit-scrollbar,
+.af-app-view ::-webkit-scrollbar,
+.modal ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+#appLayout ::-webkit-scrollbar-track,
+.af-app-view ::-webkit-scrollbar-track,
+.modal ::-webkit-scrollbar-track {
+  background: transparent;
+}
+#appLayout ::-webkit-scrollbar-thumb,
+.af-app-view ::-webkit-scrollbar-thumb,
+.modal ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+}
+#appLayout ::-webkit-scrollbar-thumb:hover,
+.af-app-view ::-webkit-scrollbar-thumb:hover,
+.modal ::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 199, 94, 0.45);
+}
+
+/* Sidebar do App */
+#view-sidebar {
+  background: rgba(14, 16, 44, 0.85);
+  border-right: 1px solid var(--af-glass-border) !important;
+}
+
+/* Abas de navegação da Sidebar (Pills) */
+.af-page .nav-pills .nav-link {
+  color: var(--af-muted);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.25s var(--af-ease);
+}
+.af-page .nav-pills .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.af-page .nav-pills .nav-link.active {
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep)) !important;
+  color: #1b1403 !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(212, 160, 23, 0.4);
+}
+
+/* =========================================================
+   HOVERS ESCUROS REFINADOS (SEM FUNDO BRANCO)
+   ========================================================= */
+
+.af-page .list-group-item,
+.af-page .list-group-item-action,
+.af-page .campanha-item,
+.af-page .ficha-hover,
+.af-page .ficha-item-box,
+.af-page .jogador-item {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: var(--af-text) !important;
+  border: 1px solid var(--af-glass-border) !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.af-page .list-group-item-action:hover,
+.af-page .list-group-item-action:focus,
+.af-page .list-group-item:hover,
+.af-page .campanha-item:hover,
+.af-page .campanha-item.active,
+.af-page .ficha-hover:hover,
+.af-page .ficha-hover.active,
+.af-page .ficha-item-box:hover,
+.af-page .jogador-item:hover {
+  background: rgba(212, 160, 23, 0.16) !important;
+  border-color: rgba(240, 199, 94, 0.5) !important;
+  color: #fff !important;
+  transform: translateX(2px);
+}
+
+.af-page .list-group-item-action:hover *,
+.af-page .list-group-item:hover *,
+.af-page .campanha-item:hover *,
+.af-page .ficha-hover:hover *,
+.af-page .jogador-item:hover * {
+  color: #fff !important;
+}
+
+.af-page .list-group-item-action:hover .text-muted,
+.af-page .list-group-item:hover .text-muted,
+.af-page .campanha-item:hover .text-muted,
+.af-page .ficha-hover:hover .text-muted {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.list-group-item.active h6, .list-group-item:hover h6 {
+  color: #fff !important;
+}
+
+.avatar-campanha {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep));
+  color: #1b1403;
+  font-size: 1.15rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Painel Principal de Campanha / Ficha Inline */
+#view-campanha {
+  max-height: 100%;
+  overflow: hidden;
+  background: var(--af-ink);
+}
+
+#conteudoFichaInline .modal-header .btn-close {
+  display: none !important;
+}
+#conteudoFichaInline .modal-content {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+#conteudoFichaInline .modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--af-ink-2);
+  z-index: 10;
+  border-top: 1px solid var(--af-glass-border);
+}
+#fichaInlineFormContainer {
+  overflow-x: hidden;
+  background: var(--af-ink);
+  color: var(--af-text);
+}
+#fichaInlineFormContainer .modal-content {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* Abas da Mesa de Campanha */
+#campanhaTabs .nav-link {
+  color: var(--af-muted) !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  transition: all 0.2s var(--af-ease);
+}
+#campanhaTabs .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+}
+#campanhaTabs .nav-link.active {
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep)) !important;
+  color: #101235 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(212, 160, 23, 0.35) !important;
+}
+
+/* Chat da Campanha */
+#chatMensagens {
+  background-color: transparent;
+}
+.chat-bubble {
+  border-radius: 12px;
+  padding: 8px 14px 6px 14px;
+  margin-bottom: 6px;
+  max-width: 85%;
+  width: fit-content;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  color: var(--af-text);
+  word-wrap: break-word;
+}
+.chat-bubble-me {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.22), rgba(184, 134, 11, 0.12)) !important;
+  border: 1px solid rgba(240, 199, 94, 0.4) !important;
+  border-top-right-radius: 3px !important;
+}
+.chat-bubble-other {
+  background: rgba(18, 20, 58, 0.8) !important;
+  border: 1px solid var(--af-glass-border) !important;
+  border-top-left-radius: 3px !important;
+}
+.chat-text {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  max-height: 250px;
+  overflow-y: auto;
+}
+.chat-timestamp {
+  font-size: 0.65rem;
+  color: var(--af-muted);
+}
+
+/* Cards de Jogadores e Caixas de Ficha */
+.jogador-item:hover {
+  border-color: rgba(240, 199, 94, 0.4) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+}
+.ficha-item-box:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(240, 199, 94, 0.35) !important;
+}
+
+.sidebar-ficha-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(240, 199, 94, 0.35) !important;
+  transform: translateY(-1px);
+}
+.sidebar-ficha-item.active {
+  background: rgba(240, 199, 94, 0.14) !important;
+  border-color: var(--af-gold-soft) !important;
+  box-shadow: 0 0 12px rgba(240, 199, 94, 0.15);
+}
+
+.campanha-item {
+  margin-bottom: 0.75rem !important;
+}
+.campanha-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(240, 199, 94, 0.35) !important;
+  transform: translateY(-1px);
+}
+.campanha-item.active {
+  background: rgba(240, 199, 94, 0.14) !important;
+  border-color: var(--af-gold-soft) !important;
+  box-shadow: 0 0 12px rgba(240, 199, 94, 0.15);
+}
+
+/* Botão de configuração da campanha no padrão Alta Fantasia */
+#btnConfigCampanha:hover {
+  background: rgba(240, 199, 94, 0.28) !important;
+  color: #fff !important;
+  transform: rotate(30deg);
+  box-shadow: 0 0 10px rgba(240, 199, 94, 0.4);
+}
+
+.jogador-item {
+  margin-bottom: 0.75rem !important;
+}
+.jogador-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Tabs da Ficha */
+#fichaTabs {
+  margin-top: 10px;
+  border-bottom: 1px solid var(--af-glass-border);
+}
+#fichaTabs .nav-link {
+  color: var(--af-muted);
+}
+#fichaTabs .nav-link.active {
+  background: rgba(212, 160, 23, 0.15) !important;
+  color: var(--af-gold-soft) !important;
+  border-color: var(--af-glass-border) var(--af-glass-border) transparent !important;
+}
+
+@media (min-width: 1200px) {
+  #fichaInlineFormContainer form { max-width: 1000px; margin: 0 auto; }
+}
+
+#pills-tabContent {
+  height: 0;
+  flex-grow: 1;
+  overflow: hidden;
+}
+#sidebarCampanhas, #sidebarFichas {
+  overflow-y: auto !important;
+  max-height: 100%;
+}
+
+/* Tabelas da Ficha (atributos, perícias, itens, etc.) */
+.af-page table {
+  color: var(--af-text) !important;
+  border-color: var(--af-glass-border) !important;
+}
+.af-page table th,
+.af-page table td {
+  background: transparent !important;
+  color: var(--af-text) !important;
+  border-color: var(--af-glass-border) !important;
+}
+.af-page table tbody tr:hover,
+.af-page .table-hover > tbody > tr:hover {
+  background-color: rgba(212, 160, 23, 0.12) !important;
+  color: #fff !important;
+}
+
+/* Sobrescreve bg-white e bg-light dentro da aplicação */
+.af-page .bg-white,
+.af-page .bg-light,
+.af-page .card {
+  background: rgba(18, 20, 52, 0.7) !important;
+  border-color: var(--af-glass-border) !important;
+  color: var(--af-text) !important;
+}
+.af-page .text-dark {
+  color: var(--af-text) !important;
+}
+
+/* Dropdown menu items */
+.af-page .dropdown-menu {
+  background: rgba(14, 16, 44, 0.98) !important;
+  border: 1px solid var(--af-glass-border) !important;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8) !important;
+}
+.af-page .dropdown-item {
+  color: var(--af-text) !important;
+}
+.af-page .dropdown-item:hover,
+.af-page .dropdown-item:focus {
+  background: rgba(212, 160, 23, 0.18) !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   SISTEMA DE MODAIS SEGURO E NÍTIDO (CORREÇÃO DE BACKDROP E BLUR)
+   ========================================================= */
+
+.modal-backdrop {
+  z-index: 1050 !important;
+  --bs-backdrop-bg: #05061a;
+}
+.modal-backdrop.show {
+  opacity: 0.82 !important;
+}
+
+.modal {
+  z-index: 1060 !important;
+}
+
+.modal-dialog {
+  z-index: 1061 !important;
+  pointer-events: auto !important;
+}
+
+.af-page .modal-content {
+  background: #0f112e !important;
+  border: 1px solid var(--af-glass-border) !important;
+  border-radius: var(--af-radius) !important;
+  color: var(--af-text) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9) !important;
+  pointer-events: auto !important;
+}
+
+.af-page .modal-header {
+  border-bottom: 1px solid var(--af-glass-border) !important;
+  color: #fff;
+}
+.af-page .modal-footer {
+  border-top: 1px solid var(--af-glass-border) !important;
+}
+.af-page .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.af-page .form-control,
+.af-page .form-select {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--af-glass-border) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+.af-page .form-control:focus,
+.af-page .form-select:focus {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-color: var(--af-gold-soft) !important;
+  box-shadow: 0 0 0 0.25rem rgba(240, 199, 94, 0.25) !important;
+}
+.af-page label {
+  color: var(--af-text);
+}
+
+/* Botões estilizados */
+.btn-success {
+  background: linear-gradient(135deg, var(--af-gold-soft), var(--af-gold-deep)) !important;
+  border: none !important;
+  color: #1b1403 !important;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(212, 160, 23, 0.35);
+  transition: all 0.25s var(--af-ease);
+}
+.btn-success:hover {
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.55);
+  transform: translateY(-1px);
+  color: #1b1403 !important;
+}
+
+.btn-outline-primary {
+  color: var(--af-text) !important;
+  border-color: var(--af-glass-border) !important;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.25s var(--af-ease);
+}
+.btn-outline-primary:hover {
+  background: rgba(212, 160, 23, 0.15);
+  color: #fff !important;
+  border-color: rgba(240, 199, 94, 0.4) !important;
+}
+
+.btn-lixeira {
+  background: none;
+  border: none;
+  color: #ff6b81;
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  padding: 0;
+}
+.btn-lixeira:hover { opacity: 1; }
+
+.border-bottom {
+  border-bottom-color: var(--af-glass-border) !important;
+}
+
+/* Responsividade Mobile */
+.mobile-view {
+  display: flex !important;
+}
+@media (max-width: 767.98px) {
+  .mobile-view { display: none !important; width: 100%; }
+  .mobile-view.active-view { display: flex !important; }
+
+  #appLayout {
+    border-radius: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .af-wiki-card {
+    border-radius: 0.75rem;
+    padding: 0.4rem 0.5rem !important;
+  }
+  .af-wiki-frame-container {
+    border-radius: 0.5rem;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .af-normal-wiki-iframe,
+  #spaWikiFrame {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+  }
+}

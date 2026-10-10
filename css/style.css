@@ -1,6 +1,7 @@
 :root {
   --cor-fantasia: #2d5016;
   --cor-primaria: #1a1b3a;
+  
   /* Roxo Profundo Místico */
   --cor-secundaria: #b8860b;
   /* Dourado Antigo */
@@ -24,9 +25,9 @@
   /* Cinza-azulado suave */
   --cor-placeholder-hover: #6b7089;
   --cor-borda-input: #2a2d47;
-  --cor-muted: #4a4e69;
-  --cor-nav-link: #2a2d47;
-  --cor-nav-link-hover: #3a3f5c;
+  --cor-muted: #e6e5e5;
+  --cor-nav-link: #f5f3f3;
+  --cor-nav-link-hover: #c9cad4;
   --cor-nav-link-ativo: #1a1b3a;
   --cor-nav-link-ativo-bg: #e6e8f0;
   /* fundo leve para destacar */
@@ -55,7 +56,7 @@ main {
 
 /* Utilidades para texto */
 .text-primary {
-  color: var(--cor-primaria) !important;
+  color: var(--cor-fundo-texto-claro) !important;
 }
 
 .text-secondary {
@@ -387,6 +388,7 @@ main {
 
 .font-fantasia {
   font-family: 'Great Vibes', cursive;
+  color: #f5b800;
 }
 
 .font-times {

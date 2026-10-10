@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario_id'])) {
-    header('Location: bemvindo.php');
+    header('Location: alta.php?auth=login');
     exit;
 }
 

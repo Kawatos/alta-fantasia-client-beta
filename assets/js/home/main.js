@@ -16,8 +16,22 @@ $(document).ready(function () {
     };
 
     // 3. Inicialização
-    carregarListaCampanhas();
-    carregarSidebarFichas();
+    if (estado.usuarioLogado) {
+        carregarListaCampanhas();
+        carregarSidebarFichas();
+    }
+
+    // Reatividade SPA para login e logout
+    window.addEventListener('af:auth-change', function () {
+        estado.usuarioLogado = document.body.dataset.userId;
+        if (estado.usuarioLogado) {
+            carregarListaCampanhas();
+            carregarSidebarFichas();
+        } else {
+            $('#sidebarCampanhas').html('<div class="text-muted text-center p-4">Você não está logado.</div>');
+            $('#sidebarFichas').html('');
+        }
+    });
 
     // ==========================================
     // FUNÇÕES DE CONTROLE DE TELA
@@ -71,77 +85,66 @@ $(document).ready(function () {
             const html = fichas.map(f => {
                 const img = f.personagem_imagem || 'uploads/perfil-vazio.png';
                 const tipo = f.tipo_ficha || 'padrao';
-
                 // 🎨 Configuração visual dos tipos de ficha (Cor, Nome amigável e Ícone)
                 const configTipos = {
-                    'padrao': { nome: 'Padrão Alta', cor: 'bg-primary' },
-                    'bloco': { nome: 'Bloco de Notas', cor: 'bg-warning ' },
-                    'arquivo': { nome: 'PDF', cor: 'bg-info' }
+                    'padrao': { nome: '⚔️ Padrão', cor: 'bg-primary text-white' },
+                    'bloco': { nome: '📝 Bloco', cor: 'bg-warning text-dark' },
+                    'arquivo': { nome: '📄 PDF', cor: 'bg-info text-dark' }
                 };
 
-                // Busca a configuração do tipo atual. Se vier algo estranho do banco, usa um cinza escuro de fallback.
-                const estiloTipo = configTipos[tipo] || { nome: tipo, cor: 'bg-dark', icone: 'bi-tag' };
+                const estiloTipo = configTipos[tipo] || { nome: tipo, cor: 'bg-secondary text-white' };
 
-                // Variável para guardar o Nível/Rank (só aparece se for padrão)
                 let infoProgressao = '';
-
                 if (tipo === 'padrao') {
                     const xp = parseInt(f.nivel) || 0;
                     const nivelAtual = Math.floor(xp / 100);
                     const rankAtual = Math.floor((nivelAtual - 1) / 10) + 1;
-
-                    infoProgressao = `<small class="text-muted d-block mt-1">Nível ${nivelAtual} • Rank ${rankAtual}</small>`;
+                    infoProgressao = `<small class="text-white-50 d-flex align-items-center gap-1 mt-0.5" style="font-size:0.74rem;"><span class="text-warning fw-bold">Nv ${nivelAtual}</span> • <span>Rank ${rankAtual}</span></small>`;
+                } else {
+                    infoProgressao = `<small class="text-white-50 d-block mt-0.5" style="font-size:0.72rem;">Ficha Personalizada</small>`;
                 }
 
                 return `
-                            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3  border-0 rounded mb-1" >
-                                <div class="btn-editar d-flex align-items-center gap-3 flex-grow-1 p-2" style="cursor: pointer; min-width: 0;" data-id="${f.id}" data-tipo="${tipo}">
-    
-                                    <img src="${img}" class="rounded shadow-sm flex-shrink-0" style="width: 48px; height: 48px; object-fit: cover;">
-                                    
-                                    <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
-                                        <div class="d-flex align-items-center gap-2">
-                                            
-                                            <h6 class="mb-0 text-truncate fw-bold flex-grow-1" style="min-width: 0;">${f.nome_personagem || 'Sem nome'}</h6>
-                                            
-                                            <span class="badge ${estiloTipo.cor} d-flex align-items-center gap-1 flex-shrink-0" style="font-size: 0.65rem;">
-                                                ${estiloTipo.nome}
-                                            </span>
-                                            
-                                        </div>
-                                        ${infoProgressao}
-                                    </div>
-                                    
+                    <div class="sidebar-ficha-item d-flex align-items-center justify-content-between p-2 m-2 rounded-3" data-id="${f.id}" data-tipo="${tipo}" style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--af-glass-border); cursor: pointer; transition: all 0.2s ease;">
+                        <div class="d-flex align-items-center flex-grow-1 overflow-hidden" style="min-width: 0;">
+                            <img src="${img}" class="rounded shadow-sm flex-shrink-0 me-3" style="width: 44px; height: 44px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15);">
+                            <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
+                                <div class="d-flex align-items-center justify-content-between gap-2">
+                                    <h6 class="mb-0 text-truncate fw-bold text-white flex-grow-1 me-2.5" style="font-size: 0.92rem;">${f.nome_personagem || 'Sem nome'}</h6>
+                                    <span class="badge ${estiloTipo.cor} flex-shrink-0" style="font-size: 0.65rem; font-weight: 600; padding: 0.35em 0.6em;">
+                                        ${estiloTipo.nome}
+                                    </span>
                                 </div>
+                                ${infoProgressao}
+                            </div>
+                        </div>
                                     
-                                <div class="dropdown" >
-                                    <button class="btn btn-sm btn-link text-muted p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Opções">
-                                        <i class="bi bi-three-dots-vertical fs-5"></i>
+                        <div class="dropdown flex-shrink-0 ms-2">
+                            <button class="btn btn-sm btn-link text-muted p-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Opções" style="line-height: 1;">
+                                <i class="bi bi-three-dots-vertical fs-5"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="z-index:999;">
+                                <li>
+                                    <button class="dropdown-item d-flex align-items-center gap-2 btn-editar-modal" data-id="${f.id}" data-tipo="${tipo}">
+                                        <i class="bi bi-pencil text-secondary"></i> Editar Ficha
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="z-index:999;">
-                                        <li>
-                                            <button class="dropdown-item d-flex align-items-center gap-2 btn-editar " data-id="${f.id}" data-tipo="${tipo}">
-                                                <i class="bi bi-pencil text-secondary"></i> Editar Ficha
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item d-flex align-items-center gap-2 btn-duplicar-ficha" data-id="${f.id}">
-                                                <i class="bi bi-files text-info"></i> Duplicar Ficha
-                                            </button>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <button class="dropdown-item d-flex align-items-center gap-2 text-danger btn-excluir-ficha" data-id="${f.id}">
-                                                <i class="bi bi-trash"></i> Excluir Ficha
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        `;
+                                </li>
+                                <li>
+                                    <button class="dropdown-item d-flex align-items-center gap-2 btn-duplicar-ficha" data-id="${f.id}">
+                                        <i class="bi bi-files text-info"></i> Duplicar Ficha
+                                    </button>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <button class="dropdown-item d-flex align-items-center gap-2 text-danger btn-excluir-ficha" data-id="${f.id}">
+                                        <i class="bi bi-trash"></i> Excluir Ficha
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
             }).join('');
-
-            $('#sidebarFichas').html(html);
 
             $('#sidebarFichas').html(html);
         }, 'json');
@@ -169,9 +172,24 @@ $(document).ready(function () {
             $('#headerAvatar').text(res.campanha.nome.charAt(0).toUpperCase());
 
             if (res.papel === 'mestre') {
-                $('#headerActions').html(`<button class="btn btn-light" id="btnConfigCampanha" title="Configurações">⚙️</button>`);
+                $('#headerActions').html(`
+                    <button class="btn btn-sm d-flex align-items-center justify-content-center rounded-circle" id="btnConfigCampanha" title="Configurações da Mesa" style="width: 38px; height: 38px; background: rgba(240,199,94,0.12); border: 1px solid var(--af-gold-soft); color: var(--af-gold-soft); transition: all 0.25s ease;">
+                        <i class="bi bi-gear-fill fs-5"></i>
+                    </button>
+                `);
             } else {
                 $('#headerActions').html(`<button class="btn btn-outline-danger btn-sm fw-bold px-3" id="btnSairCampanha">Sair</button>`);
+            }
+
+            // Ordena os jogadores para o mestre sempre ficar no topo!
+            if (Array.isArray(res.jogadores)) {
+                res.jogadores.sort((a, b) => {
+                    const isMestreA = (a.papel === 'mestre' || a.id == res.campanha?.mestre_id);
+                    const isMestreB = (b.papel === 'mestre' || b.id == res.campanha?.mestre_id);
+                    if (isMestreA && !isMestreB) return -1;
+                    if (!isMestreA && isMestreB) return 1;
+                    return (a.username || '').localeCompare(b.username || '');
+                });
             }
 
             const htmlJogadores = res.jogadores.map(j => TPL.templateJogador(j, estado.usuarioLogado, res.papel)).join('');
@@ -182,16 +200,29 @@ $(document).ready(function () {
         });
     }
 
-    function carregarFichasUsuario(userId, container) {
+    function carregarFichasJogadorModal(userId) {
+        const container = $('#modalJogadorListaFichas');
+        container.html('<div class="text-center py-4 text-white-50"><div class="spinner-border spinner-border-sm text-warning me-2"></div>Carregando fichas...</div>');
+
         API.buscarFichasUsuario(userId, estado.campanhaAtual).done(function (res) {
-            if (res.status !== 'sucesso') return;
+            if (res.status !== 'sucesso') {
+                container.html('<div class="text-danger text-center py-3">Erro ao buscar fichas.</div>');
+                return;
+            }
             if (!res.fichas || res.fichas.length === 0) {
-                container.html(`<div class="text-muted small text-center mt-2">Nenhum personagem.</div>`);
+                container.html(`
+                    <div class="text-center py-4 text-muted">
+                        <i class="bi bi-journal-x fs-1 opacity-50 d-block mb-2 text-warning"></i>
+                        <p class="mb-0 small text-white-50">Nenhuma ficha vinculada a esta mesa por este jogador.</p>
+                    </div>
+                `);
                 return;
             }
 
             const html = res.fichas.map(f => TPL.templateFichaUsuario(f, estado.usuarioLogado, res.papel)).join('');
             container.html(html);
+        }).fail(function () {
+            container.html('<div class="text-danger text-center py-3">Erro de conexão ao buscar fichas.</div>');
         });
     }
 
@@ -215,11 +246,37 @@ $(document).ready(function () {
     // Selecionar Campanha
     $(document).on('click', '.campanha-item', function (e) {
         e.preventDefault();
-        $('.campanha-item').removeClass('active bg-light');
-        $(this).addClass('active bg-light');
+        $('.campanha-item').removeClass('active');
+        $('.sidebar-ficha-item').removeClass('active');
+        $(this).addClass('active');
 
         estado.campanhaAtual = $(this).data('id');
         carregarCampanha(estado.campanhaAtual);
+    });
+
+    // Clicar numa Ficha da Sidebar (Abre no Modal)
+    $(document).on('click', '.sidebar-ficha-item', function (e) {
+        // Ignora cliques no menu dropdown de opções (3 pontinhos)
+        if ($(e.target).closest('.dropdown').length) return;
+        e.preventDefault();
+
+        const fichaId = $(this).data('id');
+        const tipoFicha = $(this).data('tipo') || 'padrao';
+
+        if (typeof window.abrirFicha === 'function') {
+            window.abrirFicha(fichaId, tipoFicha, 'modal');
+        }
+    });
+
+    // Clicar no botão "Editar Ficha" do dropdown da sidebar (Abre em Modal)
+    $(document).on('click', '.btn-editar-modal', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const fichaId = $(this).data('id');
+        const tipoFicha = $(this).data('tipo') || 'padrao';
+        if (typeof window.abrirFicha === 'function') {
+            window.abrirFicha(fichaId, tipoFicha, 'modal');
+        }
     });
 
     // Modais e Configurações de Campanha
@@ -227,14 +284,6 @@ $(document).ready(function () {
         $('#editarNomeCampanha').val(estado.dadosCampanha.nome);
         $('#editarDescricaoCampanha').val(estado.dadosCampanha.descricao);
         $('#codigoCampanha').val(estado.dadosCampanha.codigo_convite);
-        new bootstrap.Modal(document.getElementById('modalCampanha')).show();
-    });
-
-    $(document).on('click', '#btnConfigCampanha', function () {
-        $('#editarNomeCampanha').val(estado.dadosCampanha.nome);
-        $('#editarDescricaoCampanha').val(estado.dadosCampanha.descricao);
-        $('#codigoCampanha').val(estado.dadosCampanha.codigo_convite);
-        // Usando a instância correta!
         bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCampanha')).show();
     });
 
@@ -248,14 +297,19 @@ $(document).ready(function () {
         });
     });
 
-
-
-    // Clicar em "Editar" dentro da Campanha (Mantém como Modal)
-    $(document).on('click', '.editar-ficha', function (e) {
-        e.preventDefault(); e.stopPropagation();
-        if (typeof window.abrirFicha === 'function') {
-            window.abrirFicha($(this).data('id'), $(this).data('tipo'), 'modal');
+    function atualizarFichasJogadorModalSeAberto(userId) {
+        const modalEl = document.getElementById('modalJogadorFichas');
+        if (modalEl && $(modalEl).hasClass('show')) {
+            const currentUserId = $(modalEl).data('userId');
+            if (!userId || userId == currentUserId) {
+                carregarFichasJogadorModal(currentUserId);
+            }
         }
+    }
+
+    document.addEventListener('fichaAtualizada', function () {
+        carregarSidebarFichas();
+        atualizarFichasJogadorModalSeAberto();
     });
 
     $(document).on('click', '#excluirCampanha', function () {
@@ -271,19 +325,6 @@ $(document).ready(function () {
                 alternarView('sidebar');
             }
         });
-    });
-
-    document.addEventListener('fichaAtualizada', function () {
-        carregarSidebarFichas();
-        if (estado.campanhaAtual) {
-            // Acha a div das fichas do usuário logado (que foi quem editou a ficha)
-            const container = $('#fichas-user-' + estado.usuarioLogado);
-
-            // Se a div estiver aberta na tela, manda recarregar!
-            if (container.length && container.is(':visible')) {
-                carregarFichasUsuario(estado.usuarioLogado, container);
-            }
-        }
     });
 
     $(document).on('click', '#btnSairCampanha', function () {
@@ -303,27 +344,34 @@ $(document).ready(function () {
         });
     });
 
-    // Jogadores e Fichas
+    // Clicar em Jogador da Mesa -> Abre o Modal com as Fichas do Jogador
     $(document).on('click', '.jogador-item', function (e) {
         if ($(e.target).closest('button').length) return;
 
         const userId = $(this).data('id');
-        const container = $('#fichas-user-' + userId);
+        const username = $(this).data('username') || 'Jogador';
+        const papel = $(this).data('papel') || 'jogador';
 
-        if (container.is(':visible')) {
-            container.slideUp();
-            return;
+        $('#modalJogadorNome').text(username);
+        $('#modalJogadorAvatar').text(username.charAt(0).toUpperCase());
+        const roleBadge = (papel === 'mestre')
+            ? '<span class="badge py-1 px-2.5" style="background: linear-gradient(135deg, #d4a017, #b8860b); color: #101235; font-weight: 700; box-shadow: 0 2px 6px rgba(212,160,23,0.3); font-size: 0.72rem;"><i class="fas fa-crown me-1"></i>Mestre</span>'
+            : '<span class="badge py-1 px-2.5" style="background: rgba(255,255,255,0.1); color: #e9eaf5; border: 1px solid rgba(255,255,255,0.18); font-size: 0.72rem;"><i class="fas fa-shield-alt me-1"></i>Jogador</span>';
+        $('#modalJogadorBadge').html(roleBadge);
+
+        if (userId == estado.usuarioLogado) {
+            $('#modalJogadorAcoes').removeClass('d-none');
+            $('#btnModalAddFicha').attr('data-user', userId);
+        } else {
+            $('#modalJogadorAcoes').addClass('d-none');
         }
 
-        container.html('<div class="text-center small text-muted">Carregando...</div>');
-        container.slideDown();
-        carregarFichasUsuario(userId, container);
+        $('#modalJogadorFichas').data('userId', userId);
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('modalJogadorFichas')).show();
+        carregarFichasJogadorModal(userId);
     });
 
-    // IMPORTANTE: Aqui você acionava getDadosFicha que estava no window.
-    // Como estamos modularizando, se essa função for para outra página,
-    // considere usar um redirect `window.location.href = ...` em vez de chamar a função aqui.
-    // Ação de clicar na ficha (Abre o Editor)
+    // Clicar em uma Ficha (Abre o Editor no Modal)
     $(document).on('click', '.editar-ficha', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -331,9 +379,15 @@ $(document).ready(function () {
         const fichaId = $(this).data('id');
         const tipoFicha = $(this).data('tipo') || 'padrao';
 
+        // Fecha o modal de lista de fichas do jogador antes de abrir o modal da ficha
+        const modalJogador = bootstrap.Modal.getInstance(document.getElementById('modalJogadorFichas'));
+        if (modalJogador) {
+            modalJogador.hide();
+        }
+
         // Verifica se o motor do editor foi carregado na página
         if (typeof window.abrirFicha === 'function') {
-            window.abrirFicha(fichaId, tipoFicha);
+            window.abrirFicha(fichaId, tipoFicha, 'modal');
         } else {
             console.error("Erro: O script do editor não foi carregado nesta página.");
             alert("Erro ao carregar o editor de fichas.");
@@ -343,13 +397,15 @@ $(document).ready(function () {
     $(document).on('click', '.remover-ficha', function (e) {
         e.stopPropagation();
         const fichaId = $(this).data('id');
-        const container = $(this).closest('.fichas-usuario');
-        const userId = container.attr('id').replace('fichas-user-', '');
 
         if (!confirm('Remover esta ficha da campanha?')) return;
 
         API.removerFichaCampanha(fichaId, estado.campanhaAtual).done(function (res) {
-            if (res.status === 'sucesso') carregarFichasUsuario(userId, container);
+            if (res.status === 'sucesso') {
+                const modalEl = document.getElementById('modalJogadorFichas');
+                const userId = $(modalEl).data('userId');
+                if (userId) carregarFichasJogadorModal(userId);
+            }
         });
     });
 
@@ -360,12 +416,10 @@ $(document).ready(function () {
         API.duplicarFicha(fichaId).done(function (res) {
             if (res.sucesso) {
                 alert('Ficha duplicada com sucesso!');
-                // Recarrega a lista de fichas do usuário
-                const container = $('.fichas-usuario:visible').first();
-                if (container.length) {
-                    const userId = container.attr('id').replace('fichas-user-', '');
-                    carregarFichasUsuario(userId, container);
-                }
+                const modalEl = document.getElementById('modalJogadorFichas');
+                const userId = $(modalEl).data('userId');
+                if (userId) carregarFichasJogadorModal(userId);
+                carregarSidebarFichas();
             } else {
                 alert('Erro ao duplicar: ' + (res.erro || 'Erro desconhecido'));
             }
@@ -382,7 +436,7 @@ $(document).ready(function () {
     // Adicionar Fichas (Modal)
     $(document).on('click', '.btn-add-ficha', function () {
         $('#modalAddFicha').modal('show');
-        $('#listaMinhasFichas').html('<div class="text-center">Carregando seus personagens...</div>');
+        $('#listaMinhasFichas').html('<div class="text-center py-3 text-white-50">Carregando seus personagens...</div>');
 
         API.buscarMinhasFichasParaAdicionar(estado.campanhaAtual).done(function (fichas) {
             const dadosFichas = typeof fichas === 'string' ? JSON.parse(fichas) : fichas;
@@ -402,9 +456,9 @@ $(document).ready(function () {
         API.adicionarFichasCampanha(estado.campanhaAtual, ids).done(function (res) {
             if (res.status === 'sucesso') {
                 $('#modalAddFicha').modal('hide');
-                const container = $('#fichas-user-' + estado.usuarioLogado);
-                container.slideDown();
-                carregarFichasUsuario(estado.usuarioLogado, container);
+                const modalEl = document.getElementById('modalJogadorFichas');
+                const userId = $(modalEl).data('userId');
+                if (userId) carregarFichasJogadorModal(userId);
             }
         });
     });
@@ -439,9 +493,9 @@ $(document).ready(function () {
                             if (data.status === 'sucesso') {
                                 Swal.fire({ icon: 'success', title: 'Ficha criada!', showConfirmButton: false, timer: 1000 })
                                     .then(() => {
-                                        // Atualiza as fichas do usuário visualmente
-                                        const container = $('#fichas-user-' + estado.usuarioLogado);
-                                        carregarFichasUsuario(estado.usuarioLogado, container);
+                                        const modalEl = document.getElementById('modalJogadorFichas');
+                                        const userId = $(modalEl).data('userId');
+                                        if (userId) carregarFichasJogadorModal(userId);
                                         carregarSidebarFichas();
                                     });
                             } else {

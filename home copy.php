@@ -203,7 +203,7 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
                 <h5 class="fw-bold">Criar Campanha</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close mx-1" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="formCriar">
@@ -222,7 +222,7 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
                 <h5 class="fw-bold">Entrar em Campanha</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close mx-1" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="formEntrar">
@@ -240,7 +240,7 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="fw-bold">Adicionar Personagem</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close mx-1" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div id="listaMinhasFichas" class="mb-3"></div>

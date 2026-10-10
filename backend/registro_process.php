@@ -2,35 +2,42 @@
 session_start();
 require 'conexao.php';
 header('Content-Type: application/json');
-// habilite quando tiver o captcha configurado e seus respectivos valores de sitekey e secret, para evitar ataques de força bruta
-/* $cf_token = $_POST['cf_token'] ?? '';
+// Validação Cloudflare Turnstile (apenas se CLOUDFLARE_TURNSTILE_SECRET estiver configurado no .env)
+$turnstileSecret = env('CLOUDFLARE_TURNSTILE_SECRET', '');
+if (!empty($turnstileSecret)) {
+    $cf_token = $_POST['cf_token'] ?? '';
+    if (empty($cf_token)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Verificação anti-bot obrigatória.'
+        ]);
+        exit;
+    }
 
-$secret = "";
+    $verify = file_get_contents(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        false,
+        stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => "Content-type: application/x-www-form-urlencoded",
+                'content' => http_build_query([
+                    'secret' => $turnstileSecret,
+                    'response' => $cf_token
+                ])
+            ]
+        ])
+    );
 
-$verify = file_get_contents(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    false,
-    stream_context_create([
-        'http' => [
-            'method' => 'POST',
-            'header' => "Content-type: application/x-www-form-urlencoded",
-            'content' => http_build_query([
-                'secret' => $secret,
-                'response' => $cf_token
-            ])
-        ]
-    ])
-);
-
-$result = json_decode($verify, true);
-
-if (!$result['success']) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Verificação anti-bot falhou'
-    ]);
-    exit;
-} */
+    $result = json_decode($verify, true);
+    if (!$result || empty($result['success'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Verificação anti-bot falhou. Tente novamente.'
+        ]);
+        exit;
+    }
+}
 
 
 // Pega os dados do formulário (POST)
@@ -68,7 +75,12 @@ if ($stmt->execute()) {
     session_write_close();
 
     echo json_encode([
-        'success' => true
+        'success' => true,
+        'user' => [
+            'id' => (int)$novo_id,
+            'username' => $username,
+            'imagem' => null
+        ]
     ]);
     exit;
 } else {

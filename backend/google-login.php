@@ -1,6 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// Não exibe erros na saída para não corromper o JSON; eles vão para o log
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json');
@@ -9,7 +10,9 @@ session_start();
 
 require 'conexao.php';
 
-$CLIENT_ID = '';
+require_once __DIR__ . '/../env.php';
+
+$CLIENT_ID = env('GOOGLE_CLOUD_PROJECT_ID');
 
 $token = $_POST['credential'] ?? '';
 
@@ -21,9 +24,18 @@ if (!$token) {
     exit;
 }
 
-$response = file_get_contents(
-    "https://oauth2.googleapis.com/tokeninfo?id_token=" . $token
-);
+$ch = curl_init("https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($token));
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 10,
+    // XAMPP no Windows frequentemente não tem o bundle de CA configurado
+    CURLOPT_SSL_VERIFYPEER => !in_array($_SERVER['SERVER_NAME'] ?? '', ['localhost', '127.0.0.1']),
+]);
+$response = curl_exec($ch);
+if ($response === false) {
+    error_log('Google tokeninfo cURL error: ' . curl_error($ch));
+}
+curl_close($ch);
 
 if (!$response) {
     echo json_encode([
@@ -54,6 +66,7 @@ if (!isset($payload['email_verified']) || $payload['email_verified'] !== "true")
 $email = $payload['email'];
 $name = $payload['name'] ?? 'Usuario';
 $googleId = $payload['sub'];
+$imagem = null;
 
 try {
 
@@ -107,7 +120,12 @@ try {
 
     echo json_encode([
         'success' => true,
-        'redirect' => 'home.php'
+        'redirect' => './#app',
+        'user' => [
+            'id' => (int)$userId,
+            'username' => $username,
+            'imagem' => $imagem
+        ]
     ]);
 
 } catch (PDOException $e) {
